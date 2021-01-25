@@ -6,11 +6,7 @@
 		{
 		}
 
-		public AverageOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter selectorBody, string selectorParameterName) : base(sourceOperand, selectorBody, selectorParameterName)
-		{
-		}
-
-		public AverageOperatorParameter(IExpressionParameter sourceOperand) : base(sourceOperand)
+		public AverageOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter selectorBody = null, string selectorParameterName = null) : base(sourceOperand, selectorBody, selectorParameterName)
 		{
 		}
     }

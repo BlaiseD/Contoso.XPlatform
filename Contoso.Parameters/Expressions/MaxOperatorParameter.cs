@@ -6,11 +6,7 @@
 		{
 		}
 
-		public MaxOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter selectorBody, string selectorParameterName) : base(sourceOperand, selectorBody, selectorParameterName)
-		{
-		}
-
-		public MaxOperatorParameter(IExpressionParameter sourceOperand) : base(sourceOperand)
+		public MaxOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter selectorBody = null, string selectorParameterName = null) : base(sourceOperand, selectorBody, selectorParameterName)
 		{
 		}
     }

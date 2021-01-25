@@ -6,11 +6,7 @@
 		{
 		}
 
-		public MinOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter selectorBody, string selectorParameterName) : base(sourceOperand, selectorBody, selectorParameterName)
-		{
-		}
-
-		public MinOperatorParameter(IExpressionParameter sourceOperand) : base(sourceOperand)
+		public MinOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter selectorBody = null, string selectorParameterName = null) : base(sourceOperand, selectorBody, selectorParameterName)
 		{
 		}
     }

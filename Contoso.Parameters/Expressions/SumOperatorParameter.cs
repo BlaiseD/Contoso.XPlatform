@@ -6,11 +6,7 @@
 		{
 		}
 
-		public SumOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter selectorBody, string selectorParameterName) : base(sourceOperand, selectorBody, selectorParameterName)
-		{
-		}
-
-		public SumOperatorParameter(IExpressionParameter sourceOperand) : base(sourceOperand)
+		public SumOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter selectorBody = null, string selectorParameterName = null) : base(sourceOperand, selectorBody, selectorParameterName)
 		{
 		}
     }

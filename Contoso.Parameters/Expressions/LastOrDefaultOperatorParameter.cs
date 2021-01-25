@@ -6,11 +6,7 @@
 		{
 		}
 
-		public LastOrDefaultOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter filterBody, string filterParameterName) : base(sourceOperand, filterBody, filterParameterName)
-		{
-		}
-
-		public LastOrDefaultOperatorParameter(IExpressionParameter sourceOperand) : base(sourceOperand)
+		public LastOrDefaultOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter filterBody = null, string filterParameterName = null) : base(sourceOperand, filterBody, filterParameterName)
 		{
 		}
     }

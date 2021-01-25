@@ -8,16 +8,11 @@ namespace Contoso.Parameters.Expressions
 		{
 		}
 
-		public FilterMethodOperatorParameterBase(IExpressionParameter sourceOperand, IExpressionParameter filterBody, string filterParameterName)
+		public FilterMethodOperatorParameterBase(IExpressionParameter sourceOperand, IExpressionParameter filterBody = null, string filterParameterName = null)
 		{
 			SourceOperand = sourceOperand;
 			FilterBody = filterBody;
 			FilterParameterName = filterParameterName;
-		}
-
-		public FilterMethodOperatorParameterBase(IExpressionParameter sourceOperand)
-		{
-			SourceOperand = sourceOperand;
 		}
 
 		public IExpressionParameter SourceOperand { get; set; }

@@ -6,11 +6,7 @@
 		{
 		}
 
-		public CountOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter filterBody, string filterParameterName) : base(sourceOperand, filterBody, filterParameterName)
-		{
-		}
-
-		public CountOperatorParameter(IExpressionParameter sourceOperand) : base(sourceOperand)
+		public CountOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter filterBody = null, string filterParameterName = null) : base(sourceOperand, filterBody, filterParameterName)
 		{
 		}
     }

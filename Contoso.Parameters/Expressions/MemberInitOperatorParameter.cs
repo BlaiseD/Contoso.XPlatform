@@ -9,15 +9,10 @@ namespace Contoso.Parameters.Expressions
 		{
 		}
 
-		public MemberInitOperatorParameter(IDictionary<string, IExpressionParameter> memberBindings, Type newType)
+		public MemberInitOperatorParameter(IDictionary<string, IExpressionParameter> memberBindings, Type newType = null)
 		{
 			MemberBindings = memberBindings;
 			NewType = newType;
-		}
-
-		public MemberInitOperatorParameter(IDictionary<string, IExpressionParameter> memberBindings)
-		{
-			MemberBindings = memberBindings;
 		}
 
 		public IDictionary<string, IExpressionParameter> MemberBindings { get; set; }

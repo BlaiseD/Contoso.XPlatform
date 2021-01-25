@@ -8,16 +8,11 @@ namespace Contoso.Parameters.Expressions
 		{
 		}
 
-		public SelectorMethodOperatorParameterBase(IExpressionParameter sourceOperand, IExpressionParameter selectorBody, string selectorParameterName)
+		public SelectorMethodOperatorParameterBase(IExpressionParameter sourceOperand, IExpressionParameter selectorBody = null, string selectorParameterName = null)
 		{
 			SourceOperand = sourceOperand;
 			SelectorBody = selectorBody;
 			SelectorParameterName = selectorParameterName;
-		}
-
-		public SelectorMethodOperatorParameterBase(IExpressionParameter sourceOperand)
-		{
-			SourceOperand = sourceOperand;
 		}
 
 		public IExpressionParameter SourceOperand { get; set; }

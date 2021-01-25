@@ -9,14 +9,7 @@ namespace Contoso.Parameters.Expressions
 		{
 		}
 
-		public SelectorLambdaOperatorParameter(IExpressionParameter selector, Type sourceElementType, string parameterName)
-		{
-			Selector = selector;
-			SourceElementType = sourceElementType;
-			ParameterName = parameterName;
-		}
-
-		public SelectorLambdaOperatorParameter(IExpressionParameter selector, Type sourceElementType, Type bodyType, string parameterName)
+		public SelectorLambdaOperatorParameter(IExpressionParameter selector, Type sourceElementType, string parameterName, Type bodyType = null)
 		{
 			Selector = selector;
 			SourceElementType = sourceElementType;

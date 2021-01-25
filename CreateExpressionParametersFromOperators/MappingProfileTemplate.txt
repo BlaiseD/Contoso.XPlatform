@@ -1,20 +1,29 @@
 ﻿using AutoMapper;
-using Contoso.Parameters;
-using LogicBuilder.Expressions.Utils.ExpressionDescriptors;
+using Contoso.Parameters.Expressions;
+using LogicBuilder.Expressions.Utils.ExpressionBuilder;
+using LogicBuilder.Expressions.Utils.ExpressionBuilder.Arithmetic;
+using LogicBuilder.Expressions.Utils.ExpressionBuilder.Cacnonical;
+using LogicBuilder.Expressions.Utils.ExpressionBuilder.Collection;
+using LogicBuilder.Expressions.Utils.ExpressionBuilder.Conversions;
+using LogicBuilder.Expressions.Utils.ExpressionBuilder.DateTimeOperators;
+using LogicBuilder.Expressions.Utils.ExpressionBuilder.Lambda;
+using LogicBuilder.Expressions.Utils.ExpressionBuilder.Logical;
+using LogicBuilder.Expressions.Utils.ExpressionBuilder.Operand;
+using LogicBuilder.Expressions.Utils.ExpressionBuilder.StringOperators;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace LogicBuilder.Expressions.Utils.Strutures.Mapping
 {
-    public class MappingProfile : Profile
+    public class ParameterToOperatorMappingProfile : Profile
     {
         const string PARAMETERS_KEY = "parameters";
 
-        public MappingProfile()
+        public ParameterToOperatorMappingProfile()
         {
 #Mappings#
 
-            CreateMap<IExpressionDescriptor, IExpressionPart>()
+            CreateMap<IExpressionParameter, IExpressionPart>()
 #DescriptorToPartIncludes#
         }
     }

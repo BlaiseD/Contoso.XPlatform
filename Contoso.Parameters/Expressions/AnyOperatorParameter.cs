@@ -6,11 +6,7 @@
 		{
 		}
 
-		public AnyOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter filterBody, string filterParameterName) : base(sourceOperand, filterBody, filterParameterName)
-		{
-		}
-
-		public AnyOperatorParameter(IExpressionParameter sourceOperand) : base(sourceOperand)
+		public AnyOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter filterBody = null, string filterParameterName = null) : base(sourceOperand, filterBody, filterParameterName)
 		{
 		}
     }

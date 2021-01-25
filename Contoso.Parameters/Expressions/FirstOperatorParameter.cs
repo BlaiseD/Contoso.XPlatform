@@ -6,11 +6,7 @@
 		{
 		}
 
-		public FirstOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter filterBody, string filterParameterName) : base(sourceOperand, filterBody, filterParameterName)
-		{
-		}
-
-		public FirstOperatorParameter(IExpressionParameter sourceOperand) : base(sourceOperand)
+		public FirstOperatorParameter(IExpressionParameter sourceOperand, IExpressionParameter filterBody = null, string filterParameterName = null) : base(sourceOperand, filterBody, filterParameterName)
 		{
 		}
     }
