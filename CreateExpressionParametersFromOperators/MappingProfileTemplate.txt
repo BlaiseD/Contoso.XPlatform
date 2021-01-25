@@ -1,0 +1,21 @@
+﻿using AutoMapper;
+using Contoso.Parameters;
+using LogicBuilder.Expressions.Utils.ExpressionDescriptors;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+
+namespace LogicBuilder.Expressions.Utils.Strutures.Mapping
+{
+    public class MappingProfile : Profile
+    {
+        const string PARAMETERS_KEY = "parameters";
+
+        public MappingProfile()
+        {
+#Mappings#
+
+            CreateMap<IExpressionDescriptor, IExpressionPart>()
+#DescriptorToPartIncludes#
+        }
+    }
+}

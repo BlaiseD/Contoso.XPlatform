@@ -1,6 +1,6 @@
 ﻿using Contoso.Bsl.Flow.Requests;
 using Contoso.Bsl.Flow.Responses;
-using Contoso.XPlatform.Domain;
+using Contoso.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
