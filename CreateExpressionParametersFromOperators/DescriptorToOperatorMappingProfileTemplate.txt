@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Contoso.Parameters.Expressions;
+using Contoso.Bsl.Configuration.ExpressionDescriptors;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder.Arithmetic;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder.Cacnonical;
@@ -12,18 +12,19 @@ using LogicBuilder.Expressions.Utils.ExpressionBuilder.Operand;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder.StringOperators;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System;
 
 namespace Contoso.AutoMapperProfiles
 {
-    public class ParameterToOperatorMappingProfile : Profile
+    public class DescriptorToOperatorMappingProfile : Profile
     {
         const string PARAMETERS_KEY = "parameters";
 
-        public ParameterToOperatorMappingProfile()
+        public DescriptorToOperatorMappingProfile()
         {
 #Mappings#
 
-            CreateMap<IExpressionParameter, IExpressionPart>()
+            CreateMap<IExpressionDescriptor, IExpressionPart>()
 #DescriptorToPartIncludes#
         }
     }

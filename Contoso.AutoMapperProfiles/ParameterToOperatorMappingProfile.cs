@@ -13,7 +13,7 @@ using LogicBuilder.Expressions.Utils.ExpressionBuilder.StringOperators;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace LogicBuilder.Expressions.Utils.Strutures.Mapping
+namespace Contoso.AutoMapperProfiles
 {
     public class ParameterToOperatorMappingProfile : Profile
     {

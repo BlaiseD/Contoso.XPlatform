@@ -3,7 +3,7 @@ using Contoso.Parameters.Expressions;
 using Contoso.Bsl.Configuration.ExpressionDescriptors;
 using System;
 
-namespace LogicBuilder.Expressions.Utils.Strutures.Mapping
+namespace Contoso.AutoMapperProfiles
 {
     public class ParameterToDescriptorMappingProfile : Profile
     {

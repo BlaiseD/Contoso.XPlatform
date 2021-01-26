@@ -9,7 +9,7 @@ using System.Text;
 
 namespace CreateExpressionDescriptorsFromOperators
 {
-    static class CreateParameterToDescrptorMappingProfile
+    static class CreateParameterToDescriptorMappingProfile 
     {
         internal static void Write()
         {
@@ -64,7 +64,8 @@ namespace CreateExpressionDescriptorsFromOperators
                     StringBuilder sb = new StringBuilder();
                     sb.Append($"\t\t\tCreateMap<{type.Name.Replace("Operator", "OperatorParameter")}, {type.Name.Replace("Operator", "OperatorDescriptor")}>()");
                     if (!hasTypeParameters)
-                        sb.Append($".ReverseMap();");
+                        sb.Append(";");
+                        //sb.Append($".ReverseMap();");
                     else
                     {
                         foreach(var parameter in parameters)
@@ -72,12 +73,12 @@ namespace CreateExpressionDescriptorsFromOperators
                             if (parameter.ParameterType == typeof(Type))
                                 sb.Append($"{Environment.NewLine}\t\t\t\t.ForMember(dest => dest.{FirstCharToUpper(parameter.Name)}, opts => opts.MapFrom(x => x.{FirstCharToUpper(parameter.Name)}.AssemblyQualifiedName))");
                         }
-                        sb.Append($"{Environment.NewLine}\t\t\t.ReverseMap()");
-                        foreach (var parameter in parameters)
-                        {
-                            if (parameter.ParameterType == typeof(Type))
-                                sb.Append($"{Environment.NewLine}\t\t\t\t.ForMember(dest => dest.{FirstCharToUpper(parameter.Name)}, opts => opts.MapFrom(x => Type.GetType(x.{FirstCharToUpper(parameter.Name)})))");
-                        }
+                        //sb.Append($"{Environment.NewLine}\t\t\t.ReverseMap()");
+                        //foreach (var parameter in parameters)
+                        //{
+                        //    if (parameter.ParameterType == typeof(Type))
+                        //        sb.Append($"{Environment.NewLine}\t\t\t\t.ForMember(dest => dest.{FirstCharToUpper(parameter.Name)}, opts => opts.MapFrom(x => Type.GetType(x.{FirstCharToUpper(parameter.Name)})))");
+                        //}
                         sb.Append(";");
                     }
                     
@@ -129,7 +130,7 @@ namespace CreateExpressionDescriptorsFromOperators
                 .Replace("#Mappings#", string.Join(Environment.NewLine, createMapStatements))
                 .Replace("#DescriptorToPartIncludes#", $"{string.Join(Environment.NewLine, includeMapStatements)};");
 
-            using (StreamWriter sr = new StreamWriter($@"{MAPPING_SAVE_PATH}\ParameterToDescritorMappingProfile.cs", false, Encoding.UTF8))
+            using (StreamWriter sr = new StreamWriter($@"{MAPPING_SAVE_PATH}\ParameterToDescriptorMappingProfile.cs", false, Encoding.UTF8))
             {
                 sr.Write(text);
                 sr.Close();
