@@ -83,7 +83,7 @@ namespace CreateExpressionDescriptorsFromOperators
                 });
 
 
-            string baseClassString = type.BaseType != typeof(object) ? $" : {type.BaseType.Name}" : " : IExpressionDescriptor";
+            string baseClassString = type.BaseType != typeof(object) ? $" : {type.BaseType.Name.Replace(OPERATOR, OPERATORDESCRIPTOR)}" : " : IExpressionOperatorDescriptor";
 
             string nameSpacesString = nameSpaces.Any()
                 ? $"{string.Join(Environment.NewLine, nameSpaces.OrderBy(n => n))}{Environment.NewLine}{Environment.NewLine}"
@@ -97,7 +97,7 @@ namespace CreateExpressionDescriptorsFromOperators
                 .Replace("#Name#", name)
                 .Replace(PROPERTIES, propertiestring)
                 .Replace(NAMESPACES, nameSpacesString)
-                .Replace("#Base#", baseClassString.Replace(OPERATOR, OPERATORDESCRIPTOR));
+                .Replace("#Base#", baseClassString);
 
             text = text.Replace("#Modifier#", type.IsAbstract ? "abstract " : "");
 
@@ -110,7 +110,7 @@ namespace CreateExpressionDescriptorsFromOperators
         static readonly Func<string, string> replaceCommonTypeName = oldName =>
         {
             return Regex.Replace(oldName, "Operator$", OPERATORDESCRIPTOR)
-                .Replace("IExpressionPart", "IExpressionDescriptor")
+                .Replace("IExpressionPart", "IExpressionOperatorDescriptor")
                 .Replace(PARAMETER_NAMESPACE_DOT, "")
                 .Replace("LogicBuilder.Expressions.Utils.Strutures.", "")
                 .Replace("System.", "");
