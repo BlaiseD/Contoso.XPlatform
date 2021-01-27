@@ -1,8 +1,8 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class SkipOperatorDescriptor : IExpressionDescriptor
+    public class SkipOperatorDescriptor : IExpressionOperatorDescriptor
     {
-		public IExpressionDescriptor SourceOperand { get; set; }
+		public IExpressionOperatorDescriptor SourceOperand { get; set; }
 		public int Count { get; set; }
     }
 }

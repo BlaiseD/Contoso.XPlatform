@@ -1,7 +1,7 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class FractionalSecondsOperatorDescriptor : IExpressionDescriptor
+    public class FractionalSecondsOperatorDescriptor : IExpressionOperatorDescriptor
     {
-		public IExpressionDescriptor Operand { get; set; }
+		public IExpressionOperatorDescriptor Operand { get; set; }
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    abstract public class SelectorMethodOperatorDescriptorBase : IExpressionDescriptor
+    abstract public class SelectorMethodOperatorDescriptorBase : IExpressionOperatorDescriptor
     {
-		public IExpressionDescriptor SourceOperand { get; set; }
-		public IExpressionDescriptor SelectorBody { get; set; }
+		public IExpressionOperatorDescriptor SourceOperand { get; set; }
+		public IExpressionOperatorDescriptor SelectorBody { get; set; }
 		public string SelectorParameterName { get; set; }
     }
 }

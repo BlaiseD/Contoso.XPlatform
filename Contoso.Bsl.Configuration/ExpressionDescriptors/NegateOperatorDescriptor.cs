@@ -1,7 +1,7 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class NegateOperatorDescriptor : IExpressionDescriptor
+    public class NegateOperatorDescriptor : IExpressionOperatorDescriptor
     {
-		public IExpressionDescriptor Operand { get; set; }
+		public IExpressionOperatorDescriptor Operand { get; set; }
     }
 }

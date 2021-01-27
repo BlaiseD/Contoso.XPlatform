@@ -1,7 +1,7 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class YearOperatorDescriptor : IExpressionDescriptor
+    public class YearOperatorDescriptor : IExpressionOperatorDescriptor
     {
-		public IExpressionDescriptor Operand { get; set; }
+		public IExpressionOperatorDescriptor Operand { get; set; }
     }
 }

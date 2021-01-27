@@ -3,9 +3,9 @@ using System;
 
 namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class SelectorLambdaOperatorDescriptor : IExpressionDescriptor
+    public class SelectorLambdaOperatorDescriptor : IExpressionOperatorDescriptor
     {
-		public IExpressionDescriptor Selector { get; set; }
+		public IExpressionOperatorDescriptor Selector { get; set; }
 		public string SourceElementType { get; set; }
 		public string BodyType { get; set; }
 		public string ParameterName { get; set; }

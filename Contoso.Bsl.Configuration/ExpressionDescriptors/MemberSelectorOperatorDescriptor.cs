@@ -1,8 +1,8 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class MemberSelectorOperatorDescriptor : IExpressionDescriptor
+    public class MemberSelectorOperatorDescriptor : IExpressionOperatorDescriptor
     {
 		public string MemberFullName { get; set; }
-		public IExpressionDescriptor SourceOperand { get; set; }
+		public IExpressionOperatorDescriptor SourceOperand { get; set; }
     }
 }

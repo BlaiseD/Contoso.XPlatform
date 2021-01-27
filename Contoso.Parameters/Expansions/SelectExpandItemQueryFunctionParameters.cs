@@ -1,10 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Contoso.Parameters.Expressions;
 
 namespace Contoso.Parameters.Expansions
 {
-    class SelectExpandItemQueryFunctionParameters
+    public class SelectExpandItemQueryFunctionParameters
     {
+        public SelectExpandItemQueryFunctionParameters()
+        {
+        }
+
+        public SelectExpandItemQueryFunctionParameters(IExpressionParameter methodCallDescriptor)
+        {
+            MethodCallDescriptor = methodCallDescriptor;
+        }
+
+        public IExpressionParameter MethodCallDescriptor { get; set; }
     }
 }

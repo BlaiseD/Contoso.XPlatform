@@ -1,8 +1,8 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class ConcatOperatorDescriptor : IExpressionDescriptor
+    public class ConcatOperatorDescriptor : IExpressionOperatorDescriptor
     {
-		public IExpressionDescriptor Left { get; set; }
-		public IExpressionDescriptor Right { get; set; }
+		public IExpressionOperatorDescriptor Left { get; set; }
+		public IExpressionOperatorDescriptor Right { get; set; }
     }
 }

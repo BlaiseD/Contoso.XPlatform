@@ -2,9 +2,9 @@
 
 namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class CollectionCastOperatorDescriptor : IExpressionDescriptor
+    public class CollectionCastOperatorDescriptor : IExpressionOperatorDescriptor
     {
-		public IExpressionDescriptor Operand { get; set; }
+		public IExpressionOperatorDescriptor Operand { get; set; }
 		public string Type { get; set; }
     }
 }

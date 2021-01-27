@@ -3,9 +3,9 @@ using System;
 
 namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class MemberInitOperatorDescriptor : IExpressionDescriptor
+    public class MemberInitOperatorDescriptor : IExpressionOperatorDescriptor
     {
-		public IDictionary<string, IExpressionDescriptor> MemberBindings { get; set; }
+		public IDictionary<string, IExpressionOperatorDescriptor> MemberBindings { get; set; }
 		public string NewType { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class IndexOfOperatorDescriptor : IExpressionDescriptor
+    public class IndexOfOperatorDescriptor : IExpressionOperatorDescriptor
     {
-		public IExpressionDescriptor SourceOperand { get; set; }
-		public IExpressionDescriptor ItemToFind { get; set; }
+		public IExpressionOperatorDescriptor SourceOperand { get; set; }
+		public IExpressionOperatorDescriptor ItemToFind { get; set; }
     }
 }

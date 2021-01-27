@@ -1,8 +1,8 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    abstract public class BinaryOperatorDescriptor : IExpressionDescriptor
+    abstract public class BinaryOperatorDescriptor : IExpressionOperatorDescriptor
     {
-		public IExpressionDescriptor Left { get; set; }
-		public IExpressionDescriptor Right { get; set; }
+		public IExpressionOperatorDescriptor Left { get; set; }
+		public IExpressionOperatorDescriptor Right { get; set; }
     }
 }

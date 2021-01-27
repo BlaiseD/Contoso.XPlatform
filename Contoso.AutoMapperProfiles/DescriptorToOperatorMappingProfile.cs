@@ -404,7 +404,7 @@ namespace Contoso.AutoMapperProfiles
 
 			CreateMap<YearOperatorDescriptor, YearOperator>();
 
-            CreateMap<IExpressionDescriptor, IExpressionPart>()
+            CreateMap<IExpressionOperatorDescriptor, IExpressionPart>()
 				.Include<AddBinaryOperatorDescriptor, AddBinaryOperator>()
 				.Include<AllOperatorDescriptor, AllOperator>()
 				.Include<AndBinaryOperatorDescriptor, AndBinaryOperator>()

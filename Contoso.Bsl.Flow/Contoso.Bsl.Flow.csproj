@@ -6,11 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LogicBuilder.Expressions.Utils" Version="4.1.0" />
     <PackageReference Include="LogicBuilder.RulesDirector" Version="1.0.0" />
     <PackageReference Include="LogicBuilder.Workflow.Activities.Rules" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Contoso.Parameters\Contoso.Parameters.csproj" />
     <ProjectReference Include="..\Contoso.Repositories\Contoso.Repositories.csproj" />
     <ProjectReference Include="..\Contoso.Domain\Contoso.Domain.csproj" />
   </ItemGroup>

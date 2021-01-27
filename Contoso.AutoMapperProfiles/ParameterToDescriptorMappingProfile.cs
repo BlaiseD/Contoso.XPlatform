@@ -110,7 +110,7 @@ namespace Contoso.AutoMapperProfiles
 			CreateMap<WhereOperatorParameter, WhereOperatorDescriptor>();
 			CreateMap<YearOperatorParameter, YearOperatorDescriptor>();
 
-            CreateMap<IExpressionParameter, IExpressionDescriptor>()
+            CreateMap<IExpressionParameter, IExpressionOperatorDescriptor>()
 				.Include<AddBinaryOperatorParameter, AddBinaryOperatorDescriptor>()
 				.Include<AllOperatorParameter, AllOperatorDescriptor>()
 				.Include<AndBinaryOperatorParameter, AndBinaryOperatorDescriptor>()
