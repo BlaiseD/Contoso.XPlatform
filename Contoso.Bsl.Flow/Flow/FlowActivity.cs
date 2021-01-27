@@ -12,7 +12,7 @@ namespace Contoso.Bsl.Flow
 {
     public class FlowActivity : IFlowActivity
     {
-        private IExpressionDescriptor expressionDescriptor;
+        //private IExpressionDescriptor expressionDescriptor;
         public DirectorBase Director => throw new NotImplementedException();
 
         public void DisplayInputQuestions(InputFormParameters form, ICollection<ConnectorParameters> shortValues = null)
