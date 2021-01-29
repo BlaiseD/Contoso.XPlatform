@@ -126,7 +126,7 @@ namespace CreateExpressionDescriptorsFromOperators
             )
             .ToList();
 
-            string text = File.ReadAllText($"{Directory.GetCurrentDirectory()}\\MappingProfileTemplate.txt")
+            string text = File.ReadAllText($"{Directory.GetCurrentDirectory()}\\ParameterToOperatorDescriptorMappingProfileTemplate.txt")
                 .Replace("#Mappings#", string.Join(Environment.NewLine, createMapStatements))
                 .Replace("#DescriptorToPartIncludes#", $"{string.Join(Environment.NewLine, includeMapStatements)};");
 

@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Contoso.Bsl.Configuration\Contoso.Bsl.Configuration.csproj" />
+    <ProjectReference Include="..\Contoso.Data\Contoso.Data.csproj" />
+    <ProjectReference Include="..\Contoso.Domain\Contoso.Domain.csproj" />
     <ProjectReference Include="..\Contoso.Parameters\Contoso.Parameters.csproj" />
   </ItemGroup>
 

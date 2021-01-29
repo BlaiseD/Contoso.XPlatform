@@ -4,7 +4,9 @@ using System.Text;
 
 namespace Contoso.Bsl.Configuration.ExpansionDescriptors
 {
-    class SelectExpandDefinitionDescriptor
+    public class SelectExpandDefinitionDescriptor
     {
+        public List<string> Selects { get; set; } = new List<string>();
+        public List<SelectExpandItemDescriptor> ExpandedItems { get; set; } = new List<SelectExpandItemDescriptor>();
     }
 }

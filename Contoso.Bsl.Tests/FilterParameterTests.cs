@@ -6827,6 +6827,8 @@ namespace Contoso.Bsl.Tests
                 });
             }
 
+            MapperConfiguration.AssertConfigurationIsValid();
+
             serviceProvider = new ServiceCollection()
                 .AddSingleton<AutoMapper.IConfigurationProvider>
                 (
