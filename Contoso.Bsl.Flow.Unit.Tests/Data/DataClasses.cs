@@ -3,10 +3,9 @@ using Microsoft.OData.Edm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 
-namespace Contoso.Bsl.Flow.Tests.Data
+namespace Contoso.Bsl.Flow.Unit.Tests.Data
 {
     public class Product
     {

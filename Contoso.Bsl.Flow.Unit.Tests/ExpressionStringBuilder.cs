@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Contoso.Bsl.Flow.Tests
+namespace Contoso.Bsl.Flow.Unit.Tests
 {
     public class ExpressionStringBuilder : ExpressionVisitor
     {

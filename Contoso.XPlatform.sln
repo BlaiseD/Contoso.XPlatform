@@ -51,7 +51,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateExpressionDescriptors
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{49D8D999-C886-4AB0-B9F2-C127C15F1F73}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Bsl.Flow.Tests", "Contoso.Bsl.Flow.Tests\Contoso.Bsl.Flow.Tests.csproj", "{39FF1B23-7F47-4742-8918-773FB5F6FE6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Bsl.Flow.Unit.Tests", "Contoso.Bsl.Flow.Unit.Tests\Contoso.Bsl.Flow.Unit.Tests.csproj", "{39FF1B23-7F47-4742-8918-773FB5F6FE6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
