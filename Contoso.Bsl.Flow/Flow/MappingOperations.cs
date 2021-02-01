@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace Contoso.Bsl.Flow
 {
-    internal static class MappingOperations
+    public static class MappingOperations
     {
         public static IExpressionPart MapToOperator(this IMapper mapper, IExpressionParameter expression)
             => mapper.MapToOperator

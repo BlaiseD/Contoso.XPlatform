@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
-using Contoso.Bsl.Configuration.ExpansionDescriptors;
-using Contoso.Bsl.Configuration.ExpressionDescriptors;
 using Contoso.Data;
 using Contoso.Domain;
 using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
-using LogicBuilder.EntityFrameworkCore.SqlServer;
 using LogicBuilder.EntityFrameworkCore.SqlServer.Repositories;
-using LogicBuilder.Expressions.Utils.Expansions;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder;
 using System;
 using System.Collections.Generic;
