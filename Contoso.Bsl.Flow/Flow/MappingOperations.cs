@@ -35,7 +35,8 @@ namespace Contoso.Bsl.Flow
         public static SelectExpandDefinition MapExpansion(this IMapper mapper, SelectExpandDefinitionDescriptor expression)
             => mapper.Map<SelectExpandDefinition>
             (
-                expression
+                expression,
+                opts => opts.Items[ExpressionOperators.PARAMETERS_KEY] = GetParameters()
             );
 
         public static IDictionary<string, ParameterExpression> GetParameters()

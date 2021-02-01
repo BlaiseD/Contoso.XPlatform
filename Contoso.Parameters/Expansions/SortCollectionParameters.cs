@@ -4,7 +4,18 @@ namespace Contoso.Parameters.Expansions
 {
     public class SortCollectionParameters
     {
-        public ICollection<SortDescriptionParameters> SortDescriptions { get; set; }
+        public SortCollectionParameters()
+        {
+        }
+
+        public SortCollectionParameters(List<SortDescriptionParameters> sortDescriptions, int? skip, int? take)
+        {
+            SortDescriptions = sortDescriptions;
+            Skip = skip;
+            Take = take;
+        }
+
+        public List<SortDescriptionParameters> SortDescriptions { get; set; }
         public int? Skip { get; set; }
         public int? Take { get; set; }
     }

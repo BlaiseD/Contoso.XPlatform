@@ -8,6 +8,7 @@ using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
 using Contoso.Repositories;
 using Contoso.Stores;
+using LogicBuilder.Expressions.Utils.Strutures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -65,6 +66,229 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             );
 
             Assert.True(students.First().Enrollments.Count > 0);
+        }
+
+        [Fact]
+        public void Get_students_no_filtered_inlude_no_filter_select_expand_definition()
+        {
+            ICollection<StudentModel> students = ProjectionOperations<StudentModel, Student>.GetItems
+            (
+                serviceProvider.GetRequiredService<ISchoolRepository>(),
+                serviceProvider.GetRequiredService<IMapper>(),
+                new FilterLambdaOperatorParameter
+                (
+                    new GreaterThanBinaryOperatorParameter
+                    (
+                        new CountOperatorParameter
+                        (
+                            new MemberSelectorOperatorParameter("Enrollments", new ParameterOperatorParameter("f"))
+                        ),
+                        new ConstantOperatorParameter(0)
+                    ),
+                    typeof(StudentModel),
+                    "f"
+                ),
+                null,
+                null
+            );
+
+            Assert.Null(students.First().Enrollments);
+        }
+
+        [Fact]
+        public void Get_students_with_filtered_inlude_with_filter_select_expand_definition()
+        {
+            ICollection<StudentModel> students = ProjectionOperations<StudentModel, Student>.GetItems
+            (
+                serviceProvider.GetRequiredService<ISchoolRepository>(),
+                serviceProvider.GetRequiredService<IMapper>(),
+                new FilterLambdaOperatorParameter
+                (
+                    new GreaterThanBinaryOperatorParameter
+                    (
+                        new CountOperatorParameter
+                        (
+                            new MemberSelectorOperatorParameter("Enrollments", new ParameterOperatorParameter("f"))
+                        ),
+                        new ConstantOperatorParameter(0)
+                    ),
+                    typeof(StudentModel),
+                    "f"
+                ),
+                null,
+                new SelectExpandDefinitionParameters
+                (
+                    null,
+                    new List<SelectExpandItemParameters>
+                    {
+                        new SelectExpandItemParameters
+                        (
+                            "enrollments",
+                            new SelectExpandItemFilterParameters
+                            (
+                                new FilterLambdaOperatorParameter
+                                (
+                                    new EqualsBinaryOperatorParameter
+                                    (
+                                        new MemberSelectorOperatorParameter("enrollmentID", new ParameterOperatorParameter("a")),
+                                        new ConstantOperatorParameter(-1)
+                                    ),
+                                    typeof(EnrollmentModel),
+                                    "a"
+                                )
+                            ),
+                            null,
+                            null,
+                            null
+                        )
+                    }
+                )
+            );
+
+            Assert.False(students.First().Enrollments.Any());
+        }
+
+        [Fact]
+        public void Get_students_with_filtered_inlude_no_filter_sorted_select_expand_definition()
+        {
+            ICollection<StudentModel> students = ProjectionOperations<StudentModel, Student>.GetItems
+            (
+                serviceProvider.GetRequiredService<ISchoolRepository>(),
+                serviceProvider.GetRequiredService<IMapper>(),
+                new FilterLambdaOperatorParameter
+                (
+                    new GreaterThanBinaryOperatorParameter
+                    (
+                        new CountOperatorParameter
+                        (
+                            new MemberSelectorOperatorParameter("Enrollments", new ParameterOperatorParameter("f"))
+                        ),
+                        new ConstantOperatorParameter(0)
+                    ),
+                    typeof(StudentModel),
+                    "f"
+                ),
+                null,
+                new SelectExpandDefinitionParameters
+                (
+                    null,
+                    new List<SelectExpandItemParameters>
+                    {
+                        new SelectExpandItemParameters
+                        (
+                            "enrollments",
+                            new SelectExpandItemFilterParameters
+                            (
+                                new FilterLambdaOperatorParameter
+                                (
+                                    new GreaterThanBinaryOperatorParameter
+                                    (
+                                        new MemberSelectorOperatorParameter("enrollmentID", new ParameterOperatorParameter("a")),
+                                        new ConstantOperatorParameter(0)
+                                    ),
+                                    typeof(EnrollmentModel),
+                                    "a"
+                                )
+                            ),
+                            new SelectExpandItemQueryFunctionParameters
+                            (
+                                new SortCollectionParameters
+                                (
+                                    new List<SortDescriptionParameters>
+                                    {
+                                        new SortDescriptionParameters("GradeLetter", ListSortDirection.Ascending)
+                                    },
+                                    null,
+                                    null
+                                )
+                            ),
+                            null,
+                            null
+                        )
+                    }
+                )
+            );
+
+            Assert.True(students.First().Enrollments.Count > 0);
+            Assert.True
+            (
+                string.Compare
+                (
+                    students.First().Enrollments.First().GradeLetter,
+                    students.Skip(1).First().Enrollments.First().GradeLetter
+                ) <= 0
+            );
+        }
+
+        [Fact]
+        public void Get_students_with_filtered_inlude_no_filter_sort_skip_and_take_select_expand_definition()
+        {
+            ICollection<StudentModel> students = ProjectionOperations<StudentModel, Student>.GetItems
+            (
+                serviceProvider.GetRequiredService<ISchoolRepository>(),
+                serviceProvider.GetRequiredService<IMapper>(),
+                new FilterLambdaOperatorParameter
+                (
+                    new AndBinaryOperatorParameter
+                    (
+                        new EqualsBinaryOperatorParameter
+                        (
+                            new MemberSelectorOperatorParameter("FirstName", new ParameterOperatorParameter("f")),
+                            new ConstantOperatorParameter("Carson")
+                        ),
+                        new EqualsBinaryOperatorParameter
+                        (
+                            new MemberSelectorOperatorParameter("LastName", new ParameterOperatorParameter("f")),
+                            new ConstantOperatorParameter("Alexander")
+                        )
+                    ),
+                    typeof(StudentModel),
+                    "f"
+                ),
+                null,
+                new SelectExpandDefinitionParameters
+                (
+                    null,
+                    new List<SelectExpandItemParameters>
+                    {
+                        new SelectExpandItemParameters
+                        (
+                            "enrollments",
+                            new SelectExpandItemFilterParameters
+                            (
+                                new FilterLambdaOperatorParameter
+                                (
+                                    new GreaterThanBinaryOperatorParameter
+                                    (
+                                        new MemberSelectorOperatorParameter("enrollmentID", new ParameterOperatorParameter("a")),
+                                        new ConstantOperatorParameter(0)
+                                    ),
+                                    typeof(EnrollmentModel),
+                                    "a"
+                                )
+                            ),
+                            new SelectExpandItemQueryFunctionParameters
+                            (
+                                new SortCollectionParameters
+                                (
+                                    new List<SortDescriptionParameters>
+                                    {
+                                        new SortDescriptionParameters("GradeLetter", ListSortDirection.Descending)
+                                    },
+                                    1,
+                                    2
+                                )
+                            ),
+                            null,
+                            null
+                        )
+                    }
+                )
+            );
+
+            Assert.Single(students);
+            Assert.Equal(2, students.First().Enrollments.Count);
+            Assert.Equal("A", students.First().Enrollments.Last().GradeLetter);
         }
         #endregion Tests
 
