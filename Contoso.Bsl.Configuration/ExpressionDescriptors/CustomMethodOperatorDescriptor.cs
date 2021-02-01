@@ -2,7 +2,7 @@
 
 namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class CustomMethodOperatorDescriptor : IExpressionOperatorDescriptor
+    public class CustomMethodOperatorDescriptor : OperatorDescriptorBase
     {
 		public MethodInfo MethodInfo { get; set; }
 		public IExpressionOperatorDescriptor[] Args { get; set; }

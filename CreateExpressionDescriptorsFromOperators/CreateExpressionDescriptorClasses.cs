@@ -67,9 +67,9 @@ namespace CreateExpressionDescriptorsFromOperators
                     return list;
                 });
 
-            HashSet<string> nameSpaces = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
+            SortedSet<string> nameSpaces = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
                 .Select(p => p.PropertyType)
-                .Aggregate(new HashSet<string>(), (list, next) =>
+                .Aggregate(new SortedSet<string>(), (list, next) =>
                 {
                     if (next == typeof(object)
                         || next == typeof(string)
@@ -82,8 +82,7 @@ namespace CreateExpressionDescriptorsFromOperators
                     return list;
                 });
 
-
-            string baseClassString = type.BaseType != typeof(object) ? $" : {type.BaseType.Name.Replace(OPERATOR, OPERATORDESCRIPTOR)}" : " : IExpressionOperatorDescriptor";
+            string baseClassString = type.BaseType != typeof(object) ? $" : {type.BaseType.Name.Replace(OPERATOR, OPERATORDESCRIPTOR)}" : " : OperatorDescriptorBase";
 
             string nameSpacesString = nameSpaces.Any()
                 ? $"{string.Join(Environment.NewLine, nameSpaces.OrderBy(n => n))}{Environment.NewLine}{Environment.NewLine}"

@@ -1,6 +1,6 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class RoundOperatorDescriptor : IExpressionOperatorDescriptor
+    public class RoundOperatorDescriptor : OperatorDescriptorBase
     {
 		public IExpressionOperatorDescriptor Operand { get; set; }
     }

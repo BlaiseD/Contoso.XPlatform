@@ -1,6 +1,6 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class ConvertToNumericTimeOperatorDescriptor : IExpressionOperatorDescriptor
+    public class ConvertToNumericTimeOperatorDescriptor : OperatorDescriptorBase
     {
 		public IExpressionOperatorDescriptor SourceOperand { get; set; }
     }

@@ -21,6 +21,9 @@ namespace Contoso.Utils
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (reader.TokenType == JsonToken.Null)
+                return null;
+
             JObject jo = JObject.Load(reader);
             //Type derivedType = GetDerivedType(jo[TypePropertyName].Value<string>());
             //return jo.ToObject(derivedType, serializer);

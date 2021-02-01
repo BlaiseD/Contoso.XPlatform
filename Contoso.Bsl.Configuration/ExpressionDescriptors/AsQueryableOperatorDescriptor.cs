@@ -1,6 +1,6 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class AsQueryableOperatorDescriptor : IExpressionOperatorDescriptor
+    public class AsQueryableOperatorDescriptor : OperatorDescriptorBase
     {
 		public IExpressionOperatorDescriptor SourceOperand { get; set; }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class MinDateTimeOperatorDescriptor : IExpressionOperatorDescriptor
+    public class MinDateTimeOperatorDescriptor : OperatorDescriptorBase
     {
 
     }

@@ -2,7 +2,7 @@
 
 namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class ConvertOperatorDescriptor : IExpressionOperatorDescriptor
+    public class ConvertOperatorDescriptor : OperatorDescriptorBase
     {
 		public string Type { get; set; }
 		public IExpressionOperatorDescriptor SourceOperand { get; set; }

@@ -3,7 +3,7 @@ using System;
 
 namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class CollectionConstantOperatorDescriptor : IExpressionOperatorDescriptor
+    public class CollectionConstantOperatorDescriptor : OperatorDescriptorBase
     {
 		public string ElementType { get; set; }
 		public ICollection<object> ConstantValues { get; set; }

@@ -3,7 +3,7 @@ using System;
 
 namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class SelectorLambdaOperatorDescriptor : IExpressionOperatorDescriptor
+    public class SelectorLambdaOperatorDescriptor : OperatorDescriptorBase
     {
 		public IExpressionOperatorDescriptor Selector { get; set; }
 		public string SourceElementType { get; set; }

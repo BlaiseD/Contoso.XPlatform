@@ -3,7 +3,7 @@ using System;
 
 namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class MemberInitOperatorDescriptor : IExpressionOperatorDescriptor
+    public class MemberInitOperatorDescriptor : OperatorDescriptorBase
     {
 		public IDictionary<string, IExpressionOperatorDescriptor> MemberBindings { get; set; }
 		public string NewType { get; set; }

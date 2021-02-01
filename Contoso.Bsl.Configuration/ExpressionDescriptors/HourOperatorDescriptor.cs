@@ -1,6 +1,6 @@
 ﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
-    public class HourOperatorDescriptor : IExpressionOperatorDescriptor
+    public class HourOperatorDescriptor : OperatorDescriptorBase
     {
 		public IExpressionOperatorDescriptor Operand { get; set; }
     }
