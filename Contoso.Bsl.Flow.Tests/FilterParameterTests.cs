@@ -2,7 +2,7 @@
 using AutoMapper.Extensions.ExpressionMapping;
 using Contoso.AutoMapperProfiles;
 using Contoso.Bsl.Configuration.ExpressionDescriptors;
-using Contoso.Bsl.Tests.Data;
+using Contoso.Bsl.Flow.Tests.Data;
 using Contoso.Parameters.Expressions;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder.Lambda;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +16,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Xunit;
 
-namespace Contoso.Bsl.Tests
+namespace Contoso.Bsl.Flow.Tests
 {
     public class FilterParameterTests
     {
@@ -4621,7 +4621,7 @@ namespace Contoso.Bsl.Tests
             var values = (IList<SimpleEnum>)constant.Value;
 
             //assert
-            AssertFilterStringIsCorrect(filter, "$it => System.Collections.Generic.List`1[Contoso.Bsl.Tests.Data.SimpleEnum].Contains($it.SimpleEnumProp)");
+            AssertFilterStringIsCorrect(filter, "$it => System.Collections.Generic.List`1[Contoso.Bsl.Flow.Tests.Data.SimpleEnum].Contains($it.SimpleEnumProp)");
             Assert.Equal(new[] { SimpleEnum.First, SimpleEnum.Second }, values);
 
             Expression<Func<T, bool>> CreateFilter<T>()
@@ -4644,7 +4644,7 @@ namespace Contoso.Bsl.Tests
             var values = (IList<SimpleEnum?>)constant.Value;
 
             //assert
-            AssertFilterStringIsCorrect(filter, "$it => System.Collections.Generic.List`1[System.Nullable`1[Contoso.Bsl.Tests.Data.SimpleEnum]].Contains($it.NullableSimpleEnumProp)");
+            AssertFilterStringIsCorrect(filter, "$it => System.Collections.Generic.List`1[System.Nullable`1[Contoso.Bsl.Flow.Tests.Data.SimpleEnum]].Contains($it.NullableSimpleEnumProp)");
             Assert.Equal(new SimpleEnum?[] { SimpleEnum.First, SimpleEnum.Second }, values);
 
             Expression<Func<T, bool>> CreateFilter<T>()
@@ -4667,7 +4667,7 @@ namespace Contoso.Bsl.Tests
             var values = (IList<SimpleEnum?>)constant.Value;
 
             //assert
-            AssertFilterStringIsCorrect(filter, "$it => System.Collections.Generic.List`1[System.Nullable`1[Contoso.Bsl.Tests.Data.SimpleEnum]].Contains($it.NullableSimpleEnumProp)");
+            AssertFilterStringIsCorrect(filter, "$it => System.Collections.Generic.List`1[System.Nullable`1[Contoso.Bsl.Flow.Tests.Data.SimpleEnum]].Contains($it.NullableSimpleEnumProp)");
             Assert.Equal(new SimpleEnum?[] { SimpleEnum.First, null }, values);
 
             Expression<Func<T, bool>> CreateFilter<T>()
@@ -5625,7 +5625,7 @@ namespace Contoso.Bsl.Tests
                         new ParameterOperatorParameter(parameterName),
                         typeof(Product)
                     ),
-                    "$it => IIF(($it Is Contoso.Bsl.Tests.Data.Product), True, False)"
+                    "$it => IIF(($it Is Contoso.Bsl.Flow.Tests.Data.Product), True, False)"
                 },
                 new object []
                 {
@@ -5643,7 +5643,7 @@ namespace Contoso.Bsl.Tests
                         new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName)),
                         typeof(Category)
                     ),
-                    "$it => IIF(($it.Category Is Contoso.Bsl.Tests.Data.Category), True, False)"
+                    "$it => IIF(($it.Category Is Contoso.Bsl.Flow.Tests.Data.Category), True, False)"
                 },
                 new object []
                 {
@@ -5652,7 +5652,7 @@ namespace Contoso.Bsl.Tests
                         new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName)),
                         typeof(DerivedCategory)
                     ),
-                    "$it => IIF(($it.Category Is Contoso.Bsl.Tests.Data.DerivedCategory), True, False)"
+                    "$it => IIF(($it.Category Is Contoso.Bsl.Flow.Tests.Data.DerivedCategory), True, False)"
                 },
                 new object []
                 {
@@ -5661,7 +5661,7 @@ namespace Contoso.Bsl.Tests
                         new MemberSelectorOperatorParameter("Ranking", new ParameterOperatorParameter(parameterName)),
                         typeof(SimpleEnum)
                     ),
-                    "$it => IIF(($it.Ranking Is Contoso.Bsl.Tests.Data.SimpleEnum), True, False)"
+                    "$it => IIF(($it.Ranking Is Contoso.Bsl.Flow.Tests.Data.SimpleEnum), True, False)"
                 },
             };
 
@@ -6734,7 +6734,7 @@ namespace Contoso.Bsl.Tests
             var filter = CreateFilter<DataTypes>();
 
             //assert
-            AssertFilterStringIsCorrect(filter, "$it => System.Collections.Generic.List`1[Contoso.Bsl.Tests.Data.SimpleEnum].Contains($it.SimpleEnumProp)");
+            AssertFilterStringIsCorrect(filter, "$it => System.Collections.Generic.List`1[Contoso.Bsl.Flow.Tests.Data.SimpleEnum].Contains($it.SimpleEnumProp)");
 
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>

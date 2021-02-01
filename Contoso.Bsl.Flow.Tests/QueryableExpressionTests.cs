@@ -3,7 +3,7 @@ using AutoMapper.Extensions.ExpressionMapping;
 using Contoso.AutoMapperProfiles;
 using Contoso.Bsl.Configuration.ExpressionDescriptors;
 using Contoso.Bsl.Flow;
-using Contoso.Bsl.Tests.Data;
+using Contoso.Bsl.Flow.Tests.Data;
 using Contoso.Contexts;
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
@@ -23,7 +23,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Contoso.Bsl.Tests
+namespace Contoso.Bsl.Flow.Tests
 {
     public class QueryableExpressionTests
     {

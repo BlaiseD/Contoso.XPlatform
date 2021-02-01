@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Contoso.Bsl.Tests.Data
+namespace Contoso.Bsl.Flow.Tests.Data
 {
     public class Product
     {
