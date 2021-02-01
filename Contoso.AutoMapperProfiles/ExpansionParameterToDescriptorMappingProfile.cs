@@ -12,6 +12,8 @@ namespace Contoso.AutoMapperProfiles
             CreateMap<SelectExpandItemFilterParameters, SelectExpandItemFilterDescriptor>();
             CreateMap<SelectExpandItemParameters, SelectExpandItemDescriptor>();
             CreateMap<SelectExpandItemQueryFunctionParameters, SelectExpandItemQueryFunctionDescriptor>();
+            CreateMap<SortCollectionParameters, SortCollectionDescriptor>();
+            CreateMap<SortDescriptionParameters, SortDescriptionDescriptor>();
         }
     }
 }

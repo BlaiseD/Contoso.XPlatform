@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="LogicBuilder.EntityFrameworkCore.SqlServer" Version="4.1.0" />
+    <PackageReference Include="LogicBuilder.EntityFrameworkCore.SqlServer" Version="4.1.1-alpha.2.3" />
   </ItemGroup>
 
   <ItemGroup>

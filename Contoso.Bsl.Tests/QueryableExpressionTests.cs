@@ -11,7 +11,6 @@ using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
 using Contoso.Repositories;
 using Contoso.Stores;
-using LogicBuilder.EntityFrameworkCore.SqlServer.Mapping;
 using LogicBuilder.Expressions.Utils;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder.Lambda;
 using LogicBuilder.Expressions.Utils.Strutures;
@@ -1610,9 +1609,7 @@ namespace Contoso.Bsl.Tests
                     
                     cfg.AddProfile<ParameterToDescriptorMappingProfile>();
                     cfg.AddProfile<DescriptorToOperatorMappingProfile>();
-                    cfg.AddProfile<OperatorDescriptorToDescriptorMappingProfile>();
                     cfg.AddProfile<SchoolProfile>();
-                    cfg.AddProfile<ExpressionOperatorsMappingProfile>();
                     cfg.AddProfile<ExpansionParameterToDescriptorMappingProfile>();
                     cfg.AddProfile<ExpansionDescriptorToOperatorMappingProfile>();
                 });

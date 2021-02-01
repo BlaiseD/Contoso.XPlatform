@@ -8,11 +8,11 @@ namespace Contoso.Parameters.Expansions
         {
         }
 
-        public SelectExpandItemQueryFunctionParameters(IExpressionParameter methodCallDescriptor)
+        public SelectExpandItemQueryFunctionParameters(SortCollectionParameters sortCollection)
         {
-            MethodCallDescriptor = methodCallDescriptor;
+            SortCollection = sortCollection;
         }
 
-        public IExpressionParameter MethodCallDescriptor { get; set; }
+        public SortCollectionParameters SortCollection { get; set; }
     }
 }

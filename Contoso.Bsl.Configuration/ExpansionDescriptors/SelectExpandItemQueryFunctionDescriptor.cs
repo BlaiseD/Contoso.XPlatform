@@ -4,6 +4,6 @@ namespace Contoso.Bsl.Configuration.ExpansionDescriptors
 {
     public class SelectExpandItemQueryFunctionDescriptor
     {
-        public IExpressionOperatorDescriptor MethodCallDescriptor { get; set; }
+        public SortCollectionDescriptor SortCollection { get; set; }
     }
 }
