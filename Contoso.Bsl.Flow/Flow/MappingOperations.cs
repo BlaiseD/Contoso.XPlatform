@@ -8,10 +8,12 @@ using LogicBuilder.Expressions.Utils.Expansions;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleToAttribute("Contoso.Bsl.Flow.Integration.Tests")]
 namespace Contoso.Bsl.Flow
 {
-    public static class MappingOperations
+    internal static class MappingOperations
     {
         public static IExpressionPart MapToOperator(this IMapper mapper, IExpressionParameter expression)
             => mapper.MapToOperator

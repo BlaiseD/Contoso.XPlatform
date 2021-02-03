@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LogicBuilder.EntityFrameworkCore.SqlServer" Version="4.1.1-alpha.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\LogicBuilder.DataComponents\LogicBuilder.EntityFrameworkCore.SqlServer\LogicBuilder.EntityFrameworkCore.SqlServer.csproj" />
     <ProjectReference Include="..\Contoso.Contexts\Contoso.Contexts.csproj" />
   </ItemGroup>
 

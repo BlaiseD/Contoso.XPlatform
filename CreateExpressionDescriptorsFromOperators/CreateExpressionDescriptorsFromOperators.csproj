@@ -6,8 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LogicBuilder.Expressions.Utils" Version="4.1.1-alpha.2.3" />
     <PackageReference Include="System.CodeDom" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\LogicBuilder.DataComponents\LogicBuilder.Expressions.Utils\LogicBuilder.Expressions.Utils.csproj" />
   </ItemGroup>
   
   <ItemGroup>

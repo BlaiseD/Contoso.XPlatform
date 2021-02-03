@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Contoso.Bsl.Flow.Integration.Tests
 {
@@ -117,10 +118,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
 
         protected override Expression VisitNew(NewExpression node)
         {
-            Out("new " + node.Type.Name + "(");
+            Out("new " + GetTypeName() + "(");
             VisitArguments(node.Arguments.ToArray());
             Out(")");
             return node;
+
+            string GetTypeName()
+                => Regex.IsMatch(node.Type.Name, @"^AnonymousType\d$") ? "AnonymousType" : node.Type.Name;
         }
 
         protected override MemberListBinding VisitMemberListBinding(MemberListBinding node)
@@ -137,12 +141,16 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         {
             VisitNew(node.NewExpression);
             Out(" {");
-            foreach (MemberAssignment memberNode in node.Bindings)
+            List<MemberAssignment> memberAssignments = node.Bindings.OfType<MemberAssignment>().ToList();
+            for (int i = 0; i < memberAssignments.Count; i++)
             {
-                Out(memberNode.Member.Name + " = ");
+                MemberAssignment memberNode = memberAssignments[i];
 
+                Out(memberNode.Member.Name + " = ");
                 Visit(memberNode.Expression);
-                Out(", ");
+
+                if (i < node.Bindings.Count - 1)
+                    Out(", ");
             }
             Out("}");
 

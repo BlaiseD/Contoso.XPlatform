@@ -196,7 +196,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                                 (
                                     new List<SortDescriptionParameters>
                                     {
-                                        new SortDescriptionParameters("GradeLetter", ListSortDirection.Ascending)
+                                        new SortDescriptionParameters("Grade", ListSortDirection.Ascending)
                                     },
                                     null,
                                     null
@@ -273,7 +273,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                                 (
                                     new List<SortDescriptionParameters>
                                     {
-                                        new SortDescriptionParameters("GradeLetter", ListSortDirection.Descending)
+                                        new SortDescriptionParameters("Grade", ListSortDirection.Descending)
                                     },
                                     1,
                                     2
@@ -310,15 +310,14 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 });
             }
             MapperConfiguration.AssertConfigurationIsValid();
+
             serviceProvider = new ServiceCollection()
                 .AddDbContext<SchoolContext>
                 (
-                    options =>
-                    {
-                        options.UseInMemoryDatabase("ContosoUniVersity");
-                        options.UseInternalServiceProvider(new ServiceCollection().AddEntityFrameworkInMemoryDatabase().BuildServiceProvider());
-                    },
-                    ServiceLifetime.Transient
+                    options => options.UseSqlServer
+                    (
+                        @"Server=(localdb)\mssqllocaldb;Database=SchoolContext1;ConnectRetryCount=0"
+                    )
                 )
                 .AddTransient<ISchoolStore, SchoolStore>()
                 .AddTransient<ISchoolRepository, SchoolRepository>()
@@ -330,6 +329,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 .BuildServiceProvider();
 
             SchoolContext context = serviceProvider.GetRequiredService<SchoolContext>();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             Seed_Database(serviceProvider.GetRequiredService<ISchoolRepository>()).Wait();

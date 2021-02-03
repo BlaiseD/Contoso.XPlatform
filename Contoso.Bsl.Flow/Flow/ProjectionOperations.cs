@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Contoso.Data;
-using Contoso.Domain;
 using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
+using LogicBuilder.Data;
+using LogicBuilder.Domain;
 using LogicBuilder.EntityFrameworkCore.SqlServer.Repositories;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder;
 using System;
@@ -12,7 +12,7 @@ using System.Linq.Expressions;
 
 namespace Contoso.Bsl.Flow
 {
-    public static class ProjectionOperations<TModel, TData> where TModel : BaseModelClass, new() where TData : BaseDataClass
+    public static class ProjectionOperations<TModel, TData> where TModel : BaseModel where TData : BaseData
     {
         public static TModel Get(IContextRepository repository,
             IMapper mapper,

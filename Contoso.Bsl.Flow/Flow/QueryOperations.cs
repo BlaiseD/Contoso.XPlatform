@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 
 namespace Contoso.Bsl.Flow
 {
-    public static class QueryOperations<TModel, TData, TModelReturn, TDataReturn> where TModel : BaseModelClass, new() where TData : BaseDataClass
+    public static class QueryOperations<TModel, TData, TModelReturn, TDataReturn> where TModel : LogicBuilder.Domain.BaseModel where TData : LogicBuilder.Data.BaseData
     {
         public static TModelReturn Get(IContextRepository repository,
             IMapper mapper,

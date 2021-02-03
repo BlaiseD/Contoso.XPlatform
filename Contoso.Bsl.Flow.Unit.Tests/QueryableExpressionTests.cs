@@ -158,6 +158,7 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<IQueryable<Department>, IQueryable<object>>> expression = GetExpression<IQueryable<Department>, IQueryable<object>>(expressionParameter);
 
             //assert
+            AssertFilterStringIsCorrect(expression, "q => Convert(q.GroupBy(a => 1).OrderBy(b => b.Key).Select(c => new AnonymousType() {Sum_budget = q.Where(d => ((d.DepartmentID == q.Count()) AndAlso (d.DepartmentID == c.Key))).ToList()}))");
             Assert.NotNull(expression);
         }
 
@@ -299,6 +300,7 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<IQueryable<Department>, object>> expression = GetExpression<IQueryable<Department>, object>(expressionParameter);
 
             //assert
+            AssertFilterStringIsCorrect(expression, "q => Convert(q.GroupBy(item => 1).AsQueryable().OrderBy(group => group.Key).Select(sel => new AnonymousType() {Min_administratorName = q.Where(d => (1 == sel.Key)).Min(item => item.Administrator.LastName.Concat(\" \").Concat(item.Administrator.FirstName)), Count_name = q.Where(d => (1 == sel.Key)).Count(), Sum_budget = q.Where(d => (1 == sel.Key)).Sum(item => item.Budget), Min_budget = q.Where(d => (1 == sel.Key)).Min(item => item.Budget), Min_startDate = q.Where(d => (1 == sel.Key)).Min(item => item.StartDate)}).FirstOrDefault())");
             Assert.NotNull(expression);
         }
 
