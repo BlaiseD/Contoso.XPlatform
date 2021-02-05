@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LogicBuilder.DataComponents\LogicBuilder.EntityFrameworkCore.SqlServer\LogicBuilder.EntityFrameworkCore.SqlServer.csproj" />
+    <PackageReference Include="LogicBuilder.EntityFrameworkCore.SqlServer" Version="4.1.1-preview.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Contoso.Contexts\Contoso.Contexts.csproj" />
   </ItemGroup>
 

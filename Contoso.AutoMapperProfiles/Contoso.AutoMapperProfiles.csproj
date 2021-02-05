@@ -6,10 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="LogicBuilder.Expressions.Utils" Version="4.1.1-preview.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LogicBuilder.DataComponents\LogicBuilder.Expressions.Utils\LogicBuilder.Expressions.Utils.csproj" />
     <ProjectReference Include="..\Contoso.Bsl.Configuration\Contoso.Bsl.Configuration.csproj" />
     <ProjectReference Include="..\Contoso.Data\Contoso.Data.csproj" />
     <ProjectReference Include="..\Contoso.Domain\Contoso.Domain.csproj" />
