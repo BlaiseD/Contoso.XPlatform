@@ -665,7 +665,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             );
 
             //act
-            DoTest<CourseModel, Course, object, object>
+            DoTest<CourseModel, Course, IQueryable<int>, IQueryable<int>>
             (
                 bodyParameter,
                 parameterName,
@@ -673,7 +673,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 {
                     Assert.NotNull(returnValue);
                 },
-                "$it => Convert($it.GroupBy(a => a.DepartmentID).Select(b => b.Key))"
+                "$it => $it.GroupBy(a => a.DepartmentID).Select(b => b.Key)"
             );
         }
 
@@ -703,7 +703,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 parameterName,
                 returnValue =>
                 {
-                    Assert.True(returnValue > 2);
+                    Assert.Equal(4, returnValue);
                 },
                 "$it => $it.GroupBy(a => a.DepartmentID).Select(b => b.Key).Count()"
             );
@@ -967,12 +967,12 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             );
 
             //act
-            DoTest<DepartmentModel, Department, IQueryable<DepartmentModel>, IQueryable<Department>>
+            DoTest<DepartmentModel, Department, IOrderedQueryable<DepartmentModel>, IOrderedQueryable<Department>>
             (
                 bodyParameter,
                 parameterName,
                 returnValue => Assert.Equal(1, returnValue.First().DepartmentID),
-                ""//"$it => $it.OrderBy(a => a.DepartmentID).ToList()"
+                "$it => $it.OrderBy(a => a.DepartmentID)"
             );
         }
 
@@ -980,13 +980,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void OrderByDescending()
         {
             //arrange
-            var bodyParameter = new AsQueryableOperatorParameter(new OrderByOperatorParameter
+            var bodyParameter = new OrderByOperatorParameter
             (
                 new ParameterOperatorParameter(parameterName),
                 new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
                 ListSortDirection.Descending,
                 "a"
-            ));
+            );
 
             //act
             DoTest<DepartmentModel, Department, IOrderedQueryable<DepartmentModel>, IOrderedQueryable<Department>>
@@ -994,7 +994,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 bodyParameter,
                 parameterName,
                 returnValue => Assert.Equal(4, returnValue.First().DepartmentID),
-                "$it => $it.OrderByDescending(a => a.DepartmentID).AsQueryable()"
+                "$it => $it.OrderByDescending(a => a.DepartmentID)"
             );
         }
 
@@ -1007,7 +1007,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 new OrderByOperatorParameter
                 (
                     new ParameterOperatorParameter(parameterName),
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new MemberSelectorOperatorParameter("Credits", new ParameterOperatorParameter("a")),
                     ListSortDirection.Ascending,
                     "a"
                 ),
@@ -1021,8 +1021,8 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             (
                 bodyParameter,
                 parameterName,
-                returnValue => Assert.Equal(2021, returnValue.First().CourseID),
-                "$it => $it.OrderBy(a => a.DepartmentID).ThenBy(a => a.CourseID)"
+                returnValue => Assert.Equal(1050, returnValue.First().CourseID),
+                "$it => $it.OrderBy(a => a.Credits).ThenBy(a => a.CourseID)"
             );
         }
 
@@ -1035,7 +1035,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 new OrderByOperatorParameter
                 (
                     new ParameterOperatorParameter(parameterName),
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new MemberSelectorOperatorParameter("Credits", new ParameterOperatorParameter("a")),
                     ListSortDirection.Ascending,
                     "a"
                 ),
@@ -1045,12 +1045,311 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             );
 
             //act
-            DoTest<CourseModel, Course, IQueryable<CourseModel>, IQueryable<Course>>
+            DoTest<CourseModel, Course, IOrderedQueryable<CourseModel>, IOrderedQueryable<Course>>
             (
                 bodyParameter,
                 parameterName,
-                returnValue => Assert.Equal(2042, returnValue.First().CourseID),
-                "$it => $it.OrderBy(a => a.DepartmentID).ThenByDescending(a => a.CourseID)"
+                returnValue => Assert.Equal(4041, returnValue.First().CourseID),
+                "$it => $it.OrderBy(a => a.Credits).ThenByDescending(a => a.CourseID)"
+            );
+        }
+
+        [Fact]
+        public void Paging()
+        {
+            //arrange
+            var bodyParameter = new TakeOperatorParameter
+            (
+                new SkipOperatorParameter
+                (
+                    new ThenByOperatorParameter
+                    (
+                        new OrderByOperatorParameter
+                        (
+                            new SelectManyOperatorParameter
+                            (
+                                new ParameterOperatorParameter(parameterName),
+                                new MemberSelectorOperatorParameter("Assignments", new ParameterOperatorParameter("a")),
+                                "a"
+                            ),
+                            new MemberSelectorOperatorParameter("CourseTitle", new ParameterOperatorParameter("a")),
+                            ListSortDirection.Ascending,
+                            "a"
+                        ),
+                        new MemberSelectorOperatorParameter("InstructorID", new ParameterOperatorParameter("a")),
+                        ListSortDirection.Ascending,
+                        "a"
+                    ),
+                    1
+                ),
+                2
+            );
+
+            //act
+            DoTest<CourseModel, Course, IQueryable<CourseAssignmentModel>, IQueryable<CourseAssignment>>
+            (
+                bodyParameter,
+                parameterName,
+                returnValue =>
+                {
+                    Assert.Equal(2, returnValue.Count());
+                    Assert.Equal("Chemistry", returnValue.Last().CourseTitle);
+                },
+                "$it => $it.SelectMany(a => a.Assignments).OrderBy(a => a.CourseTitle).ThenBy(a => a.InstructorID).Skip(1).Take(2)"
+            );
+        }
+
+        [Fact]
+        public void Select_New()
+        {
+            //arrange
+            var bodyParameter = new SelectOperatorParameter
+            (
+                new OrderByOperatorParameter
+                (
+                    new ParameterOperatorParameter(parameterName),
+                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    ListSortDirection.Descending,
+                    "a"
+                ),
+                new MemberInitOperatorParameter
+                (
+                    new Dictionary<string, IExpressionParameter>
+                    {
+                        ["ID"] = new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                        ["DepartmentName"] = new MemberSelectorOperatorParameter("Name", new ParameterOperatorParameter("a")),
+                        ["Courses"] = new MemberSelectorOperatorParameter("Courses", new ParameterOperatorParameter("a"))
+                    }
+                ),
+                "a"
+            );
+
+            //act
+            DoTest<DepartmentModel, Department, IQueryable<dynamic>, IQueryable<dynamic>>
+            (
+                bodyParameter,
+                parameterName,
+                returnValue => Assert.Equal(4, returnValue.First().ID),
+                "$it => Convert($it.OrderByDescending(a => a.DepartmentID).Select(a => new AnonymousType() {ID = a.DepartmentID, DepartmentName = a.Name, Courses = a.Courses}))"
+            );
+        }
+
+        [Fact]
+        public void SelectMany()
+        {
+            //arrange
+            var bodyParameter = new SelectManyOperatorParameter
+            (
+                new ParameterOperatorParameter(parameterName),
+                new MemberSelectorOperatorParameter("Assignments", new ParameterOperatorParameter("a")),
+                "a"
+            );
+
+            //act
+            DoTest<CourseModel, Course, IQueryable<CourseAssignmentModel>, IQueryable<CourseAssignment>>
+            (
+                bodyParameter,
+                parameterName,
+                returnValue =>
+                {
+                    Assert.Equal(8, returnValue.Count());
+                },
+                "$it => $it.SelectMany(a => a.Assignments)"
+            );
+        }
+
+        [Fact]
+        public void Single_Filter_Throws_Exception()
+        {
+            //arrange
+            var bodyParameter = new SingleOperatorParameter
+            (
+                new ParameterOperatorParameter(parameterName),
+                new EqualsBinaryOperatorParameter
+                (
+                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new ConstantOperatorParameter(-1)
+                ),
+                "a"
+            );
+
+            //act
+            Assert.Throws<AggregateException>
+            (
+                () => DoTest<DepartmentModel, Department, DepartmentModel, Department>
+                (
+                    bodyParameter,
+                    parameterName,
+                    returnValue => { },
+                    "$it => $it.Single(a => (a.DepartmentID == -1))"
+                )
+            );
+        }
+
+        [Fact]
+        public void Single_Filter_Returns_match()
+        {
+            //arrange
+            var bodyParameter = new SingleOperatorParameter
+            (
+                new ParameterOperatorParameter(parameterName),
+                new EqualsBinaryOperatorParameter
+                (
+                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new ConstantOperatorParameter(1)
+                ),
+                "a"
+            );
+
+            //act
+            DoTest<DepartmentModel, Department, DepartmentModel, Department>
+            (
+                bodyParameter,
+                parameterName,
+                returnValue => Assert.Equal(1, returnValue.DepartmentID),
+                "$it => $it.Single(a => (a.DepartmentID == 1))"
+            );
+        }
+
+        [Fact]
+        public void Single_with_multiple_matches_Throws_Exception()
+        {
+            //arrange
+            var bodyParameter = new SingleOperatorParameter
+            (
+                new ParameterOperatorParameter(parameterName)
+            );
+
+            //act
+            Assert.Throws<AggregateException>
+            (
+                () => DoTest<DepartmentModel, Department, DepartmentModel, Department>
+                (
+                    bodyParameter,
+                    parameterName,
+                    returnValue => { },
+                    "$it => $it.Single()"
+                )
+            );
+        }
+
+        [Fact]
+        public void Sum_Selector()
+        {
+            //arrange
+            var bodyParameter = new SumOperatorParameter
+            (
+                new ParameterOperatorParameter(parameterName),
+                new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                "a"
+            );
+
+            //act
+            DoTest<DepartmentModel, Department, int, int>
+            (
+                bodyParameter,
+                parameterName,
+                returnValue => Assert.Equal(10, returnValue),
+                "$it => $it.Sum(a => a.DepartmentID)"
+            );
+        }
+
+        [Fact]
+        public void Sum()
+        {
+            //arrange
+            var bodyParameter = new SumOperatorParameter
+            (
+                new SelectOperatorParameter
+                (
+                    new ParameterOperatorParameter(parameterName),
+                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    "a"
+                )
+            );
+
+            //act
+            DoTest<DepartmentModel, Department, int, int>
+            (
+                bodyParameter,
+                parameterName,
+                returnValue => Assert.Equal(10, returnValue),
+                "$it => $it.Select(a => a.DepartmentID).Sum()"
+            );
+        }
+
+        [Fact]
+        public void ToList()
+        {
+            //arrange
+            var bodyParameter = new ToListOperatorParameter
+            (
+                new ParameterOperatorParameter(parameterName)
+            );
+
+            //act
+            DoTest<DepartmentModel, Department, List<DepartmentModel>, List<Department>>
+            (
+                bodyParameter,
+                parameterName,
+                returnValue => Assert.Equal(4, returnValue.Count),
+                "$it => $it.ToList()"
+            );
+        }
+
+        [Fact]
+        public void Where_with_matches()
+        {
+            //arrange
+            var bodyParameter = new WhereOperatorParameter
+            (
+                new OrderByOperatorParameter
+                (
+                    new ParameterOperatorParameter(parameterName),
+                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    ListSortDirection.Descending,
+                    "a"
+                ),
+                new NotEqualsBinaryOperatorParameter
+                (
+                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new ConstantOperatorParameter(1)
+                ),
+                "a"
+            );
+
+            //act
+            DoTest<DepartmentModel, Department, IQueryable<DepartmentModel>, IQueryable<Department>>
+            (
+                bodyParameter,
+                parameterName,
+                returnValue => Assert.Equal(2, returnValue.Last().DepartmentID),
+                "$it => $it.OrderByDescending(a => a.DepartmentID).Where(a => (a.DepartmentID != 1))"
+            );
+        }
+
+        [Fact]
+        public void Where_without_matches()
+        {
+            //arrange
+            var bodyParameter = new WhereOperatorParameter
+            (
+                new ParameterOperatorParameter(parameterName),
+                new EqualsBinaryOperatorParameter
+                (
+                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new ConstantOperatorParameter(-1)
+                ),
+                "a"
+            );
+
+            //act
+            DoTest<DepartmentModel, Department, IQueryable<DepartmentModel>, IQueryable<Department>>
+            (
+                bodyParameter,
+                parameterName,
+                returnValue => Assert.Empty(returnValue),
+                "$it => $it.Where(a => (a.DepartmentID == -1))"
             );
         }
 
@@ -1061,26 +1360,37 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
             IExpressionParameter expressionParameter = GetExpressionParameter<IQueryable<TModel>, TModelReturn>(bodyParameter, parameterName);
 
-            //act
-            TModelReturn returnValue = QueryOperations<TModel, TData, TModelReturn, TDataReturn>.Get
-            (
-                repository,
-                mapper,
-                expressionParameter
-            );
+            TestExpressionString();
+            TestReturnValue();
 
-            Expression<Func<IQueryable<TModel>, TModelReturn>> expression = QueryOperations<TModel, TData, TModelReturn, TDataReturn>.GetQueryFunc
-            (
-                mapper.MapToOperator(expressionParameter)
-            );
-
-            //assert
-            if (!string.IsNullOrEmpty(expectedExpressionString))
+            void TestReturnValue()
             {
-                AssertFilterStringIsCorrect(expression, expectedExpressionString);
+                //act
+                TModelReturn returnValue = QueryOperations<TModel, TData, TModelReturn, TDataReturn>.Query
+                (
+                    repository,
+                    mapper,
+                    expressionParameter
+                );
+
+                //assert
+                assert(returnValue);
             }
 
-            assert(returnValue);
+            void TestExpressionString()
+            {
+                //act
+                Expression<Func<IQueryable<TModel>, TModelReturn>> expression = QueryOperations<TModel, TData, TModelReturn, TDataReturn>.GetQueryFunc
+                (
+                    mapper.MapToOperator(expressionParameter)
+                );
+
+                //assert
+                if (!string.IsNullOrEmpty(expectedExpressionString))
+                {
+                    AssertFilterStringIsCorrect(expression, expectedExpressionString);
+                }
+            }
         }
         #endregion Tests
 
