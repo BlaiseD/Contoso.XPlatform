@@ -1440,7 +1440,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                     (
                         @"Server=(localdb)\mssqllocaldb;Database=SchoolContext2;ConnectRetryCount=0"
                     ),
-                    ServiceLifetime.Singleton
+                    ServiceLifetime.Transient
                 )
                 .AddTransient<ISchoolStore, SchoolStore>()
                 .AddTransient<ISchoolRepository, SchoolRepository>()

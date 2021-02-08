@@ -12,7 +12,7 @@ using System.Linq.Expressions;
 
 namespace Contoso.Bsl.Flow
 {
-    public static class ProjectionOperations<TModel, TData> where TModel : BaseModel where TData : BaseData
+    internal static class ProjectionOperations<TModel, TData> where TModel : BaseModel where TData : BaseData
     {
         public static TModel Get(IContextRepository repository,
             IMapper mapper,
@@ -40,10 +40,10 @@ namespace Contoso.Bsl.Flow
                 mapper.MapExpansion(expansion)
             ).Result;
 
-        private static Expression<Func<TModel, bool>> GetFilter(IExpressionPart filterExpression)
+        public static Expression<Func<TModel, bool>> GetFilter(IExpressionPart filterExpression)
             => (Expression<Func<TModel, bool>>)filterExpression?.Build();
 
-        private static Expression<Func<IQueryable<TModel>, IQueryable<TModel>>> GetQueryFunc(IExpressionPart selectorExpression)
+        public static Expression<Func<IQueryable<TModel>, IQueryable<TModel>>> GetQueryFunc(IExpressionPart selectorExpression)
             => (Expression<Func<IQueryable<TModel>, IQueryable<TModel>>>)selectorExpression?.Build();
     }
 }
