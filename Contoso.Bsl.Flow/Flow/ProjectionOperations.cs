@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
+using LogicBuilder.Attributes;
 using LogicBuilder.Data;
 using LogicBuilder.Domain;
 using LogicBuilder.EntityFrameworkCore.SqlServer.Repositories;
@@ -14,6 +15,8 @@ namespace Contoso.Bsl.Flow
 {
     internal static class ProjectionOperations<TModel, TData> where TModel : BaseModel where TData : BaseData
     {
+        [AlsoKnownAs("GetSingle")]
+        [FunctionGroup(FunctionGroup.Standard)]
         public static TModel Get(IContextRepository repository,
             IMapper mapper,
             IExpressionParameter filterExpression,
@@ -28,6 +31,8 @@ namespace Contoso.Bsl.Flow
                 expansion
             ).SingleOrDefault();
 
+        [AlsoKnownAs("GetList")]
+        [FunctionGroup(FunctionGroup.Standard)]
         public static ICollection<TModel> GetItems(IContextRepository repository,
             IMapper mapper,
             IExpressionParameter filterExpression = null,

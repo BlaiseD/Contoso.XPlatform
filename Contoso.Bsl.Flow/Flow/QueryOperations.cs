@@ -3,6 +3,7 @@ using Contoso.Data;
 using Contoso.Domain;
 using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
+using LogicBuilder.Attributes;
 using LogicBuilder.EntityFrameworkCore.SqlServer.Repositories;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder;
 using System;
@@ -24,6 +25,8 @@ namespace Contoso.Bsl.Flow
         /// <param name="queryExpression"></param>
         /// <param name="expansion">Can be used when TModelReturn and TDataReturn are IQueryables</param>
         /// <returns></returns>
+        [AlsoKnownAs("Query")]
+        [FunctionGroup(FunctionGroup.Standard)]
         public static TModelReturn Query(IContextRepository repository,
             IMapper mapper,
             IExpressionParameter queryExpression,
