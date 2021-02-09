@@ -1,7 +1,9 @@
 ﻿using LogicBuilder.Data;
 using LogicBuilder.Domain;
 using LogicBuilder.EntityFrameworkCore.SqlServer.Repositories;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Contoso.Bsl.Flow
 {
@@ -18,6 +20,9 @@ namespace Contoso.Bsl.Flow
 
         public static void AddGraphChanges(IContextRepository repository, ICollection<TModel> entities)
             => repository.AddGraphChanges<TModel, TData>(entities);
+
+        public static bool Delete(IContextRepository repository, Expression<Func<TModel, bool>> filter)
+            => repository.DeleteAsync<TModel, TData>(filter).Result;
 
         public static bool Save(IContextRepository repository, TModel entity)
             => repository.SaveAsync<TModel, TData>(entity).Result;

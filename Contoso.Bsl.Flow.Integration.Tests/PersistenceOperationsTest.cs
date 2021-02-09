@@ -4,6 +4,7 @@ using Contoso.AutoMapperProfiles;
 using Contoso.Contexts;
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
+using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
 using Contoso.Repositories;
 using Contoso.Stores;
@@ -33,7 +34,111 @@ namespace Contoso.Bsl.Flow.Integration.Tests
 
         #region Tests
         [Fact]
-        public void Update_Single_Entity()
+        public void Add_A_Single_Entity()
+        {
+            //arrange
+            var bodyParameter = new EqualsBinaryOperatorParameter
+            (
+                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
+                new ConstantOperatorParameter("Roger Milla")
+            );
+
+            //act
+            DoTest<StudentModel, Student>
+            (
+                bodyParameter,
+                null,
+                new SelectExpandDefinitionParameters
+                {
+                    ExpandedItems = new List<SelectExpandItemParameters>
+                    {
+                        new SelectExpandItemParameters { MemberName = "Enrollments" }
+                    }
+                },
+                parameterName,
+                (StudentModel studentModel, ISchoolRepository repository) =>
+                {
+                    PersistenceOperations<StudentModel, Student>.Save
+                    (
+                        repository, 
+                        new StudentModel
+                        {
+                            EntityState = LogicBuilder.Domain.EntityStateType.Added,
+                            EnrollmentDate = new DateTime(2021, 2, 8),
+                            Enrollments = new List<EnrollmentModel>
+                            {
+                                new EnrollmentModel { CourseID = 1050, Grade = Domain.Entities.Grade.A },
+                                new EnrollmentModel { CourseID = 4022, Grade = Domain.Entities.Grade.A },
+                                new EnrollmentModel { CourseID = 4041, Grade = Domain.Entities.Grade.A }
+                            },
+                            FirstName = "Roger",
+                            LastName = "Milla"
+                        }
+                    );
+                },
+                returnValue =>
+                {
+                    Assert.Equal(new DateTime(2021, 2, 8), returnValue.EnrollmentDate);
+                    Assert.Empty(returnValue.Enrollments);
+                },
+                "$it => ($it.FullName == \"Roger Milla\")"
+            );
+        }
+
+        [Fact]
+        public void Add_An_Object_Graph()
+        {
+            //arrange
+            var bodyParameter = new EqualsBinaryOperatorParameter
+            (
+                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
+                new ConstantOperatorParameter("Roger Milla")
+            );
+
+            //act
+            DoTest<StudentModel, Student>
+            (
+                bodyParameter,
+                null,
+                new SelectExpandDefinitionParameters
+                {
+                    ExpandedItems = new List<SelectExpandItemParameters>
+                    {
+                        new SelectExpandItemParameters { MemberName = "Enrollments" }
+                    }
+                },
+                parameterName,
+                (StudentModel studentModel, ISchoolRepository repository) =>
+                {
+                    PersistenceOperations<StudentModel, Student>.SaveGraph
+                    (
+                        repository,
+                        new StudentModel
+                        {
+                            EntityState = LogicBuilder.Domain.EntityStateType.Added,
+                            EnrollmentDate = new DateTime(2021, 2, 8),
+                            Enrollments = new List<EnrollmentModel>
+                            {
+                                new EnrollmentModel { CourseID = 1050, Grade = Domain.Entities.Grade.A },
+                                new EnrollmentModel { CourseID = 4022, Grade = Domain.Entities.Grade.A },
+                                new EnrollmentModel { CourseID = 4041, Grade = Domain.Entities.Grade.A }
+                            },
+                            FirstName = "Roger",
+                            LastName = "Milla"
+                        }
+                    );
+                },
+                returnValue =>
+                {
+                    Assert.Equal(new DateTime(2021, 2, 8), returnValue.EnrollmentDate);
+                    Assert.Equal(3, returnValue.Enrollments.Count());
+                },
+                "$it => ($it.FullName == \"Roger Milla\")"
+            );
+        }
+
+        [Fact]
+        public void Delete_A_Single_Entity_Using_Save()
         {
             //arrange
             var bodyParameter = new EqualsBinaryOperatorParameter
@@ -42,22 +147,225 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 new ConstantOperatorParameter("Carson Alexander")
             );
 
-            void DoUpdate(StudentModel studentModel, ISchoolRepository repository)
-            {
-                studentModel.EnrollmentDate = new DateTime(2021, 2, 8);
-                studentModel.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-                PersistenceOperations<StudentModel, Student>.Save(repository, studentModel);
-            }
+            //act
+            DoTest<StudentModel, Student>
+            (
+                bodyParameter,
+                null,
+                null,
+                parameterName,
+                (StudentModel studentModel, ISchoolRepository repository) =>
+                {
+                    studentModel.EntityState = LogicBuilder.Domain.EntityStateType.Deleted;
+                    PersistenceOperations<StudentModel, Student>.Save(repository, studentModel);
+                },
+                returnValue =>
+                {
+                    Assert.Null(returnValue);
+                },
+                "$it => ($it.FullName == \"Carson Alexander\")"
+            );
+        }
+
+        [Fact]
+        public void Delete_A_Single_Entity_Using_Delete()
+        {
+            //arrange
+            var bodyParameter = new EqualsBinaryOperatorParameter
+            (
+                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
+                new ConstantOperatorParameter("Carson Alexander")
+            );
 
             //act
             DoTest<StudentModel, Student>
             (
                 bodyParameter,
+                null,
+                null,
                 parameterName,
-                DoUpdate,
+                (StudentModel studentModel, ISchoolRepository repository) =>
+                {
+                    IExpressionParameter expressionParameter = GetFilterParameter<StudentModel>(bodyParameter, parameterName);
+                    Expression<Func<StudentModel, bool>> expression = ProjectionOperations<StudentModel, Student>.GetFilter
+                    (
+                        serviceProvider.GetRequiredService<IMapper>().MapToOperator(expressionParameter)
+                    );
+
+                    PersistenceOperations<StudentModel, Student>.Delete(repository, expression);
+                },
+                returnValue =>
+                {
+                    Assert.Null(returnValue);
+                },
+                "$it => ($it.FullName == \"Carson Alexander\")"
+            );
+        }
+
+        [Fact]
+        public void Update_A_Single_Entity()
+        {
+            //arrange
+            var bodyParameter = new EqualsBinaryOperatorParameter
+            (
+                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
+                new ConstantOperatorParameter("Carson Alexander")
+            );
+
+            //act
+            DoTest<StudentModel, Student>
+            (
+                bodyParameter,
+                null,
+                null,
+                parameterName,
+                (StudentModel studentModel, ISchoolRepository repository) => 
+                {
+                    studentModel.EnrollmentDate = new DateTime(2021, 2, 8);
+                    studentModel.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+                    PersistenceOperations<StudentModel, Student>.Save(repository, studentModel);
+                },
                 returnValue =>
                 {
                     Assert.Equal(new DateTime(2021, 2, 8), returnValue.EnrollmentDate);
+                },
+                "$it => ($it.FullName == \"Carson Alexander\")"
+            );
+        }
+
+        [Fact]
+        public void Add_An_Entry_To_A_Child_Collection()
+        {
+            //arrange
+            var bodyParameter = new EqualsBinaryOperatorParameter
+            (
+                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
+                new ConstantOperatorParameter("Carson Alexander")
+            );
+
+            //act
+            DoTest<StudentModel, Student>
+            (
+                bodyParameter,
+                null,
+                new SelectExpandDefinitionParameters
+                {
+                    ExpandedItems = new List<SelectExpandItemParameters>
+                    {
+                        new SelectExpandItemParameters { MemberName = "Enrollments" }
+                    }
+                },
+                parameterName,
+                (StudentModel studentModel, ISchoolRepository repository) =>
+                {
+                    studentModel.EnrollmentDate = new DateTime(2021, 2, 8);
+                    studentModel.Enrollments.Add
+                    (
+                        new EnrollmentModel
+                        {
+                            CourseID = 3141,
+                            Grade = Domain.Entities.Grade.B,
+                            EntityState = LogicBuilder.Domain.EntityStateType.Added
+                        }
+                    );
+                    
+                    studentModel.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+
+                    PersistenceOperations<StudentModel, Student>.SaveGraph(repository, studentModel);
+                },
+                returnValue =>
+                {
+                    Assert.Equal(new DateTime(2021, 2, 8), returnValue.EnrollmentDate);
+                    Assert.Equal(Domain.Entities.Grade.B, returnValue.Enrollments.Single(e => e.CourseID == 3141).Grade);
+                    Assert.Equal(4, returnValue.Enrollments.Count());
+                },
+                "$it => ($it.FullName == \"Carson Alexander\")"
+            );
+        }
+
+        [Fact]
+        public void Update_An_Entry_In_A_Child_Collection()
+        {
+            //arrange
+            var bodyParameter = new EqualsBinaryOperatorParameter
+            (
+                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
+                new ConstantOperatorParameter("Carson Alexander")
+            );
+
+            //act
+            DoTest<StudentModel, Student>
+            (
+                bodyParameter,
+                null,
+                new SelectExpandDefinitionParameters
+                {
+                    ExpandedItems = new List<SelectExpandItemParameters>
+                    {
+                        new SelectExpandItemParameters { MemberName = "Enrollments" }
+                    }
+                },
+                parameterName,
+                (StudentModel studentModel, ISchoolRepository repository) =>
+                {
+                    studentModel.EnrollmentDate = new DateTime(2021, 2, 8);
+                    var enrollment = studentModel.Enrollments.Single(e => e.CourseID == 1050);
+                    enrollment.Grade = Domain.Entities.Grade.B;
+
+                    studentModel.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+                    enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+
+                    PersistenceOperations<StudentModel, Student>.SaveGraph(repository, studentModel);
+                },
+                returnValue =>
+                {
+                    Assert.Equal(new DateTime(2021, 2, 8), returnValue.EnrollmentDate);
+                    Assert.Equal(Domain.Entities.Grade.B, returnValue.Enrollments.Single(e => e.CourseID == 1050).Grade);
+                    Assert.Equal(3, returnValue.Enrollments.Count());
+                },
+                "$it => ($it.FullName == \"Carson Alexander\")"
+            );
+        }
+
+        [Fact]
+        public void Delete_An_Entry_From_A_Child_Collection()
+        {
+            //arrange
+            var bodyParameter = new EqualsBinaryOperatorParameter
+            (
+                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
+                new ConstantOperatorParameter("Carson Alexander")
+            );
+
+            //act
+            DoTest<StudentModel, Student>
+            (
+                bodyParameter,
+                null,
+                new SelectExpandDefinitionParameters
+                {
+                    ExpandedItems = new List<SelectExpandItemParameters>
+                    {
+                        new SelectExpandItemParameters { MemberName = "Enrollments" }
+                    }
+                },
+                parameterName,
+                (StudentModel studentModel, ISchoolRepository repository) =>
+                {
+                    studentModel.EnrollmentDate = new DateTime(2021, 2, 8);
+                    var enrollment = studentModel.Enrollments.Single(e => e.CourseID == 1050);
+                    enrollment.Grade = Domain.Entities.Grade.B;
+
+                    studentModel.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+                    enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Deleted;
+
+                    PersistenceOperations<StudentModel, Student>.SaveGraph(repository, studentModel);
+                },
+                returnValue =>
+                {
+                    Assert.Equal(new DateTime(2021, 2, 8), returnValue.EnrollmentDate);
+                    Assert.Null(returnValue.Enrollments.SingleOrDefault(e => e.CourseID == 1050));
+                    Assert.Equal(2, returnValue.Enrollments.Count());
                 },
                 "$it => ($it.FullName == \"Carson Alexander\")"
             );
@@ -73,7 +381,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 parameterName
             );
 
-        void DoTest<TModel, TData>(IExpressionParameter bodyParameter, string parameterName, Action<TModel, ISchoolRepository> update, Action<TModel> assert, string expectedExpressionString) where TModel : LogicBuilder.Domain.BaseModel where TData : LogicBuilder.Data.BaseData
+        void DoTest<TModel, TData>(IExpressionParameter bodyParameter,
+            IExpressionParameter queryFunc,
+            SelectExpandDefinitionParameters expansion,
+            string parameterName, 
+            Action<TModel, ISchoolRepository> update, 
+            Action<TModel> assert, 
+            string expectedExpressionString) where TModel : LogicBuilder.Domain.BaseModel where TData : LogicBuilder.Data.BaseData
         {
             //arrange
             IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
@@ -90,7 +404,9 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 (
                     repository,
                     mapper,
-                    expressionParameter
+                    expressionParameter,
+                    queryFunc,
+                    expansion
                 );
 
                 update(returnValue, repository);
@@ -99,7 +415,9 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 (
                     repository,
                     mapper,
-                    expressionParameter
+                    expressionParameter,
+                    queryFunc,
+                    expansion
                 );
 
                 //assert
@@ -156,7 +474,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 (
                     options => options.UseSqlServer
                     (
-                        @"Server=(localdb)\mssqllocaldb;Database=SchoolContext2;ConnectRetryCount=0"
+                        @"Server=(localdb)\mssqllocaldb;Database=SchoolContext4;ConnectRetryCount=0"
                     ),
                     ServiceLifetime.Transient
                 )
@@ -170,6 +488,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 .BuildServiceProvider();
 
             SchoolContext context = serviceProvider.GetRequiredService<SchoolContext>();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             Seed_Database(serviceProvider.GetRequiredService<ISchoolRepository>()).Wait();

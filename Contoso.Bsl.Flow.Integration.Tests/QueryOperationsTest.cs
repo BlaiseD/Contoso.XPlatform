@@ -1452,6 +1452,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 .BuildServiceProvider();
 
             SchoolContext context = serviceProvider.GetRequiredService<SchoolContext>();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             Seed_Database(serviceProvider.GetRequiredService<ISchoolRepository>()).Wait();
