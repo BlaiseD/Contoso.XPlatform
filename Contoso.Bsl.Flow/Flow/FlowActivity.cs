@@ -12,35 +12,34 @@ namespace Contoso.Bsl.Flow
 {
     public class FlowActivity : IFlowActivity
     {
-        //private IExpressionDescriptor expressionDescriptor;
-        public DirectorBase Director => throw new NotImplementedException();
-
-        public void DisplayInputQuestions(InputFormParameters form, ICollection<ConnectorParameters> shortValues = null)
+        public FlowActivity(IFlowManager flowManager)
         {
-            throw new NotImplementedException();
+            this.flowManager = flowManager;
         }
 
-        public void DisplayQuestions(QuestionFormParameters form, ICollection<ConnectorParameters> shortValues = null)
-        {
-            throw new NotImplementedException();
-        }
+        #region Fields
+        private readonly IFlowManager flowManager;
+        #endregion Fields
 
-        public void FlowComplete()
-        {
-            throw new NotImplementedException();
-        }
+        #region Properties
+        public DirectorBase Director => this.flowManager.Director;
+        #endregion Properties
 
-        public string FormatString(string format, Collection<object> list) 
+        #region Methods
+        public string FormatString(string format, Collection<object> list)
             => string.Format(CultureInfo.CurrentCulture, format, list.ToArray());
 
-        public void Terminate()
-        {
-            throw new NotImplementedException();
-        }
+        public void FlowComplete() => this.flowManager.FlowComplete();
 
-        public void Wait()
-        {
-            throw new NotImplementedException();
-        }
+        public void Terminate() => this.flowManager.Terminate();
+
+        public void Wait() => this.flowManager.Wait();
+
+        public void DisplayInputQuestions(InputFormParameters form, ICollection<ConnectorParameters> shortValues = null)
+            => throw new NotImplementedException();
+
+        public void DisplayQuestions(QuestionFormParameters form, ICollection<ConnectorParameters> shortValues = null)
+            => throw new NotImplementedException();
+        #endregion Methods
     }
 }

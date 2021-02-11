@@ -6,6 +6,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Rulesets\initial.module" />
+    <None Remove="Rulesets\initial.resources" />
+    <None Remove="Rulesets\savestudent.module" />
+    <None Remove="Rulesets\savestudent.resources" />
+    <None Remove="Rulesets\VariablesMetadata.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Rulesets\initial.module" />
+    <EmbeddedResource Include="Rulesets\initial.resources" />
+    <EmbeddedResource Include="Rulesets\savestudent.module" />
+    <EmbeddedResource Include="Rulesets\savestudent.resources" />
+    <EmbeddedResource Include="Rulesets\VariablesMetadata.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LogicBuilder.RulesDirector" Version="1.0.0" />
     <PackageReference Include="LogicBuilder.Workflow.Activities.Rules" Version="1.0.2" />
   </ItemGroup>
@@ -15,6 +31,21 @@
     <ProjectReference Include="..\Contoso.Parameters\Contoso.Parameters.csproj" />
     <ProjectReference Include="..\Contoso.Repositories\Contoso.Repositories.csproj" />
     <ProjectReference Include="..\Contoso.Domain\Contoso.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
