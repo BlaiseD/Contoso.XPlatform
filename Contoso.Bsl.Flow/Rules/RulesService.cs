@@ -30,7 +30,6 @@ namespace Contoso.Bsl.Flow.Rules
                                                 .Where(f => f.EndsWith(".resources"))
                                                 .ToDictionary(f => GetKey(f).ToLowerInvariant());
 
-            int count = 0;
             foreach (string key in rules.Keys)
             {
                 await rulesLoader.LoadRulesOnStartUp
@@ -43,8 +42,6 @@ namespace Contoso.Bsl.Flow.Rules
                     },
                     cache
                 );
-                count++;
-                //Progress = (double)count / rules.Count;
             }
 
             return cache;

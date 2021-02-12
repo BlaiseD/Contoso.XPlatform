@@ -3,6 +3,7 @@ using AutoMapper.Extensions.ExpressionMapping;
 using Contoso.AutoMapperProfiles;
 using Contoso.Bsl.Flow.Cache;
 using Contoso.Bsl.Flow.Requests;
+using Contoso.Bsl.Flow.Responses;
 using Contoso.Contexts;
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
@@ -33,7 +34,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
         #region Tests
         [Fact]
-        public async void CheckInitializtion()
+        public void CheckInitializtion()
         {
             //arrange
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
@@ -45,12 +46,12 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
 
             //act
-            await flowManager.Start("initial");
-            student = schoolRepository.GetAsync<StudentModel, Student>(s => s.ID == student.ID).Result.Single();
+            flowManager.Start("savestudent");
+            //student = schoolRepository.GetAsync<StudentModel, Student>(s => s.ID == student.ID).Result.Single();
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", student.FirstName);
+            Assert.Equal("First", ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.FirstName);
         }
         #endregion Tests
 

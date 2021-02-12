@@ -8,7 +8,7 @@ namespace Contoso.Parameters.Expansions
         {
         }
 
-        public SortCollectionParameters(List<SortDescriptionParameters> sortDescriptions, int? skip, int? take)
+        public SortCollectionParameters(List<SortDescriptionParameters> sortDescriptions, int? skip = null, int? take = null)
         {
             SortDescriptions = sortDescriptions;
             Skip = skip;

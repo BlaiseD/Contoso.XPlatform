@@ -10,13 +10,13 @@ namespace Contoso.Parameters.Expansions
         {
         }
 
-        public SelectExpandItemParameters(string memberName, SelectExpandItemFilterParameters filter, SelectExpandItemQueryFunctionParameters queryFunction, List<string> selects, List<SelectExpandItemParameters> expandedItems)
+        public SelectExpandItemParameters(string memberName, SelectExpandItemFilterParameters filter = null, SelectExpandItemQueryFunctionParameters queryFunction = null, List<string> selects = null, List<SelectExpandItemParameters> expandedItems = null)
         {
             MemberName = memberName;
             Filter = filter;
             QueryFunction = queryFunction;
-            Selects = selects;
-            ExpandedItems = expandedItems;
+            Selects = selects ?? new List<string>();
+            ExpandedItems = expandedItems ?? new List<SelectExpandItemParameters>();
         }
 
         public string MemberName { get; set; }

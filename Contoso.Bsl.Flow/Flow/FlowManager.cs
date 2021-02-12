@@ -51,14 +51,11 @@ namespace Contoso.Bsl.Flow
 
         public void Wait() => throw new NotImplementedException();
 
-        public async Task Start(string module)
+        public void Start(string module)
         {
             try
             {
-               await Task.Run(() =>
-               {
-                   this.Director.StartInitialFlow(module);
-               });
+                this.Director.StartInitialFlow(module);
             }
             catch (Exception ex)
             {

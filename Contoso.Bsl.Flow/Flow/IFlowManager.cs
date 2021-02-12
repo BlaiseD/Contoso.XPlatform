@@ -16,7 +16,7 @@ namespace Contoso.Bsl.Flow
         Progress Progress { get; }
         ISchoolRepository SchoolRepository { get; }
 
-        Task Start(string module);
+        void Start(string module);
         void SetCurrentBusinessBackupData();
         void FlowComplete();
         void Wait();

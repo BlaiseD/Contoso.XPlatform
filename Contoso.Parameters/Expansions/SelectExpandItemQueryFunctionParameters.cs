@@ -8,7 +8,7 @@ namespace Contoso.Parameters.Expansions
         {
         }
 
-        public SelectExpandItemQueryFunctionParameters(SortCollectionParameters sortCollection)
+        public SelectExpandItemQueryFunctionParameters(SortCollectionParameters sortCollection = null)
         {
             SortCollection = sortCollection;
         }
