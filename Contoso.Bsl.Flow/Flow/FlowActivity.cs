@@ -29,6 +29,8 @@ namespace Contoso.Bsl.Flow
         public string FormatString(string format, Collection<object> list)
             => string.Format(CultureInfo.CurrentCulture, format, list.ToArray());
 
+        public string FormatString(string format, object[] list) => throw new NotImplementedException();
+
         public void FlowComplete() => this.flowManager.FlowComplete();
 
         public void Terminate() => this.flowManager.Terminate();

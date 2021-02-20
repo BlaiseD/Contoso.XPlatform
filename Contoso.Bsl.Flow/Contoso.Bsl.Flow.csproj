@@ -22,8 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LogicBuilder.RulesDirector" Version="1.0.0" />
-    <PackageReference Include="LogicBuilder.Workflow.Activities.Rules" Version="1.0.2" />
+    <PackageReference Include="LogicBuilder.RulesDirector" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
