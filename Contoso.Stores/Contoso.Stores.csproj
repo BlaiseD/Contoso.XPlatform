@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LogicBuilder.EntityFrameworkCore.SqlServer" Version="4.1.1-preview.2" />
+    <PackageReference Include="LogicBuilder.EntityFrameworkCore.SqlServer" Version="4.1.1-preview.3.2" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\Contoso.Contexts\Contoso.Contexts.csproj" />
   </ItemGroup>

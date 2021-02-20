@@ -33,7 +33,7 @@ namespace Contoso.Bsl.Flow.Flow
         [FunctionGroup(FunctionGroup.Standard)]
         public static T ItemByIndex(IEnumerable<T> enumerable, int index)
         {
-            return enumerable.ToList()[index];
+            return enumerable.ElementAt(index);
         }
     }
 }
