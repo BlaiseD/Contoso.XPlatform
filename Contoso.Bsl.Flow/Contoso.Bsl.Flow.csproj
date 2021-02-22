@@ -10,7 +10,11 @@
     <None Remove="Rulesets\initial.resources" />
     <None Remove="Rulesets\savestudent.module" />
     <None Remove="Rulesets\savestudent.resources" />
+    <None Remove="Rulesets\validatestudent.module" />
+    <None Remove="Rulesets\validatestudent.resources" />
     <None Remove="Rulesets\VariablesMetadata.xml" />
+    <None Remove="Rulesets\warmup.module" />
+    <None Remove="Rulesets\warmup.resources" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +22,11 @@
     <EmbeddedResource Include="Rulesets\initial.resources" />
     <EmbeddedResource Include="Rulesets\savestudent.module" />
     <EmbeddedResource Include="Rulesets\savestudent.resources" />
+    <EmbeddedResource Include="Rulesets\validatestudent.module" />
+    <EmbeddedResource Include="Rulesets\validatestudent.resources" />
     <EmbeddedResource Include="Rulesets\VariablesMetadata.xml" />
+    <EmbeddedResource Include="Rulesets\warmup.module" />
+    <EmbeddedResource Include="Rulesets\warmup.resources" />
   </ItemGroup>
 
   <ItemGroup>

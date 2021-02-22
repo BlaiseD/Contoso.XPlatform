@@ -27,9 +27,10 @@ namespace Contoso.Bsl.Flow
 
         #region Methods
         public string FormatString(string format, Collection<object> list)
-            => string.Format(CultureInfo.CurrentCulture, format, list.ToArray());
+            => FormatString(format, list.ToArray());
 
-        public string FormatString(string format, object[] list) => throw new NotImplementedException();
+        public string FormatString(string format, object[] list) 
+            => string.Format(CultureInfo.CurrentCulture, format, list);
 
         public void FlowComplete() => this.flowManager.FlowComplete();
 

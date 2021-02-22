@@ -37,36 +37,118 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
         #region Tests
         [Fact]
-        public void SaveStudentRequestWithEnrollments()
+        public void SaveStudentRequestWithEnrollments1()
         {
-            //arrange
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>(s => s.FullName == "Carson Alexander").Result.Single();
+
+            //arrange
+            flowManager = serviceProvider.GetRequiredService<IFlowManager>();
+            var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>
+            (
+                s => s.FullName == "Carson Alexander",
+                selectExpandDefinition: new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
+                {
+                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
+                    {
+                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem { MemberName = "enrollments" }
+                    }
+                }
+            ).Result.Single();
             student.FirstName = "First";
             student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            student.Enrollments.ToList().ForEach(enrollment =>
+            {
+                enrollment.Grade = Domain.Entities.Grade.A;
+                enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            });
             flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
-
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
             flowManager.Start("savestudent");
             stopWatch.Stop();
-            this.output.WriteLine("CheckInitializtion Rules Execution = {0}", stopWatch.Elapsed.TotalMilliseconds);
-
-
-            flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>(s => s.FullName == "First Alexander").Result.Single();
-            student.FirstName = "Second";
-            student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
-            stopWatch = System.Diagnostics.Stopwatch.StartNew();
-            flowManager.Start("savestudent");
-            stopWatch.Stop();
-            this.output.WriteLine("CheckInitializtion2 Rules Execution = {0}", stopWatch.Elapsed.TotalMilliseconds);
+            this.output.WriteLine("Saving valid student using rules = {0}", stopWatch.Elapsed.TotalMilliseconds);
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("Second", ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.FirstName);
+            Assert.Equal("First", ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.FirstName);
+            Assert.Equal(Domain.Entities.Grade.A, ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.Enrollments.First().Grade);
+        }
+
+        [Fact]
+        public void SaveStudentRequestWithEnrollments2()
+        {
+            IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
+
+            //arrange
+            flowManager = serviceProvider.GetRequiredService<IFlowManager>();
+            var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>
+            (
+                s => s.FullName == "Carson Alexander",
+                selectExpandDefinition: new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
+                {
+                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
+                    {
+                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem { MemberName = "enrollments" }
+                    }
+                }
+            ).Result.Single();
+            student.FirstName = "First";
+            student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            student.Enrollments.ToList().ForEach(enrollment =>
+            {
+                enrollment.Grade = Domain.Entities.Grade.A;
+                enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            });
+            flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
+
+            //act
+            System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
+            flowManager.Start("savestudent");
+            stopWatch.Stop();
+            this.output.WriteLine("Saving valid student using rules = {0}", stopWatch.Elapsed.TotalMilliseconds);
+
+            //assert
+            Assert.True(flowManager.FlowDataCache.Response.Success);
+            Assert.Equal("First", ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.FirstName);
+            Assert.Equal(Domain.Entities.Grade.A, ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.Enrollments.First().Grade);
+        }
+
+        [Fact]
+        public void SaveStudentRequestWithInvalidStudent()
+        {
+            IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
+
+            //arrange
+            flowManager = serviceProvider.GetRequiredService<IFlowManager>();
+            var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>
+            (
+                s => s.FullName == "Carson Alexander",
+                selectExpandDefinition: new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
+                {
+                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
+                    {
+                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem { MemberName = "enrollments" }
+                    }
+                }
+            ).Result.Single();
+            student.FirstName = "";
+            student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            student.Enrollments.ToList().ForEach(enrollment =>
+            {
+                enrollment.Grade = Domain.Entities.Grade.A;
+                enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            });
+            flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
+
+            //act
+            System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
+            flowManager.Start("savestudent");
+            stopWatch.Stop();
+            this.output.WriteLine("Saving valid student using rules = {0}", stopWatch.Elapsed.TotalMilliseconds);
+
+            //assert
+            Assert.False(flowManager.FlowDataCache.Response.Success);
         }
 
         [Fact]
@@ -74,171 +156,24 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
         {
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
             ISchoolRepository schoolRepository = serviceProvider.GetRequiredService<ISchoolRepository>();
-            var student = schoolRepository.GetAsync<StudentModel, Student>(s => s.FullName == "Carson Alexander").Result.Single();
+            var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>
+            (
+                s => s.FullName == "Carson Alexander",
+                selectExpandDefinition: new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
+                {
+                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
+                    {
+                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem { MemberName = "enrollments" }
+                    }
+                }
+            ).Result.Single();
             student.FirstName = "First";
             student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
-
-            System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
-
-            flowManager.FlowDataCache.Items["Contoso.Domain.Entities.StudentModel"] = ((Contoso.Bsl.Flow.Requests.SaveStudentRequest)flowManager.FlowDataCache.Request).Student;
-            flowManager.FlowDataCache.Response = Contoso.Bsl.Flow.ResponseHelper<Contoso.Bsl.Flow.Responses.SaveStudentResponse>.CreateResponse();
-            flowManager.FlowDataCache.Response.Success = Contoso.Bsl.Flow.PersistenceOperations<Contoso.Domain.Entities.StudentModel, Contoso.Data.Entities.Student>.SaveGraph(flowManager.SchoolRepository, (Contoso.Domain.Entities.StudentModel)flowManager.FlowDataCache.Items["Contoso.Domain.Entities.StudentModel"]);
-            ((Contoso.Bsl.Flow.Responses.SaveStudentResponse)flowManager.FlowDataCache.Response).Student = Contoso.Bsl.Flow.ProjectionOperations<Contoso.Domain.Entities.StudentModel, Contoso.Data.Entities.Student>.Get
-            (
-                flowManager.SchoolRepository, 
-                flowManager.Mapper, 
-                new Contoso.Parameters.Expressions.FilterLambdaOperatorParameter
-                (
-                    new Contoso.Parameters.Expressions.EqualsBinaryOperatorParameter
-                    (
-                        new Contoso.Parameters.Expressions.MemberSelectorOperatorParameter
-                        (
-                            LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_ID", flowManager.Director), 
-                            new Contoso.Parameters.Expressions.ParameterOperatorParameter
-                            (
-                                LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_F", flowManager.Director)
-                            )
-                        ), 
-                        new Contoso.Parameters.Expressions.ConstantOperatorParameter
-                        (
-                            ((Contoso.Domain.Entities.StudentModel)flowManager.FlowDataCache.Items["Contoso.Domain.Entities.StudentModel"]).ID, 
-                            Contoso.Bsl.Flow.TypeHelper.GetType
-                            (
-                                LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource
-                                (
-                                    "savestudent_SYSTEM", 
-                                    flowManager.Director
-                                )
-                            )
-                        )
-                    ), 
-                    Contoso.Bsl.Flow.TypeHelper.GetType
-                    (
-                        LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_CCVCP", flowManager.Director)
-                    ), 
-                    LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_F", flowManager.Director)
-                ), 
-                null, 
-                new Contoso.Parameters.Expansions.SelectExpandDefinitionParameters
-                (
-                    new System.Collections.Generic.List<string>(new string[0]), 
-                    new System.Collections.Generic.List<Contoso.Parameters.Expansions.SelectExpandItemParameters>
-                    (
-                        new Contoso.Parameters.Expansions.SelectExpandItemParameters[] 
-                        { 
-                            new Contoso.Parameters.Expansions.SelectExpandItemParameters(LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_ENROLL", flowManager.Director), null, null, null, null) 
-                        }
-                    )
-                )
-            );
-
-            flowManager.FlowDataCache.Items["Contoso.Domain.Entities.StudentModel"] = Contoso.Bsl.Flow.ProjectionOperations<Contoso.Domain.Entities.StudentModel, Contoso.Data.Entities.Student>.Get
-            (
-                flowManager.SchoolRepository, 
-                flowManager.Mapper, 
-                new Contoso.Parameters.Expressions.FilterLambdaOperatorParameter
-                (
-                    new Contoso.Parameters.Expressions.EqualsBinaryOperatorParameter
-                    (
-                        new Contoso.Parameters.Expressions.MemberSelectorOperatorParameter
-                        (
-                            LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_ID", flowManager.Director), 
-                            new Contoso.Parameters.Expressions.ParameterOperatorParameter
-                            (
-                                LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_F", flowManager.Director)
-                            )
-                        ), 
-                        new Contoso.Parameters.Expressions.ConstantOperatorParameter
-                        (
-                            ((Contoso.Domain.Entities.StudentModel)flowManager.FlowDataCache.Items["Contoso.Domain.Entities.StudentModel"]).ID, 
-                            Contoso.Bsl.Flow.TypeHelper.GetType
-                            (
-                                LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_SYSTEM", flowManager.Director)
-                            )
-                        )
-                    ), 
-                    Contoso.Bsl.Flow.TypeHelper.GetType
-                    (
-                        LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_CCVCP", flowManager.Director)
-                    ), 
-                    LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_F", flowManager.Director)
-                ), 
-                null, 
-                new Contoso.Parameters.Expansions.SelectExpandDefinitionParameters
-                (
-                    new System.Collections.Generic.List<string>(new string[0]), 
-                    new System.Collections.Generic.List<Contoso.Parameters.Expansions.SelectExpandItemParameters>
-                    (
-                        new Contoso.Parameters.Expansions.SelectExpandItemParameters[] 
-                        { 
-                            new Contoso.Parameters.Expansions.SelectExpandItemParameters
-                            (
-                                LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_ENROLL", flowManager.Director), 
-                                null, 
-                                null, 
-                                null, 
-                                null
-                            ) 
-                        }
-                    )
-                )
-            );
-
-            flowManager.FlowDataCache.Items["Iteration_Index"] = 0;
-            flowManager.CustomActions.WriteToLog
-            (
-                string.Format
-                (
-                    LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_EAIA", flowManager.Director), 
-                    new System.Collections.ObjectModel.Collection<object>
-                    (
-                        new object[] 
-                        { 
-                            ((Contoso.Domain.Entities.StudentModel)flowManager.FlowDataCache.Items["Contoso.Domain.Entities.StudentModel"]).Enrollments.Count, 
-                            (int)flowManager.FlowDataCache.Items["Iteration_Index"] 
-                        }
-                    ).ToArray()
-                )
-            );
-
-            while ((int)flowManager.FlowDataCache.Items["Iteration_Index"] < ((Contoso.Domain.Entities.StudentModel)flowManager.FlowDataCache.Items["Contoso.Domain.Entities.StudentModel"]).Enrollments.Count)
+            student.Enrollments.ToList().ForEach(enrollment =>
             {
-                flowManager.FlowDataCache.Items["Contoso.Domain.Entities.EnrollmentModel"] = Contoso.Bsl.Flow.Flow.GenericsHelpers<Contoso.Domain.Entities.EnrollmentModel>.ItemByIndex(((Contoso.Domain.Entities.StudentModel)flowManager.FlowDataCache.Items["Contoso.Domain.Entities.StudentModel"]).Enrollments, (int)flowManager.FlowDataCache.Items["Iteration_Index"]);
-                flowManager.FlowDataCache.Items["Iteration_Index"] = (int)flowManager.FlowDataCache.Items["Iteration_Index"] + 1;
-                flowManager.CustomActions.WriteToLog
-                (
-                    string.Format
-                    (
-                        LogicBuilder.RulesDirector.ResourcesHelper<string>.GetResource("savestudent_SIIEIA", flowManager.Director), 
-                        new System.Collections.ObjectModel.Collection<object>
-                        (
-                            new object[] 
-                            { 
-                                ((Contoso.Domain.Entities.StudentModel)flowManager.FlowDataCache.Items["Contoso.Domain.Entities.StudentModel"]).ID, 
-                                ((Contoso.Domain.Entities.EnrollmentModel)flowManager.FlowDataCache.Items["Contoso.Domain.Entities.EnrollmentModel"]).CourseTitle 
-                            }
-                        ).ToArray()
-                    )
-                );
-            }
-
-            stopWatch.Stop();
-            this.output.WriteLine("WithoutRules Execution = {0}", stopWatch.Elapsed.TotalMilliseconds);
-
-            //assert
-            Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.FirstName);
-        }
-
-        [Fact]
-        public void SaveStudentRequestWithEnrollmentsWithoutRulesUsingExpressiionsFromCode()
-        {
-            IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            ISchoolRepository schoolRepository = serviceProvider.GetRequiredService<ISchoolRepository>();
-            var student = schoolRepository.GetAsync<StudentModel, Student>(s => s.FullName == "Carson Alexander").Result.Single();
-            student.FirstName = "First";
-            student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+                enrollment.Grade = Domain.Entities.Grade.A;
+                enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            });
             SaveStudentRequest saveStudentRequest = new SaveStudentRequest { Student = student };
 
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
