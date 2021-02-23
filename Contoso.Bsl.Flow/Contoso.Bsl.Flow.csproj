@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Rulesets\comparisontest.module" />
+    <None Remove="Rulesets\comparisontest.resources" />
     <None Remove="Rulesets\initial.module" />
     <None Remove="Rulesets\initial.resources" />
     <None Remove="Rulesets\savestudent.module" />
@@ -18,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Rulesets\comparisontest.module" />
+    <EmbeddedResource Include="Rulesets\comparisontest.resources" />
     <EmbeddedResource Include="Rulesets\initial.module" />
     <EmbeddedResource Include="Rulesets\initial.resources" />
     <EmbeddedResource Include="Rulesets\savestudent.module" />
