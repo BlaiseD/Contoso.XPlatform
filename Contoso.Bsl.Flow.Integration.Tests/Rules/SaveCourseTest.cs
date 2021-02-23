@@ -15,14 +15,16 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 {
-    public class RulesVsNoRulesDurationTest
+    public class SaveCourseTest
     {
-        public RulesVsNoRulesDurationTest(Xunit.Abstractions.ITestOutputHelper output)
+        public SaveCourseTest(ITestOutputHelper output)
         {
             this.output = output;
             Initialize();
@@ -30,258 +32,118 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
         #region Fields
         private IServiceProvider serviceProvider;
-        private readonly Xunit.Abstractions.ITestOutputHelper output;
+        private readonly ITestOutputHelper output;
         #endregion Fields
 
-        #region Tests
         [Fact]
-        public void SaveStudentRequestWithEnrollments1()
+        public void SaveCourse1()
         {
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
 
             //arrange
             flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>
+            var course = flowManager.SchoolRepository.GetAsync<CourseModel, Course>
             (
-                s => s.FullName == "Carson Alexander",
-                selectExpandDefinition: new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
-                {
-                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
-                    {
-                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem { MemberName = "enrollments" }
-                    }
-                }
+                s => s.CourseID == 1050
             ).Result.Single();
-            student.FirstName = "First";
-            student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            student.Enrollments.ToList().ForEach(enrollment =>
-            {
-                enrollment.Grade = Domain.Entities.Grade.A;
-                enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            });
-            flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
+            course.Title = "First";
+            course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
-            flowManager.Start("comparisontest");
+            flowManager.Start("savecourse");
             stopWatch.Stop();
-            this.output.WriteLine("Saving valid student using rules = {0}", stopWatch.Elapsed.TotalMilliseconds);
+            this.output.WriteLine("Saving valid course  = {0}", stopWatch.Elapsed.TotalMilliseconds);
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.FirstName);
-            Assert.Equal(Domain.Entities.Grade.A, ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.Enrollments.First().Grade);
+            Assert.Equal("First", ((SaveCourseResponse)flowManager.FlowDataCache.Response).Course.Title);
         }
 
         [Fact]
-        public void SaveStudentRequestWithEnrollments2()
+        public void SaveCourse2()
         {
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
 
             //arrange
             flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>
+            var course = flowManager.SchoolRepository.GetAsync<CourseModel, Course>
             (
-                s => s.FullName == "Carson Alexander",
-                selectExpandDefinition: new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
-                {
-                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
-                    {
-                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem { MemberName = "enrollments" }
-                    }
-                }
+                s => s.CourseID == 1050
             ).Result.Single();
-            student.FirstName = "First";
-            student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            student.Enrollments.ToList().ForEach(enrollment =>
-            {
-                enrollment.Grade = Domain.Entities.Grade.A;
-                enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            });
-            flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
+            course.Title = "First";
+            course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
-            flowManager.Start("comparisontest");
+            flowManager.Start("savecourse");
             stopWatch.Stop();
-            this.output.WriteLine("Saving valid student using rules = {0}", stopWatch.Elapsed.TotalMilliseconds);
+            this.output.WriteLine("Saving valid course  = {0}", stopWatch.Elapsed.TotalMilliseconds);
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.FirstName);
-            Assert.Equal(Domain.Entities.Grade.A, ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.Enrollments.First().Grade);
+            Assert.Equal("First", ((SaveCourseResponse)flowManager.FlowDataCache.Response).Course.Title);
         }
 
         [Fact]
-        public void SaveStudentRequestWithEnrollmentsWithoutRules1()
+        public void SaveInvalidCourse1()
         {
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            ISchoolRepository schoolRepository = serviceProvider.GetRequiredService<ISchoolRepository>();
-            var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>
+
+            //arrange
+            flowManager = serviceProvider.GetRequiredService<IFlowManager>();
+            var course = flowManager.SchoolRepository.GetAsync<CourseModel, Course>
             (
-                s => s.FullName == "Carson Alexander",
-                selectExpandDefinition: new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
-                {
-                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
-                    {
-                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem { MemberName = "enrollments" }
-                    }
-                }
+                s => s.CourseID == 1050
             ).Result.Single();
-            student.FirstName = "First";
-            student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            student.Enrollments.ToList().ForEach(enrollment =>
-            {
-                enrollment.Grade = Domain.Entities.Grade.A;
-                enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            });
-            SaveStudentRequest saveStudentRequest = new SaveStudentRequest { Student = student };
+            course.CourseID = 0;
+            course.Credits = 6;
+            course.DepartmentID = 0;
+            course.Title = "";
 
+            course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
+
+            //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
-            StudentModel studentModel = saveStudentRequest.Student;
-            SaveStudentResponse saveStudentResponse = new SaveStudentResponse();
-            saveStudentResponse.Success = schoolRepository.SaveGraphAsync<StudentModel, Student>(studentModel).Result;
-
-            if (!saveStudentResponse.Success) return;
-
-            studentModel = schoolRepository.GetAsync<StudentModel, Student>
-            (
-                f => f.ID == studentModel.ID,
-                null,
-                new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
-                {
-                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
-                    {
-                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem { MemberName = "enrollments" }
-                    }
-                }
-            ).Result.SingleOrDefault();
-
-            saveStudentResponse.Student = studentModel;
-
-            int Iteration_Index = 0;
-
-            flowManager.CustomActions.WriteToLog
-            (
-                string.Format
-                (
-                    "EnrollmentCount: {0}. Index: {1}",
-                    new object[]
-                    {
-                        studentModel.Enrollments.Count,
-                        Iteration_Index
-                    }
-                )
-            );
-
-            EnrollmentModel enrollmentModel = null;
-            while (Iteration_Index < studentModel.Enrollments.Count)
-            {
-                enrollmentModel = studentModel.Enrollments.ElementAt(Iteration_Index);
-                Iteration_Index = Iteration_Index + 1;
-                flowManager.CustomActions.WriteToLog
-                (
-                    string.Format
-                    (
-                        "Student Id:{0} is enrolled in {1}.",
-                        new object[]
-                        {
-                            studentModel.ID,
-                            enrollmentModel.CourseTitle
-                        }
-                    )
-                );
-            }
-
+            flowManager.Start("savecourse");
             stopWatch.Stop();
-            this.output.WriteLine("WithoutRulesUsingExpressiionsInCode = {0}", stopWatch.Elapsed.TotalMilliseconds);
+            this.output.WriteLine("Saving valid course  = {0}", stopWatch.Elapsed.TotalMilliseconds);
+
+            //assert
+            Assert.False(flowManager.FlowDataCache.Response.Success);
         }
 
         [Fact]
-        public void SaveStudentRequestWithEnrollmentsWithoutRules2()
+        public void SaveInvalidCourse2()
         {
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            ISchoolRepository schoolRepository = serviceProvider.GetRequiredService<ISchoolRepository>();
-            var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>
+
+            //arrange
+            flowManager = serviceProvider.GetRequiredService<IFlowManager>();
+            var course = flowManager.SchoolRepository.GetAsync<CourseModel, Course>
             (
-                s => s.FullName == "Carson Alexander",
-                selectExpandDefinition: new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
-                {
-                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
-                    {
-                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem { MemberName = "enrollments" }
-                    }
-                }
+                s => s.CourseID == 1050
             ).Result.Single();
-            student.FirstName = "First";
-            student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            student.Enrollments.ToList().ForEach(enrollment =>
-            {
-                enrollment.Grade = Domain.Entities.Grade.A;
-                enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            });
-            SaveStudentRequest saveStudentRequest = new SaveStudentRequest { Student = student };
+            course.CourseID = 0;
+            course.Credits = 6;
+            course.DepartmentID = 0;
+            course.Title = "";
 
+            course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
+
+            //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
-            StudentModel studentModel = saveStudentRequest.Student;
-            SaveStudentResponse saveStudentResponse = new SaveStudentResponse();
-            saveStudentResponse.Success = schoolRepository.SaveGraphAsync<StudentModel, Student>(studentModel).Result;
-
-            if (!saveStudentResponse.Success) return;
-
-            studentModel = schoolRepository.GetAsync<StudentModel, Student>
-            (
-                f => f.ID == studentModel.ID,
-                null,
-                new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
-                {
-                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
-                    {
-                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem { MemberName = "enrollments" }
-                    }
-                }
-            ).Result.SingleOrDefault();
-
-            saveStudentResponse.Student = studentModel;
-
-            int Iteration_Index = 0;
-
-            flowManager.CustomActions.WriteToLog
-            (
-                string.Format
-                (
-                    "EnrollmentCount: {0}. Index: {1}",
-                    new object[]
-                    {
-                        studentModel.Enrollments.Count,
-                        Iteration_Index
-                    }
-                )
-            );
-
-            EnrollmentModel enrollmentModel = null;
-            while (Iteration_Index < studentModel.Enrollments.Count)
-            {
-                enrollmentModel = studentModel.Enrollments.ElementAt(Iteration_Index);
-                Iteration_Index = Iteration_Index + 1;
-                flowManager.CustomActions.WriteToLog
-                (
-                    string.Format
-                    (
-                        "Student Id:{0} is enrolled in {1}.",
-                        new object[]
-                        {
-                            studentModel.ID,
-                            enrollmentModel.CourseTitle
-                        }
-                    )
-                );
-            }
-
+            flowManager.Start("savecourse");
             stopWatch.Stop();
-            this.output.WriteLine("WithoutRulesUsingExpressiionsInCode = {0}", stopWatch.Elapsed.TotalMilliseconds);
+            this.output.WriteLine("Saving valid course  = {0}", stopWatch.Elapsed.TotalMilliseconds);
+
+            //assert
+            Assert.False(flowManager.FlowDataCache.Response.Success);
         }
-        #endregion Tests
 
         #region Helpers
         static MapperConfiguration MapperConfiguration;
@@ -306,7 +168,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
                 (
                     options => options.UseSqlServer
                     (
-                        @"Server=(localdb)\mssqllocaldb;Database=RulesVsNoRulesDurationTest;ConnectRetryCount=0"
+                        @"Server=(localdb)\mssqllocaldb;Database=SaveCourseTest;ConnectRetryCount=0"
                     ),
                     ServiceLifetime.Transient
                 )
