@@ -8,37 +8,37 @@
   <ItemGroup>
     <None Remove="Rulesets\comparisontest.module" />
     <None Remove="Rulesets\comparisontest.resources" />
-    <None Remove="Rulesets\initial.module" />
-    <None Remove="Rulesets\initial.resources" />
     <None Remove="Rulesets\savecourse.module" />
     <None Remove="Rulesets\savecourse.resources" />
+    <None Remove="Rulesets\savedepartment.module" />
+    <None Remove="Rulesets\savedepartment.resources" />
     <None Remove="Rulesets\savestudent.module" />
     <None Remove="Rulesets\savestudent.resources" />
     <None Remove="Rulesets\validatecourse.module" />
     <None Remove="Rulesets\validatecourse.resources" />
+    <None Remove="Rulesets\validatedepartment.module" />
+    <None Remove="Rulesets\validatedepartment.resources" />
     <None Remove="Rulesets\validatestudent.module" />
     <None Remove="Rulesets\validatestudent.resources" />
     <None Remove="Rulesets\VariablesMetadata.xml" />
-    <None Remove="Rulesets\warmup.module" />
-    <None Remove="Rulesets\warmup.resources" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Rulesets\comparisontest.module" />
     <EmbeddedResource Include="Rulesets\comparisontest.resources" />
-    <EmbeddedResource Include="Rulesets\initial.module" />
-    <EmbeddedResource Include="Rulesets\initial.resources" />
     <EmbeddedResource Include="Rulesets\savecourse.module" />
     <EmbeddedResource Include="Rulesets\savecourse.resources" />
+    <EmbeddedResource Include="Rulesets\savedepartment.module" />
+    <EmbeddedResource Include="Rulesets\savedepartment.resources" />
     <EmbeddedResource Include="Rulesets\savestudent.module" />
     <EmbeddedResource Include="Rulesets\savestudent.resources" />
     <EmbeddedResource Include="Rulesets\validatecourse.module" />
     <EmbeddedResource Include="Rulesets\validatecourse.resources" />
+    <EmbeddedResource Include="Rulesets\validatedepartment.module" />
+    <EmbeddedResource Include="Rulesets\validatedepartment.resources" />
     <EmbeddedResource Include="Rulesets\validatestudent.module" />
     <EmbeddedResource Include="Rulesets\validatestudent.resources" />
     <EmbeddedResource Include="Rulesets\VariablesMetadata.xml" />
-    <EmbeddedResource Include="Rulesets\warmup.module" />
-    <EmbeddedResource Include="Rulesets\warmup.resources" />
   </ItemGroup>
 
   <ItemGroup>

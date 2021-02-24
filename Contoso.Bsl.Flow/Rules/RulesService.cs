@@ -20,13 +20,13 @@ namespace Contoso.Bsl.Flow.Rules
             RulesCache cache = new RulesCache(new Dictionary<string, RuleEngine>(), new Dictionary<string, string>());
 
             var assembly = IntrospectionExtensions.GetTypeInfo(typeof(FlowActivity)).Assembly;
-            string[] uwpResources = GetResourceStrings(assembly);
+            string[] embeddedResources = GetResourceNames(assembly);
 
-            Dictionary<string, string> rules = uwpResources
+            Dictionary<string, string> rules = embeddedResources
                                                 .Where(f => f.EndsWith(".module"))
                                                 .ToDictionary(f => GetKey(f).ToLowerInvariant());
 
-            Dictionary<string, string> resources = uwpResources
+            Dictionary<string, string> resources = embeddedResources
                                                 .Where(f => f.EndsWith(".resources"))
                                                 .ToDictionary(f => GetKey(f).ToLowerInvariant());
 
@@ -50,7 +50,7 @@ namespace Contoso.Bsl.Flow.Rules
                 => Path.GetExtension(Path.GetFileNameWithoutExtension(fullResourceName)).Substring(1);
         }
 
-        private static string[] GetResourceStrings(Assembly assembly)
+        private static string[] GetResourceNames(Assembly assembly)
          => assembly.GetManifestResourceNames()
                     .Where
                     (

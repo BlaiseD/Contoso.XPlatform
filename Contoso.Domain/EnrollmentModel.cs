@@ -72,6 +72,7 @@ namespace Contoso.Domain.Entities
 		}
 
 		private string _gradeLetter;
+		[AlsoKnownAs("Enrollment_GradeLetter")]
 		public string GradeLetter
 		{
 			get { return _gradeLetter; }
@@ -86,6 +87,7 @@ namespace Contoso.Domain.Entities
 		}
 
 		private string _courseTitle;
+		[AlsoKnownAs("Enrollment_CourseTitle")]
 		public string CourseTitle
 		{
 			get { return _courseTitle; }
@@ -100,6 +102,7 @@ namespace Contoso.Domain.Entities
 		}
 
 		private string _studentName;
+		[AlsoKnownAs("Enrollment_StudentName")]
 		public string StudentName
 		{
 			get { return _studentName; }

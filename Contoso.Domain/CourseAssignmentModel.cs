@@ -40,6 +40,7 @@ namespace Contoso.Domain.Entities
 		}
 
 		private string _courseTitle;
+		[AlsoKnownAs("CourseAssignment_CourseTitle")]
 		public string CourseTitle
 		{
 			get { return _courseTitle; }
@@ -54,6 +55,7 @@ namespace Contoso.Domain.Entities
 		}
 
 		private string _courseNumberAndTitle;
+		[AlsoKnownAs("CourseAssignment_CourseNumberAndTitle")]
 		public string CourseNumberAndTitle
 		{
 			get { return _courseNumberAndTitle; }
@@ -68,6 +70,7 @@ namespace Contoso.Domain.Entities
 		}
 
 		private string _department;
+		[AlsoKnownAs("CourseAssignment_Department")]
 		public string Department
 		{
 			get { return _department; }

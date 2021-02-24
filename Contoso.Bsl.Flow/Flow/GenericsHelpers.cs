@@ -10,19 +10,19 @@ namespace Contoso.Bsl.Flow.Flow
     {
         [AlsoKnownAs("ToList")]
         [FunctionGroup(FunctionGroup.Standard)]
-        public static List<T> ToList(IEnumerable<T> enumerable) => enumerable.ToList();
+        public static List<T> ToList(ICollection<T> enumerable) => enumerable.ToList();
 
         [AlsoKnownAs("Single")]
         [FunctionGroup(FunctionGroup.Standard)]
-        public static T Single(IEnumerable<T> enumerable) => enumerable.Single();
+        public static T Single(ICollection<T> enumerable) => enumerable.Single();
 
         [AlsoKnownAs("SingleOrDefault")]
         [FunctionGroup(FunctionGroup.Standard)]
-        public static T SingleOrDefault(IEnumerable<T> enumerable) => enumerable.SingleOrDefault();
+        public static T SingleOrDefault(ICollection<T> enumerable) => enumerable.SingleOrDefault();
 
-        [AlsoKnownAs("ItemByIndex")]
+        [AlsoKnownAs("GetItemAtIndex")]
         [FunctionGroup(FunctionGroup.Standard)]
-        public static T ItemByIndex(IEnumerable<T> enumerable, int index) => enumerable.ElementAt(index);
+        public static T GetItemAtIndex(ICollection<T> enumerable, int index) => enumerable.ElementAt(index);
 
         [AlsoKnownAs("AddItem")]
         [FunctionGroup(FunctionGroup.Standard)]

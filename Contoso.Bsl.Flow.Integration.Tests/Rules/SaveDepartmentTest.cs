@@ -15,16 +15,15 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 {
-    public class SaveCourseTest
+    public class SaveDepartmentTest
     {
-        public SaveCourseTest(ITestOutputHelper output)
+        public SaveDepartmentTest(ITestOutputHelper output)
         {
             this.output = output;
             Initialize();
@@ -35,105 +34,133 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
         private readonly ITestOutputHelper output;
         #endregion Fields
 
+        #region Tests
         [Fact]
-        public void SaveCourse1()
+        public void SaveDepartment1()
         {
             //arrange
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            var course = flowManager.SchoolRepository.GetAsync<CourseModel, Course>
+            var department = flowManager.SchoolRepository.GetAsync<DepartmentModel, Department>
             (
-                s => s.CourseID == 1050
+                s => s.Name == "Mathematics",
+                selectExpandDefinition: new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
+                {
+                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
+                    {//Need expansion because RowVersion is not a literal type (included without explicit expansion)
+                     //Or use GetItemsAsync which does not use projection.
+                     //Todo include check for typeof(byte[]) in LogicBuilder.Expressions.Utils.TypeExtension.GetValueTypeMembers()
+                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem
+                        {
+                            MemberName = "RowVersion"
+                        }
+                    }
+                }
             ).Result.Single();
-            course.Title = "First";
-            course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
+            department.Budget = 1000.1m;
+            department.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            flowManager.FlowDataCache.Request = new SaveDepartmentRequest { Department = department };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
-            flowManager.Start("savecourse");
+            flowManager.Start("savedepartment");
             stopWatch.Stop();
-            this.output.WriteLine("Saving valid course  = {0}", stopWatch.Elapsed.TotalMilliseconds);
+            this.output.WriteLine("Saving valid department  = {0}", stopWatch.Elapsed.TotalMilliseconds);
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveCourseResponse)flowManager.FlowDataCache.Response).Course.Title);
+            Assert.Equal(1000.1m, ((SaveDepartmentResponse)flowManager.FlowDataCache.Response).Department.Budget);
         }
 
         [Fact]
-        public void SaveCourse2()
+        public void SaveDepartment2()
         {
             //arrange
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            var course = flowManager.SchoolRepository.GetAsync<CourseModel, Course>
+            var department = flowManager.SchoolRepository.GetItemsAsync<DepartmentModel, Department>
             (
-                s => s.CourseID == 1050
+                s => s.Name == "Mathematics"
             ).Result.Single();
-            course.Title = "First";
-            course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
+            department.Budget = 1000.1m;
+            department.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            flowManager.FlowDataCache.Request = new SaveDepartmentRequest { Department = department };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
-            flowManager.Start("savecourse");
+            flowManager.Start("savedepartment");
             stopWatch.Stop();
-            this.output.WriteLine("Saving valid course  = {0}", stopWatch.Elapsed.TotalMilliseconds);
+            this.output.WriteLine("Saving valid department  = {0}", stopWatch.Elapsed.TotalMilliseconds);
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveCourseResponse)flowManager.FlowDataCache.Response).Course.Title);
+            Assert.Equal(1000.1m, ((SaveDepartmentResponse)flowManager.FlowDataCache.Response).Department.Budget);
         }
 
         [Fact]
-        public void SaveInvalidCourse1()
+        public void SaveInvalidSaveDepartment1()
         {
             //arrange
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            var course = flowManager.SchoolRepository.GetAsync<CourseModel, Course>
+            var department = flowManager.SchoolRepository.GetAsync<DepartmentModel, Department>
             (
-                s => s.CourseID == 1050
+                s => s.Name == "Mathematics",
+                selectExpandDefinition: new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
+                {
+                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
+                    {//Need expansion because RowVersion is not a literal type (included without explicit expansion)
+                     //Or use GetItemsAsync which does not use projection.
+                     //Todo include check for typeof(byte[]) in LogicBuilder.Expressions.Utils.TypeExtension.GetValueTypeMembers()
+                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem
+                        {
+                            MemberName = "RowVersion"
+                        }
+                    }
+                }
             ).Result.Single();
-            course.CourseID = 0;
-            course.Credits = 6;
-            course.DepartmentID = 0;
-            course.Title = "";
-            course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
+            department.DepartmentID = 0;
+            department.InstructorID = null;
+            department.Budget = -1m;
+            department.Name = "";
+            department.StartDate = default;
+            department.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            flowManager.FlowDataCache.Request = new SaveDepartmentRequest { Department = department };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
-            flowManager.Start("savecourse");
+            flowManager.Start("savedepartment");
             stopWatch.Stop();
-            this.output.WriteLine("Saving invalid course  = {0}", stopWatch.Elapsed.TotalMilliseconds);
+            this.output.WriteLine("Saving invalid department  = {0}", stopWatch.Elapsed.TotalMilliseconds);
 
             //assert
             Assert.False(flowManager.FlowDataCache.Response.Success);
         }
 
         [Fact]
-        public void SaveInvalidCourse2()
+        public void SaveInvalidSaveDepartment2()
         {
             //arrange
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            var course = flowManager.SchoolRepository.GetAsync<CourseModel, Course>
+            var department = flowManager.SchoolRepository.GetItemsAsync<DepartmentModel, Department>
             (
-                s => s.CourseID == 1050
+                s => s.Name == "Mathematics"
             ).Result.Single();
-            course.CourseID = 0;
-            course.Credits = 6;
-            course.DepartmentID = 0;
-            course.Title = "";
-            course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
+            department.DepartmentID = 0;
+            department.InstructorID = null;
+            department.Budget = -1m;
+            department.Name = "";
+            department.StartDate = default;
+            department.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
+            flowManager.FlowDataCache.Request = new SaveDepartmentRequest { Department = department };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
-            flowManager.Start("savecourse");
+            flowManager.Start("savedepartment");
             stopWatch.Stop();
-            this.output.WriteLine("Saving invalid course  = {0}", stopWatch.Elapsed.TotalMilliseconds);
+            this.output.WriteLine("Saving invalid department  = {0}", stopWatch.Elapsed.TotalMilliseconds);
 
             //assert
             Assert.False(flowManager.FlowDataCache.Response.Success);
         }
+        #endregion Tests
 
         #region Helpers
         static MapperConfiguration MapperConfiguration;
@@ -158,7 +185,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
                 (
                     options => options.UseSqlServer
                     (
-                        @"Server=(localdb)\mssqllocaldb;Database=SaveCourseTest;ConnectRetryCount=0"
+                        @"Server=(localdb)\mssqllocaldb;Database=SaveDepartmentTest;ConnectRetryCount=0"
                     ),
                     ServiceLifetime.Transient
                 )

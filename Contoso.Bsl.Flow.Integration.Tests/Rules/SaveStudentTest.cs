@@ -33,10 +33,8 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
         [Fact]
         public void SaveStudentRequestWithEnrollments1()
         {
-            IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-
             //arrange
-            flowManager = serviceProvider.GetRequiredService<IFlowManager>();
+            IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
             var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>
             (
                 s => s.FullName == "Carson Alexander",
@@ -72,10 +70,8 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
         [Fact]
         public void SaveValidStudentRequest()
         {
-            IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-
             //arrange
-            flowManager = serviceProvider.GetRequiredService<IFlowManager>();
+            IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
             var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>
             (
                 s => s.FullName == "Carson Alexander"
@@ -98,10 +94,8 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
         [Fact]
         public void SaveInvalidStudentRequest()
         {
-            IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-
             //arrange
-            flowManager = serviceProvider.GetRequiredService<IFlowManager>();
+            IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
             var student = flowManager.SchoolRepository.GetAsync<StudentModel, Student>
             (
                 s => s.FullName == "Carson Alexander"

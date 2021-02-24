@@ -109,6 +109,7 @@ namespace Contoso.Domain.Entities
 		}
 
 		private string _administratorName;
+		[AlsoKnownAs("Department_AdministratorName")]
 		public string AdministratorName
 		{
 			get { return _administratorName; }
