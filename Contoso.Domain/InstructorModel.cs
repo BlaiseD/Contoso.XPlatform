@@ -61,6 +61,7 @@ namespace Contoso.Domain.Entities
 			}
 		}
 
+		[AlsoKnownAs("Instructor_FullName")]
 		public string FullName { get; set; }
 
 		private System.DateTime _hireDate;
