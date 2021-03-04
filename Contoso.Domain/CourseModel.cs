@@ -75,6 +75,7 @@ namespace Contoso.Domain.Entities
 		}
 
 		private string _departmentName;
+		[AlsoKnownAs("Course_DepartmentName")]
 		public string DepartmentName
 		{
 			get { return _departmentName; }

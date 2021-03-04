@@ -18,11 +18,11 @@ namespace Contoso.Bsl.Flow.Flow
 
         [AlsoKnownAs("SingleOrDefault")]
         [FunctionGroup(FunctionGroup.Standard)]
-        public static T SingleOrDefault(ICollection<T> enumerable) => enumerable.SingleOrDefault();
+        public static T SingleOrDefault(IEnumerable<T> enumerable) => enumerable.SingleOrDefault();
 
         [AlsoKnownAs("GetItemAtIndex")]
         [FunctionGroup(FunctionGroup.Standard)]
-        public static T GetItemAtIndex(ICollection<T> enumerable, int index) => enumerable.ElementAt(index);
+        public static T GetItemAtIndex(IEnumerable<T> enumerable, int index) => enumerable.ElementAt(index);
 
         [AlsoKnownAs("AddItem")]
         [FunctionGroup(FunctionGroup.Standard)]
