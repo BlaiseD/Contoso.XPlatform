@@ -10,11 +10,11 @@ namespace Contoso.Bsl.Flow.Flow
     {
         [AlsoKnownAs("ToList")]
         [FunctionGroup(FunctionGroup.Standard)]
-        public static List<T> ToList(ICollection<T> enumerable) => enumerable.ToList();
+        public static List<T> ToList(IEnumerable<T> enumerable) => enumerable.ToList();
 
         [AlsoKnownAs("Single")]
         [FunctionGroup(FunctionGroup.Standard)]
-        public static T Single(ICollection<T> enumerable) => enumerable.Single();
+        public static T Single(IEnumerable<T> enumerable) => enumerable.Single();
 
         [AlsoKnownAs("SingleOrDefault")]
         [FunctionGroup(FunctionGroup.Standard)]
