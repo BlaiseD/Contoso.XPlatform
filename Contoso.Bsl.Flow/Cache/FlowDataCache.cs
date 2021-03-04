@@ -9,5 +9,6 @@ namespace Contoso.Bsl.Flow.Cache
         public BaseRequest Request { get; set; }
         public BaseResponse Response { get; set; }
         public Dictionary<string, object> Items { get; set; } = new Dictionary<string, object>();
+        public int Index1 { get; set; }
     }
 }

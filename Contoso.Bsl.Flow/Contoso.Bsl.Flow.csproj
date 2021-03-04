@@ -8,6 +8,10 @@
   <ItemGroup>
     <None Remove="Rulesets\comparisontest.module" />
     <None Remove="Rulesets\comparisontest.resources" />
+    <None Remove="Rulesets\justloop.module" />
+    <None Remove="Rulesets\justloop.resources" />
+    <None Remove="Rulesets\justloopnoboxing.module" />
+    <None Remove="Rulesets\justloopnoboxing.resources" />
     <None Remove="Rulesets\savecourse.module" />
     <None Remove="Rulesets\savecourse.resources" />
     <None Remove="Rulesets\savedepartment.module" />
@@ -30,6 +34,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Rulesets\comparisontest.module" />
     <EmbeddedResource Include="Rulesets\comparisontest.resources" />
+    <EmbeddedResource Include="Rulesets\justloop.module" />
+    <EmbeddedResource Include="Rulesets\justloop.resources" />
+    <EmbeddedResource Include="Rulesets\justloopnoboxing.module" />
+    <EmbeddedResource Include="Rulesets\justloopnoboxing.resources" />
     <EmbeddedResource Include="Rulesets\savecourse.module" />
     <EmbeddedResource Include="Rulesets\savecourse.resources" />
     <EmbeddedResource Include="Rulesets\savedepartment.module" />
