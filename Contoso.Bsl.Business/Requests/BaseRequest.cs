@@ -1,4 +1,4 @@
-﻿namespace Contoso.Bsl.Flow.Requests
+﻿namespace Contoso.Bsl.Business.Requests
 {
     public abstract class BaseRequest
     {

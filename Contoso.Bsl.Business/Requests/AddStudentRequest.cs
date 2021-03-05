@@ -1,8 +1,8 @@
 ﻿using Contoso.Domain.Entities;
 
-namespace Contoso.Bsl.Flow.Responses
+namespace Contoso.Bsl.Business.Requests
 {
-    public class AddStudentResponse : BaseResponse
+    public class AddStudentRequest : BaseRequest
     {
         public StudentModel Student { get; set; }
     }

@@ -1,4 +1,4 @@
-﻿using Contoso.Bsl.Flow.Responses;
+﻿using Contoso.Bsl.Business.Responses;
 using LogicBuilder.Attributes;
 using System;
 

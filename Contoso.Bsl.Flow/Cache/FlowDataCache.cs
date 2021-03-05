@@ -1,5 +1,5 @@
-﻿using Contoso.Bsl.Flow.Requests;
-using Contoso.Bsl.Flow.Responses;
+﻿using Contoso.Bsl.Business.Requests;
+using Contoso.Bsl.Business.Responses;
 using System.Collections.Generic;
 
 namespace Contoso.Bsl.Flow.Cache

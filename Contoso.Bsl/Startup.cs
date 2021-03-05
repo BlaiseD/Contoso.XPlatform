@@ -1,6 +1,15 @@
+using AutoMapper;
+using AutoMapper.Extensions.ExpressionMapping;
+using Contoso.AutoMapperProfiles;
+using Contoso.Bsl.Flow;
+using Contoso.Contexts;
+using Contoso.Repositories;
+using Contoso.Stores;
+using LogicBuilder.RulesDirector;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,11 +34,42 @@ namespace Contoso.Bsl
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Contoso.Bsl", Version = "v1" });
+            })
+            .AddDbContext<SchoolContext>
+            (
+                options => options.UseSqlServer
+                (
+                    Configuration.GetConnectionString("DefaultConnection")
+                )
+            )
+            .AddScoped<ISchoolStore, SchoolStore>()
+            .AddScoped<ISchoolRepository, SchoolRepository>()
+            .AddSingleton<AutoMapper.IConfigurationProvider>
+            (
+                new MapperConfiguration(cfg =>
+                {
+                    cfg.AddExpressionMapping();
+
+                    cfg.AddProfile<ParameterToDescriptorMappingProfile>();
+                    cfg.AddProfile<DescriptorToOperatorMappingProfile>();
+                    cfg.AddProfile<SchoolProfile>();
+                    cfg.AddProfile<ExpansionParameterToDescriptorMappingProfile>();
+                    cfg.AddProfile<ExpansionDescriptorToOperatorMappingProfile>();
+                })
+            )
+            .AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService))
+            .AddScoped<IFlowManager, FlowManager>()
+            .AddScoped<FlowActivityFactory, FlowActivityFactory>()
+            .AddScoped<DirectorFactory, DirectorFactory>()
+            .AddScoped<ICustomActions, CustomActions>()
+            .AddSingleton<IRulesCache>(sp =>
+            {
+                return Bsl.Flow.Rules.RulesService.LoadRules().GetAwaiter().GetResult();
             });
         }
 
@@ -44,6 +84,8 @@ namespace Contoso.Bsl
             }
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();
 

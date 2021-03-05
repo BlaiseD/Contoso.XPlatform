@@ -1,7 +1,7 @@
 ﻿using Contoso.Domain.Entities;
 using LogicBuilder.Attributes;
 
-namespace Contoso.Bsl.Flow.Responses
+namespace Contoso.Bsl.Business.Responses
 {
     public class SaveCourseResponse : BaseResponse
     {

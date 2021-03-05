@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Contoso.Bsl.Flow.Responses
+namespace Contoso.Bsl.Business.Responses
 {
     public abstract class BaseResponse
     {

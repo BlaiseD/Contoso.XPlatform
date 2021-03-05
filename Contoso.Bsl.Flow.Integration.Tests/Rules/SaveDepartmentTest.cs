@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.Extensions.ExpressionMapping;
 using Contoso.AutoMapperProfiles;
-using Contoso.Bsl.Flow.Requests;
-using Contoso.Bsl.Flow.Responses;
+using Contoso.Bsl.Business.Requests;
+using Contoso.Bsl.Business.Responses;
 using Contoso.Contexts;
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;

@@ -62,6 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Contoso.Bsl.Business\Contoso.Bsl.Business.csproj" />
     <ProjectReference Include="..\Contoso.Bsl.Configuration\Contoso.Bsl.Configuration.csproj" />
     <ProjectReference Include="..\Contoso.Parameters\Contoso.Parameters.csproj" />
     <ProjectReference Include="..\Contoso.Repositories\Contoso.Repositories.csproj" />
