@@ -1,4 +1,4 @@
-﻿namespace Contoso.Bsl.Flow
+﻿namespace Contoso.Utils
 {
     public static class ObjectHelper
     {

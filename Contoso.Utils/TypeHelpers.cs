@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogicBuilder.Attributes;
+using System;
 
 namespace Contoso.Utils
 {
@@ -8,5 +9,9 @@ namespace Contoso.Utils
             => type.IsGenericType && !type.IsGenericTypeDefinition
                 ? type.AssemblyQualifiedName
                 : type.FullName;
+
+        [AlsoKnownAs("Get Type")]
+        public static Type GetType([ParameterEditorControl(ParameterControlType.TypeAutoComplete)] string assemblyQualifiedTypeName)
+            => Type.GetType(assemblyQualifiedTypeName);
     }
 }
