@@ -55,6 +55,8 @@ namespace Contoso.AutoMapperProfiles
                 .ReverseMap()
             .ForMember(dest => dest.FullName, opts => opts.MapFrom(x => x.FirstName + " " + x.LastName))
             .ForAllMembers(o => o.ExplicitExpansion());
+
+            CreateMap<LookUpsModel, LookUps>().ReverseMap();
         }
     }
 }

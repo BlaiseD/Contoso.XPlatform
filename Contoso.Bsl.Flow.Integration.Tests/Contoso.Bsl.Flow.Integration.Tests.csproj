@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Contoso.AutoMapperProfiles\Contoso.AutoMapperProfiles.csproj" />
     <ProjectReference Include="..\Contoso.Bsl.Flow\Contoso.Bsl.Flow.csproj" />
+    <ProjectReference Include="..\Contoso.Bsl.Utils\Contoso.Bsl.Utils.csproj" />
   </ItemGroup>
 
 </Project>
