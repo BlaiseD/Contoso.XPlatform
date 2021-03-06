@@ -11,9 +11,9 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleToAttribute("Contoso.Bsl.Flow.Integration.Tests")]
-namespace Contoso.Bsl.Flow
+namespace Contoso.Bsl.Utils
 {
-    internal static class MappingOperations
+    public static class MappingOperations
     {
         public static IExpressionPart MapToOperator(this IMapper mapper, IExpressionParameter expression)
             => mapper.MapToOperator

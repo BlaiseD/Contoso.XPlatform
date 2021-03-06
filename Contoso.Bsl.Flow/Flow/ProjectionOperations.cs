@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Contoso.Bsl.Utils;
 using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
 using LogicBuilder.Attributes;
@@ -10,7 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Contoso.Bsl.Flow.Integration.Tests")]
 namespace Contoso.Bsl.Flow
 {
     internal static class ProjectionOperations<TModel, TData> where TModel : BaseModel where TData : BaseData
@@ -44,6 +47,11 @@ namespace Contoso.Bsl.Flow
                 GetQueryFunc(mapper.MapToOperator(queryFunc)),
                 mapper.MapExpansion(expansion)
             ).Result;
+
+        private static Expression<Func<TModel, bool>> GetFilter(object p)
+        {
+            throw new NotImplementedException();
+        }
 
         public static Expression<Func<TModel, bool>> GetFilter(IExpressionPart filterExpression)
             => (Expression<Func<TModel, bool>>)filterExpression?.Build();

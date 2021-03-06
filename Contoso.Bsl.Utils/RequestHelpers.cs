@@ -56,13 +56,6 @@ namespace Contoso.Bsl.Utils
             );
         }
 
-        internal static IExpressionPart MapToOperator(this IMapper mapper, IExpressionOperatorDescriptor expression)
-            => mapper.Map<IExpressionPart>
-            (
-                expression,
-                opts => opts.Items[ExpressionOperators.PARAMETERS_KEY] = GetParameters()
-            );
-
         static IDictionary<string, ParameterExpression> GetParameters()
             => new Dictionary<string, ParameterExpression>();
 
