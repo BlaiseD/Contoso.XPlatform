@@ -2,7 +2,7 @@
 
 namespace Contoso.Bsl.Business.Responses
 {
-    public class GetDropDownListResponse
+    public class GetAnonymousDropDownListResponse
     {
         public IEnumerable<dynamic> DropDownList { get; set; }
     }

@@ -23,50 +23,83 @@ namespace Contoso.Bsl.Utils
 {
     public static class RequestHelpers
     {
-        public static async Task<GetDropDownListResponse> GetSelect(GetDropDownListRequest request, IContextRepository contextRepository, IMapper mapper)
-        {
-            IEnumerable<dynamic> list = await (Task<IEnumerable<dynamic>>)"GetSelect".GetSelectMethod
+        public static async Task<GetAnonymousDropDownListResponse> GetAnonymousSelect(GetAnonymousDropDownListRequest request, IContextRepository contextRepository, IMapper mapper) 
+            => await (Task<GetAnonymousDropDownListResponse>)"GetAnonymousSelect".GetSelectMethod
             (
-                new Type[] 
-                { 
-                    typeof(SelectorLambdaOperatorDescriptor), 
-                    typeof(IContextRepository), 
-                    typeof(IMapper) 
+                new Type[]
+                {
+                    typeof(GetAnonymousDropDownListRequest),
+                    typeof(IContextRepository),
+                    typeof(IMapper)
                 }
             ).MakeGenericMethod
             (
-                typeof(BaseModelClass).Assembly.GetType(request.ModelType),
-                typeof(BaseDataClass).Assembly.GetType(request.DataType)
-            ).Invoke(null, new object[] { request.Selector, contextRepository, mapper });
+                Type.GetType(request.ModelType),
+                Type.GetType(request.DataType)
+            ).Invoke(null, new object[] { request, contextRepository, mapper });
 
-            return new GetDropDownListResponse { DropDownList = list };
-        }
-
-        private static MethodInfo GetSelectMethod(this string methodName, Type[] types)
-           => typeof(RequestHelpers).GetMethod(methodName, types);
-
-        public static async Task<IEnumerable<dynamic>> GetSelect<TModel, TData>(this SelectorLambdaOperatorDescriptor request, IContextRepository contextRepository, IMapper mapper)
-            where TModel : BaseModelClass
-            where TData : BaseDataClass
-        {
-            return await Query<TModel, TData>
-            (
-                contextRepository,
-                mapper.MapToOperator(request)
-            );
-        }
-
-        static IDictionary<string, ParameterExpression> GetParameters()
-            => new Dictionary<string, ParameterExpression>();
-
-        static Task<IEnumerable<dynamic>> Query<TModel, TData>(IContextRepository repository,
-            IExpressionPart queryExpression)
+        public static async Task<GetAnonymousDropDownListResponse> GetAnonymousSelect<TModel, TData>(GetAnonymousDropDownListRequest request, IContextRepository contextRepository, IMapper mapper)
             where TModel : BaseModel
             where TData : BaseData
+            => new GetAnonymousDropDownListResponse
+            {
+                DropDownList = await Query<TModel, TData>
+                (
+                    contextRepository,
+                    mapper.MapToOperator(request.Selector)
+                )
+            };
+
+        public static async Task<GetLookupDropDownListResponse> GetLookupSelect(GetTypedDropDownListRequest request, IContextRepository contextRepository, IMapper mapper) 
+            => await (Task<GetLookupDropDownListResponse>)"GetLookupSelect".GetSelectMethod
+            (
+                new Type[]
+                {
+                    typeof(GetTypedDropDownListRequest),
+                    typeof(IContextRepository),
+                    typeof(IMapper)
+                }
+            ).MakeGenericMethod
+            (
+                Type.GetType(request.ModelType),
+                Type.GetType(request.DataType),
+                Type.GetType(request.ModelReturnType),
+                Type.GetType(request.DataReturnType)
+            ).Invoke(null, new object[] { request, contextRepository, mapper });
+
+        public static async Task<GetLookupDropDownListResponse> GetLookupSelect<TModel, TData, TModelReturn, TDataReturn>(GetTypedDropDownListRequest request, IContextRepository contextRepository, IMapper mapper)
+            where TModel : BaseModel
+            where TData : BaseData
+            => new GetLookupDropDownListResponse
+            {
+                DropDownList = (IEnumerable<Domain.Entities.LookUpsModel>)await Query<TModel, TData, TModelReturn, TDataReturn>
+                (
+                    contextRepository,
+                    mapper.MapToOperator(request.Selector)
+                )
+            };
+
+        private static Task<IEnumerable<dynamic>> Query<TModel, TData>(IContextRepository repository,
+            IExpressionPart queryExpression)
+            where TModel : BaseModel
+            where TData : BaseData 
             => repository.QueryAsync<TModel, TData, IEnumerable<dynamic>, IEnumerable<dynamic>>
             (
                 (Expression<Func<IQueryable<TModel>, IEnumerable<dynamic>>>)queryExpression.Build(),
                 (SelectExpandDefinition)null
             );
+
+        private static Task<TModelReturn> Query<TModel, TData, TModelReturn, TDataReturn>(IContextRepository repository,
+            IExpressionPart queryExpression)
+            where TModel : BaseModel
+            where TData : BaseData
+            => repository.QueryAsync<TModel, TData, TModelReturn, TDataReturn>
+            (
+                (Expression<Func<IQueryable<TModel>, TModelReturn>>)queryExpression.Build(),
+                (SelectExpandDefinition)null
+            );
+
+        private static MethodInfo GetSelectMethod(this string methodName, Type[] types)
+           => typeof(RequestHelpers).GetMethods().Single(m => m.Name == methodName && m.IsGenericMethod);
     }
 }

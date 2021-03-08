@@ -12,5 +12,10 @@ namespace Contoso.Bsl.Flow
         }
 
         public void WriteToLog(string message) => this.logger.LogInformation(message);
+
+        //public async void WriteToLog(string message)
+        //{
+        //    await System.Threading.Tasks.Task.Run(() => this.logger.LogInformation(message));
+        //}
     }
 }

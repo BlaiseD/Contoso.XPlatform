@@ -55,9 +55,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Bsl.Flow.Unit.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Bsl.Flow.Integration.Tests", "Contoso.Bsl.Flow.Integration.Tests\Contoso.Bsl.Flow.Integration.Tests.csproj", "{F4B2ADDF-4493-46E7-96F8-4A5E667E4073}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contoso.Bsl.Utils", "Contoso.Bsl.Utils\Contoso.Bsl.Utils.csproj", "{B26EB1E0-9F9A-475A-AD5B-6E2EEDC4D80D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Bsl.Utils", "Contoso.Bsl.Utils\Contoso.Bsl.Utils.csproj", "{B26EB1E0-9F9A-475A-AD5B-6E2EEDC4D80D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contoso.Bsl.Business", "Contoso.Bsl.Business\Contoso.Bsl.Business.csproj", "{AF2303BE-9CF5-4DC5-9DA4-6F45AFF0690F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Bsl.Business", "Contoso.Bsl.Business\Contoso.Bsl.Business.csproj", "{AF2303BE-9CF5-4DC5-9DA4-6F45AFF0690F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
