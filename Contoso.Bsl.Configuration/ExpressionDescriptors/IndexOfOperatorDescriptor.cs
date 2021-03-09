@@ -2,7 +2,7 @@
 {
     public class IndexOfOperatorDescriptor : OperatorDescriptorBase
     {
-		public IExpressionOperatorDescriptor SourceOperand { get; set; }
-		public IExpressionOperatorDescriptor ItemToFind { get; set; }
+		public OperatorDescriptorBase SourceOperand { get; set; }
+		public OperatorDescriptorBase ItemToFind { get; set; }
     }
 }

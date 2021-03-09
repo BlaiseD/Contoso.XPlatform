@@ -4,11 +4,8 @@ using System;
 
 namespace Contoso.Bsl.Configuration.Json
 {
-    public class DescriptorConverter : JsonTypeConverter<IExpressionOperatorDescriptor>
+    public class DescriptorConverter : JsonTypeConverter<OperatorDescriptorBase>
     {
         public override string TypePropertyName => "TypeString";
-
-        protected override Type GetDerivedType(string typeName)
-            => Type.GetType(typeName, false);
     }
 }

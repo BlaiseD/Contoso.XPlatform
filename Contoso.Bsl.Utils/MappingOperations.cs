@@ -18,10 +18,10 @@ namespace Contoso.Bsl.Utils
         public static IExpressionPart MapToOperator(this IMapper mapper, IExpressionParameter expression)
             => mapper.MapToOperator
             (
-                mapper.Map<IExpressionOperatorDescriptor>(expression)
+                mapper.Map<OperatorDescriptorBase>(expression)
             );
 
-        public static IExpressionPart MapToOperator(this IMapper mapper, IExpressionOperatorDescriptor expression)
+        public static IExpressionPart MapToOperator(this IMapper mapper, OperatorDescriptorBase expression)
             => mapper.Map<IExpressionPart>
             (
                 expression,

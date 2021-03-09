@@ -2,7 +2,7 @@
 {
     public class SubstringOperatorDescriptor : OperatorDescriptorBase
     {
-		public IExpressionOperatorDescriptor SourceOperand { get; set; }
-		public IExpressionOperatorDescriptor[] Indexes { get; set; }
+		public OperatorDescriptorBase SourceOperand { get; set; }
+		public OperatorDescriptorBase[] Indexes { get; set; }
     }
 }

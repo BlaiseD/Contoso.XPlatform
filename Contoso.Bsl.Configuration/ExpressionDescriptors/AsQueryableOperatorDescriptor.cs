@@ -2,6 +2,6 @@
 {
     public class AsQueryableOperatorDescriptor : OperatorDescriptorBase
     {
-		public IExpressionOperatorDescriptor SourceOperand { get; set; }
+		public OperatorDescriptorBase SourceOperand { get; set; }
     }
 }

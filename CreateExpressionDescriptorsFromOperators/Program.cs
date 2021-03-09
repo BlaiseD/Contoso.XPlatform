@@ -6,8 +6,8 @@ namespace CreateExpressionDescriptorsFromOperators
     {
         static void Main(string[] args)
         {
-            CreateExpressionDescriptorClasses.Write();
-            //CreateParameterToDescriptorMappingProfile.Write();
+            //CreateExpressionDescriptorClasses.Write();
+            CreateParameterToDescriptorMappingProfile.Write();
             //CreateOperatorDescriptorToDescriptorMappingProfile.Write();
         }
     }

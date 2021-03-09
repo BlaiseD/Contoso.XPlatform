@@ -5,7 +5,7 @@ namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
     public class SelectorLambdaOperatorDescriptor : OperatorDescriptorBase
     {
-		public IExpressionOperatorDescriptor Selector { get; set; }
+		public OperatorDescriptorBase Selector { get; set; }
 		public string SourceElementType { get; set; }
 		public string BodyType { get; set; }
 		public string ParameterName { get; set; }

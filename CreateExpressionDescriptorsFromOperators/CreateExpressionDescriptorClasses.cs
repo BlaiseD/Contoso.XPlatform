@@ -109,7 +109,7 @@ namespace CreateExpressionDescriptorsFromOperators
         static readonly Func<string, string> replaceCommonTypeName = oldName =>
         {
             return Regex.Replace(oldName, "Operator$", OPERATORDESCRIPTOR)
-                .Replace("IExpressionPart", "IExpressionOperatorDescriptor")
+                .Replace("IExpressionPart", "OperatorDescriptorBase")
                 .Replace(PARAMETER_NAMESPACE_DOT, "")
                 .Replace("LogicBuilder.Expressions.Utils.Strutures.", "")
                 .Replace("System.", "");

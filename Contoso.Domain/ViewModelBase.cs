@@ -1,7 +1,7 @@
 ﻿using Contoso.Domain.Json;
-using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace Contoso.Domain
 {

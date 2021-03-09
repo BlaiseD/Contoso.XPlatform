@@ -1,10 +1,13 @@
 using AutoMapper;
 using AutoMapper.Extensions.ExpressionMapping;
 using Contoso.AutoMapperProfiles;
+using Contoso.Bsl.Configuration.Json;
 using Contoso.Bsl.Flow;
 using Contoso.Contexts;
+using Contoso.Domain.Json;
 using Contoso.Repositories;
 using Contoso.Stores;
+using Contoso.Utils;
 using LogicBuilder.RulesDirector;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,7 +38,16 @@ namespace Contoso.Bsl
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers().AddJsonOptions
+            (
+                options => 
+                { 
+                    options.JsonSerializerOptions.Converters.Add(new DescriptorConverter());
+                    options.JsonSerializerOptions.Converters.Add(new ModelConverter());
+                    options.JsonSerializerOptions.Converters.Add(new ObjectConverter());
+                }
+            );
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Contoso.Bsl", Version = "v1" });

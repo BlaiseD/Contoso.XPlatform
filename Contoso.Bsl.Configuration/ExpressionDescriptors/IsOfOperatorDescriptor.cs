@@ -4,7 +4,7 @@ namespace Contoso.Bsl.Configuration.ExpressionDescriptors
 {
     public class IsOfOperatorDescriptor : OperatorDescriptorBase
     {
-		public IExpressionOperatorDescriptor Operand { get; set; }
+		public OperatorDescriptorBase Operand { get; set; }
 		public string Type { get; set; }
     }
 }

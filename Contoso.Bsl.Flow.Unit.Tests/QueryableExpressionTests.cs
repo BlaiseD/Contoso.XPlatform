@@ -1550,7 +1550,7 @@ namespace Contoso.Bsl.Flow.Unit.Tests
 
             return (Expression<Func<T, TResult>>)mapper.Map<SelectorLambdaOperator>//map the complete lambda from decriptor object to operator object
             (
-                mapper.Map<IExpressionOperatorDescriptor>(completeLambda),//map the complete lambda from parameter object to decriptor object
+                mapper.Map<OperatorDescriptorBase>(completeLambda),//map the complete lambda from parameter object to decriptor object
                 opts => opts.Items["parameters"] = GetParameters()
             ).Build();//create the lambda expression from the operator object
         }

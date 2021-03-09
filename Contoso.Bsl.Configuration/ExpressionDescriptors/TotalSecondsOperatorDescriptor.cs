@@ -2,6 +2,6 @@
 {
     public class TotalSecondsOperatorDescriptor : OperatorDescriptorBase
     {
-		public IExpressionOperatorDescriptor Operand { get; set; }
+		public OperatorDescriptorBase Operand { get; set; }
     }
 }

@@ -24,15 +24,8 @@ namespace Contoso.Bsl.Utils
     public static class RequestHelpers
     {
         public static async Task<GetAnonymousDropDownListResponse> GetAnonymousSelect(GetAnonymousDropDownListRequest request, IContextRepository contextRepository, IMapper mapper) 
-            => await (Task<GetAnonymousDropDownListResponse>)"GetAnonymousSelect".GetSelectMethod
-            (
-                new Type[]
-                {
-                    typeof(GetAnonymousDropDownListRequest),
-                    typeof(IContextRepository),
-                    typeof(IMapper)
-                }
-            ).MakeGenericMethod
+            => await (Task<GetAnonymousDropDownListResponse>)"GetAnonymousSelect".GetSelectMethod()
+            .MakeGenericMethod
             (
                 Type.GetType(request.ModelType),
                 Type.GetType(request.DataType)
@@ -51,15 +44,8 @@ namespace Contoso.Bsl.Utils
             };
 
         public static async Task<GetLookupDropDownListResponse> GetLookupSelect(GetTypedDropDownListRequest request, IContextRepository contextRepository, IMapper mapper) 
-            => await (Task<GetLookupDropDownListResponse>)"GetLookupSelect".GetSelectMethod
-            (
-                new Type[]
-                {
-                    typeof(GetTypedDropDownListRequest),
-                    typeof(IContextRepository),
-                    typeof(IMapper)
-                }
-            ).MakeGenericMethod
+            => await (Task<GetLookupDropDownListResponse>)"GetLookupSelect".GetSelectMethod()
+            .MakeGenericMethod
             (
                 Type.GetType(request.ModelType),
                 Type.GetType(request.DataType),
@@ -99,7 +85,7 @@ namespace Contoso.Bsl.Utils
                 (SelectExpandDefinition)null
             );
 
-        private static MethodInfo GetSelectMethod(this string methodName, Type[] types)
+        private static MethodInfo GetSelectMethod(this string methodName)
            => typeof(RequestHelpers).GetMethods().Single(m => m.Name == methodName && m.IsGenericMethod);
     }
 }

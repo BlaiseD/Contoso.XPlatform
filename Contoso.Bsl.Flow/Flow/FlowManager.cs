@@ -4,6 +4,7 @@ using Contoso.Repositories;
 using LogicBuilder.RulesDirector;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Contoso.Bsl.Flow
@@ -59,7 +60,7 @@ namespace Contoso.Bsl.Flow
             }
             catch (Exception ex)
             {
-                logger.LogWarning(0, string.Format("Progress Start {0}", Newtonsoft.Json.JsonConvert.SerializeObject(this.Progress)));
+                logger.LogWarning(0, string.Format("Progress Start {0}", JsonSerializer.Serialize(this.Progress)));
                 this.logger.LogError(ex, ex.Message);
             }
         }

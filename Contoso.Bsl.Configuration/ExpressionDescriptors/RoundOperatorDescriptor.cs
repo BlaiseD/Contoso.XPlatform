@@ -2,6 +2,6 @@
 {
     public class RoundOperatorDescriptor : OperatorDescriptorBase
     {
-		public IExpressionOperatorDescriptor Operand { get; set; }
+		public OperatorDescriptorBase Operand { get; set; }
     }
 }

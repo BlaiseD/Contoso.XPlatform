@@ -1,46 +1,40 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Contoso.Utils
 {
-    abstract public class JsonTypeConverter<T> : JsonConverter
+    abstract public class JsonTypeConverter<T> : JsonConverter<T>
     {
         #region Properties
-        static protected JsonSerializerSettings SpecifiedSubclassConversion = new JsonSerializerSettings() { ContractResolver = new BaseSpecifiedConcreteClassConverter<T>() };
         abstract public string TypePropertyName { get; }
         #endregion Properties
 
         #region Methods
-        abstract protected Type GetDerivedType(string typeName);
+        public override bool CanConvert(Type typeToConvert)
+            => typeToConvert == typeof(T);
 
-        public override bool CanConvert(Type objectType)
+        public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return (objectType == typeof(T));
+            if (reader.TokenType != JsonTokenType.StartObject)
+                throw new JsonException();
+
+            using (var jsonDocument = JsonDocument.ParseValue(ref reader))
+            {
+                if (!jsonDocument.RootElement.TryGetProperty(TypePropertyName, out var typeProperty))
+                    throw new JsonException();
+
+                return (T)JsonSerializer.Deserialize
+                (
+                    jsonDocument.RootElement.GetRawText(),
+                    Type.GetType(typeProperty.GetString()),
+                    options
+                );
+            }
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null)
-                return null;
-
-            JObject jo = JObject.Load(reader);
-            //Type derivedType = GetDerivedType(jo[TypePropertyName].Value<string>());
-            //return jo.ToObject(derivedType, serializer);
-
-            Type derivedType = GetDerivedType(jo.GetValue(TypePropertyName, StringComparison.OrdinalIgnoreCase)?.Value<string>());
-            return JsonConvert.DeserializeObject(jo.ToString(), derivedType, SpecifiedSubclassConversion);
-        }
-
-        public override bool CanWrite
-        {
-            get { return false; }
-        }
-
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            throw new NotImplementedException();
-        }
+        public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options) 
+            => JsonSerializer.Serialize(writer, value, value.GetType(), options);
         #endregion Methods
     }
 }

@@ -2,6 +2,6 @@
 {
     public class ConvertCharArrayToStringOperatorDescriptor : OperatorDescriptorBase
     {
-		public IExpressionOperatorDescriptor SourceOperand { get; set; }
+		public OperatorDescriptorBase SourceOperand { get; set; }
     }
 }

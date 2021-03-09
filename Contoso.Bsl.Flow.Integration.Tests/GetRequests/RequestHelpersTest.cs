@@ -192,7 +192,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                 },
                 SelectorBody = new MemberInitOperatorDescriptor
                 {
-                    MemberBindings = new Dictionary<string, IExpressionOperatorDescriptor>
+                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
                     {
                         ["NumericValue"] = new MemberSelectorOperatorDescriptor
                         {
@@ -242,7 +242,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                 },
                 SelectorBody = new MemberInitOperatorDescriptor
                 {
-                    MemberBindings = new Dictionary<string, IExpressionOperatorDescriptor>
+                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
                     {
                         ["NumericValue"] = new MemberSelectorOperatorDescriptor
                         {
@@ -260,7 +260,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                 SelectorParameterName = "l"
             };
 
-        private SelectorLambdaOperatorDescriptor GetExpressionDescriptor<T, TResult>(IExpressionOperatorDescriptor selectorBody, string parameterName = "$it")
+        private SelectorLambdaOperatorDescriptor GetExpressionDescriptor<T, TResult>(OperatorDescriptorBase selectorBody, string parameterName = "$it")
             => new SelectorLambdaOperatorDescriptor
             {
                 Selector = selectorBody,

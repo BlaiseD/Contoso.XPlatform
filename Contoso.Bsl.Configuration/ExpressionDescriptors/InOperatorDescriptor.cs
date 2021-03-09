@@ -2,7 +2,7 @@
 {
     public class InOperatorDescriptor : OperatorDescriptorBase
     {
-		public IExpressionOperatorDescriptor ItemToFind { get; set; }
-		public IExpressionOperatorDescriptor ListToSearch { get; set; }
+		public OperatorDescriptorBase ItemToFind { get; set; }
+		public OperatorDescriptorBase ListToSearch { get; set; }
     }
 }

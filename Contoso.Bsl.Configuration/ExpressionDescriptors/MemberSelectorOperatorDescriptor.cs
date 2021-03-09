@@ -3,6 +3,6 @@
     public class MemberSelectorOperatorDescriptor : OperatorDescriptorBase
     {
 		public string MemberFullName { get; set; }
-		public IExpressionOperatorDescriptor SourceOperand { get; set; }
+		public OperatorDescriptorBase SourceOperand { get; set; }
     }
 }
