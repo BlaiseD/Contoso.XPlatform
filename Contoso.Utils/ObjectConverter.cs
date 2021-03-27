@@ -17,8 +17,16 @@ namespace Contoso.Utils
             {
                 case JsonTokenType.String:
                     return reader.GetString();
-                case JsonTokenType.None:
                 case JsonTokenType.StartObject:
+                    using (var jsonDocument = JsonDocument.ParseValue(ref reader))
+                    {
+                        return JsonSerializer.Deserialize
+                        (
+                            jsonDocument.RootElement.GetRawText(),
+                            typeToConvert
+                        );
+                    }
+                case JsonTokenType.None:
                 case JsonTokenType.EndObject:
                 case JsonTokenType.StartArray:
                 case JsonTokenType.EndArray:
