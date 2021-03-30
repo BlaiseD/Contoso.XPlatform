@@ -9,15 +9,15 @@ namespace Contoso.Api
     {
         #region Constants
         private const string WEB_REQUEST_CONTENT_TYPE = "application/json";
-        private const string BASE_URL = "http://localhost:55688/api/";
+        private const string BASE_URL = "http://localhost:55688/api";
         #endregion Constants
 
-        public static async Task<TResult> PutAsync<TResult>(this IHttpClientFactory factory, string url, string jsonObject)
+        public static async Task<TResult> PutAsync<TResult>(this IHttpClientFactory factory, string url, string jsonObject, ConfigurationOptions configurationOptions)
         {
             HttpResponseMessage result;
             using (HttpClient httpClient = factory.CreateClient())
             {
-                result = await httpClient.PutAsync(GetUrl(url), GetStringContent(jsonObject));
+                result = await httpClient.PutAsync(GetUrl(configurationOptions.BaseBslUrl, url), GetStringContent(jsonObject));
             }
 
             result.EnsureSuccessStatusCode();
@@ -29,12 +29,12 @@ namespace Contoso.Api
             );
         }
 
-        public static async Task<TResult> PostAsync<TResult>(this IHttpClientFactory factory, string url, string jsonObject)
+        public static async Task<TResult> PostAsync<TResult>(this IHttpClientFactory factory, string url, string jsonObject, ConfigurationOptions configurationOptions)
         {
             HttpResponseMessage result;
             using (HttpClient httpClient = factory.CreateClient())
             {
-                result =  await httpClient.PostAsync(GetUrl(url), GetStringContent(jsonObject));
+                result =  await httpClient.PostAsync(GetUrl(configurationOptions.BaseBslUrl, url), GetStringContent(jsonObject));
             }
 
             result.EnsureSuccessStatusCode();
@@ -46,12 +46,12 @@ namespace Contoso.Api
             );
         }
 
-        public static async Task<TResult> GetAsync<TResult>(this IHttpClientFactory factory, string url)
+        public static async Task<TResult> GetAsync<TResult>(this IHttpClientFactory factory, string url, ConfigurationOptions configurationOptions)
         {
             HttpResponseMessage result;
             using (HttpClient httpClient = factory.CreateClient())
             {
-                result = await httpClient.GetAsync(GetUrl(url));
+                result = await httpClient.GetAsync(GetUrl(configurationOptions.BaseBslUrl, url));
             }
 
             result.EnsureSuccessStatusCode();
@@ -71,6 +71,6 @@ namespace Contoso.Api
                 WEB_REQUEST_CONTENT_TYPE
             );
 
-        private static string GetUrl(string url) => $"{BASE_URL}{url}";
+        private static string GetUrl(string baseUrl, string url) => $"{baseUrl ?? BASE_URL}/{url}";
     }
 }

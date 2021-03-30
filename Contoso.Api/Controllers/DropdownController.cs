@@ -1,6 +1,7 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,22 @@ namespace Contoso.Api.Controllers
     public class DropdownController : Controller
     {
         private readonly IHttpClientFactory clientFactory;
+        private readonly ConfigurationOptions configurationOptions;
 
-        public DropdownController(IHttpClientFactory clientFactory) 
-            => this.clientFactory = clientFactory;
+        public DropdownController(IHttpClientFactory clientFactory, IOptions<ConfigurationOptions> optionsAccessor)
+        {
+            this.clientFactory = clientFactory;
+            this.configurationOptions = optionsAccessor.Value;
+        }
+
 
         [HttpPost("GetAnonymousDropdown")]
         public async Task<GetAnonymousDropDownListResponse> GetAnonymousDropdown([FromBody] GetAnonymousDropDownListRequest request) 
             => await this.clientFactory.PostAsync<GetAnonymousDropDownListResponse>
             (
                 "Dropdown/GetAnonymousDropdown",
-                JsonSerializer.Serialize(request)
+                JsonSerializer.Serialize(request),
+                this.configurationOptions
             );
 
         [HttpPost("GetLookupDropdown")]
@@ -32,7 +39,8 @@ namespace Contoso.Api.Controllers
             => await this.clientFactory.PostAsync<GetAnonymousDropDownListResponse>
             (
                 "Dropdown/GetLookupDropdown",
-                JsonSerializer.Serialize(request)
+                JsonSerializer.Serialize(request),
+                this.configurationOptions
             );
     }
 }

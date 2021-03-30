@@ -38,6 +38,7 @@ namespace Contoso.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Contoso.Api", Version = "v1" });
             });
 
+            services.Configure<ConfigurationOptions>(Configuration);
             services.AddHttpClient();
         }
 
