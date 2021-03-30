@@ -37,6 +37,7 @@ namespace Contoso.Bsl
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
             services.AddCors();
             services.AddControllers().AddJsonOptions
             (
@@ -79,10 +80,7 @@ namespace Contoso.Bsl
             .AddScoped<FlowActivityFactory, FlowActivityFactory>()
             .AddScoped<DirectorFactory, DirectorFactory>()
             .AddScoped<ICustomActions, CustomActions>()
-            .AddSingleton<IRulesCache>(sp =>
-            {
-                return Bsl.Flow.Rules.RulesService.LoadRules().GetAwaiter().GetResult();
-            });
+            .AddSingleton<IRulesCache>(sp => rulesCache);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
