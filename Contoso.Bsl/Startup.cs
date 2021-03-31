@@ -82,7 +82,7 @@ namespace Contoso.Bsl
             .AddScoped<ICustomActions, CustomActions>()
             .AddSingleton<IMemoryCache>
             (
-                sp => new MemoryCache(new MemoryCacheOptions() {  })
+                sp => new MemoryCache(new MemoryCacheOptions())
             )
             .AddSingleton<IRulesCache>(sp =>
             {
@@ -90,7 +90,7 @@ namespace Contoso.Bsl
                 if (!cache.TryGetValue<IRulesCache>("rules", out IRulesCache rulesCache))
                 {
                     rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
-                    cache.Set("rules", rulesCache);
+                    cache.Set("rules", rulesCache, TimeSpan.FromHours(1));
                 }
 
                 return rulesCache;
