@@ -86,10 +86,12 @@ namespace Contoso.Bsl
                 IMemoryCache cache = sp.GetRequiredService<IMemoryCache>();
                 if (!cache.TryGetValue<IRulesCache>("rules", out IRulesCache rulesCache))
                 {
-                    long before = GC.GetTotalMemory(false);
+                    ILogger<Startup> logger = sp.GetRequiredService<ILogger<Startup>>();
+                    //long before = GC.GetTotalMemory(false);
                     rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
-                    long after = GC.GetTotalMemory(false);
-                    long size = after - before;
+                    //long after = GC.GetTotalMemory(false);
+                    //long size = after - before;
+                    logger.LogInformation($"Setting rules cache: {DateTimeOffset.Now}");
                     cache.Set("rules", rulesCache, TimeSpan.FromHours(1));
                 }
 
