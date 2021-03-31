@@ -80,16 +80,16 @@ namespace Contoso.Bsl
             .AddScoped<FlowActivityFactory, FlowActivityFactory>()
             .AddScoped<DirectorFactory, DirectorFactory>()
             .AddScoped<ICustomActions, CustomActions>()
-            .AddSingleton<IMemoryCache>
-            (
-                sp => new MemoryCache(new MemoryCacheOptions())
-            )
+            .AddMemoryCache()
             .AddSingleton<IRulesCache>(sp =>
             {
                 IMemoryCache cache = sp.GetRequiredService<IMemoryCache>();
                 if (!cache.TryGetValue<IRulesCache>("rules", out IRulesCache rulesCache))
                 {
+                    long before = GC.GetTotalMemory(false);
                     rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
+                    long after = GC.GetTotalMemory(false);
+                    long size = after - before;
                     cache.Set("rules", rulesCache, TimeSpan.FromHours(1));
                 }
 
