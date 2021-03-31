@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,7 +36,6 @@ namespace Contoso.Bsl
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        static IRulesCache rulesCache;
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
@@ -80,10 +80,18 @@ namespace Contoso.Bsl
             .AddScoped<FlowActivityFactory, FlowActivityFactory>()
             .AddScoped<DirectorFactory, DirectorFactory>()
             .AddScoped<ICustomActions, CustomActions>()
+            .AddSingleton<IMemoryCache>
+            (
+                sp => new MemoryCache(new MemoryCacheOptions() {  })
+            )
             .AddSingleton<IRulesCache>(sp =>
-            { 
-                if (rulesCache== null)
+            {
+                IMemoryCache cache = sp.GetRequiredService<IMemoryCache>();
+                if (!cache.TryGetValue<IRulesCache>("rules", out IRulesCache rulesCache))
+                {
                     rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
+                    cache.Set("rules", rulesCache);
+                }
 
                 return rulesCache;
             });
