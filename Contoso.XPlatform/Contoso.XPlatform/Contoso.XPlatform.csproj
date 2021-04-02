@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Contoso.Forms.Configuration\Contoso.Forms.Configuration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\Flyout.xaml.cs">
       <DependentUpon>Flyout.xaml</DependentUpon>
     </Compile>

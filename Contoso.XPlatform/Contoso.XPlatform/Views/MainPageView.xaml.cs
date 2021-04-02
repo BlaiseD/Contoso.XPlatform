@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Contoso.Forms.Configuration.EditForm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,15 @@ namespace Contoso.XPlatform.Views
         {
             InitializeComponent();
             flyout.ListView.SelectionChanged += ListView_SelectionChanged;
+            FlowSettingsChanged();
+        }
+
+        private void FlowSettingsChanged()
+        {
+            EditFormSettingsDescriptor editFormDescriptor = new EditFormSettingsDescriptor
+            {
+
+            };
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
