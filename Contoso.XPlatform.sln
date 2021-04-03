@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateExpressionParametersF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.AutoMapperProfiles", "Contoso.AutoMapperProfiles\Contoso.AutoMapperProfiles.csproj", "{4BAAE7AD-6D9C-4CF8-8A49-BB220F6500CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Bsl.Configuration", "Contoso.Bsl.Configuration\Contoso.Bsl.Configuration.csproj", "{506AEE0B-921F-4C8C-A6F3-5731607F1335}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Common.Configuration", "Contoso.Common.Configuration\Contoso.Common.Configuration.csproj", "{506AEE0B-921F-4C8C-A6F3-5731607F1335}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateExpressionDescriptorsFromOperators", "CreateExpressionDescriptorsFromOperators\CreateExpressionDescriptorsFromOperators.csproj", "{C1C9C30E-714A-4D14-8C6D-E6320F82DD0A}"
 EndProject
@@ -61,7 +61,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Bsl.Business", "Con
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Api", "Contoso.Api\Contoso.Api.csproj", "{4A18DD60-6745-4178-8600-417BAF381FFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contoso.Forms.Configuration", "Contoso.Forms.Configuration\Contoso.Forms.Configuration.csproj", "{94D369F1-BE15-4ACE-BB63-742840858F40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Forms.Configuration", "Contoso.Forms.Configuration\Contoso.Forms.Configuration.csproj", "{94D369F1-BE15-4ACE-BB63-742840858F40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -374,7 +374,7 @@ Global
 		{DBFB15AD-45E8-40D0-B5B8-098A17D9920B} = {E0060AE8-3BDE-4909-BFF4-8B0556B632B0}
 		{4E505AFD-C11F-43B8-98F1-5047EF38B1B1} = {4C97696E-814E-4849-9598-A7DC3074CA76}
 		{4BAAE7AD-6D9C-4CF8-8A49-BB220F6500CA} = {E0060AE8-3BDE-4909-BFF4-8B0556B632B0}
-		{506AEE0B-921F-4C8C-A6F3-5731607F1335} = {388D5030-C849-4E07-B76F-618E457B397F}
+		{506AEE0B-921F-4C8C-A6F3-5731607F1335} = {E0060AE8-3BDE-4909-BFF4-8B0556B632B0}
 		{C1C9C30E-714A-4D14-8C6D-E6320F82DD0A} = {4C97696E-814E-4849-9598-A7DC3074CA76}
 		{39FF1B23-7F47-4742-8918-773FB5F6FE6A} = {49D8D999-C886-4AB0-B9F2-C127C15F1F73}
 		{F4B2ADDF-4493-46E7-96F8-4A5E667E4073} = {49D8D999-C886-4AB0-B9F2-C127C15F1F73}

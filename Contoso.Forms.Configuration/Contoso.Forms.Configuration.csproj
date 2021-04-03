@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contoso.Bsl.Configuration\Contoso.Bsl.Configuration.csproj" />
+    <ProjectReference Include="..\Contoso.Common.Configuration\Contoso.Common.Configuration.csproj" />
   </ItemGroup>
 
 </Project>
