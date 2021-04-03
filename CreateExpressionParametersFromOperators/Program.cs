@@ -6,9 +6,8 @@ namespace CreateExpressionParametersFromOperators
     {
         static void Main(string[] args)
         {
-            //CreateExpressionParameterClasses.Write();
-            CreateParameterToOperatorMappingProfile.Write();
-            CreateDescriptorToOperatorMappingProfile.Write();
+            //CreateExpressionParameterClasses.Write();/*Has manual changes post creation*/
+            CreateDescriptorToOperatorMappingProfile.Write();/*perfect match with source control.*/
         }
     }
 }

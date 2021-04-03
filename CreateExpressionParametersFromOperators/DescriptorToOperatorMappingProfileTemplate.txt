@@ -24,7 +24,7 @@ namespace Contoso.AutoMapperProfiles
         {
 #Mappings#
 
-            CreateMap<IExpressionDescriptor, IExpressionPart>()
+            CreateMap<IExpressionOperatorDescriptor, IExpressionPart>()
 #DescriptorToPartIncludes#
         }
     }
