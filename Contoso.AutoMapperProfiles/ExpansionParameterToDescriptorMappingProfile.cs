@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Contoso.Bsl.Configuration.ExpansionDescriptors;
+using Contoso.Common.Configuration.ExpansionDescriptors;
 using Contoso.Parameters.Expansions;
 
 namespace Contoso.AutoMapperProfiles

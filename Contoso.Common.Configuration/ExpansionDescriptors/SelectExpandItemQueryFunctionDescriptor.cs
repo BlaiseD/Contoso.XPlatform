@@ -1,6 +1,4 @@
-﻿using Contoso.Bsl.Configuration.ExpressionDescriptors;
-
-namespace Contoso.Bsl.Configuration.ExpansionDescriptors
+﻿namespace Contoso.Common.Configuration.ExpansionDescriptors
 {
     public class SelectExpandItemQueryFunctionDescriptor
     {

@@ -1,4 +1,4 @@
-﻿using Contoso.Bsl.Configuration.Json;
+﻿using Contoso.Common.Configuration.Json;
 using Contoso.Domain.Json;
 using Contoso.Utils;
 using System.Text.Json;

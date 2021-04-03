@@ -1,4 +1,4 @@
-﻿namespace Contoso.Bsl.Configuration.ExpressionDescriptors
+﻿namespace Contoso.Common.Configuration.ExpressionDescriptors
 {
     public class HasOperatorDescriptor : OperatorDescriptorBase
     {

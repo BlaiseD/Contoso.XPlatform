@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Contoso.Bsl.Configuration.ExpansionDescriptors
+namespace Contoso.Common.Configuration.ExpansionDescriptors
 {
     public class SortCollectionDescriptor
     {

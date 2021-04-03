@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Contoso.Bsl.Configuration.ExpressionDescriptors
+namespace Contoso.Common.Configuration.ExpressionDescriptors
 {
     public class CustomMethodOperatorDescriptor : OperatorDescriptorBase
     {

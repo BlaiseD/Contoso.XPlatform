@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Contoso.Bsl.Configuration.ExpressionDescriptors
+namespace Contoso.Common.Configuration.ExpressionDescriptors
 {
     public class ConvertOperatorDescriptor : OperatorDescriptorBase
     {

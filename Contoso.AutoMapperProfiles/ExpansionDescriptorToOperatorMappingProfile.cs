@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Contoso.Bsl.Configuration.ExpansionDescriptors;
+using Contoso.Common.Configuration.ExpansionDescriptors;
 using LogicBuilder.Expressions.Utils.Expansions;
 using LogicBuilder.Expressions.Utils.Strutures;
 

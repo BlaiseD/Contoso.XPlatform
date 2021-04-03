@@ -1,6 +1,6 @@
-﻿using Contoso.Bsl.Configuration.ExpressionDescriptors;
+﻿using Contoso.Common.Configuration.ExpressionDescriptors;
 
-namespace Contoso.Bsl.Configuration.ExpansionDescriptors
+namespace Contoso.Common.Configuration.ExpansionDescriptors
 {
     public class SelectExpandItemFilterDescriptor
     {

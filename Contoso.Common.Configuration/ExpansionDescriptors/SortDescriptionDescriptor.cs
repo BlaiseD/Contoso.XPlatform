@@ -1,6 +1,6 @@
 ﻿using LogicBuilder.Expressions.Utils.Strutures;
 
-namespace Contoso.Bsl.Configuration.ExpansionDescriptors
+namespace Contoso.Common.Configuration.ExpansionDescriptors
 {
     public class SortDescriptionDescriptor
     {

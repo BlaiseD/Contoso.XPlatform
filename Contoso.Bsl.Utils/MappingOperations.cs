@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Contoso.Bsl.Configuration.ExpansionDescriptors;
-using Contoso.Bsl.Configuration.ExpressionDescriptors;
+using Contoso.Common.Configuration.ExpansionDescriptors;
+using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
 using LogicBuilder.EntityFrameworkCore.SqlServer;

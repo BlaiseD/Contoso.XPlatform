@@ -1,8 +1,8 @@
-﻿using Contoso.Bsl.Configuration.ExpressionDescriptors;
+﻿using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Utils;
 using System;
 
-namespace Contoso.Bsl.Configuration.Json
+namespace Contoso.Common.Configuration.Json
 {
     public class DescriptorConverter : JsonTypeConverter<OperatorDescriptorBase>
     {

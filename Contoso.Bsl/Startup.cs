@@ -1,7 +1,7 @@
 using AutoMapper;
 using AutoMapper.Extensions.ExpressionMapping;
 using Contoso.AutoMapperProfiles;
-using Contoso.Bsl.Configuration.Json;
+using Contoso.Common.Configuration.Json;
 using Contoso.Bsl.Flow;
 using Contoso.Contexts;
 using Contoso.Domain.Json;

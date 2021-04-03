@@ -1,4 +1,4 @@
-﻿using Contoso.Bsl.Configuration.ExpressionDescriptors;
+﻿using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Forms.Configuration.Directives;
 using Contoso.Forms.Configuration.Validation;
 using System.Collections.Generic;

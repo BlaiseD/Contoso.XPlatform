@@ -167,6 +167,6 @@ namespace CreateExpressionDescriptorsFromOperators
 
     internal struct Constants
     {
-        internal const string BASEPATH = @"C:\.github\BlaiseD\Contoso.XPlatform\Contoso.Bsl.Configuration";
+        internal const string BASEPATH = @"C:\.github\BlaiseD\Contoso.XPlatform\Contoso.Common.Configuration";
     }
 }

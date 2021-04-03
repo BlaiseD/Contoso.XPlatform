@@ -1,4 +1,4 @@
-﻿using Contoso.Bsl.Configuration.ExpressionDescriptors;
+﻿using Contoso.Common.Configuration.ExpressionDescriptors;
 
 namespace Contoso.Forms.Configuration
 {

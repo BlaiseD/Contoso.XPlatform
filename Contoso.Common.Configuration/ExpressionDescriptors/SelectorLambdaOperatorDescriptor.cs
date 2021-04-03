@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 
-namespace Contoso.Bsl.Configuration.ExpressionDescriptors
+namespace Contoso.Common.Configuration.ExpressionDescriptors
 {
     public class SelectorLambdaOperatorDescriptor : OperatorDescriptorBase
     {

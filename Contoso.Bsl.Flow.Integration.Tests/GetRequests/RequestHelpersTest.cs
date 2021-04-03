@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.Extensions.ExpressionMapping;
 using Contoso.AutoMapperProfiles;
-using Contoso.Bsl.Configuration.ExpressionDescriptors;
+using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Bsl.Utils;
 using Contoso.Contexts;
 using Contoso.Data.Entities;

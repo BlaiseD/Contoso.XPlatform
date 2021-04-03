@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
-using Contoso.Bsl.Configuration.ExpressionDescriptors;
+using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Data;
 using Contoso.Domain;
 using LogicBuilder.Data;

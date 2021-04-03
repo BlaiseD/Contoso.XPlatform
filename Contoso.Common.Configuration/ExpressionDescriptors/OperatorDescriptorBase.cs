@@ -1,7 +1,7 @@
-﻿using Contoso.Bsl.Configuration.Json;
+﻿using Contoso.Common.Configuration.Json;
 using System.Text.Json.Serialization;
 
-namespace Contoso.Bsl.Configuration.ExpressionDescriptors
+namespace Contoso.Common.Configuration.ExpressionDescriptors
 {
     [JsonConverter(typeof(DescriptorConverter))]
     public abstract class OperatorDescriptorBase : IExpressionOperatorDescriptor

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Contoso.Parameters.Expressions;
-using Contoso.Bsl.Configuration.ExpressionDescriptors;
+using Contoso.Common.Configuration.ExpressionDescriptors;
 using System;
 
 namespace Contoso.AutoMapperProfiles

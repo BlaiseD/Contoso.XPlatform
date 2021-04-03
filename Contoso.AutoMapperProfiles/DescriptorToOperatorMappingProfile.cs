@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Contoso.Bsl.Configuration.ExpressionDescriptors;
+using Contoso.Common.Configuration.ExpressionDescriptors;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder.Arithmetic;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder.Cacnonical;

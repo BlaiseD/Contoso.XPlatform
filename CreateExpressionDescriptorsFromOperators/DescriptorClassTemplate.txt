@@ -1,4 +1,4 @@
-﻿#NameSpaces#namespace Contoso.Bsl.Configuration.ExpressionDescriptors
+﻿#NameSpaces#namespace Contoso.Common.Configuration.ExpressionDescriptors
 {
     #Modifier#public class #Name##Base#
     {

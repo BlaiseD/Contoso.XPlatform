@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Contoso.Bsl.Configuration.ExpressionDescriptors
+namespace Contoso.Common.Configuration.ExpressionDescriptors
 {
     abstract public class SelectorMethodOperatorDescriptorBase : OperatorDescriptorBase
     {
