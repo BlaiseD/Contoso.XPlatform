@@ -33,10 +33,10 @@ namespace Contoso.XPlatform.Views
             {
                 MenuItems = new ObservableCollection<MainPageViewMasterMenuItem>(new[]
                 {
-                    new MainPageViewMasterMenuItem { Id = 0, Title = "Page 1" },
-                    new MainPageViewMasterMenuItem { Id = 1, Title = "Page 2" },
-                    new MainPageViewMasterMenuItem { Id = 2, Title = "Page 3" },
-                    new MainPageViewMasterMenuItem { Id = 3, Title = "Page 4" },
+                    new MainPageViewMasterMenuItem { Id = 0, Title = "Page 1", TargetType = typeof(MainPageViewDetail) },
+                    new MainPageViewMasterMenuItem { Id = 1, Title = "Page 2", TargetType = typeof(EditFormViewCS) },
+                    new MainPageViewMasterMenuItem { Id = 2, Title = "Page 3", TargetType = typeof(MainPageViewDetail) },
+                    new MainPageViewMasterMenuItem { Id = 3, Title = "Page 4", TargetType = typeof(EditFormView) },
                     new MainPageViewMasterMenuItem { Id = 4, Title = "Page 5" },
                 });
             }

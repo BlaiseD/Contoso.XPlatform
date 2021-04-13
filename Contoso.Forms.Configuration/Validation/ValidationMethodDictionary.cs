@@ -20,7 +20,7 @@ namespace Contoso.Forms.Configuration.Validation
             {
                 validationMethodDescriptors = value;
                 this.Clear();
-                validationMethodDescriptors.ForEach(vmd => this.Add(vmd.Method, vmd.Message));
+                validationMethodDescriptors.ForEach(vmd => this.Add(vmd.ClassName, vmd.Message));
             }
         }
     }

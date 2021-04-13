@@ -2,7 +2,7 @@
 {
     public class ValidationMethodDescriptor
     {
-        public string Method { get; set; }
+        public string ClassName { get; set; }
         public string Message { get; set; }
     }
 }

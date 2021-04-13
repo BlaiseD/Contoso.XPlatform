@@ -1,8 +1,135 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:themes="clr-namespace:Contoso.XPlatform.Themes"
+             xmlns:config="clr-namespace:Contoso.Forms.Configuration;assembly=Contoso.Forms.Configuration"
+             xmlns:vm="clr-namespace:Contoso.XPlatform.ViewModels"
              x:Class="Contoso.XPlatform.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <themes:DarkTheme />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary>
+            <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeBrands">
+                <On Platform="Android" Value="FontAwesome5BrandsRegular400.otf#Regular" />
+                <On Platform="iOS" Value="Font Awesome 5 Brands Regular" />
+                <On Platform="UWP" Value="/Assets/FontAwesome5BrandsRegular400.otf#Font Awesome 5 Brands" />
+            </OnPlatform>
 
+            <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeSolid">
+                <On Platform="Android" Value="FontAwesome5Solid900.otf#Regular" />
+                <On Platform="iOS" Value="Font Awesome 5 Free Solid" />
+                <On Platform="UWP" Value="/Assets/FontAwesome5Solid900.otf#Font Awesome 5 Free" />
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeRegular">
+                <On Platform="Android" Value="FontAwesome5Regular.otf#Regular" />
+                <On Platform="iOS" Value="Font Awesome 5 Free Regular" />
+                <On Platform="UWP" Value="/Assets/FontAwesome5Regular400.otf#Font Awesome 5 Free" />
+            </OnPlatform>
+
+            <Style TargetType="Frame" x:Key="ResultListFrameStyle">
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"  />
+                <Setter Property="BackgroundColor" Value="{DynamicResource ResultListBackgroundColor}" />
+                <Setter Property="BorderColor" Value="{DynamicResource ResultListBorderColor}" />
+            </Style>
+
+            <Style TargetType="CollectionView" x:Key="ResultListCollectionViewStyle">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource ResultListBackgroundColor}" />
+                <Setter Property="VerticalOptions" Value="Start" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="ResultListLabelStyle" BaseResourceKey="SubtitleStyle">
+                <Setter Property="Margin" Value="-20,-8,-20,0" />
+                <Setter Property="Padding" Value="20,20,20,2" />
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="HeaderStyle" BaseResourceKey="TitleStyle">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
+                <Setter Property="LineBreakMode" Value="NoWrap" />
+            </Style>
+
+            <Style TargetType="Entry">
+                <Setter Property="Margin" Value = "0,10,0,0" />
+                <Setter Property="BackgroundColor" Value = "{DynamicResource EntryBackgroundColor}" />
+                <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
+                <Setter Property="PlaceholderColor" Value = "{DynamicResource TertiaryTextColor}" />
+            </Style>
+
+            <Style TargetType="Picker">
+                <Setter Property="Margin" Value = "0,10,0,0" />
+                <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor" Value = "{DynamicResource EntryBackgroundColor}" />
+            </Style>
+
+            <Style TargetType="DatePicker">
+                <Setter Property="Margin" Value = "0,10,0,0" />
+                <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor" Value = "{DynamicResource EntryBackgroundColor}" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor" Value = "{DynamicResource CommandButtonBackgroundColor}" />
+                <Setter Property="BorderColor" Value = "{DynamicResource CommandButtonBorderColor}" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="ErrorTextStyle">
+                <Setter Property="TextColor" Value = "{DynamicResource ErrorTextColor}"   />
+                <Setter Property="FontSize" Value = "12"   />
+            </Style>
+
+            <DataTemplate x:Key="CommndButtonItemTemplate" x:DataType="config:CommandButtonDescriptor" >
+                <Grid HeightRequest="{Binding HeightRequest}">
+                    <Frame
+                        Margin="5"
+                        Padding="0"
+                        CornerRadius="5"
+                        BackgroundColor="{DynamicResource CommandButtonBackgroundColor}"
+                        BorderColor="{DynamicResource CommandButtonBorderColor}">
+                        <Grid Padding="10">
+                            <Label BackgroundColor="Transparent"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalTextAlignment="Center"
+                                   Margin="0"
+                                   LineBreakMode="WordWrap"
+                                   Text="{Binding LongString}"
+                                   TextColor="{DynamicResource PrimaryTextColor}">
+                            </Label>
+                        </Grid>
+                    </Frame>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:EditFormViewModel}}, Path=ButtonTappedCommand}"
+                            CommandParameter="{Binding .}"/>
+                    </Grid.GestureRecognizers>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal" />
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource SelectedCommandButtonBackgroundColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
     </Application.Resources>
+    <Application.MainPage>
+        <NavigationPage BarBackgroundColor="{DynamicResource PageBackgroundColor}" BarTextColor="{DynamicResource PrimaryTextColor}" />
+    </Application.MainPage>
 </Application>

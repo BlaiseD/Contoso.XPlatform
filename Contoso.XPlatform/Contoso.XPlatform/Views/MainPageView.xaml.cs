@@ -1,4 +1,5 @@
 ﻿using Contoso.Forms.Configuration.EditForm;
+using Contoso.XPlatform.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,6 @@ namespace Contoso.XPlatform.Views
 
         private void FlowSettingsChanged()
         {
-            EditFormSettingsDescriptor editFormDescriptor = new EditFormSettingsDescriptor
-            {
-
-            };
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -35,14 +32,37 @@ namespace Contoso.XPlatform.Views
 
             if (!(e.CurrentSelection.First() is MainPageViewMasterMenuItem item))
                 return;
-
-            var page = (Page)Activator.CreateInstance(item.TargetType);
+            Page page;
+            if (item.TargetType == typeof(EditFormViewCS))
+            {
+                page = new EditFormViewCS(new EditFormViewModel(Descriptors.StudentForm));
+            }
+            else if(item.TargetType == typeof(EditFormView))
+            {
+                page = new EditFormView(new EditFormViewModel(Descriptors.StudentForm));
+            }
+            else
+            {
+                page = (Page)Activator.CreateInstance(item.TargetType);
+            }
+            
             page.Title = item.Title;
 
-            Detail = new NavigationPage(page);
+            Detail = GetNavigationPage(page);
             IsPresented = false;
 
             flyout.ListView.SelectedItem = null;
+        }
+
+        private NavigationPage GetNavigationPage(Page page)
+        {
+            NavigationPage.SetHasBackButton(page, false);
+            page.SetDynamicResource(Page.BackgroundColorProperty, "PageBackgroundColor");
+            var navigationPage = new NavigationPage(page);
+            navigationPage.SetDynamicResource(NavigationPage.BarBackgroundColorProperty, "PageBackgroundColor");
+            navigationPage.SetDynamicResource(NavigationPage.BarTextColorProperty, "PrimaryTextColor");
+
+            return navigationPage;
         }
     }
 }

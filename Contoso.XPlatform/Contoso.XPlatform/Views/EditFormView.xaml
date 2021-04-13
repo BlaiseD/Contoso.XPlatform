@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Contoso.XPlatform.Views.EditFormView"
+             xmlns:behaviour="clr-namespace:Contoso.XPlatform.Behaviours"
+             xmlns:converter="clr-namespace:Contoso.XPlatform.Converters"
+             xmlns:utils="clr-namespace:Contoso.XPlatform.Utils"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="Page 4">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <converter:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
+
+            <DataTemplate x:Key="TextTemplate">
+                <StackLayout>
+                    <Entry Text="{Binding Value}" 
+                     Placeholder="{Binding Placeholder}">
+                        <Entry.Behaviors>
+                            <behaviour:EntryLineValidationBehaviour IsValid="{Binding IsValid}"/>
+                            <behaviour:EventToCommandBehavior 
+                                EventName="TextChanged" 
+                                Command="{Binding TextChangedCommand}" />
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Label 
+                    Text="{Binding Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBoolConverter}}"
+                    Style="{StaticResource ErrorTextStyle}"/>
+                </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="PasswordTemplate">
+                <StackLayout>
+                    <Entry Text="{Binding Value}" 
+                           IsPassword="True"
+                           Placeholder="{Binding Placeholder}">
+                        <Entry.Behaviors>
+                            <behaviour:EntryLineValidationBehaviour IsValid="{Binding IsValid}"/>
+                            <behaviour:EventToCommandBehavior 
+                                EventName="TextChanged" 
+                                Command="{Binding TextChangedCommand}" />
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Label 
+                    Text="{Binding Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBoolConverter}}"
+                    Style="{StaticResource ErrorTextStyle}"/>
+                </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DateTemplate">
+                <StackLayout>
+                    <DatePicker Date="{Binding Value}">
+                        <DatePicker.Behaviors>
+                            <behaviour:EventToCommandBehavior 
+                            EventName="DateSelected" 
+                            Command="{Binding DateChangedCommand}" />
+                        </DatePicker.Behaviors>
+                    </DatePicker>
+                    <Label 
+                    Text="{Binding Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBoolConverter}}"
+                    Style="{StaticResource ErrorTextStyle}"/>
+                </StackLayout>
+            </DataTemplate>
+            <DataTemplate x:Key="CheckboxTemplate">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Value}">
+                            <CheckBox.Behaviors>
+                                <behaviour:EventToCommandBehavior 
+                                    EventName="CheckedChanged" 
+                                    Command="{Binding CheckedChangedCommand}" />
+                            </CheckBox.Behaviors>
+                        </CheckBox>
+                        <Label Text="{Binding CheckboxLabel}"
+                           VerticalOptions="Center"/>
+                    </StackLayout>
+                    <Label Text="{Binding Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                        IsVisible="{Binding IsValid, Converter={StaticResource InverseBoolConverter}}"
+                        Style="{StaticResource ErrorTextStyle}"/>
+                </StackLayout>
+            </DataTemplate>
+            <DataTemplate x:Key="PickerTemplate">
+                <StackLayout>
+                    <Picker x:Name="pickerDemo" 
+                            SelectedItem="{Binding Value}"
+                            Title="{Binding Title}"
+                            ItemsSource="{Binding Items}">
+                        <Picker.Behaviors>
+                            <behaviour:EventToCommandBehavior 
+                                    EventName="SelectedIndexChanged" 
+                                    Command="{Binding SelectedIndexChangedCommand}" />
+                        </Picker.Behaviors>
+                    </Picker>
+                    <Label 
+                    Text="{Binding Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBoolConverter}}"
+                    Style="{StaticResource ErrorTextStyle}"/>
+                </StackLayout>
+            </DataTemplate>
+
+            <utils:QuestionTemplateSelector x:Key="QuestionTemplateSelector"
+                                        CheckboxTemplate="{StaticResource CheckboxTemplate}"
+                                        DateTemplate="{StaticResource DateTemplate}"
+                                        PasswordTemplate="{StaticResource PasswordTemplate}"
+                                        TextTemplate="{StaticResource TextTemplate}"
+                                        PickerTemplate ="{StaticResource PickerTemplate}"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Padding="30"
+                         VerticalOptions="CenterAndExpand">
+            <Label Text="Create account"
+                      Style="{StaticResource HeaderStyle}"/>
+
+            <CollectionView ItemsSource="{Binding Properties}"
+                            SelectionMode="Single"
+                            ItemTemplate="{StaticResource QuestionTemplateSelector}">
+            </CollectionView>
+
+            <Button Text="CREATE ACCOUNT"
+                        Command="{Binding SignUpCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
