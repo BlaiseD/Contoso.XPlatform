@@ -1,10 +1,8 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
+using Contoso.Web.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -29,18 +27,18 @@ namespace Contoso.Api.Controllers
         public async Task<GetAnonymousDropDownListResponse> GetAnonymousDropdown([FromBody] GetAnonymousDropDownListRequest request) 
             => await this.clientFactory.PostAsync<GetAnonymousDropDownListResponse>
             (
-                "Dropdown/GetAnonymousDropdown",
+                "api/Dropdown/GetAnonymousDropdown",
                 JsonSerializer.Serialize(request),
-                this.configurationOptions
+                this.configurationOptions.BaseBslUrl
             );
 
         [HttpPost("GetLookupDropdown")]
-        public async Task<GetAnonymousDropDownListResponse> GetLookupDropDown([FromBody] GetTypedDropDownListRequest request) 
-            => await this.clientFactory.PostAsync<GetAnonymousDropDownListResponse>
+        public async Task<GetLookupDropDownListResponse> GetLookupDropDown([FromBody] GetTypedDropDownListRequest request) 
+            => await this.clientFactory.PostAsync<GetLookupDropDownListResponse>
             (
-                "Dropdown/GetLookupDropdown",
+                "api/Dropdown/GetLookupDropdown",
                 JsonSerializer.Serialize(request),
-                this.configurationOptions
+                this.configurationOptions.BaseBslUrl
             );
     }
 }

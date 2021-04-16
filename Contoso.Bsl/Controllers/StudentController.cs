@@ -2,7 +2,9 @@
 using Contoso.Bsl.Business.Responses;
 using Contoso.Bsl.Flow;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Contoso.Bsl.Controllers
 {
@@ -10,19 +12,110 @@ namespace Contoso.Bsl.Controllers
     [Route("api/Student")]
     public class StudentController : Controller
     {
-        private readonly IFlowManager _flowManager;
+        private readonly IFlowManager flowManager;
+        private readonly Repositories.ISchoolRepository schoolRepository;
+        private readonly ILogger<StudentController> logger;
 
-        public StudentController(IFlowManager flowManager)
+        public StudentController(IFlowManager flowManager, Repositories.ISchoolRepository schoolRepository, ILogger<StudentController> logger)
         {
-            _flowManager = flowManager;
+            this.flowManager = flowManager;
+            this.schoolRepository = schoolRepository;
+            this.logger = logger;
         }
 
         [HttpPost("Save")]
-        public IActionResult Start([FromBody] SaveStudentRequest saveStudentRequest)
+        public IActionResult Save([FromBody] SaveStudentRequest saveStudentRequest)
         {
-            this._flowManager.FlowDataCache.Request = saveStudentRequest;
-            this._flowManager.Start("savestudent");
-            return Ok((SaveStudentResponse)this._flowManager.FlowDataCache.Response);
+            this.flowManager.FlowDataCache.Request = saveStudentRequest;
+            this.flowManager.Start("savestudent");
+            return Ok((SaveStudentResponse)this.flowManager.FlowDataCache.Response);
+        }
+
+        [HttpPost("SaveWithoutRules")]
+        public IActionResult SaveWithoutRules([FromBody] SaveStudentRequest saveStudentRequest)
+        {
+            System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
+            var response = SaveStudentWithoutRules(saveStudentRequest);
+            stopWatch.Stop();
+            logger.LogWarning("this.SaveStudentWithoutRules: {0}", stopWatch.Elapsed.TotalMilliseconds);
+            return Ok(response);
+        }
+
+        private SaveStudentResponse SaveStudentWithoutRules(SaveStudentRequest saveStudentRequest)
+        {
+            Domain.Entities.StudentModel studentModel = saveStudentRequest.Student;
+            SaveStudentResponse saveStudentResponse = new SaveStudentResponse()
+            {
+                ErrorMessages = new List<string>()
+            };
+
+            if (string.IsNullOrWhiteSpace(studentModel.FirstName))
+                saveStudentResponse.ErrorMessages.Add("First Name is required.");
+            if (string.IsNullOrWhiteSpace(studentModel.LastName))
+                saveStudentResponse.ErrorMessages.Add("Last Name is required.");
+            if (studentModel.EnrollmentDate == default)
+                saveStudentResponse.ErrorMessages.Add("Enrollment Date is required.");
+
+            if (saveStudentResponse.ErrorMessages.Any())
+            {
+                saveStudentResponse.Success = false;
+                return saveStudentResponse;
+            }
+
+            saveStudentResponse.Success = schoolRepository.SaveGraphAsync<Domain.Entities.StudentModel, Data.Entities.Student>(studentModel).Result;
+
+            if (!saveStudentResponse.Success) return saveStudentResponse;
+
+            studentModel = schoolRepository.GetAsync<Domain.Entities.StudentModel, Data.Entities.Student>
+            (
+                f => f.ID == studentModel.ID,
+                null,
+                new LogicBuilder.Expressions.Utils.Expansions.SelectExpandDefinition
+                {
+                    ExpandedItems = new List<LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem>
+                    {
+                        new LogicBuilder.Expressions.Utils.Expansions.SelectExpandItem { MemberName = "enrollments" }
+                    }
+                }
+            ).Result.SingleOrDefault();
+
+            saveStudentResponse.Student = studentModel;
+
+            int Iteration_Index = 0;
+
+            flowManager.CustomActions.WriteToLog
+            (
+                string.Format
+                (
+                    "EnrollmentCount: {0}. Index: {1}",
+                    new object[]
+                    {
+                        studentModel.Enrollments.Count,
+                        Iteration_Index
+                    }
+                )
+            );
+
+            Domain.Entities.EnrollmentModel enrollmentModel = null;
+            while (Iteration_Index < studentModel.Enrollments.Count)
+            {
+                enrollmentModel = studentModel.Enrollments.ElementAt(Iteration_Index);
+                Iteration_Index = Iteration_Index + 1;
+                flowManager.CustomActions.WriteToLog
+                (
+                    string.Format
+                    (
+                        "Student Id:{0} is enrolled in {1}.",
+                        new object[]
+                        {
+                            studentModel.ID,
+                            enrollmentModel.CourseTitle
+                        }
+                    )
+                );
+            }
+
+            return saveStudentResponse;
         }
 
         [HttpGet]

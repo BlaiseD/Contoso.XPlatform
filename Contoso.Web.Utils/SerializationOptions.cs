@@ -1,9 +1,10 @@
 ﻿using Contoso.Common.Configuration.Json;
 using Contoso.Domain.Json;
 using Contoso.Utils;
+using System;
 using System.Text.Json;
 
-namespace Contoso.Api
+namespace Contoso.Web.Utils
 {
     public static class SerializationOptions
     {

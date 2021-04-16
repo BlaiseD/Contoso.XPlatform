@@ -59,7 +59,7 @@ namespace Contoso.Bsl.Flow
                 System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
                 this.Director.StartInitialFlow(module);
                 stopWatch.Stop();
-                logger.LogWarning("this.Director.StartInitialFlow: {0}", stopWatch.Elapsed.TotalMilliseconds);
+                logger.LogInformation("this.Director.StartInitialFlow: {0}", stopWatch.Elapsed.TotalMilliseconds);
             }
             catch (Exception ex)
             {

@@ -14,6 +14,12 @@ namespace Contoso.Bsl
     {
         public static void Main(string[] args)
         {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false)
+                .Build();
+
+            NLog.GlobalDiagnosticsContext.Set("DefaultConnection", config.GetConnectionString("DefaultConnection"));
+
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {

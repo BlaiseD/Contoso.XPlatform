@@ -1,5 +1,6 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
+using Contoso.Web.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
@@ -26,17 +27,17 @@ namespace Contoso.Api.Controllers
         public async Task<SaveStudentResponse> Save([FromBody] SaveStudentRequest saveStudentRequest) 
             => await this.clientFactory.PostAsync<SaveStudentResponse>
             (
-                "Student/Save",
+                "api/Student/Save",
                 JsonSerializer.Serialize(saveStudentRequest),
-                this.configurationOptions
+                this.configurationOptions.BaseBslUrl
             );
 
         [HttpGet]
         public async Task<IEnumerable<string>> Get() 
             => await this.clientFactory.GetAsync<IEnumerable<string>>
             (
-                "Student",
-                this.configurationOptions
+                "api/Student",
+                this.configurationOptions.BaseBslUrl
             );
     }
 }

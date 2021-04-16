@@ -1,0 +1,130 @@
+using Contoso.Bsl.Business.Responses;
+using Contoso.Common.Configuration.ExpressionDescriptors;
+using Contoso.Data.Entities;
+using Contoso.Domain.Entities;
+using Contoso.Web.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
+using Xunit;
+
+namespace Contoso.Bsl.Web.Tests
+{
+    public class GetDropdownListTests
+    {
+        public GetDropdownListTests()
+        {
+            Initialize();
+        }
+
+        #region Fields
+        private IServiceProvider serviceProvider;
+        private IHttpClientFactory clientFactory;
+        #endregion Fields
+
+        #region Helpers
+        private void Initialize()
+        {
+            IServiceCollection services = new ServiceCollection();
+            services.AddHttpClient();
+            serviceProvider = services.BuildServiceProvider();
+
+            this.clientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
+        }
+
+        private SelectOperatorDescriptor GetBodyForLookupsModel()
+            => new SelectOperatorDescriptor
+            {
+                SourceOperand = new OrderByOperatorDescriptor
+                {
+                    SourceOperand = new WhereOperatorDescriptor
+                    {
+                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                        FilterBody = new EqualsBinaryOperatorDescriptor
+                        {
+                            Left = new MemberSelectorOperatorDescriptor
+                            {
+                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
+                                MemberFullName = "ListName"
+                            },
+                            Right = new ConstantOperatorDescriptor
+                            {
+                                ConstantValue = "Credits",
+                                Type = typeof(string).AssemblyQualifiedName
+                            }
+                        },
+                        FilterParameterName = "l"
+                    },
+                    SelectorBody = new MemberSelectorOperatorDescriptor
+                    {
+                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
+                        MemberFullName = "NumericValue"
+                    },
+                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Descending,
+                    SelectorParameterName = "l"
+                },
+                SelectorBody = new MemberInitOperatorDescriptor
+                {
+                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                    {
+                        ["NumericValue"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
+                            MemberFullName = "NumericValue"
+                        },
+                        ["Text"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
+                            MemberFullName = "Text"
+                        }
+                    },
+                    NewType = typeof(LookUpsModel).AssemblyQualifiedName
+                },
+                SelectorParameterName = "l"
+            };
+
+        private SelectorLambdaOperatorDescriptor GetExpressionDescriptor<T, TResult>(OperatorDescriptorBase selectorBody, string parameterName = "$it")
+            => new SelectorLambdaOperatorDescriptor
+            {
+                Selector = selectorBody,
+                SourceElementType = typeof(T).AssemblyQualifiedName,
+                ParameterName = parameterName,
+                BodyType = typeof(TResult).AssemblyQualifiedName
+            };
+        #endregion Helpers
+
+        #region Tests
+        [Fact]
+        public async void GetDropDownListRequest_As_LookUpsModel()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<LookUpsModel>, IEnumerable<LookUpsModel>>
+            (
+                GetBodyForLookupsModel(),
+                "q"
+            );
+
+            var result = await this.clientFactory.PostAsync<GetLookupDropDownListResponse>
+            (
+                "api/Dropdown/GetLookupDropdown",
+                JsonSerializer.Serialize
+                (
+                    new Business.Requests.GetTypedDropDownListRequest
+                    {
+                        Selector = selectorLambdaOperatorDescriptor,
+                        ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
+                        DataType = typeof(LookUps).AssemblyQualifiedName,
+                        ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
+                        DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                    }
+                )
+            );
+
+            Assert.NotNull(result);
+        }
+        #endregion Tests
+    }
+}
