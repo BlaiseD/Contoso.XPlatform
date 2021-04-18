@@ -49,6 +49,7 @@ namespace Contoso.Bsl.Controllers
                 ErrorMessages = new List<string>()
             };
 
+            #region Validation
             if (string.IsNullOrWhiteSpace(studentModel.FirstName))
                 saveStudentResponse.ErrorMessages.Add("First Name is required.");
             if (string.IsNullOrWhiteSpace(studentModel.LastName))
@@ -58,12 +59,14 @@ namespace Contoso.Bsl.Controllers
 
             if (saveStudentResponse.ErrorMessages.Any())
             {
+                flowManager.CustomActions.WriteToLog("An error occurred saving the request.");
                 saveStudentResponse.Success = false;
                 return saveStudentResponse;
             }
+            #endregion Validation
 
+            #region Save and retrieve
             saveStudentResponse.Success = schoolRepository.SaveGraphAsync<Domain.Entities.StudentModel, Data.Entities.Student>(studentModel).Result;
-
             if (!saveStudentResponse.Success) return saveStudentResponse;
 
             studentModel = schoolRepository.GetAsync<Domain.Entities.StudentModel, Data.Entities.Student>
@@ -80,7 +83,9 @@ namespace Contoso.Bsl.Controllers
             ).Result.SingleOrDefault();
 
             saveStudentResponse.Student = studentModel;
+            #endregion Save and retrieve
 
+            #region Log Enrollments
             int Iteration_Index = 0;
 
             flowManager.CustomActions.WriteToLog
@@ -114,6 +119,7 @@ namespace Contoso.Bsl.Controllers
                     )
                 );
             }
+            #endregion Log Enrollments
 
             return saveStudentResponse;
         }

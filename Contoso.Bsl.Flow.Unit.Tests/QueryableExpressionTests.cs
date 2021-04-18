@@ -79,7 +79,7 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             );
 
             //lambdaExpression q => q.Where...
-            var expressionParameter = GetExpressionParameter<IQueryable<Student>, double>(bodyParameter, "q");
+            SelectorLambdaOperatorParameter expressionParameter = GetExpressionParameter<IQueryable<Student>, double>(bodyParameter, "q");
 
             Expression<Func<IQueryable<Student>, double>> expression = GetExpression<IQueryable<Student>, double>(expressionParameter);
 
@@ -1528,7 +1528,7 @@ namespace Contoso.Bsl.Flow.Unit.Tests
         /// <param name="selectorBody"></param>
         /// <param name="parameterName"></param>
         /// <returns></returns>
-        private IExpressionParameter GetExpressionParameter<T, TResult>(IExpressionParameter selectorBody, string parameterName = "$it")
+        private SelectorLambdaOperatorParameter GetExpressionParameter<T, TResult>(IExpressionParameter selectorBody, string parameterName = "$it")
             => new SelectorLambdaOperatorParameter
             (
                 selectorBody,
