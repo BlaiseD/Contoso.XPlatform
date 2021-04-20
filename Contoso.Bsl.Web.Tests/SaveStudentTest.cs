@@ -69,7 +69,8 @@ namespace Contoso.Bsl.Web.Tests
                                 }
                             }
                         }
-                    )
+                    ),
+                    "http://localhost:55688/"
                 );
 
                 Assert.True(result.Success);
@@ -121,7 +122,8 @@ namespace Contoso.Bsl.Web.Tests
                                 }
                             }
                         }
-                    )
+                    ),
+                    "http://localhost:55688/"
                 );
 
                 Assert.True(result.Success);
