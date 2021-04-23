@@ -8,7 +8,7 @@ namespace Contoso.XPlatform.Views
 {
     public class EditFormViewCS : ContentPage
     {
-        public EditFormViewCS(EditFormViewModel editFormViewModel)
+        public EditFormViewCS(object editFormViewModel)
         {
             AddContent();
             BindingContext = editFormViewModel;

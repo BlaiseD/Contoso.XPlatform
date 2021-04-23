@@ -2,6 +2,7 @@
 using Contoso.Forms.Configuration.Validation;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 
 namespace Contoso.XPlatform.Validators.Rules
@@ -48,11 +49,35 @@ namespace Contoso.XPlatform.Validators.Rules
                 throw new ArgumentException($"{nameof(validator.ClassName)}: 8A45F637-347D-4578-9F9C-72E9026FBCEB");
 
             if (validator.ClassName == nameof(RequiredRule<T>))
-                return new RequiredRule<T>(setting.Field, validationMessage, fields, (T)setting.ValidationSetting.DefaultValue);
+                return GetRequiredRule();
+            else if (validator.ClassName == nameof(IsMatchRule<T>))
+                return GetIsMatchRule();
             else
                 throw new ArgumentException($"{nameof(validator.ClassName)}: CF4FDB4D-F135-40E0-BB31-14DBA624FC25");
+
+            IValidationRule GetRequiredRule()
+                => new RequiredRule<T>
+                (
+                    setting.Field, 
+                    validationMessage, 
+                    fields, 
+                    (T)setting.ValidationSetting.DefaultValue
+                );
+
+            IValidationRule GetIsMatchRule()
+            {
+                const string argumentName = "otherFieldName";
+                if (!validator.Arguments.TryGetValue(argumentName, out ValidatorArgumentDescriptor validatorArgumentDescriptor))
+                    throw new ArgumentException($"{argumentName}: ADB88D64-F9DA-4FC0-B9C0-CB910F86B735");
+
+                return new IsMatchRule<T>
+                (
+                    setting.Field,
+                    validationMessage, 
+                    fields, 
+                    (string)validatorArgumentDescriptor.Value
+                );
+            }
         }
-
-
     }
 }

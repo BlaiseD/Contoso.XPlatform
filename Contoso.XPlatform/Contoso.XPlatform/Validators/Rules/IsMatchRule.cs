@@ -2,7 +2,7 @@
 
 namespace Contoso.XPlatform.Validators.Rules
 {
-    public class IsMatchRule<T> : ValidationRuleBase<T>
+    public record IsMatchRule<T> : ValidationRuleBase<T>
     {
         public IsMatchRule(string fieldName, string validationMessage, ICollection<IValidatable> allProperties, string otherFieldName)
             : base(fieldName, validationMessage, allProperties)

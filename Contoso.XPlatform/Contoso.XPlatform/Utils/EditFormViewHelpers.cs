@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Utils
 {
-    public static class EditFormViewHelpers
+    internal static class EditFormViewHelpers
     {
         public static QuestionTemplateSelector QuestionTemplateSelector { get; } = new QuestionTemplateSelector
         {

@@ -7,11 +7,12 @@ namespace Contoso.XPlatform.Validators
 {
     public class ValidatableObjectBase<T> : IValidatable
     {
-        public ValidatableObjectBase(string name, string templateName, IEnumerable<IValidationRule> validations)
+        public ValidatableObjectBase(string name, string templateName, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService)
         {
             Name = name;
             TemplateName = templateName;
             Validations = validations?.ToList();
+            this.uiNotificationService = uiNotificationService;
         }
 
         #region Fields
@@ -20,6 +21,7 @@ namespace Contoso.XPlatform.Validators
         private string _name;
         private Dictionary<string, string> _errors = new Dictionary<string, string>();
         private string _templateName;
+        private UiNotificationService uiNotificationService;
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion Fields
 
@@ -72,6 +74,7 @@ namespace Contoso.XPlatform.Validators
                     return;
 
                 _value = value;
+                this.uiNotificationService.NotifyPropertyChanged();
                 OnPropertyChanged();
             }
         }

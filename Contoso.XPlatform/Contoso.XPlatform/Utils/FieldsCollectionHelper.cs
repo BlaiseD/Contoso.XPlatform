@@ -1,25 +1,80 @@
-﻿using Contoso.Forms.Configuration.EditForm;
+﻿using AutoMapper;
+using Contoso.Forms.Configuration.Directives;
+using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.Validation;
 using Contoso.XPlatform.Validators;
 using Contoso.XPlatform.Validators.Rules;
+using LogicBuilder.Expressions.Utils.ExpressionBuilder.Lambda;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Contoso.XPlatform.Utils
 {
     internal class FieldsCollectionHelper
     {
-        public FieldsCollectionHelper(EditFormSettingsDescriptor formSettings, ObservableCollection<IValidatable> properties)
+        public FieldsCollectionHelper(EditFormSettingsDescriptor formSettings, ObservableCollection<IValidatable> properties, UiNotificationService uiNotificationService)
         {
             FormSettings = formSettings;
             Properties = properties;
+            UiNotificationService = uiNotificationService;
         }
 
         public EditFormSettingsDescriptor FormSettings { get; set; }
         public ObservableCollection<IValidatable> Properties { get; }
+        public UiNotificationService UiNotificationService { get; set; }
+
+        public List<ValidateIf<TModel>> GetConditionalValidationConditions<TModel>(VariableDirectivesDictionary conditionalDirectives, IEnumerable<IValidatable> properties, IMapper mapper)
+        {
+            if (conditionalDirectives == null)
+                return new List<ValidateIf<TModel>>();
+
+            const string PARAMETERS_KEY = "parameters";
+            List<ValidateIf<TModel>> list = new List<ValidateIf<TModel>>();
+            
+            IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(p => p.Name);
+
+            foreach (var kvp in conditionalDirectives)
+            {
+                kvp.Value.ForEach
+                (
+                    descriptor =>
+                    {
+                        if (descriptor.Definition.ClassName == nameof(ValidateIf<TModel>))
+                        {
+                            var validatable = propertiesDictionary[kvp.Key];
+                            validatable.Validations.ForEach
+                            (
+                                validationRule =>
+                                {
+                                    list.Add
+                                    (
+                                        new ValidateIf<TModel>
+                                        {
+                                            Field = kvp.Key,
+                                            Validator = validationRule,
+                                            Evaluator = (Expression<Func<TModel, bool>>)mapper.Map<FilterLambdaOperator>
+                                            (
+                                                descriptor.Condition,
+                                                opts => opts.Items[PARAMETERS_KEY] = GetParameters()
+                                            ).Build()
+                                        }
+                                    );
+                                }
+                            );
+                        }
+                    }
+                );
+            }
+
+            return list;
+        }
+
+        private static IDictionary<string, ParameterExpression> GetParameters()
+            => new Dictionary<string, ParameterExpression>();
 
         public void CreateFieldsCollection()
         {
@@ -98,13 +153,13 @@ namespace Contoso.XPlatform.Utils
             => ValidatorRuleFactory.GetValidatorRule(validator, setting, FormSettings.ValidationMessages, Properties);
 
         private IValidatable CreateEntryValidatableObject(string name, string templateName, string placeholder, string @value, params IValidationRule[] validationRules) 
-            => new EntryValidatableObject(name, templateName, placeholder, validationRules)
+            => new EntryValidatableObject(name, templateName, placeholder, validationRules, this.UiNotificationService)
             {
                 Value = value
             };
 
         private IValidatable CreateDatePickerValidatableObject(string name, string templateName, DateTime @value, params IValidationRule[] validationRules)
-            => new DatePickerValidatableObject(name, templateName, validationRules)
+            => new DatePickerValidatableObject(name, templateName, validationRules, this.UiNotificationService)
             {
                 Value = value
             };
@@ -133,7 +188,7 @@ namespace Contoso.XPlatform.Utils
         }
 
         private PickerValidatableObject<T> _CreatePickerValidatableObject<T>(string name, string templateName, string title, T @value, List<T> itemsSource, params IValidationRule[] validationRules)
-            => new PickerValidatableObject<T>(name, templateName, title, itemsSource, validationRules)
+            => new PickerValidatableObject<T>(name, templateName, title, itemsSource, validationRules, this.UiNotificationService)
             {
                 Value = value
             };

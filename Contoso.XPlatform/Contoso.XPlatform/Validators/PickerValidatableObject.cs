@@ -6,7 +6,7 @@ namespace Contoso.XPlatform.Validators
 {
     public class PickerValidatableObject<T> : ValidatableObjectBase<T>
     {
-        public PickerValidatableObject(string name, string templateName, string title, List<T> items, IEnumerable<IValidationRule> validations) : base(name, templateName, validations)
+        public PickerValidatableObject(string name, string templateName, string title, List<T> items, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) : base(name, templateName, validations, uiNotificationService)
         {
             this.Items = items;
             this.Title = title;

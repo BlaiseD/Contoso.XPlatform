@@ -2,7 +2,7 @@
 
 namespace Contoso.XPlatform.Validators.Rules
 {
-    public class IsValueTrueRule : ValidationRuleBase<bool>
+    public record IsValueTrueRule : ValidationRuleBase<bool>
     {
         public IsValueTrueRule(string fieldName, string validationMessage, ICollection<IValidatable> allProperties)
             : base(fieldName, validationMessage, allProperties)

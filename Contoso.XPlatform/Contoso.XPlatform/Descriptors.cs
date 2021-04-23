@@ -115,7 +115,47 @@ namespace Contoso.XPlatform
                         ValueType = "System.DateTime"
                     }
                 }
-            }
+            },
+            ConditionalDirectives = new Forms.Configuration.Directives.VariableDirectivesDictionary
+            (
+                new List<Forms.Configuration.Directives.VariableDirectivesDescriptor>
+                {
+                    new Forms.Configuration.Directives.VariableDirectivesDescriptor
+                    {
+                        Field = "EnrollmentDate",
+                        ConditionalDirectives = new List<Forms.Configuration.Directives.DirectiveDescriptor>
+                        {
+                            new Forms.Configuration.Directives.DirectiveDescriptor
+                            {
+                                Definition = new Forms.Configuration.Directives.DirectiveDefinitionDescriptor
+                                {
+                                    ClassName = "ValidateIf",
+                                    FunctionName = "Check"
+                                },
+                                Condition = new Common.Configuration.ExpressionDescriptors.FilterLambdaOperatorDescriptor
+                                {
+                                    SourceElementType = typeof(Domain.Entities.StudentModel).AssemblyQualifiedName,
+                                    ParameterName = "f",
+                                    FilterBody = new Common.Configuration.ExpressionDescriptors.EqualsBinaryOperatorDescriptor
+                                    {
+                                        Left = new Common.Configuration.ExpressionDescriptors.MemberSelectorOperatorDescriptor
+                                        {
+                                            MemberFullName = "FirstName",
+                                            SourceOperand = new Common.Configuration.ExpressionDescriptors.ParameterOperatorDescriptor{ ParameterName = "f" }
+                                        },
+                                        Right = new Common.Configuration.ExpressionDescriptors.MemberSelectorOperatorDescriptor
+                                        {
+                                            MemberFullName = "LastName",
+                                            SourceOperand = new Common.Configuration.ExpressionDescriptors.ParameterOperatorDescriptor{ ParameterName = "f" }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ),
+            ModelType = "Contoso.Domain.Entities.StudentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
     }
 }

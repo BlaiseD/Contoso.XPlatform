@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Microsoft.Extensions.DependencyInjection;
 using UIKit;
 
 namespace Contoso.XPlatform.iOS
@@ -24,8 +25,14 @@ namespace Contoso.XPlatform.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
+            Startup.Init(ConfigureServices);
 
             return base.FinishedLaunching(app, options);
+        }
+
+        void ConfigureServices(IServiceCollection services)
+        {
+
         }
     }
 }

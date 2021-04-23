@@ -2,7 +2,7 @@
 
 namespace Contoso.XPlatform.Validators.Rules
 {
-    public class IsLenghtValidRule : ValidationRuleBase<string>
+    public record IsLenghtValidRule : ValidationRuleBase<string>
     {
         public IsLenghtValidRule(string fieldName, string validationMessage, ICollection<IValidatable> allProperties, int minimunLength, int maximunLength)
             : base(fieldName, validationMessage, allProperties)

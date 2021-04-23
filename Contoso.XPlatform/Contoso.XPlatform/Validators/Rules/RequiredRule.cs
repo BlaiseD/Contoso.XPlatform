@@ -2,7 +2,7 @@
 
 namespace Contoso.XPlatform.Validators.Rules
 {
-    public class RequiredRule<T> : ValidationRuleBase<T>
+    public record RequiredRule<T> : ValidationRuleBase<T>
     {
         public RequiredRule(string fieldName, string validationMessage, ICollection<IValidatable> allProperties, T defaultValue)
             : base(fieldName, validationMessage, allProperties)

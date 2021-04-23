@@ -2,7 +2,7 @@
 
 namespace Contoso.XPlatform.Validators.Rules
 {
-    public class IsValidEmailRule : ValidationRuleBase<string>
+    public record IsValidEmailRule : ValidationRuleBase<string>
     {
         public IsValidEmailRule(string fieldName, string validationMessage, ICollection<IValidatable> allProperties)
             : base(fieldName, validationMessage, allProperties)

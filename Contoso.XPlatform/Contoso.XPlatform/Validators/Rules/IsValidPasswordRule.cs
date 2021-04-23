@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Contoso.XPlatform.Validators.Rules
 {
-    public class IsValidPasswordRule : ValidationRuleBase<string>
+    public record IsValidPasswordRule : ValidationRuleBase<string>
     {
         public IsValidPasswordRule(string fieldName, string validationMessage, ICollection<IValidatable> allProperties)
             : base(fieldName, validationMessage, allProperties)

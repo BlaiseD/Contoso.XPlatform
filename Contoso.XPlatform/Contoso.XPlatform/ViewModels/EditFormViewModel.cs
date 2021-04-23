@@ -1,4 +1,5 @@
-﻿using Contoso.Forms.Configuration;
+﻿using AutoMapper;
+using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
@@ -10,21 +11,36 @@ using Xamarin.Forms;
 
 namespace Contoso.XPlatform.ViewModels
 {
-    public class EditFormViewModel : ViewModelBase
+    public class EditFormViewModel<TModel> : ViewModelBase
     {
         public EditFormSettingsDescriptor FormSettings { get; set; }
         public ObservableCollection<IValidatable> Properties { get; set; } = new ObservableCollection<IValidatable>();
-
+        public UiNotificationService UiNotificationService { get; set; }
 
         private IDictionary<string, object> values;
         private readonly FieldsCollectionHelper fieldsCollectionHelper;
         private CommandButtonDescriptor _selectedButton;
+        private readonly ValidateIfManager<TModel> validateIfManager;
 
-        public EditFormViewModel(EditFormSettingsDescriptor formSettings)
+        public EditFormViewModel(EditFormSettingsDescriptor formSettings, UiNotificationService uiNotificationService, IMapper mapper)
         {
+            this.UiNotificationService = uiNotificationService;
             FormSettings = formSettings;
-            fieldsCollectionHelper = new FieldsCollectionHelper(FormSettings, Properties);
+            fieldsCollectionHelper = new FieldsCollectionHelper(FormSettings, Properties, this.UiNotificationService);
             fieldsCollectionHelper.CreateFieldsCollection();
+            this.validateIfManager = new ValidateIfManager<TModel>
+            (
+                Properties,
+                fieldsCollectionHelper.GetConditionalValidationConditions<TModel>
+                (
+                    FormSettings.ConditionalDirectives,
+                    Properties,
+                    mapper
+                ),
+                mapper,
+                this.UiNotificationService
+            );
+
         }
 
         public CommandButtonDescriptor SelectedButton

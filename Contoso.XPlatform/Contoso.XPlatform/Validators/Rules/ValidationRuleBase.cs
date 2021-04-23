@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Contoso.XPlatform.Validators.Rules
 {
-    public abstract class ValidationRuleBase<T> : IValidationRule
+    public abstract record ValidationRuleBase<T> : IValidationRule
     {
         protected ValidationRuleBase(string fieldName, string validationMessage, ICollection<IValidatable> allProperties)
         {

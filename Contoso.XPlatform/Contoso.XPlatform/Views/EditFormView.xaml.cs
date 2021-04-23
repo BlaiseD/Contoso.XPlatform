@@ -13,7 +13,7 @@ namespace Contoso.XPlatform.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditFormView : ContentPage
     {
-        public EditFormView(EditFormViewModel editFormViewModel)
+        public EditFormView(object editFormViewModel)
         {
             InitializeComponent();
             this.BindingContext = editFormViewModel;

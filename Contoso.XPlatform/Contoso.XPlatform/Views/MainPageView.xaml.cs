@@ -1,5 +1,7 @@
-﻿using Contoso.Forms.Configuration.EditForm;
+﻿using AutoMapper;
+using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,13 +35,14 @@ namespace Contoso.XPlatform.Views
             if (!(e.CurrentSelection.First() is MainPageViewMasterMenuItem item))
                 return;
             Page page;
+            Type t = typeof(Domain.BaseModelClass);
             if (item.TargetType == typeof(EditFormViewCS))
             {
-                page = new EditFormViewCS(new EditFormViewModel(Descriptors.StudentForm));
+                page = new EditFormViewCS(CreateEditFormViewModel());
             }
             else if(item.TargetType == typeof(EditFormView))
             {
-                page = new EditFormView(new EditFormViewModel(Descriptors.StudentForm));
+                page = new EditFormView(CreateEditFormViewModel());
             }
             else
             {
@@ -52,6 +55,24 @@ namespace Contoso.XPlatform.Views
             IsPresented = false;
 
             flyout.ListView.SelectedItem = null;
+
+            object CreateEditFormViewModel()
+                => Activator.CreateInstance
+                (
+                    typeof(EditFormViewModel<>).MakeGenericType
+                    (
+                        Type.GetType
+                        (
+                            Descriptors.StudentForm.ModelType
+                        )
+                    ),
+                    new object[] 
+                    { 
+                        Descriptors.StudentForm, 
+                        App.ServiceProvider.GetRequiredService<UiNotificationService>() ,
+                        App.ServiceProvider.GetRequiredService<IMapper>()
+                    }
+                );
         }
 
         private NavigationPage GetNavigationPage(Page page)

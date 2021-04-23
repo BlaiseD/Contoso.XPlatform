@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Contoso.XPlatform.Validators.Rules
 {
-    public class HasValidAgeRule : ValidationRuleBase<DateTime>
+    public record HasValidAgeRule : ValidationRuleBase<DateTime>
     {
         public HasValidAgeRule(string fieldName, string validationMessage, ICollection<IValidatable> allProperties) 
             : base(fieldName, validationMessage, allProperties)
