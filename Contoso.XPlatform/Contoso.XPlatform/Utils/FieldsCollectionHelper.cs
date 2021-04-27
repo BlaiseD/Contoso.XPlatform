@@ -4,6 +4,7 @@ using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.Validation;
 using Contoso.XPlatform.Validators;
 using Contoso.XPlatform.Validators.Rules;
+using Contoso.XPlatform.ViewModels.Validatables;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder.Lambda;
 using System;
 using System.Collections.Generic;

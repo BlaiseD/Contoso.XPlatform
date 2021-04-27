@@ -3,6 +3,8 @@ using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
+using Contoso.XPlatform.ViewModels.Validatables;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,7 +13,7 @@ using Xamarin.Forms;
 
 namespace Contoso.XPlatform.ViewModels
 {
-    public class EditFormViewModel<TModel> : ViewModelBase
+    public class EditFormViewModel<TModel> : ViewModelBase, IDisposable
     {
         public EditFormSettingsDescriptor FormSettings { get; set; }
         public ObservableCollection<IValidatable> Properties { get; set; } = new ObservableCollection<IValidatable>();
@@ -70,5 +72,18 @@ namespace Contoso.XPlatform.ViewModels
                 true,
                 (isTrue, next) => next.Validate() && isTrue
             );
+
+        public void Dispose()
+        {
+            Dispose(this.validateIfManager);
+        }
+
+        private void Dispose(IDisposable disposable)
+        {
+            if (disposable != null)
+            {
+                disposable.Dispose();
+            }
+        }
     }
 }

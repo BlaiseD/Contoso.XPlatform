@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Contoso.XPlatform.Validators;
+using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Contoso.XPlatform.Validators
+namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class DatePickerValidatableObject : ValidatableObjectBase<DateTime>
     {

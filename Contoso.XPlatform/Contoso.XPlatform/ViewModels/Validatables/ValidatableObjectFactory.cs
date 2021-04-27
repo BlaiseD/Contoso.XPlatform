@@ -1,9 +1,8 @@
 ﻿using Contoso.Forms.Configuration.EditForm;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 
-namespace Contoso.XPlatform.Validators
+namespace Contoso.XPlatform.ViewModels.Validatables
 {
     internal static class ValidatableObjectFactory
     {

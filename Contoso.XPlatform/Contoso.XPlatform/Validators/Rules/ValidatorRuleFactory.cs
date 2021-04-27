@@ -1,8 +1,8 @@
 ﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.Validation;
+using Contoso.XPlatform.ViewModels.Validatables;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reflection;
 
 namespace Contoso.XPlatform.Validators.Rules

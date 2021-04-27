@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Contoso.XPlatform.ViewModels.Validatables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace Contoso.XPlatform.Validators
 {
-    internal class ValidateIfManager<TModel>
+    internal class ValidateIfManager<TModel> : IDisposable
     {
         public ValidateIfManager(ICollection<IValidatable> currentProperties, List<ValidateIf<TModel>> conditions, IMapper mapper, UiNotificationService uiNotificationService)
         {
@@ -14,7 +15,7 @@ namespace Contoso.XPlatform.Validators
             this.conditions = conditions;
             this.mapper = mapper;
             this.uiNotificationService = uiNotificationService;
-            this.uiNotificationService.PropertyChanged.Subscribe(PropertyChanged);
+            propertyChangedSubscription = this.uiNotificationService.PropertyChanged.Subscribe(PropertyChanged);
         }
 
         private void PropertyChanged(bool obj)
@@ -25,6 +26,7 @@ namespace Contoso.XPlatform.Validators
         private readonly IMapper mapper;
         private readonly List<ValidateIf<TModel>> conditions;
         private readonly UiNotificationService uiNotificationService;
+        private readonly IDisposable propertyChangedSubscription;
 
         public ICollection<IValidatable> CurrentProperties { get; }
         private IDictionary<string, IValidatable> CurrentPropertiesDictionary
@@ -63,5 +65,18 @@ namespace Contoso.XPlatform.Validators
 
         bool CanValidate(TModel entity, Expression<Func<TModel, bool>> evaluator) 
             => new List<TModel> { entity }.AsQueryable().All(evaluator);
+
+        public void Dispose()
+        {
+            DisposeSubscription(propertyChangedSubscription);
+        }
+
+        private void DisposeSubscription(IDisposable subscription)
+        {
+            if (subscription != null)
+            {
+                subscription.Dispose();
+            }
+        }
     }
 }

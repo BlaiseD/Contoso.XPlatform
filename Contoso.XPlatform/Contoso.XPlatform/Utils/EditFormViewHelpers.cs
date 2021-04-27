@@ -1,6 +1,6 @@
 ﻿using Contoso.XPlatform.Behaviours;
 using Contoso.XPlatform.Converters;
-using Contoso.XPlatform.Validators;
+using Contoso.XPlatform.ViewModels.Validatables;
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Utils

@@ -1,4 +1,4 @@
-﻿using Contoso.XPlatform.Validators;
+﻿using Contoso.XPlatform.ViewModels.Validatables;
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Utils

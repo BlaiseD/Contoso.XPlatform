@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Contoso.XPlatform.Validators;
+using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Contoso.XPlatform.Validators
+namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public interface IValidatable : INotifyPropertyChanged
     {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Contoso.XPlatform.ViewModels.Validatables;
+using System;
 using System.Collections.Generic;
 
 namespace Contoso.XPlatform.Validators.Rules

@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -34,8 +31,10 @@ namespace Contoso.XPlatform.Views
 
             if (!(e.CurrentSelection.First() is MainPageViewMasterMenuItem item))
                 return;
+
+            DisposeCurrentPageBindingContext(Detail);
+
             Page page;
-            Type t = typeof(Domain.BaseModelClass);
             if (item.TargetType == typeof(EditFormViewCS))
             {
                 page = new EditFormViewCS(CreateEditFormViewModel());
@@ -63,7 +62,9 @@ namespace Contoso.XPlatform.Views
                     (
                         Type.GetType
                         (
-                            Descriptors.StudentForm.ModelType
+                            Descriptors.StudentForm.ModelType,
+                            AssemblyResolver,
+                            TypeResolver
                         )
                     ),
                     new object[] 
@@ -73,6 +74,23 @@ namespace Contoso.XPlatform.Views
                         App.ServiceProvider.GetRequiredService<IMapper>()
                     }
                 );
+
+            Type TypeResolver(Assembly assembly, string typeName, bool matchCase) 
+                => assembly.GetType(typeName);
+
+            Assembly AssemblyResolver(AssemblyName arg) 
+                => typeof(Domain.BaseModelClass).Assembly;
+
+            void DisposeCurrentPageBindingContext(Page detail)
+            {
+                if (detail is not NavigationPage navigationPage)
+                    return;
+
+                if (navigationPage?.RootPage.BindingContext is not IDisposable disposable)
+                    return;
+
+                disposable.Dispose();
+            }
         }
 
         private NavigationPage GetNavigationPage(Page page)

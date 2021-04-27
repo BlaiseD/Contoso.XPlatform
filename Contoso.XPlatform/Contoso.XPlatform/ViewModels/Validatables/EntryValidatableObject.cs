@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Contoso.XPlatform.Validators;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Contoso.XPlatform.Validators
+namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class EntryValidatableObject : ValidatableObjectBase<string>
     {
