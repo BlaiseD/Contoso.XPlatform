@@ -1,4 +1,5 @@
-﻿using Contoso.XPlatform.Validators;
+﻿using Contoso.Forms.Configuration.EditForm;
+using Contoso.XPlatform.Validators;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -8,9 +9,10 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class EntryValidatableObject : ValidatableObjectBase<string>
     {
-        public EntryValidatableObject(string name, string templateName, string placeHolder, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) : base(name, templateName, validations, uiNotificationService)
+        public EntryValidatableObject(FormControlSettingsDescriptor setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) 
+            : base(setting.Field, setting.TextTemplate.TemplateName, validations, uiNotificationService)
         {
-            Placeholder = placeHolder;
+            Placeholder = setting.Placeholder;
         }
 
         private string _placeholder;

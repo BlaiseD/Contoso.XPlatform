@@ -75,7 +75,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                     return;
 
                 _value = value;
-                this.uiNotificationService.NotifyPropertyChanged();
+                this.uiNotificationService.NotifyPropertyChanged(this.Name);
                 OnPropertyChanged();
             }
         }

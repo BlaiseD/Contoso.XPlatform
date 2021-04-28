@@ -15,10 +15,10 @@ namespace Contoso.XPlatform.Validators
             this.conditions = conditions;
             this.mapper = mapper;
             this.uiNotificationService = uiNotificationService;
-            propertyChangedSubscription = this.uiNotificationService.PropertyChanged.Subscribe(PropertyChanged);
+            propertyChangedSubscription = this.uiNotificationService.ValueChanged.Subscribe(PropertyChanged);
         }
 
-        private void PropertyChanged(bool obj)
+        private void PropertyChanged(string fieldName)
         {
             Check();
         }

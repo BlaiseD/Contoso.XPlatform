@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reactive.Subjects;
-using System.Text;
+﻿using System.Reactive.Subjects;
 
 namespace Contoso.XPlatform
 {
     public class UiNotificationService
     {
-        public Subject<bool> PropertyChanged { get; set; } = new Subject<bool>();
+        public Subject<string> ValueChanged { get; set; } = new Subject<string>();
 
-        public void NotifyPropertyChanged()
+        public void NotifyPropertyChanged(string fieldName)
         {
-            this.PropertyChanged.OnNext(true);
+            this.ValueChanged.OnNext(fieldName);
         }
     }
 }

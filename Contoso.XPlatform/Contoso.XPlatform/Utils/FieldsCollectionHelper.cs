@@ -2,6 +2,7 @@
 using Contoso.Forms.Configuration.Directives;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.Validation;
+using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Validators;
 using Contoso.XPlatform.Validators.Rules;
 using Contoso.XPlatform.ViewModels.Validatables;
@@ -17,16 +18,18 @@ namespace Contoso.XPlatform.Utils
 {
     internal class FieldsCollectionHelper
     {
-        public FieldsCollectionHelper(EditFormSettingsDescriptor formSettings, ObservableCollection<IValidatable> properties, UiNotificationService uiNotificationService)
+        public FieldsCollectionHelper(EditFormSettingsDescriptor formSettings, ObservableCollection<IValidatable> properties, UiNotificationService uiNotificationService, IHttpService httpService)
         {
-            FormSettings = formSettings;
-            Properties = properties;
-            UiNotificationService = uiNotificationService;
+            this.formSettings = formSettings;
+            this.properties = properties;
+            this.uiNotificationService = uiNotificationService;
+            this.httpService = httpService;
         }
 
-        public EditFormSettingsDescriptor FormSettings { get; set; }
-        public ObservableCollection<IValidatable> Properties { get; }
-        public UiNotificationService UiNotificationService { get; set; }
+        private readonly EditFormSettingsDescriptor formSettings;
+        private readonly ObservableCollection<IValidatable> properties;
+        private readonly UiNotificationService uiNotificationService;
+        private readonly IHttpService httpService;
 
         public List<ValidateIf<TModel>> GetConditionalValidationConditions<TModel>(VariableDirectivesDictionary conditionalDirectives, IEnumerable<IValidatable> properties, IMapper mapper)
         {
@@ -79,7 +82,7 @@ namespace Contoso.XPlatform.Utils
 
         public void CreateFieldsCollection()
         {
-            FormSettings.FieldSettings.ForEach
+            formSettings.FieldSettings.ForEach
             (
                 setting =>
                 {
@@ -108,40 +111,17 @@ namespace Contoso.XPlatform.Utils
             if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.TextTemplate)
                 || setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.PasswordTemplate))
             {
-                Properties.Add
-                (
-                    CreateEntryValidatableObject
-                    (
-                        setting.Field,
-                        setting.TextTemplate.TemplateName,
-                        setting.Placeholder,
-                        (string)ValidatableObjectFactory.GetValue(setting, string.Empty),
-                        GetValidationRules(setting)
-                    )
-                );
+                properties.Add(CreateEntryValidatableObject(setting));
             }
             else if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.DateTemplate))
             {
-                Properties.Add
-                (
-                    CreateDatePickerValidatableObject
-                    (
-                        setting.Field,
-                        setting.TextTemplate.TemplateName,
-                        (DateTime)ValidatableObjectFactory.GetValue
-                        (
-                            setting,
-                            ValidatableObjectFactory.DefaultDateTime
-                        ),
-                        GetValidationRules(setting)
-                    )
-                );
+                properties.Add(CreateDatePickerValidatableObject(setting));
             }
         }
 
         private void AddDropdownControl(FormControlSettingsDescriptor setting)
         {
-            throw new NotImplementedException();
+            properties.Add(CreatePickerValidatableObject(setting));
         }
 
         private IValidationRule[] GetValidationRules(FormControlSettingsDescriptor setting) 
@@ -151,21 +131,25 @@ namespace Contoso.XPlatform.Utils
             ).ToArray();
 
         private IValidationRule GetValidatorRule(ValidatorDefinitionDescriptor validator, FormControlSettingsDescriptor setting)
-            => ValidatorRuleFactory.GetValidatorRule(validator, setting, FormSettings.ValidationMessages, Properties);
+            => ValidatorRuleFactory.GetValidatorRule(validator, setting, formSettings.ValidationMessages, properties);
 
-        private IValidatable CreateEntryValidatableObject(string name, string templateName, string placeholder, string @value, params IValidationRule[] validationRules) 
-            => new EntryValidatableObject(name, templateName, placeholder, validationRules, this.UiNotificationService)
+        private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting) 
+            => new EntryValidatableObject(setting, GetValidationRules(setting), this.uiNotificationService)
             {
-                Value = value
+                Value = (string)ValidatableObjectFactory.GetValue(setting, string.Empty)
             };
 
-        private IValidatable CreateDatePickerValidatableObject(string name, string templateName, DateTime @value, params IValidationRule[] validationRules)
-            => new DatePickerValidatableObject(name, templateName, validationRules, this.UiNotificationService)
+        private IValidatable CreateDatePickerValidatableObject(FormControlSettingsDescriptor setting)
+            => new DatePickerValidatableObject(setting, GetValidationRules(setting), this.uiNotificationService)
             {
-                Value = value
+                Value = (DateTime)ValidatableObjectFactory.GetValue
+                (
+                    setting,
+                    ValidatableObjectFactory.DefaultDateTime
+                )
             };
 
-        private IValidatable CreatePickerValidatableObject(string name, Type elementType, string templateName, string title, object @value, System.Collections.IList itemsSource, params IValidationRule[] validationRules)
+        private IValidatable CreatePickerValidatableObject(FormControlSettingsDescriptor setting)
         {
             MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
             (
@@ -175,23 +159,18 @@ namespace Contoso.XPlatform.Utils
                 null,
                 new Type[]
                 {
-                    typeof(string),
-                    typeof(string),
-                    typeof(string),
-                    elementType,
-                    typeof(List<>).MakeGenericType(elementType),
-                    typeof(IValidationRule[])
+                    typeof(FormControlSettingsDescriptor)
                 },
                 null
-            ).MakeGenericMethod(elementType);
+            ).MakeGenericMethod(Type.GetType(setting.Type));
 
-            return (IValidatable)methodInfo.Invoke(this, new object[] { name, templateName, title, @value, itemsSource, validationRules });
+            return (IValidatable)methodInfo.Invoke(this, new object[] { setting });
         }
 
-        private PickerValidatableObject<T> _CreatePickerValidatableObject<T>(string name, string templateName, string title, T @value, List<T> itemsSource, params IValidationRule[] validationRules)
-            => new PickerValidatableObject<T>(name, templateName, title, itemsSource, validationRules, this.UiNotificationService)
+        private IValidatable _CreatePickerValidatableObject<T>(FormControlSettingsDescriptor setting) 
+            => new PickerValidatableObject<T>(setting, this.httpService, GetValidationRules(setting), this.uiNotificationService)
             {
-                Value = value
+                Value = default
             };
     }
 }

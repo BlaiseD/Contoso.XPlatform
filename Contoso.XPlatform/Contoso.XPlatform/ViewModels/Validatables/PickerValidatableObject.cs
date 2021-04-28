@@ -1,4 +1,8 @@
-﻿using Contoso.XPlatform.Validators;
+﻿using Contoso.Forms.Configuration;
+using Contoso.Forms.Configuration.EditForm;
+using Contoso.XPlatform.Services;
+using Contoso.XPlatform.Validators;
+using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -7,11 +11,22 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class PickerValidatableObject<T> : ValidatableObjectBase<T>
     {
-        public PickerValidatableObject(string name, string templateName, string title, List<T> items, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) : base(name, templateName, validations, uiNotificationService)
+        public PickerValidatableObject(FormControlSettingsDescriptor setting, IHttpService httpService, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) 
+            : base(setting.Field, setting.DropDownTemplate.TemplateName, validations, uiNotificationService)
         {
-            this.Items = items;
-            this.Title = title;
+            this.Title = setting.Title;
+            this.dropDownTemplate = setting.DropDownTemplate;
+            this.httpService = httpService;
+            GetItemSource();
         }
+
+        private void GetItemSource()
+        {
+            throw new NotImplementedException();
+        }
+
+        private readonly IHttpService httpService;
+        private readonly DropDownTemplateDescriptor dropDownTemplate;
 
         private string _title;
         public string Title

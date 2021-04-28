@@ -15,6 +15,8 @@ namespace Contoso.XPlatform
             MainPage = new MainPageView();
         }
 
+        public const string BASE_URL = "https://contosoapibps.azurewebsites.net/";
+
         #region Properties
         public static IServiceProvider ServiceProvider { get; set; }
         public static ServiceCollection ServiceCollection { get; set; }

@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
+using Contoso.XPlatform.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Contoso.XPlatform
 {
@@ -38,7 +37,9 @@ namespace Contoso.XPlatform
                         sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), 
                         sp.GetService
                     )
-                );
+                )
+                .AddHttpClient()
+                .AddSingleton<IHttpService, HttpService>();
         }
     }
 }

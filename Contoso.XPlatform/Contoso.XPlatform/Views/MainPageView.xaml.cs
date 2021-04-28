@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Contoso.XPlatform.Services;
 using Contoso.XPlatform.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -70,8 +71,9 @@ namespace Contoso.XPlatform.Views
                     new object[] 
                     { 
                         Descriptors.StudentForm, 
-                        App.ServiceProvider.GetRequiredService<UiNotificationService>() ,
-                        App.ServiceProvider.GetRequiredService<IMapper>()
+                        App.ServiceProvider.GetRequiredService<UiNotificationService>(),
+                        App.ServiceProvider.GetRequiredService<IMapper>(),
+                        App.ServiceProvider.GetRequiredService<IHttpService>()
                     }
                 );
 
