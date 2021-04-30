@@ -1,6 +1,7 @@
 ﻿using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.Validation;
+using Contoso.XPlatform.Flow.Settings.Screen;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -157,5 +158,15 @@ namespace Contoso.XPlatform
             ),
             ModelType = "Contoso.Domain.Entities.StudentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
+
+        internal static IEnumerable<CommandButtonDescriptor> ButtonDescriptors = new List<CommandButtonDescriptor>
+        {
+            new CommandButtonDescriptor { Id = 1, LongString = "Save", ShortString = "S", Submit = true, ButtonIcon = "Save" },
+            new CommandButtonDescriptor { Id = 2, LongString = "Home", ShortString = "H", Submit = false, ButtonIcon = "Home" }
+        };
+
+        internal static ScreenSettings<EditFormSettingsDescriptor> ScreenSettings = new ScreenSettings<EditFormSettingsDescriptor>(StudentForm, ButtonDescriptors, ViewType.EditForm);
     }
+
+    
 }

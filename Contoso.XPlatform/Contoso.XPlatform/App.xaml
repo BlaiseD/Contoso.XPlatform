@@ -92,7 +92,7 @@
             </Style>
 
             <DataTemplate x:Key="CommndButtonItemTemplate" x:DataType="config:CommandButtonDescriptor" >
-                <Grid HeightRequest="{Binding HeightRequest}">
+                <Grid>
                     <Frame
                         Margin="5"
                         Padding="0"

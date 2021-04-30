@@ -5,12 +5,16 @@
              xmlns:behaviour="clr-namespace:Contoso.XPlatform.Behaviours"
              xmlns:converter="clr-namespace:Contoso.XPlatform.Converters"
              xmlns:utils="clr-namespace:Contoso.XPlatform.Utils"
+             xmlns:vm="clr-namespace:Contoso.XPlatform.ViewModels"
+             xmlns:models="clr-namespace:Contoso.Domain.Entities;assembly=Contoso.Domain"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="Page 4">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:InverseBoolConverter x:Key="InverseBoolConverter"/>
             <converter:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
+            <converter:FontAwesomeConverter x:Key="FontAwesomeConverter"/>
+            <converter:DebugConverter x:Key="DebugConverter"/>
 
             <DataTemplate x:Key="TextTemplate">
                 <StackLayout>
@@ -107,21 +111,110 @@
                                         PasswordTemplate="{StaticResource PasswordTemplate}"
                                         TextTemplate="{StaticResource TextTemplate}"
                                         PickerTemplate ="{StaticResource PickerTemplate}"/>
+
+            <DataTemplate x:Key="SubmitButtonTemplate">
+                <StackLayout HorizontalOptions="CenterAndExpand">
+                    <Label
+                        Margin="3"
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Text="{Binding Path=ButtonIcon, Converter={StaticResource FontAwesomeConverter}}" 
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <Label 
+                        FontSize="12"
+                        HorizontalOptions="Center"
+                        Text="{Binding LongString}"
+                        TextColor="{DynamicResource PrimaryTextColor}"
+                        Style="{DynamicResource ListItemTextStyle}" />
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal" />
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource SelectedCommandButtonBackgroundColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <!--<Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorLevel=1, AncestorType={x:Type TypeName=vm:EditFormViewModel`1}}, Path=SubmitCommand}" />
+                    </Grid.GestureRecognizers>-->
+                    <!--<Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorLevel=1, AncestorType={utils:GenericType TypeName=vm:EditFormViewModel`1, ElementTypeName=models:StudentModel}}, Path=SubmitCommand}" />
+                    </Grid.GestureRecognizers>-->
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={utils:GenericType TypeName=vm:EditFormViewModel`1, ElementTypeName=models:StudentModel}}, Path=SubmitCommand}" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="NavigateButtonTemplate">
+                <StackLayout HorizontalOptions="CenterAndExpand">
+                    <Label
+                        HorizontalOptions="Center"
+                        FontSize="18"
+                        Text="{Binding Path=ButtonIcon, Converter={StaticResource FontAwesomeConverter}}" 
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <Label 
+                        HorizontalOptions="Center"
+                        FontSize="12"
+                        Text="{Binding LongString}"
+                        TextColor="{DynamicResource PrimaryTextColor}"
+                        Style="{DynamicResource ListItemTextStyle}" />
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal" />
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource SelectedCommandButtonBackgroundColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateCommand}" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </DataTemplate>
+
+            <utils:CommandButtonSelector x:Key="CommandButtonSelector"
+                                        SubmitButtonTemplate="{StaticResource SubmitButtonTemplate}"
+                                        NavigateButtonTemplate="{StaticResource NavigateButtonTemplate}" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Padding="30"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" Padding="30"
                          VerticalOptions="CenterAndExpand">
-            <Label Text="Create account"
+                <Label Text="{Binding FormSettings.Title}"
                       Style="{StaticResource HeaderStyle}"/>
 
-            <CollectionView ItemsSource="{Binding Properties}"
+                <CollectionView ItemsSource="{Binding Properties}"
                             SelectionMode="Single"
                             ItemTemplate="{StaticResource QuestionTemplateSelector}">
-            </CollectionView>
+                </CollectionView>
+            </StackLayout>
+            <StackLayout BackgroundColor="{DynamicResource ResultListBackgroundColor}" Padding="3" 
+                         Grid.Row="1" 
+                         BindableLayout.ItemsSource="{Binding Buttons}"
+                         BindableLayout.ItemTemplateSelector="{StaticResource CommandButtonSelector}"
+                         Orientation="Horizontal"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Fill">
+            </StackLayout>
+            <!--<CollectionView Margin="3" 
+                            ItemsLayout="HorizontalList"
+                            Grid.Row="1" ItemsSource="{Binding Buttons}"
+                            SelectionMode="Single"
+                            ItemTemplate="{StaticResource CommandButtonSelector}">
+            </CollectionView>-->
+        </Grid>
 
-            <Button Text="CREATE ACCOUNT"
-                        Command="{Binding SignUpCommand}"/>
-        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -80,7 +80,7 @@ namespace Contoso.Bsl
                         cfg.AddProfile<ExpansionDescriptorToOperatorMappingProfile>();
                     });
 
-                    cache.Set(mapperConfigurationKey, config, TimeSpan.FromHours(1));
+                    cache.Set(mapperConfigurationKey, config, new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromHours(1) });
                 }
 
                 return config;
@@ -102,8 +102,9 @@ namespace Contoso.Bsl
                     rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
                     //long after = GC.GetTotalMemory(false);
                     //long size = after - before;
+                    
                     logger.LogInformation($"Setting rules cache: {DateTimeOffset.Now}");
-                    cache.Set(rulesKey, rulesCache, TimeSpan.FromHours(1));
+                    cache.Set(rulesKey, rulesCache, new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromHours(1) });
                 }
 
                 return rulesCache;

@@ -1,12 +1,19 @@
 ﻿using Contoso.XPlatform.Behaviours;
 using Contoso.XPlatform.Converters;
 using Contoso.XPlatform.ViewModels.Validatables;
+using System;
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Utils
 {
     internal static class EditFormViewHelpers
     {
+        public static CommandButtonSelector GetCommandButtonSelector(Type viewModelType) => new CommandButtonSelector
+        {
+            SubmitButtonTemplate = GetButtonTemplate("SubmitCommand", viewModelType),
+            NavigateButtonTemplate = GetButtonTemplate("NavigateCommand", viewModelType)
+        };
+
         public static QuestionTemplateSelector QuestionTemplateSelector { get; } = new QuestionTemplateSelector
         {
             TextTemplate = new DataTemplate
@@ -158,6 +165,95 @@ namespace Contoso.XPlatform.Utils
 
             label.SetDynamicResource(Label.TextColorProperty, "ErrorTextColor");
             return label;
+        }
+
+        private static string GetFontAwesomeFontFamily()
+            => Device.RuntimePlatform switch
+            {
+                Platforms.Android => FontAwesomeFontFamily.AndroidSolid,
+                Platforms.iOS => FontAwesomeFontFamily.iOSSolid,
+                _ => throw new ArgumentOutOfRangeException(nameof(Device.RuntimePlatform)),
+            };
+
+        private static DataTemplate GetButtonTemplate(string commandName, Type viewModelType)
+        {
+            return new DataTemplate
+            (
+                () =>
+                {
+                    Label iconLabel = new Label
+                    {
+                        TextColor = Color.WhiteSmoke,
+                        FontSize = 18,
+                        HorizontalOptions = LayoutOptions.Center,
+                        FontFamily = GetFontAwesomeFontFamily()
+                    }.AddBinding(Label.TextProperty, new Binding(path: "ButtonIcon", converter: new FontAwesomeConverter()));
+                    iconLabel.SetDynamicResource(Label.TextColorProperty, "PrimaryTextColor");
+
+                    Label textLabel = new Label
+                    {
+                        TextColor = Color.WhiteSmoke,
+                        FontSize = 12,
+                        HorizontalOptions = LayoutOptions.Center,
+                    }.AddBinding(Label.TextProperty, new Binding("LongString"));
+                    iconLabel.SetDynamicResource(Label.TextColorProperty, "PrimaryTextColor");
+                    iconLabel.SetDynamicResource(VisualElement.StyleProperty, "ListItemTextStyle");
+
+                    StackLayout grid = new StackLayout
+                    {
+                        HorizontalOptions = LayoutOptions.CenterAndExpand,
+                        Children =
+                        {
+                            iconLabel,
+                            textLabel
+                        },
+                        GestureRecognizers =
+                        {
+                            new TapGestureRecognizer().AddBinding
+                            (
+                                TapGestureRecognizer.CommandProperty,
+                                new Binding(path: commandName)
+                                {
+                                    Source = new RelativeBindingSource
+                                    (
+                                        RelativeBindingSourceMode.FindAncestorBindingContext,
+                                        viewModelType
+                                    )
+                                }
+                            )
+                        }
+                    };
+
+                    if (!Application.Current.Resources.TryGetValue("SelectedCommandButtonBackgroundColor", out object backGroundColor))
+                        throw new ArgumentException("SelectedCommandButtonBackgroundColor: FB3FDD7A-3554-402A-A4C3-DE35723FD3B3");
+
+                    VisualStateManager.GetVisualStateGroups(grid).Add
+                    (
+                        new VisualStateGroup()
+                        {
+                            Name = "CommonStates",
+                            States =
+                            {
+                                new VisualState { Name="Normal" },
+                                new VisualState
+                                {
+                                    Name = "Selected",
+                                    Setters =
+                                    {
+                                        new Setter
+                                        {
+                                            Property = VisualElement.BackgroundColorProperty,
+                                            Value = backGroundColor
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    );
+
+                    return grid;
+                }
+            );
         }
     }
 }

@@ -38,11 +38,11 @@ namespace Contoso.XPlatform.Views
             Page page;
             if (item.TargetType == typeof(EditFormViewCS))
             {
-                page = new EditFormViewCS(CreateEditFormViewModel());
+                page = new EditFormViewCS(CreateEditFormViewModel(Descriptors.ScreenSettings));
             }
             else if(item.TargetType == typeof(EditFormView))
             {
-                page = new EditFormView(CreateEditFormViewModel());
+                page = new EditFormView(CreateEditFormViewModel(Descriptors.ScreenSettings));
             }
             else
             {
@@ -56,7 +56,7 @@ namespace Contoso.XPlatform.Views
 
             flyout.ListView.SelectedItem = null;
 
-            object CreateEditFormViewModel()
+            object CreateEditFormViewModel(object formSettings)
                 => Activator.CreateInstance
                 (
                     typeof(EditFormViewModel<>).MakeGenericType
@@ -70,7 +70,7 @@ namespace Contoso.XPlatform.Views
                     ),
                     new object[] 
                     { 
-                        Descriptors.StudentForm, 
+                        formSettings, 
                         App.ServiceProvider.GetRequiredService<UiNotificationService>(),
                         App.ServiceProvider.GetRequiredService<IMapper>(),
                         App.ServiceProvider.GetRequiredService<IHttpService>()
