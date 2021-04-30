@@ -21,6 +21,8 @@ namespace Contoso.XPlatform.Views
             FlowSettingsChanged();
         }
 
+        private bool IsPortrait => Width < Height;
+
         private void FlowSettingsChanged()
         {
         }
@@ -51,8 +53,13 @@ namespace Contoso.XPlatform.Views
             
             page.Title = item.Title;
 
-            Detail = GetNavigationPage(page);
-            IsPresented = false;
+            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
+            (
+                () => Detail = GetNavigationPage(page)
+            );
+
+            if (IsPortrait)
+                IsPresented = false;
 
             flyout.ListView.SelectedItem = null;
 

@@ -1,4 +1,5 @@
-﻿using Contoso.XPlatform.ViewModels;
+﻿using Contoso.XPlatform.Utils;
+using Contoso.XPlatform.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,22 @@ namespace Contoso.XPlatform.Views
         {
             InitializeComponent();
             this.BindingContext = editFormViewModel;
+        }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            await page.EntranceTransition(transitionGrid, 150);
+        }
+
+        private async void Button_Tapped(object sender, EventArgs e)
+        {
+            StackLayout view = sender as StackLayout;
+            if (view == null)
+                return;
+
+            await view.ScaleTo(1.1, 100);
+            await view.ScaleTo(1, 100);
         }
     }
 }

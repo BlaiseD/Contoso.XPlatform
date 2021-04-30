@@ -14,6 +14,7 @@
     <Color x:Key="ResultListBackgroundColor">#F2F2F2</Color>
     <Color x:Key="CommandButtonBackgroundColor">#CCCCCC</Color>
     <Color x:Key="EntryBackgroundColor">#F2F2F2</Color>
+    <Color x:Key="CommandBarBackgroundColor">#EEEEEE</Color>
     <Color x:Key="ResultListBorderColor">White</Color>
     <Color x:Key="CommandButtonBorderColor">#F2F2F2</Color>
     <OnPlatform x:Key="SelectedCommandButtonBackgroundColor" x:TypeArguments="Color">

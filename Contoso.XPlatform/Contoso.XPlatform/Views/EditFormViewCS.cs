@@ -14,6 +14,15 @@ namespace Contoso.XPlatform.Views
             BindingContext = editFormViewModel;
         }
 
+        private Grid transitionGrid;
+        private Grid page;
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            await page.EntranceTransition(transitionGrid, 150);
+        }
+
         private void AddContent(Type editFormViewModelType)
         {
             StackLayout buttonsLayout = new StackLayout
@@ -24,7 +33,13 @@ namespace Contoso.XPlatform.Views
                 HorizontalOptions = LayoutOptions.Fill
             };
 
-            Grid grid = new Grid
+            buttonsLayout.SetDynamicResource(VisualElement.BackgroundColorProperty, "CommandBarBackgroundColor");
+            BindableLayout.SetItemTemplateSelector(buttonsLayout, EditFormViewHelpers.GetCommandButtonSelector(editFormViewModelType, Button_Tapped));
+
+            transitionGrid = new Grid();
+            transitionGrid.SetDynamicResource(VisualElement.BackgroundColorProperty, "PageBackgroundColor");
+
+            page = new Grid
             {
                 RowDefinitions =
                 {
@@ -37,7 +52,8 @@ namespace Contoso.XPlatform.Views
                     {
                         Padding = new Thickness(30),
                         VerticalOptions = LayoutOptions.CenterAndExpand,
-                        Children = {
+                        Children = 
+                        {
                             new Label 
                             { 
                                 Style = LayoutHelpers.GetStaticStyleResource("HeaderStyle") 
@@ -51,17 +67,25 @@ namespace Contoso.XPlatform.Views
                             .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Properties")),
                         }
                     },
-                    buttonsLayout.AddBinding(BindableLayout.ItemsSourceProperty, new Binding("Buttons"))
+                    buttonsLayout.AddBinding(BindableLayout.ItemsSourceProperty, new Binding("Buttons")),
+                    transitionGrid
                 }
             };
 
-            buttonsLayout.SetDynamicResource(VisualElement.BackgroundColorProperty, "ResultListBackgroundColor");
-            BindableLayout.SetItemTemplateSelector(buttonsLayout, EditFormViewHelpers.GetCommandButtonSelector(editFormViewModelType));
+            Grid.SetRow(page.Children[0], 0);
+            Grid.SetRow(page.Children[1], 1);
 
-            Grid.SetRow(grid.Children[0], 0);
-            Grid.SetRow(grid.Children[1], 1);
+            Content = page;
+        }
 
-            Content = grid;
+        private async void Button_Tapped(object sender, EventArgs e)
+        {
+            StackLayout view = sender as StackLayout;
+            if (view == null)
+                return;
+
+            await view.ScaleTo(1.1, 100);
+            await view.ScaleTo(1, 100);
         }
     }
 }

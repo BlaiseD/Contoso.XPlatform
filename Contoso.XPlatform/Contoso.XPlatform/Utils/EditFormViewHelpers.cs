@@ -8,10 +8,10 @@ namespace Contoso.XPlatform.Utils
 {
     internal static class EditFormViewHelpers
     {
-        public static CommandButtonSelector GetCommandButtonSelector(Type viewModelType) => new CommandButtonSelector
+        public static CommandButtonSelector GetCommandButtonSelector(Type viewModelType, EventHandler buttonTappedHandler) => new CommandButtonSelector
         {
-            SubmitButtonTemplate = GetButtonTemplate("SubmitCommand", viewModelType),
-            NavigateButtonTemplate = GetButtonTemplate("NavigateCommand", viewModelType)
+            SubmitButtonTemplate = GetButtonTemplate("SubmitCommand", viewModelType, buttonTappedHandler),
+            NavigateButtonTemplate = GetButtonTemplate("NavigateCommand", viewModelType, buttonTappedHandler)
         };
 
         public static QuestionTemplateSelector QuestionTemplateSelector { get; } = new QuestionTemplateSelector
@@ -175,83 +175,107 @@ namespace Contoso.XPlatform.Utils
                 _ => throw new ArgumentOutOfRangeException(nameof(Device.RuntimePlatform)),
             };
 
-        private static DataTemplate GetButtonTemplate(string commandName, Type viewModelType)
+        private static DataTemplate GetButtonTemplate(string commandName, Type viewModelType, EventHandler buttonTappedHandler)
         {
             return new DataTemplate
             (
                 () =>
                 {
-                    Label iconLabel = new Label
+                    return GetButtonLayout();
+
+                    Label GetIconLabel()
                     {
-                        TextColor = Color.WhiteSmoke,
-                        FontSize = 18,
-                        HorizontalOptions = LayoutOptions.Center,
-                        FontFamily = GetFontAwesomeFontFamily()
-                    }.AddBinding(Label.TextProperty, new Binding(path: "ButtonIcon", converter: new FontAwesomeConverter()));
-                    iconLabel.SetDynamicResource(Label.TextColorProperty, "PrimaryTextColor");
+                        Label label =  new Label
+                        {
+                            FontSize = 15,
+                            HorizontalOptions = LayoutOptions.Center,
+                            VerticalOptions = LayoutOptions.End,
+                            FontFamily = GetFontAwesomeFontFamily()
+                        }.AddBinding(Label.TextProperty, new Binding(path: "ButtonIcon", converter: new FontAwesomeConverter()));
 
-                    Label textLabel = new Label
+                        label.SetDynamicResource(Label.TextColorProperty, "TertiaryTextColor");
+                        return label;
+                    }
+
+                    Label GetTextlabel()
                     {
-                        TextColor = Color.WhiteSmoke,
-                        FontSize = 12,
-                        HorizontalOptions = LayoutOptions.Center,
-                    }.AddBinding(Label.TextProperty, new Binding("LongString"));
-                    iconLabel.SetDynamicResource(Label.TextColorProperty, "PrimaryTextColor");
-                    iconLabel.SetDynamicResource(VisualElement.StyleProperty, "ListItemTextStyle");
+                        Label label =  new Label
+                        {
+                            FontSize = 10,
+                            HorizontalOptions = LayoutOptions.Center,
+                            VerticalOptions = LayoutOptions.Start,
+                        }.AddBinding(Label.TextProperty, new Binding("LongString"));
 
-                    StackLayout grid = new StackLayout
+                        label.SetDynamicResource(Label.TextColorProperty, "TertiaryTextColor");
+                        return label;
+                    }
+
+                    TapGestureRecognizer GetTapGestureRecognizer()
                     {
-                        HorizontalOptions = LayoutOptions.CenterAndExpand,
-                        Children =
-                        {
-                            iconLabel,
-                            textLabel
-                        },
-                        GestureRecognizers =
-                        {
-                            new TapGestureRecognizer().AddBinding
-                            (
-                                TapGestureRecognizer.CommandProperty,
-                                new Binding(path: commandName)
-                                {
-                                    Source = new RelativeBindingSource
-                                    (
-                                        RelativeBindingSourceMode.FindAncestorBindingContext,
-                                        viewModelType
-                                    )
-                                }
-                            )
-                        }
-                    };
-
-                    if (!Application.Current.Resources.TryGetValue("SelectedCommandButtonBackgroundColor", out object backGroundColor))
-                        throw new ArgumentException("SelectedCommandButtonBackgroundColor: FB3FDD7A-3554-402A-A4C3-DE35723FD3B3");
-
-                    VisualStateManager.GetVisualStateGroups(grid).Add
-                    (
-                        new VisualStateGroup()
-                        {
-                            Name = "CommonStates",
-                            States =
+                        TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer().AddBinding
+                        (
+                            TapGestureRecognizer.CommandProperty,
+                            new Binding(path: commandName)
                             {
-                                new VisualState { Name="Normal" },
-                                new VisualState
+                                Source = new RelativeBindingSource
+                                (
+                                    RelativeBindingSourceMode.FindAncestorBindingContext,
+                                    viewModelType
+                                )
+                            }
+                        );
+                        tapGestureRecognizer.Tapped += buttonTappedHandler;
+                        
+                        return tapGestureRecognizer;
+                    }
+
+                    StackLayout GetButtonLayout()
+                    {
+                        StackLayout stackLayout = new StackLayout
+                        {
+                            Padding = 2,
+                            HorizontalOptions = LayoutOptions.CenterAndExpand,
+                            VerticalOptions = LayoutOptions.Center,
+                            Children =
+                            {
+                                GetIconLabel(),
+                                GetTextlabel()
+                            },
+                            GestureRecognizers =
+                            {
+                                GetTapGestureRecognizer()
+                            }
+                        };
+
+                        if (Application.Current.Resources.TryGetValue("SelectedCommandButtonBackgroundColor", out object backGroundColor))
+                        {
+                            VisualStateManager.GetVisualStateGroups(stackLayout).Add
+                            (
+                                new VisualStateGroup()
                                 {
-                                    Name = "Selected",
-                                    Setters =
+                                    Name = "CommonStates",
+                                    States =
                                     {
-                                        new Setter
+                                        new VisualState { Name="Normal" },
+                                        new VisualState
                                         {
-                                            Property = VisualElement.BackgroundColorProperty,
-                                            Value = backGroundColor
+                                            Name = "Selected",
+                                            Setters =
+                                            {
+                                                new Setter
+                                                {
+                                                    Property = VisualElement.BackgroundColorProperty,
+                                                    Value = backGroundColor
+                                                }
+                                            }
                                         }
                                     }
                                 }
-                            }
+                            );
                         }
-                    );
 
-                    return grid;
+                        return stackLayout;
+                    }
                 }
             );
         }
