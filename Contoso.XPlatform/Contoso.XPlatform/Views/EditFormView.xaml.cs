@@ -1,10 +1,6 @@
 ﻿using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,7 +10,7 @@ namespace Contoso.XPlatform.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditFormView : ContentPage
     {
-        public EditFormView(object editFormViewModel)
+        public EditFormView(EditFormViewModelBase editFormViewModel)
         {
             InitializeComponent();
             this.BindingContext = editFormViewModel;
@@ -28,9 +24,20 @@ namespace Contoso.XPlatform.Views
 
         private async void Button_Tapped(object sender, EventArgs e)
         {
+            if (!((EditFormViewModelBase)this.BindingContext).AreFieldsValid())
+                return;
+
             StackLayout view = sender as StackLayout;
             if (view == null)
                 return;
+
+            foreach (var element in view.Children)
+            {
+                if (element is Label label)
+                {
+                    label.SetDynamicResource(Label.TextColorProperty, "PrimaryColor");
+                }
+            }
 
             await view.ScaleTo(1.1, 100);
             await view.ScaleTo(1, 100);

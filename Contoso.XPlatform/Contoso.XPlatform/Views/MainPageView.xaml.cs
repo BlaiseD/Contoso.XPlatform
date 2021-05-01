@@ -63,8 +63,8 @@ namespace Contoso.XPlatform.Views
 
             flyout.ListView.SelectedItem = null;
 
-            object CreateEditFormViewModel(object formSettings)
-                => Activator.CreateInstance
+            EditFormViewModelBase CreateEditFormViewModel(object formSettings)
+                => (EditFormViewModelBase)Activator.CreateInstance
                 (
                     typeof(EditFormViewModel<>).MakeGenericType
                     (

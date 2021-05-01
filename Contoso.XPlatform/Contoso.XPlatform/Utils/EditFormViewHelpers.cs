@@ -187,9 +187,10 @@ namespace Contoso.XPlatform.Utils
                     {
                         Label label =  new Label
                         {
-                            FontSize = 15,
+                            FontSize = 18,
+                            Margin = new Thickness(0, 0, 0, -3),
                             HorizontalOptions = LayoutOptions.Center,
-                            VerticalOptions = LayoutOptions.End,
+                            VerticalOptions = LayoutOptions.Start,
                             FontFamily = GetFontAwesomeFontFamily()
                         }.AddBinding(Label.TextProperty, new Binding(path: "ButtonIcon", converter: new FontAwesomeConverter()));
 
@@ -201,7 +202,8 @@ namespace Contoso.XPlatform.Utils
                     {
                         Label label =  new Label
                         {
-                            FontSize = 10,
+                            FontSize = 12,
+                            Margin = new Thickness(0, -1, 0, 0),
                             HorizontalOptions = LayoutOptions.Center,
                             VerticalOptions = LayoutOptions.Start,
                         }.AddBinding(Label.TextProperty, new Binding("LongString"));
