@@ -1,8 +1,13 @@
 ﻿using AutoMapper;
+using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.Navigation;
+using Contoso.XPlatform.Flow.Settings;
 using Contoso.XPlatform.Services;
+using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
@@ -18,14 +23,50 @@ namespace Contoso.XPlatform.Views
         {
             InitializeComponent();
             flyout.ListView.SelectionChanged += ListView_SelectionChanged;
-            FlowSettingsChanged();
+            FlyoutLayoutBehavior = FlyoutLayoutBehavior.SplitOnLandscape;
+            ViewModel = App.ServiceProvider.GetRequiredService<MainPageViewModel>();
+            this.BindingContext = ViewModel;
+            flyout.BindingContext = ViewModel;
         }
 
+        #region Properties
+        public MainPageViewModel ViewModel { get; }
         private bool IsPortrait => Width < Height;
+        #endregion Properties
 
-        private void FlowSettingsChanged()
+        #region Methods
+        protected override void OnAppearing()
         {
+            FlowSettingsChanged(Descriptors.GetFlowSettings<EditFormSettingsDescriptor>("students", Descriptors.ScreenSettings));
+            base.OnAppearing();
         }
+
+        private void FlowSettingsChanged(FlowSettings flowSettings)
+        {
+            flowSettings.NavigationBar.MenuItems
+                .ForEach(item => item.Active = item.InitialModule == flowSettings.NavigationBar.CurrentModule);
+
+            ChangePage(flowSettings.ScreenSettings.CreatePage());
+
+            UpdateNavigationMenu(flowSettings);
+        }
+
+        private void UpdateNavigationMenu(FlowSettings flowSettings)
+            => ViewModel.MenuItems = new ObservableCollection<NavigationMenuItemDescriptor>(flowSettings.NavigationBar.MenuItems);
+
+        private void ChangePage(Page page)
+        {
+            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
+            (
+                () => Detail = GetNavigationPage(page)
+            );
+
+            if (IsPortrait)
+                IsPresented = false;
+
+            flyout.ListView.SelectedItem = null;
+        }
+        #endregion Methods
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

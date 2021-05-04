@@ -2,9 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Contoso.XPlatform.Views.Flyout"
+             xmlns:converters="clr-namespace:Contoso.XPlatform.Converters"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              IconImageSource="hamburger.png"
              Title="Contoso">
+    <ContentPage.Resources>
+        <converters:FontAwesomeConverter x:Key="FontAwesomeConverter" />
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+        <converters:MenuItemColorConverter x:Key="MenuItemColorConverter" />
+    </ContentPage.Resources>
     <StackLayout>
         <CollectionView x:Name="MenuItemsListView"
                         Margin="0,40,0,0"
@@ -13,12 +19,34 @@
                         ItemsSource="{Binding MenuItems}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="15,10" HorizontalOptions="Fill">
-                        <Label VerticalOptions="Fill" 
-                    VerticalTextAlignment="Center" 
-                    Text="{Binding Title}" 
-                    FontSize="24"/>
-                    </StackLayout>
+                    <Grid Padding="5,10" IsEnabled="{Binding Active, Converter={StaticResource InverseBoolConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label 
+                                Padding="4,2,0,0"
+                                FontSize="18"
+                                Text="{Binding Path=Icon, Converter={StaticResource FontAwesomeConverter}}" 
+                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                TextColor="{Binding Path=Active, Mode=OneWay, Converter={StaticResource MenuItemColorConverter}}"  />
+                        <Label 
+                                Grid.Column="1" 
+                                FontSize="18"
+                                Text="{Binding Text}"
+                                Style="{DynamicResource ListItemTextStyle}"
+                                TextColor="{Binding Path=Active, Mode=OneWay, Converter={StaticResource MenuItemColorConverter}}"  />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{DynamicResource CommandButtonBackgroundColor}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

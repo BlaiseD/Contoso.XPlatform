@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
 using Contoso.XPlatform.Services;
+using Contoso.XPlatform.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -38,6 +39,7 @@ namespace Contoso.XPlatform
                         sp.GetService
                     )
                 )
+                .AddTransient<MainPageViewModel, MainPageViewModel>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpService>();
         }

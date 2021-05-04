@@ -1,6 +1,9 @@
 ﻿using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.Navigation;
 using Contoso.Forms.Configuration.Validation;
+using Contoso.XPlatform.Flow.Cache;
+using Contoso.XPlatform.Flow.Settings;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using System;
 using System.Collections.Generic;
@@ -165,6 +168,54 @@ namespace Contoso.XPlatform
         };
 
         internal static ScreenSettings<EditFormSettingsDescriptor> ScreenSettings = new ScreenSettings<EditFormSettingsDescriptor>(StudentForm, ButtonDescriptors, ViewType.EditForm);
+
+        internal static NavigationBarDescriptor GetNavigationBar(string currentModule) => new NavigationBarDescriptor
+        {
+            BrandText = "Contoso",
+            CurrentModule = currentModule,
+            MenuItems = new List<NavigationMenuItemDescriptor>
+            {
+                new NavigationMenuItemDescriptor
+                {
+                    InitialModule = "home",
+                    Icon = "Home",
+                    Text = "Home"
+                },
+                new NavigationMenuItemDescriptor
+                {
+                    InitialModule = "about",
+                    Icon = "University",
+                    Text = "About"
+                },
+                new NavigationMenuItemDescriptor
+                {
+                    InitialModule = "students",
+                    Icon = "Users",
+                    Text = "Students"
+                },
+                new NavigationMenuItemDescriptor
+                {
+                    InitialModule = "courses",
+                    Icon = "BookOpen",
+                    Text = "Courses"
+                },
+                new NavigationMenuItemDescriptor
+                {
+                    InitialModule = "departments",
+                    Icon = "Building",
+                    Text = "Departments"
+                },
+                new NavigationMenuItemDescriptor
+                {
+                    InitialModule = "instructors",
+                    Icon = "ChalkboardTeacher",
+                    Text = "Instructors"
+                }
+            }
+        };
+
+        internal static FlowSettings GetFlowSettings<T>(string currentModule, ScreenSettings<T> screenSettings) 
+            => new FlowSettings(new FlowDataCache(), GetNavigationBar(currentModule), screenSettings);
     }
 
     
