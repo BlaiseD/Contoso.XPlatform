@@ -14,6 +14,13 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         {
         }
 
-        public ICommand DateChangedCommand => new Command(() => IsValid = Validate());
+        public ICommand DateChangedCommand => new Command
+        (
+            () =>
+            {
+                IsDirty = true;
+                IsValid = Validate();
+            }
+        );
     }
 }

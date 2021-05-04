@@ -20,13 +20,28 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         private T _value;
         private bool _isValid = true;
         private string _name;
+        private bool _isDirty;
         private Dictionary<string, string> _errors = new Dictionary<string, string>();
         private string _templateName;
         private UiNotificationService uiNotificationService;
+
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion Fields
 
         #region Properties
+        public bool IsDirty
+        {
+            get => _isDirty;
+            set
+            {
+                if (_isDirty == value)
+                    return;
+
+                _isDirty = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Name
         {
             get => _name;
@@ -71,7 +86,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             get => _value;
             set
             {
-                if(EqualityComparer<T>.Default.Equals(_value, value))
+                if (EqualityComparer<T>.Default.Equals(_value, value))
                     return;
 
                 _value = value;
@@ -109,7 +124,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             return this.IsValid;
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null) 
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

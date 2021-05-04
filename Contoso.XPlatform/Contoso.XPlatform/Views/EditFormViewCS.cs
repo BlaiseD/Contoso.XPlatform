@@ -69,9 +69,8 @@ namespace Contoso.XPlatform.Views
                 return item;
             }
 
-            Grid GetFullPageGrid()
-            {
-                Grid grid = new Grid
+            Grid GetFullPageGrid() 
+                => new Grid
                 {
                     Children =
                     {
@@ -79,10 +78,6 @@ namespace Contoso.XPlatform.Views
                         transitionGrid
                     }
                 };
-
-
-                return grid;
-            }
 
             StackLayout GetFieldsStackLayout()
             {

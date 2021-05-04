@@ -21,7 +21,7 @@
                     <Entry Text="{Binding Value}" 
                      Placeholder="{Binding Placeholder}">
                         <Entry.Behaviors>
-                            <behaviour:EntryLineValidationBehaviour IsValid="{Binding IsValid}"/>
+                            <behaviour:EntryLineValidationBehaviour IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
                             <behaviour:EventToCommandBehavior 
                                 EventName="TextChanged" 
                                 Command="{Binding TextChangedCommand}" />
@@ -29,8 +29,11 @@
                     </Entry>
                     <Label 
                     Text="{Binding Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBoolConverter}}"
-                    Style="{StaticResource ErrorTextStyle}"/>
+                    Style="{StaticResource ErrorTextStyle}">
+                        <Label.Behaviors>
+                            <behaviour:ErrorLabelValidationBehaviour  IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
+                        </Label.Behaviors>
+                    </Label>
                 </StackLayout>
             </DataTemplate>
 
@@ -40,7 +43,7 @@
                            IsPassword="True"
                            Placeholder="{Binding Placeholder}">
                         <Entry.Behaviors>
-                            <behaviour:EntryLineValidationBehaviour IsValid="{Binding IsValid}"/>
+                            <behaviour:EntryLineValidationBehaviour IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
                             <behaviour:EventToCommandBehavior 
                                 EventName="TextChanged" 
                                 Command="{Binding TextChangedCommand}" />
@@ -48,8 +51,11 @@
                     </Entry>
                     <Label 
                     Text="{Binding Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBoolConverter}}"
-                    Style="{StaticResource ErrorTextStyle}"/>
+                    Style="{StaticResource ErrorTextStyle}">
+                        <Label.Behaviors>
+                            <behaviour:ErrorLabelValidationBehaviour  IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
+                        </Label.Behaviors>
+                    </Label>
                 </StackLayout>
             </DataTemplate>
 

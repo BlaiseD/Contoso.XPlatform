@@ -32,6 +32,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         (
             async (parameter) =>
             {
+                IsDirty = true;
                 const int debounceDelay = 1000;
                 string text = ((TextChangedEventArgs)parameter).NewTextValue;
                 if (text == null)

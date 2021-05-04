@@ -137,7 +137,8 @@ namespace Contoso.XPlatform.Utils
                 Behaviors =
                 {
                     new EntryLineValidationBehaviour()
-                        .AddBinding(EntryLineValidationBehaviour.IsValidProperty, new Binding(nameof(EntryValidatableObject.IsValid))),
+                        .AddBinding(EntryLineValidationBehaviour.IsValidProperty, new Binding(nameof(EntryValidatableObject.IsValid)))
+                        .AddBinding(EntryLineValidationBehaviour.IsDirtyProperty, new Binding(nameof(EntryValidatableObject.IsDirty))),
                     new EventToCommandBehavior()
                     {
                         EventName = nameof(Entry.TextChanged)
@@ -159,9 +160,16 @@ namespace Contoso.XPlatform.Utils
 
         public static Label GetLabelForValidation()
         {
-            Label label = new Label()
-            .AddBinding(Label.TextProperty, new Binding(path: nameof(ValidatableObjectBase<object>.Errors), converter: new FirstValidationErrorConverter()))
-            .AddBinding(Label.IsVisibleProperty, new Binding(path: nameof(ValidatableObjectBase<object>.IsValid), converter: new InverseBoolConverter()));
+            Label label = new Label 
+            { 
+                Behaviors = 
+                { 
+                    new ErrorLabelValidationBehaviour()
+                        .AddBinding(ErrorLabelValidationBehaviour.IsValidProperty, new Binding(nameof(EntryValidatableObject.IsValid)))
+                        .AddBinding(ErrorLabelValidationBehaviour.IsDirtyProperty, new Binding(nameof(EntryValidatableObject.IsDirty)))
+                }
+            }
+            .AddBinding(Label.TextProperty, new Binding(path: nameof(ValidatableObjectBase<object>.Errors), converter: new FirstValidationErrorConverter()));
 
             label.SetDynamicResource(Label.TextColorProperty, "ErrorTextColor");
             return label;

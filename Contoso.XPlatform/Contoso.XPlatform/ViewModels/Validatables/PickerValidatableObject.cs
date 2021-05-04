@@ -53,6 +53,13 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             }
         }
 
-        public ICommand SelectedIndexChangedCommand => new Command(() => IsValid = Validate());
+        public ICommand SelectedIndexChangedCommand => new Command
+        (
+            () =>
+            {
+                IsDirty = true;
+                IsValid = Validate();
+            }
+        );
     }
 }
