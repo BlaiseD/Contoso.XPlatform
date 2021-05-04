@@ -5,6 +5,7 @@ using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels.Validatables;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,7 +14,7 @@ using Xamarin.Forms;
 
 namespace Contoso.XPlatform.ViewModels
 {
-    public abstract class EditFormViewModelBase : ViewModelBase
+    public abstract class EditFormViewModelBase : ViewModelBase, IDisposable
     {
         public EditFormViewModelBase()
         {
@@ -26,6 +27,7 @@ namespace Contoso.XPlatform.ViewModels
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);
             fieldsCollectionHelper = new FieldsCollectionHelper(FormSettings, Properties, this.UiNotificationService, httpService);
             fieldsCollectionHelper.CreateFieldsCollection();
+            propertyChangedSubscription = this.UiNotificationService.ValueChanged.Subscribe(FieldChanged);
         }
 
         public EditFormSettingsDescriptor FormSettings { get; set; }
@@ -35,20 +37,31 @@ namespace Contoso.XPlatform.ViewModels
 
         internal readonly FieldsCollectionHelper fieldsCollectionHelper;
         protected IDictionary<string, object> values;
+        private readonly IDisposable propertyChangedSubscription;
 
-        public ICommand SubmitCommand => new Command
+        private ICommand _submitCommand;
+        public ICommand SubmitCommand => _submitCommand ??= new Command<CommandButtonDescriptor>
         (
-            execute: async () =>
+            execute: async (button) =>
             {
+                //foreach (var property in Properties)
+                //    property.IsDirty = true;
+
+                AreFieldsValid();
+
                 await App.Current.MainPage.DisplayAlert("Welcome", "", "Ok");
             },
-            canExecute: () => AreFieldsValid()
+            canExecute: (button) => AreFieldsValid()
         );
 
-        public ICommand NavigateCommand => new Command(async () =>
-        {
-            await App.Current.MainPage.DisplayAlert("Navigate", "Navigate", "Ok");
-        });
+        private ICommand _navigateCommand;
+        public ICommand NavigateCommand => _navigateCommand ??= new Command
+        (
+            async () =>
+            {
+                await App.Current.MainPage.DisplayAlert("Navigate", "Navigate", "Ok");
+            }
+        );
 
         public bool AreFieldsValid()
             => Properties.Aggregate
@@ -56,5 +69,21 @@ namespace Contoso.XPlatform.ViewModels
                 true,
                 (isTrue, next) => next.Validate() && isTrue
             );
+
+        private void FieldChanged(string fieldName)
+        {
+            (SubmitCommand as Command).ChangeCanExecute();
+        }
+
+        public virtual void Dispose()
+        {
+            Dispose(this.propertyChangedSubscription);
+        }
+
+        protected void Dispose(IDisposable disposable)
+        {
+            if (disposable != null)
+                disposable.Dispose();
+        }
     }
 }

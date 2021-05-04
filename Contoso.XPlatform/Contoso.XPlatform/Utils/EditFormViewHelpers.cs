@@ -167,7 +167,7 @@ namespace Contoso.XPlatform.Utils
             return label;
         }
 
-        private static string GetFontAwesomeFontFamily()
+        public static string GetFontAwesomeFontFamily()
             => Device.RuntimePlatform switch
             {
                 Platforms.Android => FontAwesomeFontFamily.AndroidSolid,

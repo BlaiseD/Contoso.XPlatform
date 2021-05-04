@@ -1,4 +1,5 @@
 ﻿
+using Contoso.Forms.Configuration;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using System;
@@ -11,7 +12,7 @@ namespace Contoso.XPlatform.Views
         public EditFormViewCS(EditFormViewModelBase editFormViewModel)
         {
             this.editFormViewModel = editFormViewModel;
-            AddContent(editFormViewModel.GetType());
+            AddContent();
             BindingContext = editFormViewModel;
         }
 
@@ -25,31 +26,60 @@ namespace Contoso.XPlatform.Views
             await page.EntranceTransition(transitionGrid, 150);
         }
 
-        private void AddContent(Type editFormViewModelType)
+        private void AddContent()
         {
             transitionGrid = GetTransitionGrid();
             page = GetFieldsStackLayout();
+            AddToolBarItems();
 
             Content = GetFullPageGrid();
+
+            void AddToolBarItems()
+            {
+                foreach (var button in editFormViewModel.Buttons)
+                    this.ToolbarItems.Add(BuildToolbarItem(button));
+            }
+
+            ToolbarItem BuildToolbarItem(CommandButtonDescriptor button)
+            {
+                ToolbarItem item = new ToolbarItem
+                {
+                    AutomationId = button.ShortString,
+                    Text = button.LongString,
+                    //IconImageSource = new FontImageSource
+                    //{
+                    //    FontFamily = EditFormViewHelpers.GetFontAwesomeFontFamily(),
+                    //    Glyph = FontAwesomeIcons.Solid[button.ButtonIcon],
+                    //    Size = 20
+                    //},
+                    Order = ToolbarItemOrder.Primary,
+                    Priority = 0
+                };
+
+                AutomationProperties.SetName(item, button.ShortString);
+
+                item.SetBinding
+                (
+                    MenuItem.CommandProperty,
+                    new Binding(button.Command)
+                );
+
+                item.CommandParameter = button;
+
+                return item;
+            }
 
             Grid GetFullPageGrid()
             {
                 Grid grid = new Grid
                 {
-                    RowDefinitions =
-                    {
-                        new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                        new RowDefinition { Height = new GridLength(50, GridUnitType.Absolute) }
-                    },
                     Children =
                     {
                         page,
-                        GetButtonsGrid(),
                         transitionGrid
                     }
                 };
 
-                Grid.SetRow(grid.Children[1], 1);
 
                 return grid;
             }
@@ -59,7 +89,6 @@ namespace Contoso.XPlatform.Views
                 StackLayout stackLayout = new StackLayout
                 {
                     Padding = new Thickness(30),
-                    VerticalOptions = LayoutOptions.CenterAndExpand,
                     Children =
                     {
                         new Label
@@ -77,45 +106,6 @@ namespace Contoso.XPlatform.Views
                 };
 
                 return stackLayout;
-            }
-
-            StackLayout GetButtonsStackLayout()
-            {
-                StackLayout buttonsLayout = new StackLayout
-                {
-                    Margin = 3,
-                    Orientation = StackOrientation.Horizontal,
-                    VerticalOptions = LayoutOptions.Center,
-                    HorizontalOptions = LayoutOptions.Fill
-                }.AddBinding(BindableLayout.ItemsSourceProperty, new Binding("Buttons"));
-
-                BindableLayout.SetItemTemplateSelector(buttonsLayout, EditFormViewHelpers.GetCommandButtonSelector(editFormViewModelType, Button_Tapped));
-
-                if (this.editFormViewModel.Buttons.Count > 2)
-                    Grid.SetColumnSpan(buttonsLayout, 2);
-                else
-                    Grid.SetColumn(buttonsLayout, 1);
-
-                return buttonsLayout;
-            }
-
-            Grid GetButtonsGrid()
-            {
-                Grid buttonsGrid = new Grid
-                {
-                    ColumnDefinitions =
-                    {
-                        new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-                        new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }
-                    },
-                    Children =
-                    {
-                        GetButtonsStackLayout()
-                    }
-                };
-
-                buttonsGrid.SetDynamicResource(VisualElement.BackgroundColorProperty, "CommandBarBackgroundColor");
-                return buttonsGrid;
             }
 
             Grid GetTransitionGrid()

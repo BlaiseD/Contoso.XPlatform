@@ -7,7 +7,7 @@ using System;
 
 namespace Contoso.XPlatform.ViewModels
 {
-    public class EditFormViewModel<TModel> : EditFormViewModelBase, IDisposable
+    public class EditFormViewModel<TModel> : EditFormViewModelBase
     {
         public EditFormViewModel()
         {
@@ -32,15 +32,10 @@ namespace Contoso.XPlatform.ViewModels
 
         private readonly ValidateIfManager<TModel> validateIfManager;
 
-        public void Dispose() 
-            => Dispose(this.validateIfManager);
-
-        private void Dispose(IDisposable disposable)
+        public override void Dispose()
         {
-            if (disposable != null)
-            {
-                disposable.Dispose();
-            }
+            base.Dispose();
+            Dispose(this.validateIfManager);
         }
     }
 }
