@@ -7,7 +7,7 @@ namespace Contoso.XPlatform.Flow.Settings.Screen
 {
     public class ScreenSettings<TFormDescriptor> : ScreenSettingsBase
     {
-        public ScreenSettings(TFormDescriptor settings, IEnumerable<CommandButtonDescriptor> commandButtons, ViewType viewType)
+        public ScreenSettings(TFormDescriptor settings, IList<CommandButtonDescriptor> commandButtons, ViewType viewType)
         {
             Settings = settings;
             CommandButtons = commandButtons;

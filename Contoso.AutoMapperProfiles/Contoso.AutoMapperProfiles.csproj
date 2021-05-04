@@ -13,6 +13,8 @@
     <ProjectReference Include="..\Contoso.Common.Configuration\Contoso.Common.Configuration.csproj" />
     <ProjectReference Include="..\Contoso.Data\Contoso.Data.csproj" />
     <ProjectReference Include="..\Contoso.Domain\Contoso.Domain.csproj" />
+    <ProjectReference Include="..\Contoso.Forms.Configuration\Contoso.Forms.Configuration.csproj" />
+    <ProjectReference Include="..\Contoso.Forms.Parameters\Contoso.Forms.Parameters.csproj" />
     <ProjectReference Include="..\Contoso.Parameters\Contoso.Parameters.csproj" />
   </ItemGroup>
 

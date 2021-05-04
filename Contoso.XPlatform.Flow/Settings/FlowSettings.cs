@@ -1,5 +1,5 @@
-﻿using Contoso.XPlatform.Flow.Cache;
-using Contoso.XPlatform.Flow.Settings.Navigation;
+﻿using Contoso.Forms.Configuration.Navigation;
+using Contoso.XPlatform.Flow.Cache;
 using Contoso.XPlatform.Flow.Settings.Screen;
 
 namespace Contoso.XPlatform.Flow.Settings
@@ -11,7 +11,7 @@ namespace Contoso.XPlatform.Flow.Settings
             ScreenSettings = screenSettings;
         }
 
-        public FlowSettings(FlowDataCache flowDataCache, NavigationBar navigationBar, ScreenSettingsBase screenSettings)
+        public FlowSettings(FlowDataCache flowDataCache, NavigationBarDescriptor navigationBar, ScreenSettingsBase screenSettings)
         {
             FlowDataCache = flowDataCache;
             NavigationBar = navigationBar;
@@ -19,7 +19,7 @@ namespace Contoso.XPlatform.Flow.Settings
         }
 
         public FlowDataCache FlowDataCache { get; set; }
-        public NavigationBar NavigationBar { get; set; }
+        public NavigationBarDescriptor NavigationBar { get; set; }
         public ScreenSettingsBase ScreenSettings { get; set; }
     }
 }

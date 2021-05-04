@@ -4,7 +4,6 @@ using Contoso.Forms.Configuration.Validation;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Contoso.XPlatform
 {
@@ -159,10 +158,10 @@ namespace Contoso.XPlatform
             ModelType = "Contoso.Domain.Entities.StudentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
-        internal static IEnumerable<CommandButtonDescriptor> ButtonDescriptors = new List<CommandButtonDescriptor>
+        internal static IList<CommandButtonDescriptor> ButtonDescriptors = new List<CommandButtonDescriptor>
         {
-            new CommandButtonDescriptor { Id = 1, LongString = "Save", ShortString = "S", Submit = true, ButtonIcon = "Save" },
-            new CommandButtonDescriptor { Id = 2, LongString = "Home", ShortString = "H", Submit = false, ButtonIcon = "Home" }
+            new CommandButtonDescriptor { Id = 1, LongString = "Save", ShortString = "S", Command = "SubmitCommand", ButtonIcon = "Save" },
+            new CommandButtonDescriptor { Id = 2, LongString = "Home", ShortString = "H", Command = "NavigateCommand", ButtonIcon = "Home" }
         };
 
         internal static ScreenSettings<EditFormSettingsDescriptor> ScreenSettings = new ScreenSettings<EditFormSettingsDescriptor>(StudentForm, ButtonDescriptors, ViewType.EditForm);

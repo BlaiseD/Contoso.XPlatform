@@ -8,9 +8,9 @@ namespace Contoso.XPlatform.Utils
         public DataTemplate SubmitButtonTemplate { get; set; }
         public DataTemplate NavigateButtonTemplate { get; set; }
 
-        protected override DataTemplate OnSelectTemplate(object buttonDescriptor, BindableObject container) 
-            => ((CommandButtonDescriptor)buttonDescriptor).Submit 
-            ? SubmitButtonTemplate 
+        protected override DataTemplate OnSelectTemplate(object buttonDescriptor, BindableObject container)
+           => ((CommandButtonDescriptor)buttonDescriptor).Command == "SubmitCommand"
+            ? SubmitButtonTemplate
             : NavigateButtonTemplate;
     }
 }

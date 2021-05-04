@@ -1,13 +1,11 @@
 ﻿using LogicBuilder.Attributes;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Contoso.XPlatform.Flow.Settings.Navigation
+namespace Contoso.Forms.Parameters.Navigation
 {
-    public class NavigationBar
+    public class NavigationBarParameters
     {
-        public NavigationBar
+        public NavigationBarParameters
         (
             [Comments("Brand text for the navigation bar.")]
             string brandText = "Contoso",
@@ -15,21 +13,21 @@ namespace Contoso.XPlatform.Flow.Settings.Navigation
             [Comments("Current module indicator used to determine which menu item gets set to active.")]
             string currentModule = "initial",
 
-            [Comments("True if the grid is sortable otherwise false")]
-            List<NavigationMenuItem> MenuItems = null
+            [Comments("List of menu items")]
+            List<NavigationMenuItemParameters> MenuItems = null
         )
         {
             this.BrandText = brandText;
             this.CurrentModule = currentModule;
-            this.MenuItems = MenuItems ?? new List<NavigationMenuItem>();
+            this.MenuItems = MenuItems ?? new List<NavigationMenuItemParameters>();
         }
 
-        public NavigationBar()
+        public NavigationBarParameters()
         {
         }
 
         public string BrandText { get; set; }
         public string CurrentModule { get; set; }
-        public List<NavigationMenuItem> MenuItems { get; set; }
+        public List<NavigationMenuItemParameters> MenuItems { get; set; }
     }
 }

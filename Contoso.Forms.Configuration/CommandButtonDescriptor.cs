@@ -7,7 +7,7 @@ namespace Contoso.Forms.Configuration
         public int Id { get; set; }
         public string ShortString { get; set; }
         public string LongString { get; set; }
-        public bool Submit { get; set; }
+        public string Command { get; set; }
         public int? GridId { get; set; }
         public bool? GridCommandButton { get; set; }
         public bool? SelectFormButton { get; set; }
