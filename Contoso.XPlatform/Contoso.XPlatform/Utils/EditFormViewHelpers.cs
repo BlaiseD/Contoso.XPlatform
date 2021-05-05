@@ -100,7 +100,8 @@ namespace Contoso.XPlatform.Utils
             };
 
         public static Picker GetPickerForValidation()
-            => new Picker()
+        {
+            Picker picker = new Picker()
             {
                 Behaviors =
                 {
@@ -111,9 +112,18 @@ namespace Contoso.XPlatform.Utils
                     .AddBinding(EventToCommandBehavior.CommandProperty, new Binding(nameof(PickerValidatableObject<string>.SelectedIndexChangedCommand)))
                 }
             }
-            .AddBinding(Picker.SelectedItemProperty, new Binding(nameof(PickerValidatableObject<string>.Value)))
+            .AddBinding(Picker.SelectedItemProperty, new Binding(nameof(PickerValidatableObject<string>.SelectedItem)))
             .AddBinding(Picker.TitleProperty, new Binding(nameof(PickerValidatableObject<string>.Title)))
             .AddBinding(Picker.ItemsSourceProperty, new Binding(nameof(PickerValidatableObject<string>.Items)));
+
+            picker.ItemDisplayBinding = new Binding
+            (
+                path: ".", 
+                converter: new PickerItemDisplayPathConverter(), 
+                converterParameter: picker
+            );
+            return picker;
+        }
 
         public static DatePicker GetDatePickerForValidation()
             => new DatePicker()
@@ -137,17 +147,17 @@ namespace Contoso.XPlatform.Utils
                 Behaviors =
                 {
                     new EntryLineValidationBehaviour()
-                        .AddBinding(EntryLineValidationBehaviour.IsValidProperty, new Binding(nameof(EntryValidatableObject.IsValid)))
-                        .AddBinding(EntryLineValidationBehaviour.IsDirtyProperty, new Binding(nameof(EntryValidatableObject.IsDirty))),
+                        .AddBinding(EntryLineValidationBehaviour.IsValidProperty, new Binding(nameof(EntryValidatableObject<string>.IsValid)))
+                        .AddBinding(EntryLineValidationBehaviour.IsDirtyProperty, new Binding(nameof(EntryValidatableObject<string>.IsDirty))),
                     new EventToCommandBehavior()
                     {
                         EventName = nameof(Entry.TextChanged)
                     }
-                    .AddBinding(EventToCommandBehavior.CommandProperty, new Binding(nameof(EntryValidatableObject.TextChangedCommand)))
+                    .AddBinding(EventToCommandBehavior.CommandProperty, new Binding(nameof(EntryValidatableObject<string>.TextChangedCommand)))
                 }
             }
-            .AddBinding(Entry.TextProperty, new Binding(nameof(EntryValidatableObject.Value)))
-            .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(EntryValidatableObject.Placeholder)));
+            .AddBinding(Entry.TextProperty, new Binding(nameof(EntryValidatableObject<string>.Value)))
+            .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(EntryValidatableObject<string>.Placeholder)));
 
             entry.SetDynamicResource(VisualElement.BackgroundColorProperty, "EntryBackgroundColor");
             entry.SetDynamicResource(Entry.TextColorProperty, "PrimaryTextColor");
@@ -165,8 +175,8 @@ namespace Contoso.XPlatform.Utils
                 Behaviors = 
                 { 
                     new ErrorLabelValidationBehaviour()
-                        .AddBinding(ErrorLabelValidationBehaviour.IsValidProperty, new Binding(nameof(EntryValidatableObject.IsValid)))
-                        .AddBinding(ErrorLabelValidationBehaviour.IsDirtyProperty, new Binding(nameof(EntryValidatableObject.IsDirty)))
+                        .AddBinding(ErrorLabelValidationBehaviour.IsValidProperty, new Binding(nameof(EntryValidatableObject<string>.IsValid)))
+                        .AddBinding(ErrorLabelValidationBehaviour.IsDirtyProperty, new Binding(nameof(EntryValidatableObject<string>.IsDirty)))
                 }
             }
             .AddBinding(Label.TextProperty, new Binding(path: nameof(ValidatableObjectBase<object>.Errors), converter: new FirstValidationErrorConverter()));

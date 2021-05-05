@@ -1,9 +1,12 @@
-﻿using Contoso.Forms.Configuration;
+﻿using Contoso.Bsl.Business.Requests;
+using Contoso.Bsl.Business.Responses;
+using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Validators;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -20,13 +23,34 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             GetItemSource();
         }
 
-        private void GetItemSource()
+        private async void GetItemSource()
         {
-            throw new NotImplementedException();
+            try
+            {
+                GetAnonymousDropDownListResponse response = await this.httpService.GetAnonymousDropDown
+                (
+                    new GetAnonymousDropDownListRequest
+                    {
+                        DataType = this.dropDownTemplate.RequestDetails.DataType,
+                        ModelType = this.dropDownTemplate.RequestDetails.ModelType,
+                        Selector = this.DropDownTemplate.TextAndValueSelector
+                    },
+                    this.dropDownTemplate.RequestDetails.DataSourceUrl
+                );
+
+                Items = response.DropDownList.ToList();
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"{ e.GetType().Name + " : " + e.Message}");
+                throw;
+            }
         }
 
         private readonly IHttpService httpService;
         private readonly DropDownTemplateDescriptor dropDownTemplate;
+
+        public DropDownTemplateDescriptor DropDownTemplate => dropDownTemplate;
 
         private string _title;
         public string Title
@@ -42,8 +66,42 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             }
         }
 
-        private List<T> _items;
-        public List<T> Items
+        private object _selectedItem;
+        public object SelectedItem
+        {
+            get
+            {
+                if (Items?.Any() != true)
+                    return null;
+
+                Type itemType = Items.First().GetType();
+                return Items.FirstOrDefault
+                (
+                    i => EqualityComparer<T>.Default.Equals
+                    (
+                        Value,
+                        (T)itemType.GetProperty(dropDownTemplate.ValueField).GetValue(i)
+                    )
+                );
+            }
+
+            set
+            {
+                if (_selectedItem == null && value == null)
+                    return;
+
+                if (_selectedItem != null && _selectedItem.Equals(value))
+                    return;
+
+                _selectedItem = value;
+                Value = _selectedItem == null ?
+                    default :
+                    (T)_selectedItem.GetType().GetProperty(dropDownTemplate.ValueField).GetValue(_selectedItem);
+            }
+        }
+
+        private List<object> _items;
+        public List<object> Items
         {
             get => _items;
             set

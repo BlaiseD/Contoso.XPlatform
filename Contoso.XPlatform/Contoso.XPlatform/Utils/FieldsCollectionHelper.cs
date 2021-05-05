@@ -117,11 +117,22 @@ namespace Contoso.XPlatform.Utils
             {
                 properties.Add(CreateDatePickerValidatableObject(setting));
             }
+            else
+            {
+                throw new ArgumentException($"{nameof(setting.TextTemplate.TemplateName)}: BFCC0C85-244A-4896-BAB2-0D29AD0F86D8");
+            }
         }
 
         private void AddDropdownControl(FormControlSettingsDescriptor setting)
         {
-            properties.Add(CreatePickerValidatableObject(setting));
+            if (setting.DropDownTemplate.TemplateName == nameof(QuestionTemplateSelector.PickerTemplate))
+            {
+                properties.Add(CreatePickerValidatableObject(setting));
+            }
+            else
+            {
+                throw new ArgumentException($"{nameof(setting.DropDownTemplate.TemplateName)}: 8A0325D9-E9B0-487D-B569-7E92CDBD4F30");
+            }
         }
 
         private IValidationRule[] GetValidationRules(FormControlSettingsDescriptor setting) 
@@ -133,10 +144,28 @@ namespace Contoso.XPlatform.Utils
         private IValidationRule GetValidatorRule(ValidatorDefinitionDescriptor validator, FormControlSettingsDescriptor setting)
             => ValidatorRuleFactory.GetValidatorRule(validator, setting, formSettings.ValidationMessages, properties);
 
-        private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting) 
-            => new EntryValidatableObject(setting, GetValidationRules(setting), this.uiNotificationService)
+        private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting)
+        {
+            MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
+            (
+                "_CreateEntryValidatableObject",
+                1,
+                BindingFlags.NonPublic | BindingFlags.Instance,
+                null,
+                new Type[]
+                {
+                    typeof(FormControlSettingsDescriptor)
+                },
+                null
+            ).MakeGenericMethod(Type.GetType(setting.Type));
+
+            return (IValidatable)methodInfo.Invoke(this, new object[] { setting });
+        }
+
+        private IValidatable _CreateEntryValidatableObject<T>(FormControlSettingsDescriptor setting) 
+            => new EntryValidatableObject<T>(setting, GetValidationRules(setting), this.uiNotificationService)
             {
-                Value = (string)ValidatableObjectFactory.GetValue(setting, string.Empty)
+                Value = (T)ValidatableObjectFactory.GetValue(setting, default(T))
             };
 
         private IValidatable CreateDatePickerValidatableObject(FormControlSettingsDescriptor setting)

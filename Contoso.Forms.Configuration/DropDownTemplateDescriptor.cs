@@ -10,5 +10,6 @@ namespace Contoso.Forms.Configuration
         public string ValueField { get; set; }
         public string TextAndValueObjectType { get; set; }
         public SelectorLambdaOperatorDescriptor TextAndValueSelector { get; set; }
+        public RequestDetailsDescriptor RequestDetails { get; set; }
     }
 }

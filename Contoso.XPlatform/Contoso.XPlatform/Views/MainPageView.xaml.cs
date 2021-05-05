@@ -37,7 +37,7 @@ namespace Contoso.XPlatform.Views
         #region Methods
         protected override void OnAppearing()
         {
-            FlowSettingsChanged(Descriptors.GetFlowSettings<EditFormSettingsDescriptor>("students", Descriptors.ScreenSettings));
+            FlowSettingsChanged(Descriptors.GetFlowSettings<EditFormSettingsDescriptor>("students"));
             base.OnAppearing();
         }
 
@@ -73,36 +73,45 @@ namespace Contoso.XPlatform.Views
             if (e.CurrentSelection.Count != 1)
                 return;
 
-            if (!(e.CurrentSelection.First() is MainPageViewMasterMenuItem item))
+            if (!(e.CurrentSelection.First() is NavigationMenuItemDescriptor item))
                 return;
+            if (item.Active)
+                return;
+
 
             DisposeCurrentPageBindingContext(Detail);
 
-            Page page;
-            if (item.TargetType == typeof(EditFormViewCS))
-            {
-                page = new EditFormViewCS(CreateEditFormViewModel(Descriptors.ScreenSettings));
-            }
-            else if(item.TargetType == typeof(EditFormView))
-            {
-                page = new EditFormView(CreateEditFormViewModel(Descriptors.ScreenSettings));
-            }
-            else
-            {
-                page = (Page)Activator.CreateInstance(item.TargetType);
-            }
-            
-            page.Title = item.Title;
+            FlowSettingsChanged(Descriptors.GetFlowSettings<EditFormSettingsDescriptor>(item.InitialModule));
+            //Page page = null;
 
-            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
-            (
-                () => Detail = GetNavigationPage(page)
-            );
+            if (item.InitialModule != "students" && item.InitialModule != "courses")
+                return;
+            //if (item.TargetType == typeof(EditFormViewCS))
+            //{
+            //    //page = new EditFormViewCS(CreateEditFormViewModel(Descriptors.ScreenSettings));
+            //}
+            //else if(item.TargetType == typeof(EditFormView))
+            //{
+            //    //page = new EditFormView(CreateEditFormViewModel(Descriptors.ScreenSettings));
+            //}
+            //else
+            //{
+            //    page = (Page)Activator.CreateInstance(item.TargetType);
+            //}
 
-            if (IsPortrait)
-                IsPresented = false;
+            //page = new EditFormViewCS(CreateEditFormViewModel(Descriptors.ScreenSettings));
 
-            flyout.ListView.SelectedItem = null;
+            //page.Title = item.Text;
+
+            //Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
+            //(
+            //    () => Detail = GetNavigationPage(page)
+            //);
+
+            //if (IsPortrait)
+            //    IsPresented = false;
+
+            //flyout.ListView.SelectedItem = null;
 
             EditFormViewModelBase CreateEditFormViewModel(object formSettings)
                 => (EditFormViewModelBase)Activator.CreateInstance

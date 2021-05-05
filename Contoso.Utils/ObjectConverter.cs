@@ -17,14 +17,57 @@ namespace Contoso.Utils
             {
                 case JsonTokenType.String:
                     return reader.GetString();
-                case JsonTokenType.StartObject:
+                case JsonTokenType.StartObject:                    
                     using (var jsonDocument = JsonDocument.ParseValue(ref reader))
                     {
+                        JsonElement.ObjectEnumerator objectEnumerator = jsonDocument.RootElement.EnumerateObject();
+                        IDictionary<string, Type> types = new Dictionary<string, Type>();
+                        foreach (var obj in objectEnumerator)
+                        {
+                            types.Add(obj.Name, MapValueKind(obj.Value));
+                        }
+
                         return JsonSerializer.Deserialize
                         (
                             jsonDocument.RootElement.GetRawText(),
-                            typeToConvert
+                            AnonymousTypeFactory.CreateAnonymousType(types)
                         );
+
+                        Type MapValueKind(JsonElement jsonElement)
+                        {
+                            switch (jsonElement.ValueKind)
+                            {
+                                case JsonValueKind.Undefined:
+                                case JsonValueKind.Object:
+                                case JsonValueKind.Array:
+                                    return typeof(object);
+                                case JsonValueKind.String:
+                                    return typeof(string);
+                                case JsonValueKind.Number:
+                                    if (jsonElement.TryGetByte(out byte _))
+                                        return typeof(byte);
+                                    else if (jsonElement.TryGetInt16(out short _))
+                                        return typeof(short);
+                                    else if (jsonElement.TryGetInt32(out int _))
+                                        return typeof(int);
+                                    else if (jsonElement.TryGetInt64(out long _))
+                                        return typeof(long);
+                                    else if (jsonElement.TryGetSingle(out float _))
+                                        return typeof(float);
+                                    else if (jsonElement.TryGetDecimal(out decimal _))
+                                        return typeof(decimal);
+                                    else if (jsonElement.TryGetDouble(out double _))
+                                        return typeof(double);
+
+                                    return typeof(double);
+                                case JsonValueKind.True:
+                                case JsonValueKind.False:
+                                    return typeof(bool);
+                                case JsonValueKind.Null:
+                                default:
+                                    return typeof(object);
+                            }
+                        }
                     }
                 case JsonTokenType.None:
                 case JsonTokenType.EndObject:

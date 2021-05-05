@@ -32,6 +32,37 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
         #endregion Fields
 
         [Fact]
+        public void Select_Departsments_In_Ascending_Order_As_Anonymous_Type()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<DepartmentModel>, IEnumerable<dynamic>>
+            (
+                GetDepartmentsBodyForAnonymousType(),
+                "q"
+            );
+            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
+            ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
+
+            //act
+            var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
+            var list = RequestHelpers.GetAnonymousSelect<DepartmentModel, Department>
+            (
+                new Business.Requests.GetAnonymousDropDownListRequest
+                {
+                    Selector = selectorLambdaOperatorDescriptor,
+                    ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                    DataType = typeof(Department).AssemblyQualifiedName
+                },
+                repository,
+                mapper
+            ).Result.DropDownList.ToList();
+
+            //assert
+            AssertFilterStringIsCorrect(expression, "q => Convert(q.OrderBy(d => d.Name).Select(d => new AnonymousType() {DepartmentID = d.DepartmentID, Name = d.Name}))");
+            Assert.Equal(4, list.Count);
+        }
+
+        [Fact]
         public void Select_Credits_From_Lookups_Table_In_Descending_Order_As_Anonymous_Type()
         {
             //arrange
@@ -159,6 +190,39 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
             Assert.Equal(5, list.Count);
         }
         #region Helpers
+        private SelectOperatorDescriptor GetDepartmentsBodyForAnonymousType()
+            => new SelectOperatorDescriptor
+            {
+                SourceOperand = new OrderByOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                    SelectorBody = new MemberSelectorOperatorDescriptor
+                    {
+                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                        MemberFullName = "Name"
+                    },
+                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                    SelectorParameterName = "d"
+                },
+                SelectorBody = new MemberInitOperatorDescriptor
+                {
+                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                    {
+                        ["DepartmentID"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                            MemberFullName = "DepartmentID"
+                        },
+                        ["Name"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                            MemberFullName = "Name"
+                        }
+                    },
+                },
+                SelectorParameterName = "d"
+            };
+
         private SelectOperatorDescriptor GetBodyForAnonymousType()
             => new SelectOperatorDescriptor
             {

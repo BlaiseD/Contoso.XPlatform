@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.ViewModels;
@@ -44,6 +45,7 @@ namespace Contoso.XPlatform.Utils
 
         private static Page CreateEditForm(this ScreenSettingsBase screenSettings)
         {
+            EditFormSettingsDescriptor descriptor = ((ScreenSettings<EditFormSettingsDescriptor>)screenSettings).Settings;
             return new EditFormViewCS(CreateEditFormViewModel());
 
             EditFormViewModelBase CreateEditFormViewModel()
@@ -53,7 +55,7 @@ namespace Contoso.XPlatform.Utils
                     (
                         Type.GetType
                         (
-                            Descriptors.StudentForm.ModelType,
+                            descriptor.ModelType,
                             AssemblyResolver,
                             TypeResolver
                         )

@@ -32,6 +32,7 @@ namespace Contoso.XPlatform.Views
             page = GetFieldsStackLayout();
             AddToolBarItems();
 
+            Title = editFormViewModel.FormSettings.Title;
             Content = GetFullPageGrid();
 
             void AddToolBarItems()

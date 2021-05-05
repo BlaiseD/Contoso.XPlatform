@@ -11,8 +11,10 @@ namespace Contoso.XPlatform.Utils
         {
             return Policy.Handle<HttpRequestException>
             (
-                ex => true
-            )
+                ex =>
+                {
+                    return true;
+                })
             .WaitAndRetryAsync
             (
                 2,

@@ -22,7 +22,31 @@ namespace Contoso.XPlatform.Services
             cache = BlobCache.LocalMachine;
         }
 
-        public async Task<GetLookupDropDownListResponse> GetLookupDropDown(GetTypedDropDownListRequest request)
+        public async Task<GetAnonymousDropDownListResponse> GetAnonymousDropDown(GetAnonymousDropDownListRequest request, string url = null)
+        {
+            string jsonRequest = JsonSerializer.Serialize(request);
+
+            GetAnonymousDropDownListResponse response = await GetFromCache<GetAnonymousDropDownListResponse>(jsonRequest);
+
+            //if (response != null)
+                //return response;
+
+            response = await PollyHelpers.ExecutePolicyAsync
+            (
+                () => this.factory.PostAsync<GetAnonymousDropDownListResponse>
+                (
+                    url ?? "api/Dropdown/GetAnonymousDropdown",
+                    jsonRequest,
+                    App.BASE_URL
+                )
+            );
+
+            await cache.InsertObject(jsonRequest, response, DateTimeOffset.Now.AddDays(1));
+
+            return response;
+        }
+
+        public async Task<GetLookupDropDownListResponse> GetLookupDropDown(GetTypedDropDownListRequest request, string url = null)
         {
             string jsonRequest = JsonSerializer.Serialize(request);
 
@@ -35,7 +59,7 @@ namespace Contoso.XPlatform.Services
             (
                 () => this.factory.PostAsync<GetLookupDropDownListResponse>
                 (
-                    "api/Dropdown/GetLookupDropdown",
+                    url ?? "api/Dropdown/GetLookupDropdown",
                     jsonRequest,
                     App.BASE_URL
                 )

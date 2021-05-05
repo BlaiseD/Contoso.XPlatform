@@ -26,7 +26,13 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 .MakeGenericMethod(Type.GetType(setting.Type))
                 .Invoke(null, new object[] { setting, defaultValue });
 
-        private static T _GetValue<T>(FormControlSettingsDescriptor setting, object defaultValue) 
-            => (T)(setting?.ValidationSetting.DefaultValue ?? defaultValue);
+        private static T _GetValue<T>(FormControlSettingsDescriptor setting, object defaultValue)
+        {
+            if (setting?.ValidationSetting.DefaultValue != null 
+                && setting.ValidationSetting.DefaultValue.GetType() != typeof(T))
+                throw new ArgumentException($"{nameof(setting.ValidationSetting.DefaultValue)}: 323DA51E-BCA1-4017-A32F-A9FEF6477393");
+
+            return (T)(setting?.ValidationSetting.DefaultValue ?? defaultValue);
+        }
     }
 }
