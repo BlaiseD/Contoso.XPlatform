@@ -105,6 +105,9 @@ namespace Contoso.XPlatform.Utils
             {
                 Behaviors =
                 {
+                    new PickerValidationBehavior()
+                        .AddBinding(PickerValidationBehavior.IsValidProperty, new Binding(nameof(PickerValidatableObject<string>.IsValid)))
+                        .AddBinding(PickerValidationBehavior.IsDirtyProperty, new Binding(nameof(PickerValidatableObject<string>.IsDirty))),
                     new EventToCommandBehavior()
                     {
                         EventName = nameof(Picker.SelectedIndexChanged)
@@ -146,9 +149,9 @@ namespace Contoso.XPlatform.Utils
                 IsPassword = isPassword,
                 Behaviors =
                 {
-                    new EntryLineValidationBehaviour()
-                        .AddBinding(EntryLineValidationBehaviour.IsValidProperty, new Binding(nameof(EntryValidatableObject<string>.IsValid)))
-                        .AddBinding(EntryLineValidationBehaviour.IsDirtyProperty, new Binding(nameof(EntryValidatableObject<string>.IsDirty))),
+                    new EntryLineValidationBehavior()
+                        .AddBinding(EntryLineValidationBehavior.IsValidProperty, new Binding(nameof(EntryValidatableObject<string>.IsValid)))
+                        .AddBinding(EntryLineValidationBehavior.IsDirtyProperty, new Binding(nameof(EntryValidatableObject<string>.IsDirty))),
                     new EventToCommandBehavior()
                     {
                         EventName = nameof(Entry.TextChanged)
@@ -174,9 +177,9 @@ namespace Contoso.XPlatform.Utils
             { 
                 Behaviors = 
                 { 
-                    new ErrorLabelValidationBehaviour()
-                        .AddBinding(ErrorLabelValidationBehaviour.IsValidProperty, new Binding(nameof(EntryValidatableObject<string>.IsValid)))
-                        .AddBinding(ErrorLabelValidationBehaviour.IsDirtyProperty, new Binding(nameof(EntryValidatableObject<string>.IsDirty)))
+                    new ErrorLabelValidationBehavior()
+                        .AddBinding(ErrorLabelValidationBehavior.IsValidProperty, new Binding(nameof(EntryValidatableObject<string>.IsValid)))
+                        .AddBinding(ErrorLabelValidationBehavior.IsDirtyProperty, new Binding(nameof(EntryValidatableObject<string>.IsDirty)))
                 }
             }
             .AddBinding(Label.TextProperty, new Binding(path: nameof(ValidatableObjectBase<object>.Errors), converter: new FirstValidationErrorConverter()));

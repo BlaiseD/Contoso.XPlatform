@@ -21,7 +21,7 @@
                     <Entry Text="{Binding Value}" 
                      Placeholder="{Binding Placeholder}">
                         <Entry.Behaviors>
-                            <behaviour:EntryLineValidationBehaviour IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
+                            <behaviour:EntryLineValidationBehavior IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
                             <behaviour:EventToCommandBehavior 
                                 EventName="TextChanged" 
                                 Command="{Binding TextChangedCommand}" />
@@ -31,7 +31,7 @@
                     Text="{Binding Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                     Style="{StaticResource ErrorTextStyle}">
                         <Label.Behaviors>
-                            <behaviour:ErrorLabelValidationBehaviour  IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
+                            <behaviour:ErrorLabelValidationBehavior  IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
                         </Label.Behaviors>
                     </Label>
                 </StackLayout>
@@ -43,7 +43,7 @@
                            IsPassword="True"
                            Placeholder="{Binding Placeholder}">
                         <Entry.Behaviors>
-                            <behaviour:EntryLineValidationBehaviour IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
+                            <behaviour:EntryLineValidationBehavior IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
                             <behaviour:EventToCommandBehavior 
                                 EventName="TextChanged" 
                                 Command="{Binding TextChangedCommand}" />
@@ -53,7 +53,7 @@
                     Text="{Binding Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                     Style="{StaticResource ErrorTextStyle}">
                         <Label.Behaviors>
-                            <behaviour:ErrorLabelValidationBehaviour  IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
+                            <behaviour:ErrorLabelValidationBehavior  IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
                         </Label.Behaviors>
                     </Label>
                 </StackLayout>

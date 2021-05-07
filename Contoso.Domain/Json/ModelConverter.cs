@@ -2,7 +2,7 @@
 
 namespace Contoso.Domain.Json
 {
-    public class ModelConverter : JsonTypeConverter<BaseModelClass>
+    public class ModelConverter : JsonTypeConverter<ViewModelBase>
     {
         public override string TypePropertyName => "TypeFullName";
     }

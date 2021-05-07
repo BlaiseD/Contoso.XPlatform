@@ -2,16 +2,16 @@
 
 namespace Contoso.XPlatform.Behaviours
 {
-    public class ErrorLabelValidationBehaviour : BehaviorBase<Label>
+    public class EntryLineValidationBehavior : BehaviorBase<Entry>
     {
         public static readonly BindableProperty IsValidProperty = BindableProperty.Create
         (
-            nameof(IsValid),
-            typeof(bool),
-            typeof(ErrorLabelValidationBehaviour),
-            true,
-            BindingMode.Default,
-            null,
+            nameof(IsValid), 
+            typeof(bool), 
+            typeof(EntryLineValidationBehavior), 
+            true, 
+            BindingMode.Default, 
+            null, 
             (bindable, oldValue, newValue) => OnIsValidChanged(bindable, newValue)
         );
 
@@ -19,7 +19,7 @@ namespace Contoso.XPlatform.Behaviours
         (
             nameof(IsDirty),
             typeof(bool),
-            typeof(ErrorLabelValidationBehaviour),
+            typeof(EntryLineValidationBehavior),
             true,
             BindingMode.Default,
             null,
@@ -40,7 +40,7 @@ namespace Contoso.XPlatform.Behaviours
 
         private static void OnIsValidChanged(BindableObject bindable, object newValue)
         {
-            if (bindable is ErrorLabelValidationBehaviour isValidBehavior &&
+            if (bindable is EntryLineValidationBehavior isValidBehavior &&
                  newValue is bool isValid)
             {
                 UpdatePlaceholderColor(isValidBehavior.IsDirty, isValid, isValidBehavior);
@@ -49,14 +49,19 @@ namespace Contoso.XPlatform.Behaviours
 
         private static void OnIsDirtyChanged(BindableObject bindable, object newValue)
         {
-            if (bindable is ErrorLabelValidationBehaviour isValidBehavior &&
+            if (bindable is EntryLineValidationBehavior isValidBehavior &&
                  newValue is bool isDirty)
             {
                 UpdatePlaceholderColor(isDirty, isValidBehavior.IsValid, isValidBehavior);
             }
         }
 
-        private static void UpdatePlaceholderColor(bool isDirty, bool isValid, ErrorLabelValidationBehaviour isValidBehavior) 
-            => isValidBehavior.AssociatedObject.IsVisible = isDirty && !isValid;
+        private static void UpdatePlaceholderColor(bool isDirty, bool isValid, EntryLineValidationBehavior isValidBehavior)
+        {
+            if (!isDirty || isValid)
+                isValidBehavior.AssociatedObject.SetDynamicResource(Entry.PlaceholderColorProperty, "TertiaryTextColor");
+            else
+                isValidBehavior.AssociatedObject.SetDynamicResource(Entry.PlaceholderColorProperty, "ErrorTextColor");
+        }
     }
 }

@@ -104,8 +104,8 @@ namespace Contoso.XPlatform
                         TemplateName = "PickerTemplate",
                         PlaceHolderText = "Select credits:",
                         TextAndValueObjectType = "System.Object",
-                        TextField = "text",
-                        ValueField = "numericValue",
+                        TextField = "Text",
+                        ValueField = "NumericValue",
                         TextAndValueSelector = new SelectorLambdaOperatorDescriptor
                         {
                             Selector = new SelectOperatorDescriptor
@@ -162,9 +162,11 @@ namespace Contoso.XPlatform
                         },
                         RequestDetails = new RequestDetailsDescriptor
                         {
-                            DataSourceUrl = "api/Dropdown/GetAnonymousDropdown",
+                            DataSourceUrl = "api/Dropdown/GetObjectDropdown",
                             ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
-                            DataType = typeof(LookUps).AssemblyQualifiedName
+                            DataType = typeof(LookUps).AssemblyQualifiedName,
+                            ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
+                            DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
                         }
                     },
                     ValidationSetting = new FieldValidationSettingsDescriptor
@@ -193,77 +195,83 @@ namespace Contoso.XPlatform
                         }
                     }
                 },
-                //new FormControlSettingsDescriptor
-                //{
-                //    Field = "DepartmentID",
-                //    Type = "System.Int32",
-                //    DomElementId = "departmentID",
-                //    Title = "Department",
-                //    Placeholder = "Department(required)",
-                //    DropDownTemplate = new DropDownTemplateDescriptor
-                //    {
-                //        TemplateName = "PickerTemplate",
-                //        PlaceHolderText = "Select Department:",
-                //        TextAndValueObjectType = "System.Object",
-                //        TextField = "name",
-                //        ValueField = "departmentID",
-                //        TextAndValueSelector = new SelectorLambdaOperatorDescriptor
-                //        {
-                //            Selector = new SelectOperatorDescriptor
-                //            {
-                //                SourceOperand = new OrderByOperatorDescriptor
-                //                {
-                //                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
-                //                    SelectorBody = new MemberSelectorOperatorDescriptor
-                //                    {
-                //                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
-                //                        MemberFullName = "Name"
-                //                    },
-                //                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
-                //                    SelectorParameterName = "d"
-                //                },
-                //                SelectorBody = new MemberInitOperatorDescriptor
-                //                {
-                //                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
-                //                    {
-                //                        ["DepartmentID"] = new MemberSelectorOperatorDescriptor
-                //                        {
-                //                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
-                //                            MemberFullName = "DepartmentID"
-                //                        },
-                //                        ["Name"] = new MemberSelectorOperatorDescriptor
-                //                        {
-                //                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
-                //                            MemberFullName = "Name"
-                //                        }
-                //                    },
-                //                },
-                //                SelectorParameterName = "s"
-                //            },
-                //            SourceElementType = typeof(IQueryable<DepartmentModel>).AssemblyQualifiedName,
-                //            ParameterName = "$it",
-                //            BodyType = typeof(IEnumerable<object>).AssemblyQualifiedName
-                //        },
-                //        RequestDetails = new RequestDetailsDescriptor
-                //        {
-                //            DataSourceUrl = "api/Dropdown/GetAnonymousDropdown",
-                //            ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
-                //            DataType = typeof(Department).AssemblyQualifiedName
-                //        }
-                //    },
-                //    ValidationSetting = new FieldValidationSettingsDescriptor
-                //    {
-                //        DefaultValue = 0,
-                //        Validators = new List<ValidatorDefinitionDescriptor>
-                //        {
-                //            new ValidatorDefinitionDescriptor
-                //            {
-                //                ClassName = "RequiredRule",
-                //                FunctionName = "Check"
-                //            }
-                //        }
-                //    }
-                //},
+                new FormControlSettingsDescriptor
+                {
+                    Field = "DepartmentID",
+                    Type = "System.Int32",
+                    DomElementId = "departmentID",
+                    Title = "Department",
+                    Placeholder = "Department(required)",
+                    DropDownTemplate = new DropDownTemplateDescriptor
+                    {
+                        TemplateName = "PickerTemplate",
+                        PlaceHolderText = "Select Department:",
+                        TextAndValueObjectType = "System.Object",
+                        TextField = "Text",
+                        ValueField = "NumericValue",
+                        TextAndValueSelector = new SelectorLambdaOperatorDescriptor
+                        {
+                            Selector = new SelectOperatorDescriptor
+                            {
+                                SourceOperand = new OrderByOperatorDescriptor
+                                {
+                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                                    SelectorBody = new MemberSelectorOperatorDescriptor
+                                    {
+                                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                        MemberFullName = "Name"
+                                    },
+                                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                                    SelectorParameterName = "d"
+                                },
+                                SelectorBody = new MemberInitOperatorDescriptor
+                                {
+                                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                                    {
+                                        ["NumericValue"] = new ConvertOperatorDescriptor
+                                        {
+                                            SourceOperand = new MemberSelectorOperatorDescriptor
+                                            {
+                                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                MemberFullName = "DepartmentID"
+                                            },
+                                            Type = typeof(double?).FullName
+                                        },
+                                        ["Text"] = new MemberSelectorOperatorDescriptor
+                                        {
+                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                            MemberFullName = "Name"
+                                        }
+                                    },
+                                },
+                                SelectorParameterName = "d"
+                            },
+                            SourceElementType = typeof(IQueryable<DepartmentModel>).AssemblyQualifiedName,
+                            ParameterName = "$it",
+                            BodyType = typeof(IEnumerable<object>).AssemblyQualifiedName
+                        },
+                        RequestDetails = new RequestDetailsDescriptor
+                        {
+                            DataSourceUrl = "api/Dropdown/GetObjectDropdown",
+                            ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                            DataType = typeof(Department).AssemblyQualifiedName,
+                            ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
+                            DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                        }
+                    },
+                    ValidationSetting = new FieldValidationSettingsDescriptor
+                    {
+                        DefaultValue = 0,
+                        Validators = new List<ValidatorDefinitionDescriptor>
+                        {
+                            new ValidatorDefinitionDescriptor
+                            {
+                                ClassName = "RequiredRule",
+                                FunctionName = "Check"
+                            }
+                        }
+                    }
+                },
                 new FormControlSettingsDescriptor
                 {
                     Field = "Title",

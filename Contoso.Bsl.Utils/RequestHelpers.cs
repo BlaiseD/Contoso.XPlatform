@@ -65,6 +65,28 @@ namespace Contoso.Bsl.Utils
                 )
             };
 
+        public static async Task<GetObjectDropDownListResponse> GetObjectSelect(GetTypedDropDownListRequest request, IContextRepository contextRepository, IMapper mapper)
+            => await (Task<GetObjectDropDownListResponse>)"GetObjectSelect".GetSelectMethod()
+            .MakeGenericMethod
+            (
+                Type.GetType(request.ModelType),
+                Type.GetType(request.DataType),
+                Type.GetType(request.ModelReturnType),
+                Type.GetType(request.DataReturnType)
+            ).Invoke(null, new object[] { request, contextRepository, mapper });
+
+        public static async Task<GetObjectDropDownListResponse> GetObjectSelect<TModel, TData, TModelReturn, TDataReturn>(GetTypedDropDownListRequest request, IContextRepository contextRepository, IMapper mapper)
+            where TModel : BaseModel
+            where TData : BaseData
+            => new GetObjectDropDownListResponse
+            {
+                DropDownList = (IEnumerable<ViewModelBase>)await Query<TModel, TData, TModelReturn, TDataReturn>
+                (
+                    contextRepository,
+                    mapper.MapToOperator(request.Selector)
+                )
+            };
+
         private static Task<IEnumerable<dynamic>> Query<TModel, TData>(IContextRepository repository,
             IExpressionPart queryExpression)
             where TModel : BaseModel

@@ -42,5 +42,16 @@ namespace Contoso.Bsl.Controllers
                 mapper
             );
         }
+
+        [HttpPost("GetObjectDropdown")]
+        public async Task<GetObjectDropDownListResponse> GetObjectDropDown([FromBody] GetTypedDropDownListRequest request)
+        {
+            return await RequestHelpers.GetObjectSelect
+            (
+                request,
+                repository,
+                mapper
+            );
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Contoso.Forms.Configuration;
+using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels.Validatables;
 using System;
 using System.Globalization;
@@ -14,12 +15,12 @@ namespace Contoso.XPlatform.Converters
                 return null;
 
             object bindingContext = ((VisualElement)parameter).BindingContext;
-            var dropDownTemplate = (DropDownTemplateDescriptor)bindingContext.GetType().GetProperty
+            var dropDownTemplate = bindingContext.GetPropertyValue<DropDownTemplateDescriptor>
             (
                 nameof(PickerValidatableObject<int>.DropDownTemplate)
-            ).GetValue(bindingContext);
+            );
 
-            return (string)value.GetType().GetProperty(dropDownTemplate.TextField).GetValue(value);
+            return value.GetPropertyValue<string>(dropDownTemplate.TextField);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

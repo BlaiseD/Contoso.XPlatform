@@ -40,5 +40,14 @@ namespace Contoso.Api.Controllers
                 JsonSerializer.Serialize(request),
                 this.configurationOptions.BaseBslUrl
             );
+
+        [HttpPost("GetObjectDropdown")]
+        public async Task<GetObjectDropDownListResponse> GetObjectDropDown([FromBody] GetTypedDropDownListRequest request) 
+            => await this.clientFactory.PostAsync<GetObjectDropDownListResponse>
+            (
+                "api/Dropdown/GetObjectDropdown",
+                JsonSerializer.Serialize(request),
+                this.configurationOptions.BaseBslUrl
+            );
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -21,13 +22,17 @@ namespace Contoso.Utils
 
             using (var jsonDocument = JsonDocument.ParseValue(ref reader))
             {
-                if (!jsonDocument.RootElement.TryGetProperty(TypePropertyName, out var typeProperty))
+                JsonProperty jsonProperty = GetJsonProperty();
+                if (jsonProperty.Equals(default(JsonProperty)))
                     throw new JsonException();
+
+                JsonProperty GetJsonProperty()
+                    => jsonDocument.RootElement.EnumerateObject().FirstOrDefault(e => e.Name.ToLowerInvariant() == TypePropertyName.ToLowerInvariant());
 
                 return (T)JsonSerializer.Deserialize
                 (
                     jsonDocument.RootElement.GetRawText(),
-                    Type.GetType(typeProperty.GetString()),
+                    Type.GetType(jsonProperty.Value.GetString()),
                     options
                 );
             }

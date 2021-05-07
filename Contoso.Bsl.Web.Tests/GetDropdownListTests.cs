@@ -125,6 +125,35 @@ namespace Contoso.Bsl.Web.Tests
 
             Assert.NotNull(result);
         }
+
+        [Fact]
+        public async void GetDropDownListRequest_As_LookUpsModel_Using_Object_ReturnType()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<LookUpsModel>, IEnumerable<LookUpsModel>>
+            (
+                GetBodyForLookupsModel(),
+                "q"
+            );
+
+            var result = await this.clientFactory.PostAsync<GetObjectDropDownListResponse>
+            (
+                "api/Dropdown/GetObjectDropdown",
+                JsonSerializer.Serialize
+                (
+                    new Business.Requests.GetTypedDropDownListRequest
+                    {
+                        Selector = selectorLambdaOperatorDescriptor,
+                        ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
+                        DataType = typeof(LookUps).AssemblyQualifiedName,
+                        ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
+                        DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                    }
+                )
+            );
+
+            Assert.NotNull(result);
+        }
         #endregion Tests
     }
 }

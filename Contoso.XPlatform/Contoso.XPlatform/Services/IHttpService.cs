@@ -8,5 +8,6 @@ namespace Contoso.XPlatform.Services
     {
         Task<GetAnonymousDropDownListResponse> GetAnonymousDropDown(GetAnonymousDropDownListRequest request, string url = null);
         Task<GetLookupDropDownListResponse> GetLookupDropDown(GetTypedDropDownListRequest request, string url = null);
+        Task<GetObjectDropDownListResponse> GetObjectDropDown(GetTypedDropDownListRequest request, string url = null);
     }
 }

@@ -3,6 +3,7 @@ using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
+using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             : base(setting.Field, setting.DropDownTemplate.TemplateName, validations, uiNotificationService)
         {
             this.Title = setting.Title;
-            this.dropDownTemplate = setting.DropDownTemplate;
+            this._dropDownTemplate = setting.DropDownTemplate;
             this.httpService = httpService;
             GetItemSource();
         }
@@ -27,18 +28,20 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         {
             try
             {
-                GetAnonymousDropDownListResponse response = await this.httpService.GetAnonymousDropDown
+                GetObjectDropDownListResponse response = await this.httpService.GetObjectDropDown
                 (
-                    new GetAnonymousDropDownListRequest
+                    new GetTypedDropDownListRequest
                     {
-                        DataType = this.dropDownTemplate.RequestDetails.DataType,
-                        ModelType = this.dropDownTemplate.RequestDetails.ModelType,
+                        DataType = this._dropDownTemplate.RequestDetails.DataType,
+                        ModelType = this._dropDownTemplate.RequestDetails.ModelType,
+                        ModelReturnType = this._dropDownTemplate.RequestDetails.ModelReturnType,
+                        DataReturnType = this._dropDownTemplate.RequestDetails.DataReturnType,
                         Selector = this.DropDownTemplate.TextAndValueSelector
                     },
-                    this.dropDownTemplate.RequestDetails.DataSourceUrl
+                    this._dropDownTemplate.RequestDetails.DataSourceUrl
                 );
 
-                Items = response.DropDownList.ToList();
+                Items = response.DropDownList.OfType<object>().ToList();
             }
             catch (Exception e)
             {
@@ -48,9 +51,9 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         }
 
         private readonly IHttpService httpService;
-        private readonly DropDownTemplateDescriptor dropDownTemplate;
+        private readonly DropDownTemplateDescriptor _dropDownTemplate;
 
-        public DropDownTemplateDescriptor DropDownTemplate => dropDownTemplate;
+        public DropDownTemplateDescriptor DropDownTemplate => _dropDownTemplate;
 
         private string _title;
         public string Title
@@ -74,13 +77,12 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 if (Items?.Any() != true)
                     return null;
 
-                Type itemType = Items.First().GetType();
                 return Items.FirstOrDefault
                 (
                     i => EqualityComparer<T>.Default.Equals
                     (
                         Value,
-                        (T)itemType.GetProperty(dropDownTemplate.ValueField).GetValue(i)
+                        i.GetPropertyValue<T>(_dropDownTemplate.ValueField)
                     )
                 );
             }
@@ -96,7 +98,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 _selectedItem = value;
                 Value = _selectedItem == null ?
                     default :
-                    (T)_selectedItem.GetType().GetProperty(dropDownTemplate.ValueField).GetValue(_selectedItem);
+                    _selectedItem.GetPropertyValue<T>(_dropDownTemplate.ValueField);
+                OnPropertyChanged();
             }
         }
 
