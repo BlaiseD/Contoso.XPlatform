@@ -56,6 +56,8 @@ namespace Contoso.XPlatform.Validators.Rules
                 return GetRangeRule();
             else if (validator.ClassName == nameof(MustBeNumberRule<T>))
                 return GetMustBeNumberRule();
+            else if (validator.ClassName == nameof(MustBePositiveNumberRule<T>))
+                return GetMustBePositiveNumberRule();
             else if (validator.ClassName == nameof(MustBeIntegerRule<T>))
                 return GetMustBeIntegerRule();
             else if (validator.ClassName == nameof(IsLengthValidRule))
@@ -111,6 +113,14 @@ namespace Contoso.XPlatform.Validators.Rules
                     (int)maxDescriptor.Value
                 );
             }
+
+            IValidationRule GetMustBePositiveNumberRule()
+                => new MustBePositiveNumberRule<T>
+                (
+                    setting.Field,
+                    validationMessage,
+                    fields
+                );
 
             IValidationRule GetMustBeNumberRule()
                 => new MustBeNumberRule<T>

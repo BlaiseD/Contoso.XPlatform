@@ -63,10 +63,11 @@
                 <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
                 <Setter Property="PlaceholderColor" Value = "{DynamicResource TertiaryTextColor}" />
             </Style>
-
+            
             <Style TargetType="Picker">
                 <Setter Property="Margin" Value = "0,10,0,0" />
                 <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
+                <Setter Property="TitleColor" Value = "{DynamicResource TertiaryTextColor}" />
                 <Setter Property="BackgroundColor" Value = "{DynamicResource EntryBackgroundColor}" />
             </Style>
 

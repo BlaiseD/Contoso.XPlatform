@@ -34,6 +34,76 @@ namespace Contoso.Bsl.Flow.Integration.Tests
 
         #region Tests
         [Fact]
+        public void SelectInstructorFullNames()
+        {
+            var bodyParameter = new SelectOperatorParameter
+            (
+                new OrderByOperatorParameter
+                (
+                    new ParameterOperatorParameter("q"),
+                    new MemberSelectorOperatorParameter
+                    (
+                        "FullName", 
+                        new ParameterOperatorParameter("s")
+                    ),
+                    ListSortDirection.Ascending,
+                    "s"
+                ),
+                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter("a")),
+                "a"
+            );
+
+            //act
+            DoTest<InstructorModel, Instructor, IQueryable<string>, IQueryable<string>>
+            (
+                bodyParameter,
+                "q",
+                returnValue => Assert.Equal("Candace Kapoor", returnValue.First()),
+                "q => q.OrderBy(s => s.FullName).Select(a => a.FullName)"
+            );
+        }
+
+        [Fact]
+        public void SelectNewInstructor()
+        {
+            var bodyParameter = new SelectOperatorParameter
+            (
+                new OrderByOperatorParameter
+                (
+                    new ParameterOperatorParameter("q"),
+                    new MemberSelectorOperatorParameter
+                    (
+                        "FullName",
+                        new ParameterOperatorParameter("s")
+                    ),
+                    ListSortDirection.Ascending,
+                    "s"
+                ),
+                new MemberInitOperatorParameter
+                (
+                    new Dictionary<string, IExpressionParameter>
+                    {
+                        ["ID"] = new MemberSelectorOperatorParameter("ID", new ParameterOperatorParameter("a")),
+                        ["FirstName"] = new MemberSelectorOperatorParameter("FirstName", new ParameterOperatorParameter("a")),
+                        ["LastName"] = new MemberSelectorOperatorParameter("LastName", new ParameterOperatorParameter("a")),
+                        ["FullName"] = new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter("a"))
+                    },
+                    typeof(InstructorModel)
+                ),
+                "a"
+            );
+
+            //act
+            DoTest<InstructorModel, Instructor, IQueryable<InstructorModel>, IQueryable<Instructor>>
+            (
+                bodyParameter,
+                "q",
+                returnValue => Assert.Equal("Candace Kapoor", returnValue.First().FullName),
+                "q => q.OrderBy(s => s.FullName).Select(a => new InstructorModel() {ID = a.ID, FirstName = a.FirstName, LastName = a.LastName, FullName = a.FullName})"
+            );
+        }
+
+        [Fact]
         public void BuildWhere_OrderBy_ThenBy_Skip_Take_Average()
         {
             //arrange

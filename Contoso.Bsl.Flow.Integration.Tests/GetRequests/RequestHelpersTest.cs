@@ -96,6 +96,40 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
         }
 
         [Fact]
+        public void Select_Instructors_In_Ascending_Order_As_InstructorModel_Type()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<InstructorModel>, IEnumerable<InstructorModel>>
+            (
+                GetInstructorsBody(),
+                "q"
+            );
+            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
+            ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
+
+            //act
+            var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
+            var list = RequestHelpers.GetObjectSelect<InstructorModel, Instructor, IEnumerable<InstructorModel>, IEnumerable<Instructor>>
+            (
+                new Business.Requests.GetTypedDropDownListRequest
+                {
+                    Selector = selectorLambdaOperatorDescriptor,
+                    ModelType = typeof(InstructorModel).AssemblyQualifiedName,
+                    DataType = typeof(Instructor).AssemblyQualifiedName,
+                    ModelReturnType = typeof(IEnumerable<InstructorModel>).AssemblyQualifiedName,
+                    DataReturnType = typeof(IEnumerable<Instructor>).AssemblyQualifiedName
+                },
+                repository,
+                mapper
+            ).Result.DropDownList.ToList();
+
+            //assert
+            AssertFilterStringIsCorrect(expression, "q => Convert(q.OrderBy(d => d.FullName).Select(d => new InstructorModel() {ID = d.ID, FirstName = d.FirstName, LastName = d.LastName, FullName = d.FullName}))");
+            Assert.Equal(5, list.Count);
+            Assert.Equal("Candace Kapoor", ((InstructorModel)list.First()).FullName);
+        }
+
+        [Fact]
         public void Select_Credits_From_Lookups_Table_In_Descending_Order_As_Anonymous_Type()
         {
             //arrange
@@ -290,6 +324,50 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
         }
 
         #region Helpers
+        private SelectOperatorDescriptor GetInstructorsBody()
+            => new SelectOperatorDescriptor
+            {
+                SourceOperand = new OrderByOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                    SelectorBody = new MemberSelectorOperatorDescriptor
+                    {
+                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                        MemberFullName = "FullName"
+                    },
+                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                    SelectorParameterName = "d"
+                },
+                SelectorBody = new MemberInitOperatorDescriptor
+                {
+                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                    {
+                        ["ID"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                            MemberFullName = "ID"
+                        },
+                        ["FirstName"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                            MemberFullName = "FirstName"
+                        },
+                        ["LastName"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                            MemberFullName = "LastName"
+                        },
+                        ["FullName"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                            MemberFullName = "FullName"
+                        }
+                    },
+                    NewType = typeof(InstructorModel).AssemblyQualifiedName
+                },
+                SelectorParameterName = "d"
+            };
+
         private SelectOperatorDescriptor GetDepartmentsBodyForDepartmentModelType()
             => new SelectOperatorDescriptor
             {

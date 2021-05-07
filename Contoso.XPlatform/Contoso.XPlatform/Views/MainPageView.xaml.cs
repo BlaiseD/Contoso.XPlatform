@@ -1,15 +1,12 @@
-﻿using AutoMapper;
-using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.Navigation;
 using Contoso.XPlatform.Flow.Settings;
-using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
