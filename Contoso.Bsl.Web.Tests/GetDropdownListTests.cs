@@ -35,6 +35,40 @@ namespace Contoso.Bsl.Web.Tests
             this.clientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
         }
 
+        private SelectOperatorDescriptor GetDepartmentsBodyForDepartmentModelType()
+            => new SelectOperatorDescriptor
+            {
+                SourceOperand = new OrderByOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                    SelectorBody = new MemberSelectorOperatorDescriptor
+                    {
+                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                        MemberFullName = "Name"
+                    },
+                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                    SelectorParameterName = "d"
+                },
+                SelectorBody = new MemberInitOperatorDescriptor
+                {
+                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                    {
+                        ["DepartmentID"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                            MemberFullName = "DepartmentID"
+                        },
+                        ["Name"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                            MemberFullName = "Name"
+                        }
+                    },
+                    NewType = typeof(DepartmentModel).AssemblyQualifiedName
+                },
+                SelectorParameterName = "d"
+            };
+
         private SelectOperatorDescriptor GetBodyForLookupsModel()
             => new SelectOperatorDescriptor
             {
@@ -148,6 +182,35 @@ namespace Contoso.Bsl.Web.Tests
                         DataType = typeof(LookUps).AssemblyQualifiedName,
                         ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
                         DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                    }
+                )
+            );
+
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async void GetDropDownListRequest_As_DepartmentModel_Using_Object_ReturnType()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<DepartmentModel>, IEnumerable<DepartmentModel>>
+            (
+                GetDepartmentsBodyForDepartmentModelType(),
+                "q"
+            );
+
+            var result = await this.clientFactory.PostAsync<GetObjectDropDownListResponse>
+            (
+                "api/Dropdown/GetObjectDropdown",
+                JsonSerializer.Serialize
+                (
+                    new Business.Requests.GetTypedDropDownListRequest
+                    {
+                        Selector = selectorLambdaOperatorDescriptor,
+                        ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                        DataType = typeof(Department).AssemblyQualifiedName,
+                        ModelReturnType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName,
+                        DataReturnType = typeof(IEnumerable<Department>).AssemblyQualifiedName
                     }
                 )
             );

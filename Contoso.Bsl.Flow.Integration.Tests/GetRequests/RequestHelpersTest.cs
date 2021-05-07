@@ -63,6 +63,39 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
         }
 
         [Fact]
+        public void Select_Departments_In_Ascending_Order_As_DepartmentModel_Type()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<DepartmentModel>, IEnumerable<DepartmentModel>>
+            (
+                GetDepartmentsBodyForDepartmentModelType(),
+                "q"
+            );
+            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
+            ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
+
+            //act
+            var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
+            var list = RequestHelpers.GetObjectSelect<DepartmentModel, Department, IEnumerable<DepartmentModel>, IEnumerable<Department>>
+            (
+                new Business.Requests.GetTypedDropDownListRequest
+                {
+                    Selector = selectorLambdaOperatorDescriptor,
+                    ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                    DataType = typeof(Department).AssemblyQualifiedName,
+                    ModelReturnType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName,
+                    DataReturnType = typeof(IEnumerable<Department>).AssemblyQualifiedName
+                },
+                repository,
+                mapper
+            ).Result.DropDownList.ToList();
+
+            //assert
+            AssertFilterStringIsCorrect(expression, "q => Convert(q.OrderBy(d => d.Name).Select(d => new DepartmentModel() {DepartmentID = d.DepartmentID, Name = d.Name}))");
+            Assert.Equal(4, list.Count);
+        }
+
+        [Fact]
         public void Select_Credits_From_Lookups_Table_In_Descending_Order_As_Anonymous_Type()
         {
             //arrange
@@ -257,6 +290,40 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
         }
 
         #region Helpers
+        private SelectOperatorDescriptor GetDepartmentsBodyForDepartmentModelType()
+            => new SelectOperatorDescriptor
+            {
+                SourceOperand = new OrderByOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                    SelectorBody = new MemberSelectorOperatorDescriptor
+                    {
+                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                        MemberFullName = "Name"
+                    },
+                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                    SelectorParameterName = "d"
+                },
+                SelectorBody = new MemberInitOperatorDescriptor
+                {
+                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                    {
+                        ["DepartmentID"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                            MemberFullName = "DepartmentID"
+                        },
+                        ["Name"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                            MemberFullName = "Name"
+                        }
+                    },
+                    NewType = typeof(DepartmentModel).AssemblyQualifiedName
+                },
+                SelectorParameterName = "d"
+            };
+
         private SelectOperatorDescriptor GetDepartmentsBodyForLookupModelType()
             => new SelectOperatorDescriptor
             {

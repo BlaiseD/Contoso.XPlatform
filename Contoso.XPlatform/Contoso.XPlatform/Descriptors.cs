@@ -152,13 +152,14 @@ namespace Contoso.XPlatform
                                             SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
                                             MemberFullName = "Text"
                                         }
-                                    }
+                                    },
+                                    NewType = typeof(LookUpsModel).AssemblyQualifiedName
                                 },
                                 SelectorParameterName = "s"
                             },
                             SourceElementType = typeof(IQueryable<LookUpsModel>).AssemblyQualifiedName,
                             ParameterName = "$it",
-                            BodyType = typeof(IEnumerable<object>).AssemblyQualifiedName
+                            BodyType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName
                         },
                         RequestDetails = new RequestDetailsDescriptor
                         {
@@ -207,8 +208,8 @@ namespace Contoso.XPlatform
                         TemplateName = "PickerTemplate",
                         PlaceHolderText = "Select Department:",
                         TextAndValueObjectType = "System.Object",
-                        TextField = "Text",
-                        ValueField = "NumericValue",
+                        TextField = "Name",
+                        ValueField = "DepartmentID",
                         TextAndValueSelector = new SelectorLambdaOperatorDescriptor
                         {
                             Selector = new SelectOperatorDescriptor
@@ -228,35 +229,32 @@ namespace Contoso.XPlatform
                                 {
                                     MemberBindings = new Dictionary<string, OperatorDescriptorBase>
                                     {
-                                        ["NumericValue"] = new ConvertOperatorDescriptor
+                                        ["DepartmentID"] = new MemberSelectorOperatorDescriptor
                                         {
-                                            SourceOperand = new MemberSelectorOperatorDescriptor
-                                            {
-                                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
-                                                MemberFullName = "DepartmentID"
-                                            },
-                                            Type = typeof(double?).FullName
+                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                            MemberFullName = "DepartmentID"
                                         },
-                                        ["Text"] = new MemberSelectorOperatorDescriptor
+                                        ["Name"] = new MemberSelectorOperatorDescriptor
                                         {
                                             SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
                                             MemberFullName = "Name"
                                         }
                                     },
+                                    NewType = typeof(DepartmentModel).AssemblyQualifiedName
                                 },
                                 SelectorParameterName = "d"
                             },
                             SourceElementType = typeof(IQueryable<DepartmentModel>).AssemblyQualifiedName,
                             ParameterName = "$it",
-                            BodyType = typeof(IEnumerable<object>).AssemblyQualifiedName
+                            BodyType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName
                         },
                         RequestDetails = new RequestDetailsDescriptor
                         {
                             DataSourceUrl = "api/Dropdown/GetObjectDropdown",
                             ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
                             DataType = typeof(Department).AssemblyQualifiedName,
-                            ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
-                            DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                            ModelReturnType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName,
+                            DataReturnType = typeof(IEnumerable<Department>).AssemblyQualifiedName
                         }
                     },
                     ValidationSetting = new FieldValidationSettingsDescriptor
