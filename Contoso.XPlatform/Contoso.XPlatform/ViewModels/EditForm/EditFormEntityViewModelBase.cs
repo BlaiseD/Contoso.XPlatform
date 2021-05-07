@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Contoso.Forms.Configuration;
+﻿using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
@@ -12,15 +11,11 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Contoso.XPlatform.ViewModels
+namespace Contoso.XPlatform.ViewModels.EditForm
 {
-    public abstract class EditFormViewModelBase : ViewModelBase, IDisposable
+    public abstract class EditFormEntityViewModelBase : ViewModelBase, IDisposable
     {
-        public EditFormViewModelBase()
-        {
-        }
-
-        protected EditFormViewModelBase(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService)
+        protected EditFormEntityViewModelBase(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService)
         {
             this.UiNotificationService = uiNotificationService;
             FormSettings = screenSettings.Settings;
@@ -44,8 +39,8 @@ namespace Contoso.XPlatform.ViewModels
         (
             execute: async (button) =>
             {
-                //foreach (var property in Properties)
-                //    property.IsDirty = true;
+                foreach (var property in Properties)
+                    property.IsDirty = true;
 
                 AreFieldsValid();
 

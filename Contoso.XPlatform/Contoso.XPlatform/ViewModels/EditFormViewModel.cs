@@ -2,40 +2,49 @@
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
-using Contoso.XPlatform.Validators;
+using Contoso.XPlatform.ViewModels.EditForm;
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Reflection;
 
 namespace Contoso.XPlatform.ViewModels
 {
-    public class EditFormViewModel<TModel> : EditFormViewModelBase
+    public class EditFormViewModel : ViewModelBase
     {
-        public EditFormViewModel()
+        public EditFormViewModel(ScreenSettingsBase screenSettings)
         {
+            EditFormEntityViewModel = CreateEditFormViewModel((ScreenSettings<EditFormSettingsDescriptor>)screenSettings);
         }
 
-        public EditFormViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IMapper mapper, IHttpService httpService)
-            : base(screenSettings, uiNotificationService, httpService)
+        public EditFormEntityViewModelBase EditFormEntityViewModel { get; set; }
+
+        private EditFormEntityViewModelBase CreateEditFormViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings)
         {
-            this.validateIfManager = new ValidateIfManager<TModel>
+            return (EditFormEntityViewModelBase)Activator.CreateInstance
             (
-                Properties,
-                fieldsCollectionHelper.GetConditionalValidationConditions<TModel>
+                typeof(EditFormEntityViewModel<>).MakeGenericType
                 (
-                    FormSettings.ConditionalDirectives,
-                    Properties,
-                    mapper
+                    Type.GetType
+                    (
+                        screenSettings.Settings.ModelType,
+                        AssemblyResolver,
+                        TypeResolver
+                    )
                 ),
-                mapper,
-                this.UiNotificationService
+                new object[]
+                {
+                    screenSettings,
+                    App.ServiceProvider.GetRequiredService<UiNotificationService>(),
+                    App.ServiceProvider.GetRequiredService<IMapper>(),
+                    App.ServiceProvider.GetRequiredService<IHttpService>()
+                }
             );
-        }
 
-        private readonly ValidateIfManager<TModel> validateIfManager;
+            Type TypeResolver(Assembly assembly, string typeName, bool matchCase)
+                => assembly.GetType(typeName);
 
-        public override void Dispose()
-        {
-            base.Dispose();
-            Dispose(this.validateIfManager);
+            Assembly AssemblyResolver(AssemblyName assemblyName)
+                => typeof(Domain.BaseModelClass).Assembly;
         }
     }
 }

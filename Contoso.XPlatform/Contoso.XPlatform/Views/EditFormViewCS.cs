@@ -2,6 +2,7 @@
 using Contoso.Forms.Configuration;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
+using Contoso.XPlatform.ViewModels.EditForm;
 using System;
 using Xamarin.Forms;
 
@@ -9,14 +10,14 @@ namespace Contoso.XPlatform.Views
 {
     public class EditFormViewCS : ContentPage
     {
-        public EditFormViewCS(EditFormViewModelBase editFormViewModel)
+        public EditFormViewCS(EditFormViewModel editFormViewModel)
         {
-            this.editFormViewModel = editFormViewModel;
+            this.editFormEntityViewModel = editFormViewModel.EditFormEntityViewModel;
             AddContent();
-            BindingContext = editFormViewModel;
+            BindingContext = this.editFormEntityViewModel;
         }
 
-        private EditFormViewModelBase editFormViewModel;
+        private EditFormEntityViewModelBase editFormEntityViewModel;
         private Grid transitionGrid;
         private StackLayout page;
 
@@ -32,12 +33,12 @@ namespace Contoso.XPlatform.Views
             page = GetFieldsStackLayout();
             AddToolBarItems();
 
-            Title = editFormViewModel.FormSettings.Title;
+            Title = editFormEntityViewModel.FormSettings.Title;
             Content = GetFullPageGrid();
 
             void AddToolBarItems()
             {
-                foreach (var button in editFormViewModel.Buttons)
+                foreach (var button in editFormEntityViewModel.Buttons)
                     this.ToolbarItems.Add(BuildToolbarItem(button));
             }
 
@@ -110,27 +111,6 @@ namespace Contoso.XPlatform.Views
                 grid.SetDynamicResource(VisualElement.BackgroundColorProperty, "PageBackgroundColor");
                 return grid;
             }
-        }
-
-        private async void Button_Tapped(object sender, EventArgs e)
-        {
-            if (!(this.editFormViewModel).AreFieldsValid())
-                return;
-
-            StackLayout view = sender as StackLayout;
-            if (view == null)
-                return;
-
-            foreach (var element in view.Children)
-            {
-                if (element is Label label)
-                {
-                    label.SetDynamicResource(Label.TextColorProperty, "PrimaryColor");
-                }
-            }
-
-            await view.ScaleTo(1.1, 100);
-            await view.ScaleTo(1, 100);
         }
     }
 }

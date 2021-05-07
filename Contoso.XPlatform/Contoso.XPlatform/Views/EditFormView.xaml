@@ -149,9 +149,9 @@
                         <!--<Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorLevel=1, AncestorType={utils:GenericType TypeName=vm:EditFormViewModel`1, ElementTypeName=models:StudentModel}}, Path=SubmitCommand}" />
                     </Grid.GestureRecognizers>-->
-                        <StackLayout.GestureRecognizers>
+                        <!--<StackLayout.GestureRecognizers>
                             <TapGestureRecognizer Tapped="Button_Tapped" Command="{Binding Source={RelativeSource AncestorType={utils:GenericType TypeName=vm:EditFormViewModel`1, ElementTypeName=models:StudentModel}}, Path=SubmitCommand}" />
-                        </StackLayout.GestureRecognizers>
+                        </StackLayout.GestureRecognizers>-->
                     </StackLayout>
             </DataTemplate>
 

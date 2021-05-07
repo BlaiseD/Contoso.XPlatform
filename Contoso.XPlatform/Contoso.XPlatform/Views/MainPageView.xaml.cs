@@ -113,33 +113,6 @@ namespace Contoso.XPlatform.Views
 
             //flyout.ListView.SelectedItem = null;
 
-            EditFormViewModelBase CreateEditFormViewModel(object formSettings)
-                => (EditFormViewModelBase)Activator.CreateInstance
-                (
-                    typeof(EditFormViewModel<>).MakeGenericType
-                    (
-                        Type.GetType
-                        (
-                            Descriptors.StudentForm.ModelType,
-                            AssemblyResolver,
-                            TypeResolver
-                        )
-                    ),
-                    new object[] 
-                    { 
-                        formSettings, 
-                        App.ServiceProvider.GetRequiredService<UiNotificationService>(),
-                        App.ServiceProvider.GetRequiredService<IMapper>(),
-                        App.ServiceProvider.GetRequiredService<IHttpService>()
-                    }
-                );
-
-            Type TypeResolver(Assembly assembly, string typeName, bool matchCase) 
-                => assembly.GetType(typeName);
-
-            Assembly AssemblyResolver(AssemblyName arg) 
-                => typeof(Domain.BaseModelClass).Assembly;
-
             void DisposeCurrentPageBindingContext(Page detail)
             {
                 if (detail is not NavigationPage navigationPage)

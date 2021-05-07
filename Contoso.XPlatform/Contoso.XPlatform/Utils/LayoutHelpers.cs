@@ -35,45 +35,24 @@ namespace Contoso.XPlatform.Utils
 
         internal static Page CreatePage(this ScreenSettingsBase screenSettings)
         {
-            if (screenSettings.ViewType == ViewType.EditForm)
-            {
-                return screenSettings.CreateEditForm();
-            }
+            return CreatePage(Enum.GetName(typeof(ViewType), screenSettings.ViewType));
 
-            return null;
-        }
-
-        private static Page CreateEditForm(this ScreenSettingsBase screenSettings)
-        {
-            EditFormSettingsDescriptor descriptor = ((ScreenSettings<EditFormSettingsDescriptor>)screenSettings).Settings;
-            return new EditFormViewCS(CreateEditFormViewModel());
-
-            EditFormViewModelBase CreateEditFormViewModel()
-                => (EditFormViewModelBase)Activator.CreateInstance
+            Page CreatePage(string viewName) 
+                => (Page)Activator.CreateInstance
                 (
-                    typeof(EditFormViewModel<>).MakeGenericType
+                    typeof(MainPageView).Assembly.GetType
                     (
-                        Type.GetType
-                        (
-                            descriptor.ModelType,
-                            AssemblyResolver,
-                            TypeResolver
-                        )
+                        $"Contoso.XPlatform.Views.{viewName}ViewCS"
                     ),
-                    new object[]
-                    {
-                        screenSettings,
-                        App.ServiceProvider.GetRequiredService<UiNotificationService>(),
-                        App.ServiceProvider.GetRequiredService<IMapper>(),
-                        App.ServiceProvider.GetRequiredService<IHttpService>()
-                    }
+                    (ViewModelBase)Activator.CreateInstance
+                    (
+                        typeof(ViewModelBase).Assembly.GetType
+                        (
+                            $"Contoso.XPlatform.ViewModels.{viewName}ViewModel"
+                        ),
+                        screenSettings
+                    )
                 );
-
-            Type TypeResolver(Assembly assembly, string typeName, bool matchCase)
-                => assembly.GetType(typeName);
-
-            Assembly AssemblyResolver(AssemblyName assemblyName)
-                => typeof(Domain.BaseModelClass).Assembly;
         }
     }
 }
