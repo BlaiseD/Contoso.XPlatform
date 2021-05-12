@@ -104,6 +104,118 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         }
 
         [Fact]
+        public void SelectNewInstructor_FullNameOnly()
+        {
+            var bodyParameter = new SelectOperatorParameter
+            (
+                new OrderByOperatorParameter
+                (
+                    new ParameterOperatorParameter("q"),
+                    new MemberSelectorOperatorParameter
+                    (
+                        "FullName",
+                        new ParameterOperatorParameter("s")
+                    ),
+                    ListSortDirection.Ascending,
+                    "s"
+                ),
+                new MemberInitOperatorParameter
+                (
+                    new Dictionary<string, IExpressionParameter>
+                    {
+                        ["FullName"] = new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter("a"))
+                    },
+                    typeof(InstructorModel)
+                ),
+                "a"
+            );
+
+            //act
+            DoTest<InstructorModel, Instructor, IQueryable<InstructorModel>, IQueryable<Instructor>>
+            (
+                bodyParameter,
+                "q",
+                returnValue => Assert.Equal(" ", returnValue.First().FullName),
+                //No way to create FirstName and LastName in the translated expressions
+                //See the test "SelectNewInstructor()"
+                "q => q.OrderBy(s => s.FullName).Select(a => new InstructorModel() {FullName = a.FullName})"
+            );
+        }
+
+        [Fact]
+        public void SelectNewInstructor_FirstNameOnly()
+        {
+            var bodyParameter = new SelectOperatorParameter
+            (
+                new OrderByOperatorParameter
+                (
+                    new ParameterOperatorParameter("q"),
+                    new MemberSelectorOperatorParameter
+                    (
+                        "FullName",
+                        new ParameterOperatorParameter("s")
+                    ),
+                    ListSortDirection.Ascending,
+                    "s"
+                ),
+                new MemberInitOperatorParameter
+                (
+                    new Dictionary<string, IExpressionParameter>
+                    {
+                        ["FirstName"] = new MemberSelectorOperatorParameter("FirstName", new ParameterOperatorParameter("a"))
+                    },
+                    typeof(InstructorModel)
+                ),
+                "a"
+            );
+
+            //act
+            DoTest<InstructorModel, Instructor, IQueryable<InstructorModel>, IQueryable<Instructor>>
+            (
+                bodyParameter,
+                "q",
+                returnValue => Assert.Equal("Candace", returnValue.First().FirstName),
+                "q => q.OrderBy(s => s.FullName).Select(a => new InstructorModel() {FirstName = a.FirstName})"
+            );
+        }
+
+        [Fact]
+        public void SelectNewAnonymousType_FullNameOnly()
+        {
+            var bodyParameter = new SelectOperatorParameter
+            (
+                new OrderByOperatorParameter
+                (
+                    new ParameterOperatorParameter("q"),
+                    new MemberSelectorOperatorParameter
+                    (
+                        "FullName",
+                        new ParameterOperatorParameter("s")
+                    ),
+                    ListSortDirection.Ascending,
+                    "s"
+                ),
+                new MemberInitOperatorParameter
+                (
+                    new Dictionary<string, IExpressionParameter>
+                    {
+                        ["FullName"] = new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter("a"))
+                    }
+                ),
+                "a"
+            );
+
+            //act
+            DoTest<InstructorModel, Instructor, IQueryable<dynamic>, IQueryable<dynamic>>
+            (
+                bodyParameter,
+                "q",
+                returnValue => Assert.Equal("Candace Kapoor", returnValue.First().FullName),
+                "q => Convert(q.OrderBy(s => s.FullName).Select(a => new AnonymousType() {FullName = a.FullName}))"
+            );
+        }
+
+        [Fact]
         public void BuildWhere_OrderBy_ThenBy_Skip_Take_Average()
         {
             //arrange
@@ -1424,7 +1536,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             );
         }
 
-        void DoTest<TModel, TData, TModelReturn, TDataReturn>(IExpressionParameter bodyParameter, string parameterName, Action<TModelReturn> assert, string expectedExpressionString) where TModel : LogicBuilder.Domain.BaseModel where TData : LogicBuilder.Data.BaseData
+        void DoTest<TModel, TData, TModelReturn, TDataReturn>(IExpressionParameter bodyParameter, string parameterName, Action<TModelReturn> assert, string expectedExpressionString, Parameters.Expansions.SelectExpandDefinitionParameters selectExpandDefinition = null) where TModel : LogicBuilder.Domain.BaseModel where TData : LogicBuilder.Data.BaseData
         {
             //arrange
             IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
@@ -1441,7 +1553,8 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                 (
                     repository,
                     mapper,
-                    expressionParameter
+                    expressionParameter,
+                    selectExpandDefinition
                 );
 
                 //assert
