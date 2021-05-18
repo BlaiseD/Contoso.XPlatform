@@ -15,8 +15,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class PickerValidatableObject<T> : ValidatableObjectBase<T>
     {
-        public PickerValidatableObject(FormControlSettingsDescriptor setting, IHttpService httpService, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) 
-            : base(setting.Field, setting.DropDownTemplate.TemplateName, validations, uiNotificationService)
+        public PickerValidatableObject(string name, FormControlSettingsDescriptor setting, IHttpService httpService, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) 
+            : base(name, setting.DropDownTemplate.TemplateName, validations, uiNotificationService)
         {
             this.Title = setting.Title;
             this._dropDownTemplate = setting.DropDownTemplate;

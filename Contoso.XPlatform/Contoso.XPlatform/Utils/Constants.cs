@@ -2025,4 +2025,10 @@ namespace Contoso.XPlatform.Utils
         public const string iOSSolid = "Font Awesome 5 Free Solid";
         public const string AndroidSolid = "FontAwesome5Solid900.otf#Regular";
     }
+
+    public struct FromGroupTemplateNames
+    {
+        public const string InlineFormGroupTemplate = "InlineFormGroupTemplate";
+        public const string PopupFormGroupTemplate = "PopupFormGroupTemplate";
+    }
 }

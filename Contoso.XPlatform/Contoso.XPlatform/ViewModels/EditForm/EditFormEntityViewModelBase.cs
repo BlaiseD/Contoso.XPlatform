@@ -21,7 +21,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             FormSettings = screenSettings.Settings;
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);
             fieldsCollectionHelper = new FieldsCollectionHelper(FormSettings, Properties, this.UiNotificationService, httpService);
-            fieldsCollectionHelper.CreateFieldsCollection();
+            fieldsCollectionHelper.CreateFieldsCollection(FormSettings.FieldSettings);
             propertyChangedSubscription = this.UiNotificationService.ValueChanged.Subscribe(FieldChanged);
         }
 
@@ -44,6 +44,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 
                 AreFieldsValid();
 
+                //this.values = Properties.ToObjectDictionary();
                 await App.Current.MainPage.DisplayAlert("Welcome", "", "Ok");
             },
             canExecute: (button) => AreFieldsValid()

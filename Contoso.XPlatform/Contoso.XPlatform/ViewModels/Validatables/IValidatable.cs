@@ -10,7 +10,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         string TemplateName { get; set; }
         bool IsValid { get; set; }
         bool IsDirty { get; set; }
-        object Value { get; }
+        object Value { get; set; }
 
         List<IValidationRule> Validations { get; }
         Dictionary<string, string> Errors { get; set; }

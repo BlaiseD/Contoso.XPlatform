@@ -16,6 +16,135 @@ namespace Contoso.XPlatform
 {
     internal static class Descriptors
     {
+        internal static EditFormSettingsDescriptor InstructorForm = new EditFormSettingsDescriptor
+        {
+            Title = "Instructor",
+            DisplayField = "FullName",
+            RequestDetails = new EditFormRequestDetailsDescriptor
+            {
+                GetUrl = "/Instructor/GetSingle"
+            },
+            ValidationMessages = new ValidationMessageDictionary
+            (
+                new List<ValidationMessageDescriptor>
+                {
+                    new ValidationMessageDescriptor
+                    {
+                        Field = "FirstName",
+                        Methods = new List<ValidationMethodDescriptor>
+                        {
+                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
+                        }
+                    },
+                    new ValidationMessageDescriptor
+                    {
+                        Field = "LastName",
+                        Methods = new List<ValidationMethodDescriptor>
+                        {
+                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
+                        }
+                    },
+                    new ValidationMessageDescriptor
+                    {
+                        Field = "HireDate",
+                        Methods = new List<ValidationMethodDescriptor>
+                        {
+                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Hire Date is required." }
+                        }
+                    }
+                }
+            ),
+            FieldSettings = new List<FormItemSettingsDescriptor>
+            {
+                new FormControlSettingsDescriptor
+                {
+                    Field = "FirstName",
+                    Type = "System.String",
+                    DomElementId = "firstNameId",
+                    Title = "First Name",
+                    Placeholder = "First Name (required)",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                    ValidationSetting = new FieldValidationSettingsDescriptor
+                    {
+                        DefaultValue = "",
+                        Validators = new List<ValidatorDefinitionDescriptor>
+                        {
+                            new ValidatorDefinitionDescriptor
+                            {
+                                ClassName = "RequiredRule",
+                                FunctionName = "Check"
+                            }
+                        }
+                    }
+                },
+                new FormControlSettingsDescriptor
+                {
+                    Field = "LastName",
+                    Type = "System.String",
+                    DomElementId = "lastNameId",
+                    Title = "Last Name",
+                    Placeholder = "Last Name (required)",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                    ValidationSetting = new FieldValidationSettingsDescriptor
+                    {
+                        DefaultValue = "",
+                        Validators = new List<ValidatorDefinitionDescriptor>
+                        {
+                            new ValidatorDefinitionDescriptor
+                            {
+                                ClassName = "RequiredRule",
+                                FunctionName = "Check"
+                            }
+                        }
+                    }
+                },
+                new FormControlSettingsDescriptor
+                {
+                    Field = "HireDate",
+                    Type = "System.DateTime",
+                    DomElementId = "hireDateId",
+                    Title = "Hire Date",
+                    Placeholder = "",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "DateTemplate" },
+                    ValidationSetting = new FieldValidationSettingsDescriptor
+                    {
+                        DefaultValue = new DateTime(1900, 1, 1),
+                        Validators = new List<ValidatorDefinitionDescriptor>
+                        {
+                            new ValidatorDefinitionDescriptor
+                            {
+                                ClassName = "RequiredRule",
+                                FunctionName = "Check"
+                            }
+                        }
+                    }
+                },
+                new FormGroupSettingsDescriptor
+                {
+                    Field = "OfficeAssignment",
+                    FieldSettings = new List<FormItemSettingsDescriptor>
+                    {
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "Location",
+                            Type = "System.String",
+                            DomElementId = "locationId",
+                            Title = "Location",
+                            Placeholder = "Location",
+                            TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
+                        }
+                    },
+                    FormGroupTemplate = new FormGroupTemplateDescriptor
+                    {
+                        TemplateName = "InlineFormGroupTemplate"
+                    },
+                    Title = "",
+                    ShowTitle = false
+                }
+            },
+            ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+        };
+
         internal static EditFormSettingsDescriptor DepartmentForm = new EditFormSettingsDescriptor
         {
             Title = "Department",
@@ -533,7 +662,7 @@ namespace Contoso.XPlatform
                         Field = "EnrollmentDate",
                         Methods = new List<ValidationMethodDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Enrollment Dateis required." }
+                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Enrollment Date is required." }
                         }
                     }
                 }
@@ -660,11 +789,20 @@ namespace Contoso.XPlatform
                 return new ScreenSettings<EditFormSettingsDescriptor>(CourseForm, ButtonDescriptors, ViewType.EditForm);
             else if (moduleName == "departments")
                 return new ScreenSettings<EditFormSettingsDescriptor>(DepartmentForm, ButtonDescriptors, ViewType.EditForm);
+            else if (moduleName == "instructors")
+                return new ScreenSettings<EditFormSettingsDescriptor>(InstructorForm, ButtonDescriptors, ViewType.EditForm);
             else
-                throw new ArgumentException($"{nameof(moduleName)}: 17577017-0592-4AFF-9EF8-8802D9B744B7");
+            {
+                DisplayInvalidPageMessage(moduleName);
+                return null;
+            }
         }
 
-        internal static NavigationBarDescriptor GetNavigationBar(string currentModule) => new NavigationBarDescriptor
+        async static void DisplayInvalidPageMessage(string page) =>
+                await App.Current.MainPage.DisplayAlert("Nav Bar", $"No {page} page.", "Ok");
+
+
+    internal static NavigationBarDescriptor GetNavigationBar(string currentModule) => new NavigationBarDescriptor
         {
             BrandText = "Contoso",
             CurrentModule = currentModule,

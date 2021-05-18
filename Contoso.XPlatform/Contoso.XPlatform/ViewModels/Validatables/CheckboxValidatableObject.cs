@@ -7,7 +7,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class CheckboxValidatableObject : ValidatableObjectBase<bool>
     {
-        public CheckboxValidatableObject(string name, string templateName, string checkboxLabel, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) : base(name, templateName, validations, uiNotificationService)
+        public CheckboxValidatableObject(string name, string templateName, string checkboxLabel, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService)
+            : base(name, templateName, validations, uiNotificationService)
         {
             CheckboxLabel = checkboxLabel;
         }

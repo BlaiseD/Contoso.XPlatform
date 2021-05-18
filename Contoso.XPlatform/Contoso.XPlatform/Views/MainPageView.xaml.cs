@@ -43,6 +43,10 @@ namespace Contoso.XPlatform.Views
             flowSettings.NavigationBar.MenuItems
                 .ForEach(item => item.Active = item.InitialModule == flowSettings.NavigationBar.CurrentModule);
 
+            /*To Remove*/
+            if (flowSettings.ScreenSettings == null)
+                return;
+
             ChangePage(flowSettings.ScreenSettings.CreatePage());
 
             UpdateNavigationMenu(flowSettings);

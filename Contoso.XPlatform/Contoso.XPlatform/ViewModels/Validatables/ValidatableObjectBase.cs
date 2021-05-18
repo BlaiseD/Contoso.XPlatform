@@ -110,16 +110,16 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
         public List<IValidationRule> Validations { get; }
 
-        object IValidatable.Value => Value;
+        object IValidatable.Value { get => Value; set => Value = (T)value; }
         #endregion Properties
 
         public bool Validate()
         {
             Errors = Validations
-                        .Where(v => !v.Check())
+                        ?.Where(v => !v.Check())
                         .ToDictionary(v => v.ClassName, v => v.ValidationMessage);
 
-            IsValid = !Errors.Any();
+            IsValid = Errors?.Any() != true;
 
             return this.IsValid;
         }

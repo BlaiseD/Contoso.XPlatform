@@ -140,7 +140,7 @@ namespace Contoso.XPlatform.Validators.Rules
 
             IValidationRule GetRequiredRule()
             {
-                if (setting.ValidationSetting.DefaultValue != null 
+                if (setting.ValidationSetting?.DefaultValue != null 
                     && setting.ValidationSetting.DefaultValue.GetType() != typeof(T))
                     throw new ArgumentException($"{nameof(setting.ValidationSetting.DefaultValue)}: C96394B8-B26B-45B2-8C34-B9BA3FF95088");
 
@@ -149,7 +149,7 @@ namespace Contoso.XPlatform.Validators.Rules
                     setting.Field,
                     validationMessage,
                     fields,
-                    setting.ValidationSetting.DefaultValue == null ? default : (T)setting.ValidationSetting.DefaultValue
+                    setting.ValidationSetting?.DefaultValue == null ? default : (T)setting.ValidationSetting.DefaultValue
                 );
             }
 
