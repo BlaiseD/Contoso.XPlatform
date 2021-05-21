@@ -39,7 +39,7 @@ namespace Contoso.XPlatform.Tests
             Dictionary<string, object> instructorDictionary =  mapper.Map<Dictionary<string, object>>(inststructor);
 
             ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            FieldsCollectionHelper fieldsCollectionHelper = new FieldsCollectionHelper(properties, null, null);
+            FieldsCollectionHelper fieldsCollectionHelper = new FieldsCollectionHelper(properties, new UiNotificationService(), null);
             fieldsCollectionHelper.CreateFieldsCollection(Descriptors.InstructorForm.FieldSettings, Descriptors.InstructorForm.ValidationMessages);
             properties.UpdateValidatables
             (
