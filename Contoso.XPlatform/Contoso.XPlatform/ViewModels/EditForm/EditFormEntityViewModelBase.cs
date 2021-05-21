@@ -20,8 +20,8 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             this.UiNotificationService = uiNotificationService;
             FormSettings = screenSettings.Settings;
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);
-            fieldsCollectionHelper = new FieldsCollectionHelper(FormSettings, Properties, this.UiNotificationService, httpService);
-            fieldsCollectionHelper.CreateFieldsCollection(FormSettings.FieldSettings);
+            fieldsCollectionHelper = new FieldsCollectionHelper(Properties, this.UiNotificationService, httpService);
+            fieldsCollectionHelper.CreateFieldsCollection(FormSettings.FieldSettings, FormSettings.ValidationMessages);
             propertyChangedSubscription = this.UiNotificationService.ValueChanged.Subscribe(FieldChanged);
         }
 

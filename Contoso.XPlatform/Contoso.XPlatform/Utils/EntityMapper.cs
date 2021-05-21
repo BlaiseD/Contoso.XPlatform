@@ -1,4 +1,5 @@
-﻿using Contoso.Forms.Configuration.EditForm;
+﻿using AutoMapper;
+using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.ViewModels.Validatables;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace Contoso.XPlatform.Utils
             });
         }
 
-        public static void UpdateValidatables(this IEnumerable<IValidatable> properties, List<FormItemSettingsDescriptor> fieldSettings, IDictionary<string, object> existingValues, string parentField = null)
+        public static void UpdateValidatables(this IEnumerable<IValidatable> properties, List<FormItemSettingsDescriptor> fieldSettings, IDictionary<string, object> existingValues, IMapper mapper, string parentField = null)
         {
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(p => p.Name);
             foreach (var setting in fieldSettings)
@@ -57,7 +58,8 @@ namespace Contoso.XPlatform.Utils
                     {
                         if (formGroupSetting.FormGroupTemplate?.TemplateName == FromGroupTemplateNames.InlineFormGroupTemplate)
                         {
-                            properties.UpdateValidatables(formGroupSetting.FieldSettings, (IDictionary<string, object>)value, GetFieldName(formGroupSetting.Field));
+                            Dictionary<string, object> entity = mapper.Map<Dictionary<string, object>>(@value);
+                            properties.UpdateValidatables(formGroupSetting.FieldSettings, entity, mapper, GetFieldName(formGroupSetting.Field));
                         }
                     }
                 }
