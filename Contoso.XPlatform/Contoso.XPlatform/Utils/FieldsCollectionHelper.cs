@@ -18,15 +18,15 @@ namespace Contoso.XPlatform.Utils
 {
     public class FieldsCollectionHelper
     {
-        public FieldsCollectionHelper(ObservableCollection<IValidatable> properties, UiNotificationService uiNotificationService, IHttpService httpService)
+        public FieldsCollectionHelper(IFormGroupSettings formSettings, ObservableCollection<IValidatable> properties, UiNotificationService uiNotificationService, IHttpService httpService)
         {
-            //this.formSettings = formSettings;
+            this.formSettings = formSettings;
             this.properties = properties;
             this.uiNotificationService = uiNotificationService;
             this.httpService = httpService;
         }
 
-        //private readonly EditFormSettingsDescriptor formSettings;
+        private readonly IFormGroupSettings formSettings;
         private readonly ObservableCollection<IValidatable> properties;
         private readonly UiNotificationService uiNotificationService;
         private readonly IHttpService httpService;
@@ -80,7 +80,10 @@ namespace Contoso.XPlatform.Utils
         private static IDictionary<string, ParameterExpression> GetParameters()
             => new Dictionary<string, ParameterExpression>();
 
-        public void CreateFieldsCollection(List<FormItemSettingsDescriptor> fieldSettings, ValidationMessageDictionary validationMessagedictionary, string parentName = null)
+        public void CreateFieldsCollection() 
+            => this.CreateFieldsCollection(this.formSettings.FieldSettings);
+
+        private void CreateFieldsCollection(List<FormItemSettingsDescriptor> fieldSettings, string parentName = null)
         {
             fieldSettings.ForEach
             (
@@ -89,14 +92,12 @@ namespace Contoso.XPlatform.Utils
                     switch (setting.AbstractControlType)
                     {
                         case AbstractControlEnumDescriptor.FormControl:
-                            var controlSetting = (FormControlSettingsDescriptor)setting;
                             AddFormControlSetting
                             (
-                                controlSetting, 
-                                parentName == null 
-                                    ? controlSetting.Field 
-                                    : $"{parentName}.{controlSetting.Field}",
-                                validationMessagedictionary
+                                (FormControlSettingsDescriptor)setting,
+                                parentName == null
+                                    ? setting.Field
+                                    : $"{parentName}.{setting.Field}"
                             );
                             break;
                         case AbstractControlEnumDescriptor.FormGroup:
@@ -135,28 +136,28 @@ namespace Contoso.XPlatform.Utils
         }
 
         private void AddFormGroupSettingsInline(FormGroupSettingsDescriptor setting) 
-            => CreateFieldsCollection(setting.FieldSettings, setting.ValidationMessages, setting.Field);
+            => CreateFieldsCollection(setting.FieldSettings, setting.Field);
 
-        private void AddFormControlSetting(FormControlSettingsDescriptor setting, string name, ValidationMessageDictionary validationMessagedictionary)
+        private void AddFormControlSetting(FormControlSettingsDescriptor setting, string name)
         {
             if (setting.TextTemplate != null)
-                AddTextControl(setting, name, validationMessagedictionary);
+                AddTextControl(setting, name);
             else if (setting.DropDownTemplate != null)
-                AddDropdownControl(setting, name, validationMessagedictionary);
+                AddDropdownControl(setting, name);
             else
                 throw new ArgumentException($"{nameof(setting)}: 0556AEAF-C851-44F1-A2A2-66C8814D0F54");
         }
 
-        private void AddTextControl(FormControlSettingsDescriptor setting, string name, ValidationMessageDictionary validationMessagedictionary)
+        private void AddTextControl(FormControlSettingsDescriptor setting, string name)
         {
             if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.TextTemplate)
                 || setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.PasswordTemplate))
             {
-                properties.Add(CreateEntryValidatableObject(setting, name, validationMessagedictionary));
+                properties.Add(CreateEntryValidatableObject(setting, name));
             }
             else if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.DateTemplate))
             {
-                properties.Add(CreateDatePickerValidatableObject(setting, name, validationMessagedictionary));
+                properties.Add(CreateDatePickerValidatableObject(setting, name));
             }
             else
             {
@@ -164,11 +165,11 @@ namespace Contoso.XPlatform.Utils
             }
         }
 
-        private void AddDropdownControl(FormControlSettingsDescriptor setting, string name, ValidationMessageDictionary validationMessagedictionary)
+        private void AddDropdownControl(FormControlSettingsDescriptor setting, string name)
         {
             if (setting.DropDownTemplate.TemplateName == nameof(QuestionTemplateSelector.PickerTemplate))
             {
-                properties.Add(CreatePickerValidatableObject(setting, name, validationMessagedictionary));
+                properties.Add(CreatePickerValidatableObject(setting, name));
             }
             else
             {
@@ -176,16 +177,16 @@ namespace Contoso.XPlatform.Utils
             }
         }
 
-        private IValidationRule[] GetValidationRules(FormControlSettingsDescriptor setting, ValidationMessageDictionary validationMessagedictionary) 
+        private IValidationRule[] GetValidationRules(FormControlSettingsDescriptor setting) 
             => setting.ValidationSetting?.Validators?.Select
             (
-                validator => GetValidatorRule(validator, setting, validationMessagedictionary)
+                validator => GetValidatorRule(validator, setting)
             ).ToArray();
 
-        private IValidationRule GetValidatorRule(ValidatorDefinitionDescriptor validator, FormControlSettingsDescriptor setting, ValidationMessageDictionary validationMessagedictionary)
-            => ValidatorRuleFactory.GetValidatorRule(validator, setting, validationMessagedictionary, properties);
+        private IValidationRule GetValidatorRule(ValidatorDefinitionDescriptor validator, FormControlSettingsDescriptor setting)
+            => ValidatorRuleFactory.GetValidatorRule(validator, setting, this.formSettings.ValidationMessages, properties);
 
-        private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting, string name, ValidationMessageDictionary validationMessagedictionary)
+        private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting, string name)
         {
             MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
             (
@@ -196,23 +197,22 @@ namespace Contoso.XPlatform.Utils
                 new Type[]
                 {
                     typeof(FormControlSettingsDescriptor),
-                    typeof(string),
-                    typeof(ValidationMessageDictionary)
+                    typeof(string)
                 },
                 null
             ).MakeGenericMethod(Type.GetType(setting.Type));
 
-            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name, validationMessagedictionary });
+            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
         }
 
-        private IValidatable _CreateEntryValidatableObject<T>(FormControlSettingsDescriptor setting, string name, ValidationMessageDictionary validationMessagedictionary) 
-            => new EntryValidatableObject<T>(name, setting, GetValidationRules(setting, validationMessagedictionary), this.uiNotificationService)
+        private IValidatable _CreateEntryValidatableObject<T>(FormControlSettingsDescriptor setting, string name) 
+            => new EntryValidatableObject<T>(name, setting, GetValidationRules(setting), this.uiNotificationService)
             {
                 Value = (T)ValidatableObjectFactory.GetValue(setting, default(T))
             };
 
-        private IValidatable CreateDatePickerValidatableObject(FormControlSettingsDescriptor setting, string name, ValidationMessageDictionary validationMessagedictionary)
-            => new DatePickerValidatableObject(name, setting, GetValidationRules(setting, validationMessagedictionary), this.uiNotificationService)
+        private IValidatable CreateDatePickerValidatableObject(FormControlSettingsDescriptor setting, string name)
+            => new DatePickerValidatableObject(name, setting, GetValidationRules(setting), this.uiNotificationService)
             {
                 Value = (DateTime)ValidatableObjectFactory.GetValue
                 (
@@ -221,7 +221,7 @@ namespace Contoso.XPlatform.Utils
                 )
             };
 
-        private IValidatable CreatePickerValidatableObject(FormControlSettingsDescriptor setting, string name, ValidationMessageDictionary validationMessagedictionary)
+        private IValidatable CreatePickerValidatableObject(FormControlSettingsDescriptor setting, string name)
         {
             MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
             (
@@ -232,17 +232,16 @@ namespace Contoso.XPlatform.Utils
                 new Type[]
                 {
                     typeof(FormControlSettingsDescriptor),
-                    typeof(string),
-                    typeof(ValidationMessageDictionary)
+                    typeof(string)
                 },
                 null
             ).MakeGenericMethod(Type.GetType(setting.Type));
 
-            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name, validationMessagedictionary });
+            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
         }
 
-        private IValidatable _CreatePickerValidatableObject<T>(FormControlSettingsDescriptor setting, string name, ValidationMessageDictionary validationMessagedictionary) 
-            => new PickerValidatableObject<T>(name, setting, this.httpService, GetValidationRules(setting, validationMessagedictionary), this.uiNotificationService)
+        private IValidatable _CreatePickerValidatableObject<T>(FormControlSettingsDescriptor setting, string name) 
+            => new PickerValidatableObject<T>(name, setting, this.httpService, GetValidationRules(setting), this.uiNotificationService)
             {
                 Value = default
             };

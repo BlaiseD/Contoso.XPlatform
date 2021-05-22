@@ -5,7 +5,6 @@ namespace Contoso.Forms.Configuration.EditForm
     public class FormControlSettingsDescriptor : FormItemSettingsDescriptor
     {
         public override AbstractControlEnumDescriptor AbstractControlType => AbstractControlEnumDescriptor.FormControl;
-        public string Field { get; set; }
         public string DomElementId { get; set; }
         public string Title { get; set; }
         public string Placeholder { get; set; }

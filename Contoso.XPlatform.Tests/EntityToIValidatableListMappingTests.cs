@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Xunit;
 
 namespace Contoso.XPlatform.Tests
@@ -22,8 +23,9 @@ namespace Contoso.XPlatform.Tests
         #endregion Fields
 
         [Fact]
-        public void MappInstructorModelToIValidatableList()
+        public void MapInstructorModelToIValidatableList()
         {
+            //arrange
             InstructorModel inststructor = new InstructorModel
             {
                 FirstName = "John",
@@ -34,20 +36,29 @@ namespace Contoso.XPlatform.Tests
                     Location = "Location1"
                 }
             };
-
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-            Dictionary<string, object> instructorDictionary =  mapper.Map<Dictionary<string, object>>(inststructor);
-
             ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            FieldsCollectionHelper fieldsCollectionHelper = new FieldsCollectionHelper(properties, new UiNotificationService(), null);
-            fieldsCollectionHelper.CreateFieldsCollection(Descriptors.InstructorForm.FieldSettings, Descriptors.InstructorForm.ValidationMessages);
+            new FieldsCollectionHelper
+            (
+                Descriptors.InstructorForm, 
+                properties, 
+                new UiNotificationService(), 
+                null
+            ).CreateFieldsCollection();
+
+            //act
             properties.UpdateValidatables
             (
+                inststructor,
                 Descriptors.InstructorForm.FieldSettings,
-                instructorDictionary,
-                mapper
+                serviceProvider.GetRequiredService<IMapper>()
             );
 
+            //assert
+            IDictionary<string, object> propertiesDictionary = properties.ToDictionary(property => property.Name, property => property.Value);
+            Assert.Equal("John", propertiesDictionary["FirstName"]);
+            Assert.Equal("Smith", propertiesDictionary["LastName"]);
+            Assert.Equal(new DateTime(2021, 5, 20), propertiesDictionary["HireDate"]);
+            Assert.Equal("Location1", propertiesDictionary["OfficeAssignment.Location"]);
         }
 
         static MapperConfiguration MapperConfiguration;

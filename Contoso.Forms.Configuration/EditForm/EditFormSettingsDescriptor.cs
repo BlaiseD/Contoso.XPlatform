@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Contoso.Forms.Configuration.EditForm
 {
-    public class EditFormSettingsDescriptor
+    public class EditFormSettingsDescriptor : IFormGroupSettings
     {
         public string Title { get; set; }
         public string DisplayField { get; set; }
