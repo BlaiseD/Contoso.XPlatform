@@ -1,5 +1,6 @@
 using AutoMapper;
 using Contoso.Domain.Entities;
+using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels.Validatables;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,27 @@ namespace Contoso.XPlatform.Tests
                 OfficeAssignment = new OfficeAssignmentModel
                 {
                     Location = "Location1"
+                },
+                Courses = new List<CourseAssignmentModel>
+                {
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 1,
+                        InstructorID = 2,
+                        CourseTitle = "Chemistry"
+                    },
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 2,
+                        InstructorID = 2,
+                        CourseTitle = "Physics"
+                    },
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 2,
+                        InstructorID = 2,
+                        CourseTitle = "Mathematics"
+                    }
                 }
             };
             ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
@@ -41,8 +63,8 @@ namespace Contoso.XPlatform.Tests
             (
                 Descriptors.InstructorForm, 
                 properties, 
-                new UiNotificationService(), 
-                null
+                new UiNotificationService(),
+                new HttpServiceMock()
             ).CreateFieldsCollection();
 
             //act
@@ -59,6 +81,7 @@ namespace Contoso.XPlatform.Tests
             Assert.Equal("Smith", propertiesDictionary["LastName"]);
             Assert.Equal(new DateTime(2021, 5, 20), propertiesDictionary["HireDate"]);
             Assert.Equal("Location1", propertiesDictionary["OfficeAssignment.Location"]);
+            Assert.Equal("Chemistry", ((CourseAssignmentModel)((IEnumerable<object>)propertiesDictionary["Courses"]).First()).CourseTitle);
         }
 
         static MapperConfiguration MapperConfiguration;

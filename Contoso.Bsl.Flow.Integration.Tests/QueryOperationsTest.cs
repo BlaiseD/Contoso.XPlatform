@@ -34,6 +34,59 @@ namespace Contoso.Bsl.Flow.Integration.Tests
 
         #region Tests
         [Fact]
+        public void SelectNewCourseAssignment()
+        {
+            var bodyParameter = new SelectOperatorParameter
+            (
+                new OrderByOperatorParameter
+                (
+                    new ParameterOperatorParameter("q"),
+                    new MemberSelectorOperatorParameter
+                    (
+                        "Title",
+                        new ParameterOperatorParameter("s")
+                    ),
+                    ListSortDirection.Ascending,
+                    "s"
+                ),
+                new MemberInitOperatorParameter
+                (
+                    new Dictionary<string, IExpressionParameter>
+                    {
+                        ["CourseID"] = new MemberSelectorOperatorParameter("CourseID", new ParameterOperatorParameter("a")),
+                        ["CourseTitle"] = new MemberSelectorOperatorParameter("Title", new ParameterOperatorParameter("a")),
+                        ["CourseNumberAndTitle"] = new ConcatOperatorParameter
+                        (
+                            new ConcatOperatorParameter
+                            (
+                                new ConvertToStringOperatorParameter
+                                (
+                                    new MemberSelectorOperatorParameter("CourseID", new ParameterOperatorParameter("a"))
+                                ),
+                                new ConstantOperatorParameter(" ", typeof(string))
+                            ),
+                            new MemberSelectorOperatorParameter("Title", new ParameterOperatorParameter("a"))
+                        )
+                    },
+                    typeof(CourseAssignmentModel)
+                ),
+                "a"
+            );
+
+            //act
+            DoTest<CourseModel, Course, IQueryable<CourseAssignmentModel>, IQueryable<CourseAssignment>>
+            (
+                bodyParameter,
+                "q",
+                returnValue =>
+                {
+                    Assert.Equal("Calculus", returnValue.First().CourseTitle);
+                },
+                "q => q.OrderBy(s => s.Title).Select(a => new CourseAssignmentModel() {CourseID = a.CourseID, CourseTitle = a.Title, CourseNumberAndTitle = a.CourseID.ToString().Concat(\" \").Concat(a.Title)})"
+            );
+        }
+
+        [Fact]
         public void SelectInstructorFullNames()
         {
             var bodyParameter = new SelectOperatorParameter

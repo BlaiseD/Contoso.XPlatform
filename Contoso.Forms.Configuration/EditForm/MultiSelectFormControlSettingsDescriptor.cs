@@ -2,7 +2,7 @@
 
 namespace Contoso.Forms.Configuration.EditForm
 {
-    public class MultiSelectFormControlSettingsDescriptor : FormItemSettingsDescriptor
+    public class MultiSelectFormControlSettingsDescriptor : FormControlSettingsDescriptor
     {
         public override AbstractControlEnumDescriptor AbstractControlType => AbstractControlEnumDescriptor.MultiSelectFormControl;
         public List<string> KeyFields { get; set; }

@@ -69,7 +69,15 @@ namespace Contoso.XPlatform.Utils
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(p => p.Name);
             foreach (var setting in fieldSettings)
             {
-                if (setting is FormControlSettingsDescriptor controlSetting)
+                if (setting is MultiSelectFormControlSettingsDescriptor multiSelectFormControlSetting)
+                {
+                    if (existingValues.TryGetValue(multiSelectFormControlSetting.Field, out object @value) && @value != null)
+                    {
+                        @value = new System.Collections.ObjectModel.ObservableCollection<object>((IEnumerable<object>)@value);
+                        propertiesDictionary[GetFieldName(multiSelectFormControlSetting.Field)].Value = @value;
+                    }
+                }
+                else if (setting is FormControlSettingsDescriptor controlSetting)
                 {
                     if (existingValues.TryGetValue(controlSetting.Field, out object @value) && @value != null)
                         propertiesDictionary[GetFieldName(controlSetting.Field)].Value = @value;

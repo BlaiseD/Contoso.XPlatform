@@ -24,32 +24,6 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             GetItemSource();
         }
 
-        private async void GetItemSource()
-        {
-            try
-            {
-                GetObjectDropDownListResponse response = await this.httpService.GetObjectDropDown
-                (
-                    new GetTypedDropDownListRequest
-                    {
-                        DataType = this._dropDownTemplate.RequestDetails.DataType,
-                        ModelType = this._dropDownTemplate.RequestDetails.ModelType,
-                        ModelReturnType = this._dropDownTemplate.RequestDetails.ModelReturnType,
-                        DataReturnType = this._dropDownTemplate.RequestDetails.DataReturnType,
-                        Selector = this.DropDownTemplate.TextAndValueSelector
-                    },
-                    this._dropDownTemplate.RequestDetails.DataSourceUrl
-                );
-
-                Items = response.DropDownList.OfType<object>().ToList();
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine($"{ e.GetType().Name + " : " + e.Message}");
-                throw;
-            }
-        }
-
         private readonly IHttpService httpService;
         private readonly DropDownTemplateDescriptor _dropDownTemplate;
 
@@ -111,6 +85,32 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             {
                 _items = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private async void GetItemSource()
+        {
+            try
+            {
+                GetObjectDropDownListResponse response = await this.httpService.GetObjectDropDown
+                (
+                    new GetTypedDropDownListRequest
+                    {
+                        DataType = this._dropDownTemplate.RequestDetails.DataType,
+                        ModelType = this._dropDownTemplate.RequestDetails.ModelType,
+                        ModelReturnType = this._dropDownTemplate.RequestDetails.ModelReturnType,
+                        DataReturnType = this._dropDownTemplate.RequestDetails.DataReturnType,
+                        Selector = this.DropDownTemplate.TextAndValueSelector
+                    },
+                    this._dropDownTemplate.RequestDetails.DataSourceUrl
+                );
+
+                Items = response.DropDownList.OfType<object>().ToList();
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"{ e.GetType().Name + " : " + e.Message}");
+                throw;
             }
         }
 

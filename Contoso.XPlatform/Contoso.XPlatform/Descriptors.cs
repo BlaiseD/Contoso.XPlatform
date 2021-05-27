@@ -140,6 +140,70 @@ namespace Contoso.XPlatform
                     },
                     Title = "",
                     ShowTitle = false
+                },
+                new MultiSelectFormControlSettingsDescriptor
+                {
+                    KeyFields = new List<string> { "CourseID" },
+                    Field = "Courses",
+                    DomElementId = "coursesId",
+                    Title ="Courses",
+                    Placeholder = "Select Courses ...",
+                    Type = typeof(ICollection<CourseAssignmentModel>).AssemblyQualifiedName,
+                    MultiSelectTemplate =  new MultiSelectTemplateDescriptor
+                    {
+                        TemplateName = "MultiSelectTemplate",
+                        PlaceHolderText = "Select One ...",
+                        TextAndValueObjectType = "System.Object",
+                        ModelType = typeof(CourseAssignmentModel).AssemblyQualifiedName,
+                        TextField = "CourseTitle",
+                        ValueField = "CourseID",
+                        TextAndValueSelector = new SelectorLambdaOperatorDescriptor
+                        {
+                            Selector = new SelectOperatorDescriptor
+                            {
+                                SourceOperand = new OrderByOperatorDescriptor
+                                {
+                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                                    SelectorBody = new MemberSelectorOperatorDescriptor
+                                    {
+                                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                        MemberFullName = "Title"
+                                    },
+                                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                                    SelectorParameterName = "d"
+                                },
+                                SelectorBody = new MemberInitOperatorDescriptor
+                                {
+                                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                                    {
+                                        ["CourseID"] = new MemberSelectorOperatorDescriptor
+                                        {
+                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                            MemberFullName = "CourseID"
+                                        },
+                                        ["CourseTitle"] = new MemberSelectorOperatorDescriptor
+                                        {
+                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                            MemberFullName = "Title"
+                                        }
+                                    },
+                                    NewType = typeof(CourseAssignmentModel).AssemblyQualifiedName
+                                },
+                                SelectorParameterName = "s"
+                            },
+                            SourceElementType = typeof(IQueryable<CourseModel>).AssemblyQualifiedName,
+                            ParameterName = "$it",
+                            BodyType = typeof(IEnumerable<CourseAssignmentModel>).AssemblyQualifiedName
+                        },
+                        RequestDetails = new RequestDetailsDescriptor
+                        {
+                            DataSourceUrl = "api/Dropdown/GetObjectDropdown",
+                            ModelType = typeof(CourseModel).AssemblyQualifiedName,
+                            DataType = typeof(Course).AssemblyQualifiedName,
+                            ModelReturnType = typeof(IEnumerable<CourseAssignmentModel>).AssemblyQualifiedName,
+                            DataReturnType = typeof(IEnumerable<CourseAssignment>).AssemblyQualifiedName
+                        }
+                    }
                 }
             },
             ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"

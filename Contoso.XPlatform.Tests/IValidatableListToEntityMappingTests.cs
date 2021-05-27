@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contoso.Domain.Entities;
+using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels.Validatables;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,13 +33,37 @@ namespace Contoso.XPlatform.Tests
                 Descriptors.InstructorForm,
                 properties,
                 new UiNotificationService(),
-                null
+                new HttpServiceMock()
             ).CreateFieldsCollection();
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
             propertiesDictionary["FirstName"].Value = "John";
             propertiesDictionary["LastName"].Value = "Smith";
             propertiesDictionary["HireDate"].Value = new DateTime(2021, 5, 20);
             propertiesDictionary["OfficeAssignment.Location"].Value = "Location1";
+            propertiesDictionary["Courses"].Value = new ObservableCollection<object>
+            (
+                new List<CourseAssignmentModel>
+                {
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 1,
+                        InstructorID = 2,
+                        CourseTitle = "Chemistry"
+                    },
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 2,
+                        InstructorID = 2,
+                        CourseTitle = "Physics"
+                    },
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 2,
+                        InstructorID = 2,
+                        CourseTitle = "Mathematics"
+                    }
+                }
+            );
 
             //act
             InstructorModel instructorModel = (InstructorModel)properties.ToModelObject(typeof(InstructorModel), serviceProvider.GetRequiredService<IMapper>());
@@ -48,6 +73,7 @@ namespace Contoso.XPlatform.Tests
             Assert.Equal("Smith", instructorModel.LastName);
             Assert.Equal(new DateTime(2021, 5, 20), instructorModel.HireDate);
             Assert.Equal("Location1", instructorModel.OfficeAssignment.Location);
+            Assert.Equal("Chemistry", instructorModel.Courses.First().CourseTitle);
         }
 
         static MapperConfiguration MapperConfiguration;

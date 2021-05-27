@@ -124,7 +124,7 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             return node;
 
             string GetTypeName()
-                => Regex.IsMatch(node.Type.Name, @"^AnonymousType\d$") ? "AnonymousType" : node.Type.Name;
+                => Regex.IsMatch(node.Type.Name, @"^AnonymousType[\d]+$") ? "AnonymousType" : node.Type.Name;
         }
 
         protected override MemberListBinding VisitMemberListBinding(MemberListBinding node)

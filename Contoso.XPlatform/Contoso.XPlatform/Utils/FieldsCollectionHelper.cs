@@ -100,6 +100,15 @@ namespace Contoso.XPlatform.Utils
                                     : $"{parentName}.{setting.Field}"
                             );
                             break;
+                        case AbstractControlEnumDescriptor.MultiSelectFormControl:
+                            AddMultiSelectControlSetting
+                            (
+                                (MultiSelectFormControlSettingsDescriptor)setting,
+                                parentName == null
+                                    ? setting.Field
+                                    : $"{parentName}.{setting.Field}"
+                            );
+                            break;
                         case AbstractControlEnumDescriptor.FormGroup:
                             AddFormGroupSettings((FormGroupSettingsDescriptor)setting);
                             break;
@@ -177,6 +186,23 @@ namespace Contoso.XPlatform.Utils
             }
         }
 
+        private void AddMultiSelectControlSetting(MultiSelectFormControlSettingsDescriptor setting, string name)
+        {
+            AddMultiSelectControl(setting, name);
+        }
+
+        private void AddMultiSelectControl(MultiSelectFormControlSettingsDescriptor setting, string name)
+        {
+            if (setting.MultiSelectTemplate.TemplateName == nameof(QuestionTemplateSelector.MultiSelectTemplate))
+            {
+                properties.Add(CreateMultiSelectValidatableObject(setting, name));
+            }
+            else
+            {
+                throw new ArgumentException($"{nameof(setting.DropDownTemplate.TemplateName)}: 880DF2E6-97E8-49F2-B88C-FE8DB4F01C63");
+            }
+        }
+
         private IValidationRule[] GetValidationRules(FormControlSettingsDescriptor setting) 
             => setting.ValidationSetting?.Validators?.Select
             (
@@ -242,6 +268,31 @@ namespace Contoso.XPlatform.Utils
 
         private IValidatable _CreatePickerValidatableObject<T>(FormControlSettingsDescriptor setting, string name) 
             => new PickerValidatableObject<T>(name, setting, this.httpService, GetValidationRules(setting), this.uiNotificationService)
+            {
+                Value = default
+            };
+
+        private IValidatable CreateMultiSelectValidatableObject(FormControlSettingsDescriptor setting, string name)
+        {
+            MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
+            (
+                "_CreateMultiSelectValidatableObject",
+                1,
+                BindingFlags.NonPublic | BindingFlags.Instance,
+                null,
+                new Type[]
+                {
+                    typeof(MultiSelectFormControlSettingsDescriptor),
+                    typeof(string)
+                },
+                null
+            ).MakeGenericMethod(typeof(ObservableCollection<object>));
+
+            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
+        }
+
+        private IValidatable _CreateMultiSelectValidatableObject<T>(MultiSelectFormControlSettingsDescriptor setting, string name) where T : ObservableCollection<object>
+            => new MultiSelectValidatableObject<T>(name, setting, this.httpService, GetValidationRules(setting), this.uiNotificationService)
             {
                 Value = default
             };
