@@ -12,9 +12,9 @@ using System.Text;
 
 namespace Contoso.XPlatform.ViewModels.Validatables
 {
-    public class MultiSelectValidatableObject<T> : ValidatableObjectBase<T> where T : ObservableCollection<object>
+    public class MultiSelectValidatableObject<T, E> : ValidatableObjectBase<T> where T : ObservableCollection<E>
     {
-        public MultiSelectValidatableObject(string name, MultiSelectFormControlSettingsDescriptor setting, IHttpService httpService, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) 
+        public MultiSelectValidatableObject(string name, MultiSelectFormControlSettingsDescriptor setting, IHttpService httpService, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService)
             : base(name, setting.MultiSelectTemplate.TemplateName, validations, uiNotificationService)
         {
             this.Title = setting.Title;
@@ -42,8 +42,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             }
         }
 
-        private ObservableCollection<object> _selectedItems;
-        public ObservableCollection<object> SelectedItems
+        private ObservableCollection<E> _selectedItems;
+        public ObservableCollection<E> SelectedItems
         {
             get
             {
@@ -58,8 +58,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             }
         }
 
-        private List<object> _items;
-        public List<object> Items
+        private List<E> _items;
+        public List<E> Items
         {
             get => _items;
             set
@@ -86,7 +86,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                     this._multiSelectTemplate.RequestDetails.DataSourceUrl
                 );
 
-                Items = response.DropDownList.OfType<object>().ToList();
+                Items = response.DropDownList.OfType<E>().ToList();
             }
             catch (Exception e)
             {

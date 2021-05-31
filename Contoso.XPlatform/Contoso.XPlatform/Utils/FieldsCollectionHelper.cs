@@ -92,32 +92,38 @@ namespace Contoso.XPlatform.Utils
                     switch (setting.AbstractControlType)
                     {
                         case AbstractControlEnumDescriptor.FormControl:
-                            AddFormControlSetting
+                            AddFormControl
                             (
                                 (FormControlSettingsDescriptor)setting,
-                                parentName == null
-                                    ? setting.Field
-                                    : $"{parentName}.{setting.Field}"
+                                GetFieldName(setting.Field, parentName)
                             );
                             break;
                         case AbstractControlEnumDescriptor.MultiSelectFormControl:
-                            AddMultiSelectControlSetting
+                            AddMultiSelectControl
                             (
                                 (MultiSelectFormControlSettingsDescriptor)setting,
-                                parentName == null
-                                    ? setting.Field
-                                    : $"{parentName}.{setting.Field}"
+                                GetFieldName(setting.Field, parentName)
                             );
                             break;
                         case AbstractControlEnumDescriptor.FormGroup:
-                            AddFormGroupSettings((FormGroupSettingsDescriptor)setting);
+                            AddFormGroupSettings((FormGroupSettingsDescriptor)setting, parentName);
+                            break;
+                        case AbstractControlEnumDescriptor.FormGroupArray:
+                            AddFormGroupArray
+                            (
+                                (FormGroupArraySettingsDescriptor)setting,
+                                GetFieldName(setting.Field, parentName)
+                            );
                             break;
                     }
                 }
             );
         }
 
-        private void AddFormGroupSettings(FormGroupSettingsDescriptor setting)
+        string GetFieldName(string field, string parentName)
+                => parentName == null ? field : $"{parentName}.{field}";
+
+        private void AddFormGroupSettings(FormGroupSettingsDescriptor setting, string parentName = null)
         {
             if (setting.FormGroupTemplate == null 
                 || string.IsNullOrEmpty(setting.FormGroupTemplate.TemplateName))
@@ -126,28 +132,25 @@ namespace Contoso.XPlatform.Utils
             switch(setting.FormGroupTemplate.TemplateName)
             {
                 case FromGroupTemplateNames.InlineFormGroupTemplate:
-                    AddFormGroupSettingsInline(setting);
+                    AddFormGroupInline(setting, parentName);
                     break;
                 case FromGroupTemplateNames.PopupFormGroupTemplate:
-                    AddFormGroupSettingsPopup(setting);
+                    AddFormGroupPopup(setting, parentName);
                     break;
                 default:
                     throw new ArgumentException($"{nameof(setting.FormGroupTemplate)}: 6664DF64-DF69-415E-8AD2-2AEFC3FA4261");
             }
         }
 
-        private void AddFormGroupSettingsPopup(FormGroupSettingsDescriptor setting)
+        private void AddFormGroupPopup(FormGroupSettingsDescriptor setting, string parentName)
         {
-            //Add FormGroup Validatable for form group setting
-            //For each setting in the form group
-            //add a control validatable/FormGroup Validatable/Collection Validatable
-            throw new NotImplementedException();
+            properties.Add(CreateFormValidatableObject(setting, GetFieldName(setting.Field, parentName)));
         }
 
-        private void AddFormGroupSettingsInline(FormGroupSettingsDescriptor setting) 
-            => CreateFieldsCollection(setting.FieldSettings, setting.Field);
+        private void AddFormGroupInline(FormGroupSettingsDescriptor setting, string parentName) 
+            => CreateFieldsCollection(setting.FieldSettings, GetFieldName(setting.Field, parentName));
 
-        private void AddFormControlSetting(FormControlSettingsDescriptor setting, string name)
+        private void AddFormControl(FormControlSettingsDescriptor setting, string name)
         {
             if (setting.TextTemplate != null)
                 AddTextControl(setting, name);
@@ -186,9 +189,20 @@ namespace Contoso.XPlatform.Utils
             }
         }
 
-        private void AddMultiSelectControlSetting(MultiSelectFormControlSettingsDescriptor setting, string name)
+        private void AddFormGroupArray(FormGroupArraySettingsDescriptor setting, string name)
         {
-            AddMultiSelectControl(setting, name);
+            if (setting.FormGroupTemplate == null
+                || string.IsNullOrEmpty(setting.FormGroupTemplate.TemplateName))
+                throw new ArgumentException($"{nameof(setting.FormGroupTemplate)}: 0B1F7121-915F-48B9-96A3-B410A67E6853");
+
+            if (setting.FormGroupTemplate.TemplateName == nameof(QuestionTemplateSelector.FormGroupArrayTemplate))
+            {
+                properties.Add(CreateFormArrayValidatableObject(setting, name));
+            }
+            else
+            {
+                throw new ArgumentException($"{nameof(setting.FormGroupTemplate)}: 5E4E494A-E3FE-4016-ABB3-F238DC8E72F9");
+            }
         }
 
         private void AddMultiSelectControl(MultiSelectFormControlSettingsDescriptor setting, string name)
@@ -211,6 +225,31 @@ namespace Contoso.XPlatform.Utils
 
         private IValidationRule GetValidatorRule(ValidatorDefinitionDescriptor validator, FormControlSettingsDescriptor setting)
             => ValidatorRuleFactory.GetValidatorRule(validator, setting, this.formSettings.ValidationMessages, properties);
+
+        private IValidatable CreateFormValidatableObject(FormGroupSettingsDescriptor setting, string name)
+        {
+            MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
+            (
+                "_CreateFormValidatableObject",
+                1,
+                BindingFlags.NonPublic | BindingFlags.Instance,
+                null,
+                new Type[]
+                {
+                    typeof(FormGroupSettingsDescriptor),
+                    typeof(string)
+                },
+                null
+            ).MakeGenericMethod(Type.GetType(setting.ModelType));
+
+            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
+        }
+
+        private IValidatable _CreateFormValidatableObject<T>(FormGroupSettingsDescriptor setting, string name) where T : class
+            => new FormValidatableObject<T>(name, setting, new IValidationRule[] { }, this.uiNotificationService, this.httpService)
+            {
+                Value = default
+            };
 
         private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting, string name)
         {
@@ -272,12 +311,13 @@ namespace Contoso.XPlatform.Utils
                 Value = default
             };
 
-        private IValidatable CreateMultiSelectValidatableObject(FormControlSettingsDescriptor setting, string name)
+        private IValidatable CreateMultiSelectValidatableObject(MultiSelectFormControlSettingsDescriptor setting, string name)
         {
+            Type elemmentType = Type.GetType(setting.MultiSelectTemplate.ModelType);
             MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
             (
                 "_CreateMultiSelectValidatableObject",
-                1,
+                2,
                 BindingFlags.NonPublic | BindingFlags.Instance,
                 null,
                 new Type[]
@@ -286,13 +326,39 @@ namespace Contoso.XPlatform.Utils
                     typeof(string)
                 },
                 null
-            ).MakeGenericMethod(typeof(ObservableCollection<object>));
+            ).MakeGenericMethod(typeof(ObservableCollection<>).MakeGenericType(elemmentType), elemmentType);
 
             return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
         }
 
-        private IValidatable _CreateMultiSelectValidatableObject<T>(MultiSelectFormControlSettingsDescriptor setting, string name) where T : ObservableCollection<object>
-            => new MultiSelectValidatableObject<T>(name, setting, this.httpService, GetValidationRules(setting), this.uiNotificationService)
+        private IValidatable _CreateMultiSelectValidatableObject<T, E>(MultiSelectFormControlSettingsDescriptor setting, string name) where T : ObservableCollection<E>
+            => new MultiSelectValidatableObject<T,E>(name, setting, this.httpService, GetValidationRules(setting), this.uiNotificationService)
+            {
+                Value = default
+            };
+
+        private IValidatable CreateFormArrayValidatableObject(FormGroupArraySettingsDescriptor setting, string name)
+        {
+            Type elemmentType = Type.GetType(setting.ModelType);
+            MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
+            (
+                "_CreateFormArrayValidatableObject",
+                2,
+                BindingFlags.NonPublic | BindingFlags.Instance,
+                null,
+                new Type[]
+                {
+                    typeof(FormGroupArraySettingsDescriptor),
+                    typeof(string)
+                },
+                null
+            ).MakeGenericMethod(typeof(ObservableCollection<>).MakeGenericType(elemmentType), elemmentType);
+
+            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
+        }
+
+        private IValidatable _CreateFormArrayValidatableObject<T, E>(FormGroupArraySettingsDescriptor setting, string name) where T : ObservableCollection<E>
+            => new FormArrayValidatableObject<T, E>(name, setting, new IValidationRule[] { }, this.uiNotificationService)
             {
                 Value = default
             };

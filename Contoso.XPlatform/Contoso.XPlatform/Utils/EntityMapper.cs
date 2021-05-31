@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.ViewModels.Validatables;
+using LogicBuilder.Expressions.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
@@ -38,7 +40,7 @@ namespace Contoso.XPlatform.Utils
 
                     if (nameParts.Length == 1)
                     {
-                        dictionary.Add(nameParts[0], next.Value);
+                        dictionary.Add(nameParts[0], GetNextValue());
                     }
                     else
                     {
@@ -51,7 +53,7 @@ namespace Contoso.XPlatform.Utils
                             if (!parentDictionary.ContainsKey(nameParts[i]))
                             {
                                 if (i == nameParts.Length - 1)
-                                    parentDictionary.Add(nameParts[i], next.Value);
+                                    parentDictionary.Add(nameParts[i], GetNextValue());
                                 else
                                     parentDictionary.Add(nameParts[i], new Dictionary<string, object>());
                             }
@@ -59,6 +61,17 @@ namespace Contoso.XPlatform.Utils
                     }
 
                     return dictionary;
+
+                    object GetNextValue()
+                    {
+                        Type valueType = next.Value.GetType();
+                        if (valueType.IsLiteralType())
+                            return next.Value;
+                        else if (valueType.IsList())
+                            return mapper.Map<IEnumerable<object>, IEnumerable<Dictionary<string, object>>>((IEnumerable<object>)next.Value);
+                        else
+                            return mapper.Map<Dictionary<string, object>>(next.Value);
+                    }
                 });
             }
         }
@@ -73,12 +86,18 @@ namespace Contoso.XPlatform.Utils
                 {
                     if (existingValues.TryGetValue(multiSelectFormControlSetting.Field, out object @value) && @value != null)
                     {
-                        @value = new System.Collections.ObjectModel.ObservableCollection<object>((IEnumerable<object>)@value);
-                        propertiesDictionary[GetFieldName(multiSelectFormControlSetting.Field)].Value = @value;
+                        propertiesDictionary[GetFieldName(multiSelectFormControlSetting.Field)].Value = Activator.CreateInstance
+                        (
+                            typeof(ObservableCollection<>).MakeGenericType
+                            (
+                                Type.GetType(multiSelectFormControlSetting.MultiSelectTemplate.ModelType)
+                            ),
+                            new object[] { @value }
+                        );
                     }
                 }
                 else if (setting is FormControlSettingsDescriptor controlSetting)
-                {
+                {//must stay second because MultiSelect extends FormControl
                     if (existingValues.TryGetValue(controlSetting.Field, out object @value) && @value != null)
                         propertiesDictionary[GetFieldName(controlSetting.Field)].Value = @value;
                 }
@@ -90,6 +109,20 @@ namespace Contoso.XPlatform.Utils
                         {
                             properties.UpdateValidatables(@value, formGroupSetting.FieldSettings, mapper, GetFieldName(formGroupSetting.Field));
                         }
+                    }
+                }
+                else if (setting is FormGroupArraySettingsDescriptor formGroupArraySetting)
+                {
+                    if (existingValues.TryGetValue(formGroupArraySetting.Field, out object @value) && @value != null)
+                    {
+                        propertiesDictionary[GetFieldName(formGroupArraySetting.Field)].Value = Activator.CreateInstance
+                        (
+                            typeof(ObservableCollection<>).MakeGenericType
+                            (
+                                Type.GetType(formGroupArraySetting.ModelType)
+                            ),
+                            new object[] { @value }
+                        );
                     }
                 }
             }

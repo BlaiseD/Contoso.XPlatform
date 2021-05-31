@@ -47,13 +47,13 @@ namespace Contoso.XPlatform.Tests
                     new CourseAssignmentModel
                     {
                         CourseID = 2,
-                        InstructorID = 2,
+                        InstructorID = 3,
                         CourseTitle = "Physics"
                     },
                     new CourseAssignmentModel
                     {
-                        CourseID = 2,
-                        InstructorID = 2,
+                        CourseID = 3,
+                        InstructorID = 4,
                         CourseTitle = "Mathematics"
                     }
                 }
@@ -81,7 +81,67 @@ namespace Contoso.XPlatform.Tests
             Assert.Equal("Smith", propertiesDictionary["LastName"]);
             Assert.Equal(new DateTime(2021, 5, 20), propertiesDictionary["HireDate"]);
             Assert.Equal("Location1", propertiesDictionary["OfficeAssignment.Location"]);
-            Assert.Equal("Chemistry", ((CourseAssignmentModel)((IEnumerable<object>)propertiesDictionary["Courses"]).First()).CourseTitle);
+            Assert.Equal("Chemistry", ((IEnumerable<CourseAssignmentModel>)propertiesDictionary["Courses"]).First().CourseTitle);
+        }
+
+        [Fact]
+        public void MapDepartmentModelToIValidatableList()
+        {
+            //arrange
+            DepartmentModel department = new DepartmentModel
+            {
+                DepartmentID = 1,
+                Name = "Mathematics",
+                Budget = 100000m,
+                StartDate = new DateTime(2021, 5, 20),
+                InstructorID = 1,
+                Courses = new List<CourseModel>
+                {
+                    new CourseModel
+                    {
+                        CourseID = 1,
+                        Credits = 3,
+                        Title = "Trigonometry"
+                    },
+                    new CourseModel
+                    {
+                        CourseID = 2,
+                        Credits = 4,
+                        Title = "Physics"
+                    },
+                    new CourseModel
+                    {
+                        CourseID = 3,
+                        Credits = 5,
+                        Title = "Calculus"
+                    }
+                }
+            };
+            ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
+            new FieldsCollectionHelper
+            (
+                Descriptors.DepartmentForm,
+                properties,
+                new UiNotificationService(),
+                new HttpServiceMock()
+            ).CreateFieldsCollection();
+
+            //act
+            properties.UpdateValidatables
+            (
+                department,
+                Descriptors.DepartmentForm.FieldSettings,
+                serviceProvider.GetRequiredService<IMapper>()
+            );
+
+            //assert
+            IDictionary<string, object> propertiesDictionary = properties.ToDictionary(property => property.Name, property => property.Value);
+
+            Assert.Equal("Mathematics", propertiesDictionary["Name"]);
+            Assert.Equal(100000m, propertiesDictionary["Budget"]);
+            Assert.Equal(new DateTime(2021, 5, 20), propertiesDictionary["StartDate"]);
+            Assert.Equal(1, propertiesDictionary["InstructorID"]);
+            Assert.Equal("Trigonometry", ((IEnumerable<CourseModel>)propertiesDictionary["Courses"]).First().Title);
         }
 
         static MapperConfiguration MapperConfiguration;

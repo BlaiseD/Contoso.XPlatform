@@ -6,7 +6,7 @@ namespace Contoso.XPlatform.Validators
     //From DirectiveDescriptor where DirectiveDescriptor.DirectiveDefinitionDescriptor.Classname == ValidateIf
     //Evaluator is DirectiveDescriptor.FilterLambdaOperatorDescriptor
     //Field is the field to evaluate
-    //ValidateIfManager listens for PropertyChangesd and calls ValidateIfManager.Check()
+    //ValidateIfManager listens for PropertyChanged and calls ValidateIfManager.Check()
     public class ValidateIf<T>
     {
         public Expression<Func<T, bool>> Evaluator { get; set; }

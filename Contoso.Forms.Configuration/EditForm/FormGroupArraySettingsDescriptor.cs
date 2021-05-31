@@ -10,6 +10,7 @@ namespace Contoso.Forms.Configuration.EditForm
         public string Title { get; set; }
         public bool ShowTitle { get; set; }
         public string ModelType { get; set; }
+        public string Type { get; set; }
         public List<string> KeyFields { get; set; }
         public FormGroupTemplateDescriptor FormGroupTemplate { get; set; }
         public List<FormItemSettingsDescriptor> FieldSettings { get; set; }

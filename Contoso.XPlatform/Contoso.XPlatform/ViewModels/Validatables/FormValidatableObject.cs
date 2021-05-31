@@ -1,24 +1,20 @@
 ﻿using Contoso.Forms.Configuration.EditForm;
+using Contoso.XPlatform.Services;
+using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class FormValidatableObject<T> : ValidatableObjectBase<T> where T : class
     {
-        public FormValidatableObject(string name, FormGroupSettingsDescriptor setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) : base(name, setting.FormGroupTemplate.TemplateName, validations, uiNotificationService)
+        public FormValidatableObject(string name, FormGroupSettingsDescriptor setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IHttpService httpService) : base(name, setting.FormGroupTemplate.TemplateName, validations, uiNotificationService)
         {
-            AddProperties(setting);
+            FieldsCollectionHelper fieldsCollectionHelper = new FieldsCollectionHelper(setting, Properties, uiNotificationService, httpService);
+            fieldsCollectionHelper.CreateFieldsCollection();
         }
 
         public ObservableCollection<IValidatable> Properties { get; set; } = new ObservableCollection<IValidatable>();
-
-        private void AddProperties(FormGroupSettingsDescriptor setting)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
