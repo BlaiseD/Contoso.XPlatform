@@ -55,6 +55,18 @@ namespace Contoso.XPlatform.Tests
             {
                 new FormControlSettingsDescriptor
                 {
+                    Field = "ID",
+                    Type = "System.Int32",
+                    DomElementId = "id",
+                    Title = "ID",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" },
+                    ValidationSetting = new FieldValidationSettingsDescriptor
+                    {
+                        DefaultValue = 0
+                    }
+                },
+                new FormControlSettingsDescriptor
+                {
                     Field = "FirstName",
                     Type = "System.String",
                     DomElementId = "firstNameId",
@@ -255,6 +267,18 @@ namespace Contoso.XPlatform.Tests
             ),
             FieldSettings = new List<FormItemSettingsDescriptor>
             {
+                new FormControlSettingsDescriptor
+                {
+                    Field = "DepartmentID",
+                    Type = "System.Int32",
+                    DomElementId = "id",
+                    Title = "ID",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" },
+                    ValidationSetting = new FieldValidationSettingsDescriptor
+                    {
+                        DefaultValue = 0
+                    }
+                },
                 new FormControlSettingsDescriptor
                 {
                     Field = "Budget",

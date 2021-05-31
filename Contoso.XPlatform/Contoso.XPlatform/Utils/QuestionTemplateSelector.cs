@@ -5,14 +5,15 @@ namespace Contoso.XPlatform.Utils
 {
     public class QuestionTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate TextTemplate { get; set; }
-        public DataTemplate PasswordTemplate { get; set; }
-        public DataTemplate DateTemplate { get; set; }
         public DataTemplate CheckboxTemplate { get; set; }
-        public DataTemplate PickerTemplate { get; set; }
-        public DataTemplate MultiSelectTemplate { get; set; }
-        public DataTemplate PopupFormGroupTemplate { get; set; }
+        public DataTemplate DateTemplate { get; set; }
         public DataTemplate FormGroupArrayTemplate { get; set; }
+        public DataTemplate HiddenTemplate { get; set; }
+        public DataTemplate MultiSelectTemplate { get; set; }
+        public DataTemplate PasswordTemplate { get; set; }
+        public DataTemplate PopupFormGroupTemplate { get; set; }
+        public DataTemplate PickerTemplate { get; set; }
+        public DataTemplate TextTemplate { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
@@ -20,13 +21,14 @@ namespace Contoso.XPlatform.Utils
 
             return input.TemplateName switch
             {
-                nameof(DateTemplate) => DateTemplate,
                 nameof(CheckboxTemplate) => CheckboxTemplate,
-                nameof(PasswordTemplate) => PasswordTemplate,
-                nameof(PickerTemplate) => PickerTemplate,
-                nameof(MultiSelectTemplate) => MultiSelectTemplate,
-                nameof(PopupFormGroupTemplate) => PopupFormGroupTemplate,
+                nameof(DateTemplate) => DateTemplate,
+                nameof(HiddenTemplate) => HiddenTemplate,
                 nameof(FormGroupArrayTemplate) => FormGroupArrayTemplate,
+                nameof(MultiSelectTemplate) => MultiSelectTemplate,
+                nameof(PasswordTemplate) => PasswordTemplate,
+                nameof(PopupFormGroupTemplate) => PopupFormGroupTemplate,
+                nameof(PickerTemplate) => PickerTemplate,
                 _ => TextTemplate,
             };
         }

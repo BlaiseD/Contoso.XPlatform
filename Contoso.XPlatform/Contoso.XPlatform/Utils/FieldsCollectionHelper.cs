@@ -171,6 +171,10 @@ namespace Contoso.XPlatform.Utils
             {
                 properties.Add(CreateDatePickerValidatableObject(setting, name));
             }
+            else if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.HiddenTemplate))
+            {
+                properties.Add(CreateHiddenValidatableObject(setting, name));
+            }
             else
             {
                 throw new ArgumentException($"{nameof(setting.TextTemplate.TemplateName)}: BFCC0C85-244A-4896-BAB2-0D29AD0F86D8");
@@ -249,6 +253,31 @@ namespace Contoso.XPlatform.Utils
             => new FormValidatableObject<T>(name, setting, new IValidationRule[] { }, this.uiNotificationService, this.httpService)
             {
                 Value = default
+            };
+
+        private IValidatable CreateHiddenValidatableObject(FormControlSettingsDescriptor setting, string name)
+        {
+            MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
+            (
+                "_CreateHiddenValidatableObject",
+                1,
+                BindingFlags.NonPublic | BindingFlags.Instance,
+                null,
+                new Type[]
+                {
+                    typeof(FormControlSettingsDescriptor),
+                    typeof(string)
+                },
+                null
+            ).MakeGenericMethod(Type.GetType(setting.Type));
+
+            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
+        }
+
+        private IValidatable _CreateHiddenValidatableObject<T>(FormControlSettingsDescriptor setting, string name)
+            => new HiddenValidatableObject<T>(name, setting, GetValidationRules(setting), this.uiNotificationService)
+            {
+                Value = (T)ValidatableObjectFactory.GetValue(setting, default(T))
             };
 
         private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting, string name)

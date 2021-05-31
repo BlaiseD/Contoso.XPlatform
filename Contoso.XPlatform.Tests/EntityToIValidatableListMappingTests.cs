@@ -29,6 +29,7 @@ namespace Contoso.XPlatform.Tests
             //arrange
             InstructorModel inststructor = new InstructorModel
             {
+                ID = 3,
                 FirstName = "John",
                 LastName = "Smith",
                 HireDate = new DateTime(2021, 5, 20),
@@ -77,6 +78,7 @@ namespace Contoso.XPlatform.Tests
 
             //assert
             IDictionary<string, object> propertiesDictionary = properties.ToDictionary(property => property.Name, property => property.Value);
+            Assert.Equal(3, propertiesDictionary["ID"]);
             Assert.Equal("John", propertiesDictionary["FirstName"]);
             Assert.Equal("Smith", propertiesDictionary["LastName"]);
             Assert.Equal(new DateTime(2021, 5, 20), propertiesDictionary["HireDate"]);
@@ -137,6 +139,7 @@ namespace Contoso.XPlatform.Tests
             //assert
             IDictionary<string, object> propertiesDictionary = properties.ToDictionary(property => property.Name, property => property.Value);
 
+            Assert.Equal(1, propertiesDictionary["DepartmentID"]);
             Assert.Equal("Mathematics", propertiesDictionary["Name"]);
             Assert.Equal(100000m, propertiesDictionary["Budget"]);
             Assert.Equal(new DateTime(2021, 5, 20), propertiesDictionary["StartDate"]);

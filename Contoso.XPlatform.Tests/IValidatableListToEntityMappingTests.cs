@@ -36,6 +36,7 @@ namespace Contoso.XPlatform.Tests
                 new HttpServiceMock()
             ).CreateFieldsCollection();
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
+            propertiesDictionary["ID"].Value = 3;
             propertiesDictionary["FirstName"].Value = "John";
             propertiesDictionary["LastName"].Value = "Smith";
             propertiesDictionary["HireDate"].Value = new DateTime(2021, 5, 20);
@@ -69,6 +70,7 @@ namespace Contoso.XPlatform.Tests
             InstructorModel instructorModel = (InstructorModel)properties.ToModelObject(typeof(InstructorModel), serviceProvider.GetRequiredService<IMapper>());
 
             //assert
+            Assert.Equal(3, instructorModel.ID);
             Assert.Equal("John", instructorModel.FirstName);
             Assert.Equal("Smith", instructorModel.LastName);
             Assert.Equal(new DateTime(2021, 5, 20), instructorModel.HireDate);
@@ -89,6 +91,7 @@ namespace Contoso.XPlatform.Tests
                 new HttpServiceMock()
             ).CreateFieldsCollection();
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
+            propertiesDictionary["DepartmentID"].Value = 1;
             propertiesDictionary["Name"].Value = "Mathematics";
             propertiesDictionary["Budget"].Value = 100000m;
             propertiesDictionary["StartDate"].Value = new DateTime(2021, 5, 20);
@@ -122,6 +125,7 @@ namespace Contoso.XPlatform.Tests
             DepartmentModel departmentModel = (DepartmentModel)properties.ToModelObject(typeof(DepartmentModel), serviceProvider.GetRequiredService<IMapper>());
 
             //assert
+            Assert.Equal(1, departmentModel.DepartmentID);
             Assert.Equal("Mathematics", departmentModel.Name);
             Assert.Equal(100000m, departmentModel.Budget);
             Assert.Equal(new DateTime(2021, 5, 20), departmentModel.StartDate);
