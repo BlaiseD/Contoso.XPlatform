@@ -24,7 +24,7 @@ namespace Contoso.XPlatform.Tests
         #endregion Fields
 
         [Fact]
-        public void MapInstructorModelToIValidatableList()
+        public void MapInstructorModelToIValidatableListWithInlineOfficeAssignment()
         {
             //arrange
             InstructorModel inststructor = new InstructorModel
@@ -62,7 +62,7 @@ namespace Contoso.XPlatform.Tests
             ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
             new FieldsCollectionHelper
             (
-                Descriptors.InstructorForm, 
+                Descriptors.InstructorFormWithInlineOfficeAssignment, 
                 properties, 
                 new UiNotificationService(),
                 new HttpServiceMock()
@@ -72,7 +72,7 @@ namespace Contoso.XPlatform.Tests
             properties.UpdateValidatables
             (
                 inststructor,
-                Descriptors.InstructorForm.FieldSettings,
+                Descriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings,
                 serviceProvider.GetRequiredService<IMapper>()
             );
 
@@ -83,6 +83,69 @@ namespace Contoso.XPlatform.Tests
             Assert.Equal("Smith", propertiesDictionary["LastName"]);
             Assert.Equal(new DateTime(2021, 5, 20), propertiesDictionary["HireDate"]);
             Assert.Equal("Location1", propertiesDictionary["OfficeAssignment.Location"]);
+            Assert.Equal("Chemistry", ((IEnumerable<CourseAssignmentModel>)propertiesDictionary["Courses"]).First().CourseTitle);
+        }
+
+        [Fact]
+        public void MapInstructorModelToIValidatableListWithPopupOfficeAssignment()
+        {
+            //arrange
+            InstructorModel instructor = new InstructorModel
+            {
+                ID = 3,
+                FirstName = "John",
+                LastName = "Smith",
+                HireDate = new DateTime(2021, 5, 20),
+                OfficeAssignment = new OfficeAssignmentModel
+                {
+                    Location = "Location1"
+                },
+                Courses = new List<CourseAssignmentModel>
+                {
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 1,
+                        InstructorID = 2,
+                        CourseTitle = "Chemistry"
+                    },
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 2,
+                        InstructorID = 3,
+                        CourseTitle = "Physics"
+                    },
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 3,
+                        InstructorID = 4,
+                        CourseTitle = "Mathematics"
+                    }
+                }
+            };
+            ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
+            new FieldsCollectionHelper
+            (
+                Descriptors.InstructorFormWithPopupOfficeAssignment,
+                properties,
+                new UiNotificationService(),
+                new HttpServiceMock()
+            ).CreateFieldsCollection();
+
+            //act
+            properties.UpdateValidatables
+            (
+                instructor,
+                Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings,
+                serviceProvider.GetRequiredService<IMapper>()
+            );
+
+            //assert
+            IDictionary<string, object> propertiesDictionary = properties.ToDictionary(property => property.Name, property => property.Value);
+            Assert.Equal(3, propertiesDictionary["ID"]);
+            Assert.Equal("John", propertiesDictionary["FirstName"]);
+            Assert.Equal("Smith", propertiesDictionary["LastName"]);
+            Assert.Equal(new DateTime(2021, 5, 20), propertiesDictionary["HireDate"]);
+            Assert.Equal("Location1", ((OfficeAssignmentModel)propertiesDictionary["OfficeAssignment"]).Location);
             Assert.Equal("Chemistry", ((IEnumerable<CourseAssignmentModel>)propertiesDictionary["Courses"]).First().CourseTitle);
         }
 

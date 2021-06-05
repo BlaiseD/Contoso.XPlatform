@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.ViewModels.Validatables;
-using LogicBuilder.Expressions.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +11,13 @@ namespace Contoso.XPlatform.Utils
 {
     public static class EntityMapper
     {
-        public static object ToModelObject(this IEnumerable<IValidatable> properties, Type entityType, IMapper mapper)
+        public static Dictionary<string, object> EntityToObjectDictionary(this object entity, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings)
+            => mapper.Map<Dictionary<string, object>>(entity).ToObjectDictionaryFromEntity(mapper, fieldSettings);
+
+        public static Dictionary<string, object> ValidatableListToObjectDictionary(this IEnumerable<IValidatable> properties, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings)
+            => properties.ToDictionary(p => p.Name, p => p.Value).ToObjectDictionaryFromValidatableObjects(mapper, fieldSettings);
+
+        public static object ToModelObject(this IEnumerable<IValidatable> properties, Type entityType, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings)
         {
             MethodInfo methodInfo = typeof(EntityMapper).GetMethod
             (
@@ -21,59 +26,170 @@ namespace Contoso.XPlatform.Utils
                 new Type[]
                 {
                     typeof(IEnumerable<IValidatable>),
-                    typeof(IMapper)
+                    typeof(IMapper),
+                    typeof(List<FormItemSettingsDescriptor>)
                 }
             ).MakeGenericMethod(entityType);
 
-            return methodInfo.Invoke(null, new object[] { properties, mapper });
+            return methodInfo.Invoke(null, new object[] { properties, mapper, fieldSettings });
         }
 
-        public static T ToModelObject<T>(this IEnumerable<IValidatable> properties, IMapper mapper)
+        public static T ToModelObject<T>(this IEnumerable<IValidatable> properties, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings) 
+            => mapper.Map<T>
+            (
+                properties.ToDictionary(p => p.Name, p => p.Value).ToObjectDictionaryFromValidatableObjects(mapper, fieldSettings)
+            );
+
+        /// <summary>
+        /// Ensures all child objects and collections are dictionaries
+        /// </summary>
+        /// <param name="propertiesDictionary"></param>
+        /// <param name="mapper"></param>
+        /// <param name="fieldSettings"></param>
+        /// <param name="parentField"></param>
+        /// <returns></returns>
+        private static Dictionary<string, object> ToObjectDictionaryFromValidatableObjects(this IDictionary<string, object> propertiesDictionary, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings, string parentField = null)
         {
-            return mapper.Map<T>(ToObjectDictionary());
-
-            IDictionary<string, object> ToObjectDictionary()
+            return fieldSettings.Aggregate(new Dictionary<string, object>(), (objectDictionary, setting) =>
             {
-                return properties.Aggregate(new Dictionary<string, object>(), (dictionary, next) =>
+                if (setting is MultiSelectFormControlSettingsDescriptor multiSelectFormControlSetting)
+                    AddMultiSelects();
+                else if (setting is FormControlSettingsDescriptor controlSetting)
+                    AddSingleValueField();//must stay after MultiSelect because MultiSelect extends FormControl
+                else if (setting is FormGroupSettingsDescriptor formGroupSetting)
                 {
-                    string[] nameParts = next.Name.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                    if (formGroupSetting.FormGroupTemplate == null)
+                        throw new ArgumentException($"{nameof(formGroupSetting.FormGroupTemplate)}: E29413BD-6DC7-47D1-9986-B613E0568AFE");
 
-                    if (nameParts.Length == 1)
-                    {
-                        dictionary.Add(nameParts[0], GetNextValue());
-                    }
+                    if (formGroupSetting.FormGroupTemplate.TemplateName == FromGroupTemplateNames.InlineFormGroupTemplate)
+                        AddFormGroupInline(formGroupSetting);
+                    else if (formGroupSetting.FormGroupTemplate?.TemplateName == FromGroupTemplateNames.PopupFormGroupTemplate)
+                        AddFormGroupPopup(formGroupSetting);
                     else
-                    {
-                        if (!dictionary.TryGetValue(nameParts[0], out object value))
-                            dictionary.Add(nameParts[0], new Dictionary<string, object>());
+                        throw new ArgumentException($"{nameof(formGroupSetting.FormGroupTemplate)}: CE249F5F-5645-4B74-BA17-5E1A9A5E73C8");
+                }
+                else if (setting is FormGroupArraySettingsDescriptor formGroupArraySetting)
+                    AddFormGroupArray(formGroupArraySetting);
+                else
+                    throw new ArgumentException($"{nameof(formGroupSetting.FormGroupTemplate)}: CC7AD9E6-1CA5-4B9D-B1DF-D28AF8D6D757");
 
-                        for (int i = 1; i < nameParts.Length; i++)
-                        {
-                            var parentDictionary = (IDictionary<string, object>)dictionary[nameParts[i - 1]];
-                            if (!parentDictionary.ContainsKey(nameParts[i]))
-                            {
-                                if (i == nameParts.Length - 1)
-                                    parentDictionary.Add(nameParts[i], GetNextValue());
-                                else
-                                    parentDictionary.Add(nameParts[i], new Dictionary<string, object>());
-                            }
-                        }
-                    }
+                return objectDictionary;
 
-                    return dictionary;
+                void AddFormGroupArray(FormGroupArraySettingsDescriptor formGroupArraySetting) => objectDictionary.Add
+                (
+                    setting.Field,
+                    mapper.Map<IEnumerable<object>, IEnumerable<Dictionary<string, object>>>
+                    (
+                        (IEnumerable<object>)propertiesDictionary[GetFieldName(setting.Field)]
+                    )
+                    .Select
+                    (
+                        dictionary => dictionary.ToObjectDictionaryFromValidatableObjects(mapper, formGroupArraySetting.FieldSettings)
+                    ).ToList()//Need an ICollection<Dictionary<string, object>>
+                );
 
-                    object GetNextValue()
-                    {
-                        Type valueType = next.Value.GetType();
-                        if (valueType.IsLiteralType())
-                            return next.Value;
-                        else if (valueType.IsList())
-                            return mapper.Map<IEnumerable<object>, IEnumerable<Dictionary<string, object>>>((IEnumerable<object>)next.Value);
-                        else
-                            return mapper.Map<Dictionary<string, object>>(next.Value);
-                    }
-                });
-            }
+                void AddFormGroupPopup(FormGroupSettingsDescriptor formGroupSetting) => objectDictionary.Add
+                (
+                    setting.Field,
+                    mapper.Map<Dictionary<string, object>>
+                    (
+                        propertiesDictionary[GetFieldName(formGroupSetting.Field)]
+                    ).ToObjectDictionaryFromValidatableObjects(mapper, formGroupSetting.FieldSettings)
+                );
+
+                void AddFormGroupInline(FormGroupSettingsDescriptor formGroupSetting) => objectDictionary.Add
+                (
+                    setting.Field,
+                    ToObjectDictionaryFromValidatableObjects
+                    (
+                        propertiesDictionary,
+                        mapper,
+                        formGroupSetting.FieldSettings,
+                        GetFieldName(formGroupSetting.Field)
+                    )
+                );
+
+                void AddMultiSelects() => objectDictionary.Add
+                (
+                    setting.Field,
+                    mapper.Map<IEnumerable<object>, IEnumerable<Dictionary<string, object>>>
+                    (
+                        (IEnumerable<object>)propertiesDictionary[GetFieldName(setting.Field)]
+                    )
+                );
+
+                void AddSingleValueField() => objectDictionary.Add
+                (
+                    setting.Field,
+                    propertiesDictionary[GetFieldName(setting.Field)]
+                );
+            });
+
+            string GetFieldName(string field)
+                => string.IsNullOrEmpty(parentField)
+                    ? field
+                    : $"{parentField}.{field}";
+        }
+
+        private static Dictionary<string, object> ToObjectDictionaryFromEntity(this Dictionary<string, object> propertiesDictionary, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings)
+        {
+            if (propertiesDictionary.IsEmpty())//object must be null - no fields to update
+                return new Dictionary<string, object>();
+
+            return fieldSettings.Aggregate(new Dictionary<string, object>(), (objectDictionary, setting) =>
+            {
+                if (setting is MultiSelectFormControlSettingsDescriptor multiSelectFormControlSetting)
+                    AddMultiSelects();
+                else if (setting is FormControlSettingsDescriptor controlSetting)
+                    AddSingleValueField();//must stay after MultiSelect because MultiSelect extends FormControl
+                else if (setting is FormGroupSettingsDescriptor formGroupSetting)
+                {
+                    AddFormGroup(formGroupSetting);
+                }
+                else if (setting is FormGroupArraySettingsDescriptor formGroupArraySetting)
+                    AddFormGroupArray(formGroupArraySetting);
+                else
+                    throw new ArgumentException($"{nameof(formGroupSetting.FormGroupTemplate)}: CC7AD9E6-1CA5-4B9D-B1DF-D28AF8D6D757");
+
+                return objectDictionary;
+
+                void AddFormGroupArray(FormGroupArraySettingsDescriptor formGroupArraySetting) => objectDictionary.Add
+                (
+                    setting.Field,
+                    mapper.Map<IEnumerable<object>, IEnumerable<Dictionary<string, object>>>
+                    (
+                        (IEnumerable<object>)propertiesDictionary[setting.Field]
+                    )
+                    .Select
+                    (
+                        dictionary => dictionary.ToObjectDictionaryFromEntity(mapper, formGroupArraySetting.FieldSettings)
+                    ).ToList()//Need an ICollection<Dictionary<string, object>>
+                );
+
+                void AddFormGroup(FormGroupSettingsDescriptor formGroupSetting) => objectDictionary.Add
+                (
+                    setting.Field,
+                    mapper.Map<Dictionary<string, object>>
+                    (
+                        propertiesDictionary[setting.Field]
+                    ).ToObjectDictionaryFromEntity(mapper, formGroupSetting.FieldSettings)
+                );
+
+                void AddMultiSelects() => objectDictionary.Add
+                (
+                    setting.Field,
+                    mapper.Map<IEnumerable<object>, IEnumerable<Dictionary<string, object>>>
+                    (
+                        (IEnumerable<object>)propertiesDictionary[setting.Field]
+                    )
+                );
+
+                void AddSingleValueField() => objectDictionary.Add
+                (
+                    setting.Field,
+                    propertiesDictionary[setting.Field]
+                );
+            });
         }
 
         public static void UpdateValidatables(this IEnumerable<IValidatable> properties, object source, List<FormItemSettingsDescriptor> fieldSettings, IMapper mapper, string parentField = null)
@@ -97,7 +213,7 @@ namespace Contoso.XPlatform.Utils
                     }
                 }
                 else if (setting is FormControlSettingsDescriptor controlSetting)
-                {//must stay second because MultiSelect extends FormControl
+                {//must stay after MultiSelect because MultiSelect extends FormControl
                     if (existingValues.TryGetValue(controlSetting.Field, out object @value) && @value != null)
                         propertiesDictionary[GetFieldName(controlSetting.Field)].Value = @value;
                 }
@@ -105,10 +221,15 @@ namespace Contoso.XPlatform.Utils
                 {
                     if (existingValues.TryGetValue(formGroupSetting.Field, out object @value) && @value != null)
                     {
-                        if (formGroupSetting.FormGroupTemplate?.TemplateName == FromGroupTemplateNames.InlineFormGroupTemplate)
-                        {
+                        if (formGroupSetting.FormGroupTemplate == null)
+                            throw new ArgumentException($"{nameof(formGroupSetting.FormGroupTemplate)}: 74E0697E-B5EF-4939-B0B4-8B7E4AE5544B");
+
+                        if (formGroupSetting.FormGroupTemplate.TemplateName == FromGroupTemplateNames.InlineFormGroupTemplate)
                             properties.UpdateValidatables(@value, formGroupSetting.FieldSettings, mapper, GetFieldName(formGroupSetting.Field));
-                        }
+                        else if (formGroupSetting.FormGroupTemplate.TemplateName == FromGroupTemplateNames.PopupFormGroupTemplate)
+                            propertiesDictionary[GetFieldName(formGroupSetting.Field)].Value = @value;
+                        else
+                            throw new ArgumentException($"{nameof(formGroupSetting.FormGroupTemplate.TemplateName)}: 5504FE49-2766-4D7C-916D-8FC633477DB1");
                     }
                 }
                 else if (setting is FormGroupArraySettingsDescriptor formGroupArraySetting)
@@ -132,5 +253,96 @@ namespace Contoso.XPlatform.Utils
                     ? field 
                     : $"{parentField}.{field}";
         }
+
+        const string EntityState = "EntityState";
+        public static void UpdateEntityStates(Dictionary<string, object> existing, Dictionary<string, object> current, List<FormItemSettingsDescriptor> fieldSettings)
+        {
+            if (current.IsEmpty())
+            {
+                current[EntityState] = LogicBuilder.Domain.EntityStateType.Deleted;
+                return;
+            }
+
+            if (existing.IsEmpty())
+            {
+                current[EntityState] = LogicBuilder.Domain.EntityStateType.Added;
+            }
+            else
+            {
+                current[EntityState] = (int)LogicBuilder.Domain.EntityStateType.Modified;
+                //add code to compare dictionaries
+            }
+            
+
+            foreach (var setting in fieldSettings)
+            {
+                if (setting is FormGroupSettingsDescriptor formGroupSetting)
+                {
+                    UpdateEntityStates((Dictionary<string, object>)existing[setting.Field], (Dictionary<string, object>)current[setting.Field], formGroupSetting.FieldSettings);
+                }
+                else if (setting is MultiSelectFormControlSettingsDescriptor multiSelectFormControlSettingsDescriptor)
+                {
+                    ICollection<Dictionary<string, object>> existingList = (ICollection<Dictionary<string, object>>)existing[setting.Field];
+                    ICollection<Dictionary<string, object>> currentList = (ICollection<Dictionary<string, object>>)current[setting.Field];
+
+                    if (currentList.Any() == true)
+                    {
+                        foreach (var entry in currentList)
+                        {
+                            if (entry.ExistsInList(existingList, multiSelectFormControlSettingsDescriptor.KeyFields))
+                                entry[EntityState] = LogicBuilder.Domain.EntityStateType.Unchanged;
+                            else
+                                entry[EntityState] = LogicBuilder.Domain.EntityStateType.Added;
+                        }
+                    }
+
+                    if (existingList.Any() == true)
+                    {
+                        foreach (var entry in existingList)
+                        {
+                            if (!entry.ExistsInList(currentList, multiSelectFormControlSettingsDescriptor.KeyFields))
+                            {
+                                entry[EntityState] = LogicBuilder.Domain.EntityStateType.Deleted;
+                                currentList.Add(entry);
+                            }
+                        }
+                    }
+                }
+                else if (setting is FormGroupArraySettingsDescriptor formGroupArraySetting)
+                {
+                    ICollection<Dictionary<string, object>> existingList = (ICollection<Dictionary<string, object>>)existing[setting.Field];
+                    ICollection<Dictionary<string, object>> currentList = (ICollection<Dictionary<string, object>>)current[setting.Field];
+
+                    if (currentList.Any() == true)
+                    {
+                        foreach (var entry in currentList)
+                        {
+                            Dictionary<string, object> existingEntry = entry.GetExistingEntry(existingList, formGroupArraySetting.KeyFields);
+                            UpdateEntityStates
+                            (
+                                existingEntry ?? new Dictionary<string, object>(),
+                                entry,
+                                formGroupArraySetting.FieldSettings
+                            );
+                        }
+                    }
+
+                    if (existingList.Any() == true)
+                    {
+                        foreach (var entry in existingList)
+                        {
+                            if (!entry.ExistsInList(currentList, formGroupArraySetting.KeyFields))
+                            {
+                                entry[EntityState] = LogicBuilder.Domain.EntityStateType.Deleted;
+                                currentList.Add(entry);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private static bool IsEmpty(this IDictionary<string, object> dictionary)
+            => !dictionary.Any();
     }
 }

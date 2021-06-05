@@ -24,13 +24,13 @@ namespace Contoso.XPlatform.Tests
         #endregion Fields
 
         [Fact]
-        public void MapIValidatableListModelToInstructor()
+        public void MapIValidatableListModelWithInlineOfficeAssignmentToInstructor()
         {
             //arrange
             ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
             new FieldsCollectionHelper
             (
-                Descriptors.InstructorForm,
+                Descriptors.InstructorFormWithInlineOfficeAssignment,
                 properties,
                 new UiNotificationService(),
                 new HttpServiceMock()
@@ -67,7 +67,62 @@ namespace Contoso.XPlatform.Tests
             );
 
             //act
-            InstructorModel instructorModel = (InstructorModel)properties.ToModelObject(typeof(InstructorModel), serviceProvider.GetRequiredService<IMapper>());
+            InstructorModel instructorModel = (InstructorModel)properties.ToModelObject(typeof(InstructorModel), serviceProvider.GetRequiredService<IMapper>(), Descriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings);
+
+            //assert
+            Assert.Equal(3, instructorModel.ID);
+            Assert.Equal("John", instructorModel.FirstName);
+            Assert.Equal("Smith", instructorModel.LastName);
+            Assert.Equal(new DateTime(2021, 5, 20), instructorModel.HireDate);
+            Assert.Equal("Location1", instructorModel.OfficeAssignment.Location);
+            Assert.Equal("Chemistry", instructorModel.Courses.First().CourseTitle);
+        }
+
+        [Fact]
+        public void MapIValidatableListModelWithPopupOfficeAssignmentToInstructor()
+        {
+            //arrange
+            ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
+            new FieldsCollectionHelper
+            (
+                Descriptors.InstructorFormWithPopupOfficeAssignment,
+                properties,
+                new UiNotificationService(),
+                new HttpServiceMock()
+            ).CreateFieldsCollection();
+            IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
+            propertiesDictionary["ID"].Value = 3;
+            propertiesDictionary["FirstName"].Value = "John";
+            propertiesDictionary["LastName"].Value = "Smith";
+            propertiesDictionary["HireDate"].Value = new DateTime(2021, 5, 20);
+            propertiesDictionary["OfficeAssignment"].Value = new OfficeAssignmentModel { Location = "Location1" };
+            propertiesDictionary["Courses"].Value = new ObservableCollection<CourseAssignmentModel>
+            (
+                new List<CourseAssignmentModel>
+                {
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 1,
+                        InstructorID = 2,
+                        CourseTitle = "Chemistry"
+                    },
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 2,
+                        InstructorID = 2,
+                        CourseTitle = "Physics"
+                    },
+                    new CourseAssignmentModel
+                    {
+                        CourseID = 2,
+                        InstructorID = 2,
+                        CourseTitle = "Mathematics"
+                    }
+                }
+            );
+
+            //act
+            InstructorModel instructorModel = (InstructorModel)properties.ToModelObject(typeof(InstructorModel), serviceProvider.GetRequiredService<IMapper>(), Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings);
 
             //assert
             Assert.Equal(3, instructorModel.ID);
@@ -122,7 +177,7 @@ namespace Contoso.XPlatform.Tests
             );
 
             //act
-            DepartmentModel departmentModel = (DepartmentModel)properties.ToModelObject(typeof(DepartmentModel), serviceProvider.GetRequiredService<IMapper>());
+            DepartmentModel departmentModel = (DepartmentModel)properties.ToModelObject(typeof(DepartmentModel), serviceProvider.GetRequiredService<IMapper>(), Descriptors.DepartmentForm.FieldSettings);
 
             //assert
             Assert.Equal(1, departmentModel.DepartmentID);

@@ -122,6 +122,7 @@ namespace Contoso.XPlatform
                 new FormGroupSettingsDescriptor
                 {
                     Field = "OfficeAssignment",
+                    ModelType = typeof(OfficeAssignmentModel).AssemblyQualifiedName,
                     FieldSettings = new List<FormItemSettingsDescriptor>
                     {
                         new FormControlSettingsDescriptor
