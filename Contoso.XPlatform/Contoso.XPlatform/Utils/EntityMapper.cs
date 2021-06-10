@@ -269,8 +269,9 @@ namespace Contoso.XPlatform.Utils
             }
             else
             {
-                current[EntityState] = (int)LogicBuilder.Domain.EntityStateType.Modified;
-                //add code to compare dictionaries
+                current[EntityState] = new DictionaryComparer().Equals(current, existing)
+                    ? LogicBuilder.Domain.EntityStateType.Unchanged
+                    : LogicBuilder.Domain.EntityStateType.Modified;
             }
             
 

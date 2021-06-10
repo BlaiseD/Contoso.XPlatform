@@ -116,7 +116,7 @@ namespace Contoso.XPlatform.Tests
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.Courses.Single(c => c.CourseID == 2).EntityState);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Deleted, currentInstructor.Courses.Single(c => c.CourseID == 3).EntityState);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Added, currentInstructor.Courses.Single(c => c.CourseID == 4).EntityState);
-            Assert.Equal(LogicBuilder.Domain.EntityStateType.Modified, currentInstructor.OfficeAssignment.EntityState);
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.OfficeAssignment.EntityState);
             Assert.Equal(4, currentInstructor.Courses.Count);
         }
 
@@ -209,8 +209,8 @@ namespace Contoso.XPlatform.Tests
 
             DepartmentModel currentDepartment = mapper.Map<DepartmentModel>(current);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Modified, currentDepartment.EntityState);
-            Assert.Equal(LogicBuilder.Domain.EntityStateType.Modified, currentDepartment.Courses.Single(c => c.CourseID == 1).EntityState);
-            Assert.Equal(LogicBuilder.Domain.EntityStateType.Modified, currentDepartment.Courses.Single(c => c.CourseID == 2).EntityState);
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentDepartment.Courses.Single(c => c.CourseID == 1).EntityState);
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentDepartment.Courses.Single(c => c.CourseID == 2).EntityState);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Deleted, currentDepartment.Courses.Single(c => c.CourseID == 3).EntityState);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Added, currentDepartment.Courses.Single(c => c.CourseID == 4).EntityState);
             Assert.Equal(4, currentDepartment.Courses.Count);
@@ -308,8 +308,8 @@ namespace Contoso.XPlatform.Tests
             );
 
             InstructorModel currentInstructor = mapper.Map<InstructorModel>(current);
-            Assert.Equal(LogicBuilder.Domain.EntityStateType.Modified, currentInstructor.EntityState);
-            Assert.Equal(LogicBuilder.Domain.EntityStateType.Modified, currentInstructor.OfficeAssignment.EntityState);
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.EntityState);
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.OfficeAssignment.EntityState);
         }
 
         #region Fields
