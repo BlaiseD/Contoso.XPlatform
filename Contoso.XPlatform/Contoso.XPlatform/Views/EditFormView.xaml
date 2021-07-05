@@ -111,6 +111,29 @@
                 </StackLayout>
             </DataTemplate>
 
+            <DataTemplate x:Key="MultiSelectTemplate">
+                <StackLayout>
+                    <Grid>
+                        <Entry Text="{Binding DisplayText}" Placeholder="{Binding Placeholder}">
+                            <Entry.Behaviors>
+                                <behaviour:EntryLineValidationBehavior IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
+                                <behaviour:EventToCommandBehavior 
+                                EventName="TextChanged" 
+                                Command="{Binding TextChangedCommand}" />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <BoxView></BoxView>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenCommand}"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                    <Label 
+                    Text="{Binding Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBoolConverter}}"
+                    Style="{StaticResource ErrorTextStyle}"/>
+                </StackLayout>
+            </DataTemplate>
+
             <utils:QuestionTemplateSelector x:Key="QuestionTemplateSelector"
                                         CheckboxTemplate="{StaticResource CheckboxTemplate}"
                                         DateTemplate="{StaticResource DateTemplate}"
@@ -192,7 +215,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid >
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>

@@ -19,7 +19,8 @@ namespace Contoso.XPlatform.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            await page.EntranceTransition(transitionGrid, 150);
+            if (!transitionGrid.IsVisible)
+                await page.EntranceTransition(transitionGrid, 150);
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Contoso.XPlatform.Behaviours;
+﻿using Contoso.Forms.Configuration;
+using Contoso.XPlatform.Behaviours;
 using Contoso.XPlatform.Converters;
 using Contoso.XPlatform.ViewModels.Validatables;
 using System;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Utils
@@ -13,6 +15,30 @@ namespace Contoso.XPlatform.Utils
             SubmitButtonTemplate = GetButtonTemplate("SubmitCommand", viewModelType, buttonTappedHandler),
             NavigateButtonTemplate = GetButtonTemplate("NavigateCommand", viewModelType, buttonTappedHandler)
         };
+
+        public static MultiSelectItemTemplateSelector GetMultiSelectItemTemplateSelector(MultiSelectTemplateDescriptor multiSelectTemplateDescriptor)
+        {
+            return new MultiSelectItemTemplateSelector
+            {
+                SingleFieldTemplate = new DataTemplate
+                (
+                    () => new Grid
+                    {
+                        Padding = new Thickness(10),
+                        Style = LayoutHelpers.GetStaticStyleResource("MultiSelectItemStyle"),
+                        Children =
+                        {
+                            new Label 
+                            { 
+                                VerticalOptions = LayoutOptions.Center,
+                                HorizontalOptions = LayoutOptions.Center,
+                                FontAttributes = FontAttributes.Bold
+                            }.AddBinding(Label.TextProperty, new Binding(multiSelectTemplateDescriptor.TextField))
+                        }
+                    }
+                )
+            };
+        }
 
         public static QuestionTemplateSelector QuestionTemplateSelector { get; } = new QuestionTemplateSelector
         {
@@ -67,6 +93,17 @@ namespace Contoso.XPlatform.Utils
                     Children =
                     {
                         GetPickerForValidation(),
+                        GetLabelForValidation()
+                    }
+                }
+            ),
+            MultiSelectTemplate = new DataTemplate
+            (
+                () => new StackLayout
+                {
+                    Children =
+                    {
+                        GetMultiSelectFieldControl(),
                         GetLabelForValidation()
                     }
                 }
@@ -125,7 +162,28 @@ namespace Contoso.XPlatform.Utils
                 converter: new PickerItemDisplayPathConverter(), 
                 converterParameter: picker
             );
+
             return picker;
+        }
+
+        public static Grid GetMultiSelectFieldControl()
+        {
+            return new Grid
+            {
+                Children =
+                {
+                    GetEntryForMultiSelectControl(),
+                    new BoxView()
+                },
+                GestureRecognizers =
+                {
+                    new TapGestureRecognizer().AddBinding
+                    (
+                        TapGestureRecognizer.CommandProperty,
+                        new Binding(path: "OpenCommand")
+                    )
+                }
+            };
         }
 
         public static DatePicker GetDatePickerForValidation()
@@ -142,51 +200,55 @@ namespace Contoso.XPlatform.Utils
             }
             .AddBinding(DatePicker.DateProperty, new Binding(nameof(DatePickerValidatableObject.Value)));
 
+        public static Entry GetEntryForMultiSelectControl()
+            => GetEntry().AddBinding
+            (
+                Entry.TextProperty, 
+                new Binding(nameof(MultiSelectValidatableObject<ObservableCollection<string>, string>.DisplayText))
+            );
+
         public static Entry GetEntryForValidation(bool isPassword = false)
-        {
-            Entry entry = new Entry()
-            {
-                IsPassword = isPassword,
-                Behaviors =
-                {
-                    new EntryLineValidationBehavior()
-                        .AddBinding(EntryLineValidationBehavior.IsValidProperty, new Binding(nameof(EntryValidatableObject<string>.IsValid)))
-                        .AddBinding(EntryLineValidationBehavior.IsDirtyProperty, new Binding(nameof(EntryValidatableObject<string>.IsDirty))),
-                    new EventToCommandBehavior()
-                    {
-                        EventName = nameof(Entry.TextChanged)
-                    }
-                    .AddBinding(EventToCommandBehavior.CommandProperty, new Binding(nameof(EntryValidatableObject<string>.TextChangedCommand)))
-                }
-            }
-            .AddBinding(Entry.TextProperty, new Binding(nameof(EntryValidatableObject<string>.Value)))
-            .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(EntryValidatableObject<string>.Placeholder)));
-
-            entry.SetDynamicResource(VisualElement.BackgroundColorProperty, "EntryBackgroundColor");
-            entry.SetDynamicResource(Entry.TextColorProperty, "PrimaryTextColor");
-
-            return entry;
-        }
+            => GetEntry(isPassword).AddBinding
+            (
+                Entry.TextProperty, 
+                new Binding(nameof(EntryValidatableObject<string>.Value))
+            );
 
         public static Entry GetPasswordEntryForValidation()
             => GetEntryForValidation(isPassword: true);
 
-        public static Label GetLabelForValidation()
-        {
-            Label label = new Label 
-            { 
-                Behaviors = 
-                { 
+        public static Entry GetEntry(bool isPassword = false) 
+            => new Entry()
+            {
+                IsPassword = isPassword,
+                Behaviors =
+                    {
+                        new EntryLineValidationBehavior()
+                            .AddBinding(EntryLineValidationBehavior.IsValidProperty, new Binding(nameof(EntryValidatableObject<string>.IsValid)))
+                            .AddBinding(EntryLineValidationBehavior.IsDirtyProperty, new Binding(nameof(EntryValidatableObject<string>.IsDirty))),
+                        new EventToCommandBehavior()
+                        {
+                            EventName = nameof(Entry.TextChanged)
+                        }
+                        .AddBinding(EventToCommandBehavior.CommandProperty, new Binding(nameof(EntryValidatableObject<string>.TextChangedCommand)))
+                    }
+            }
+            .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(EntryValidatableObject<string>.Placeholder)))
+            .AssignDynamicResource(VisualElement.BackgroundColorProperty, "EntryBackgroundColor")
+            .AssignDynamicResource(Entry.TextColorProperty, "PrimaryTextColor");
+
+        public static Label GetLabelForValidation() 
+            => new Label
+            {
+                Behaviors =
+                {
                     new ErrorLabelValidationBehavior()
                         .AddBinding(ErrorLabelValidationBehavior.IsValidProperty, new Binding(nameof(EntryValidatableObject<string>.IsValid)))
                         .AddBinding(ErrorLabelValidationBehavior.IsDirtyProperty, new Binding(nameof(EntryValidatableObject<string>.IsDirty)))
                 }
             }
-            .AddBinding(Label.TextProperty, new Binding(path: nameof(ValidatableObjectBase<object>.Errors), converter: new FirstValidationErrorConverter()));
-
-            label.SetDynamicResource(Label.TextColorProperty, "ErrorTextColor");
-            return label;
-        }
+            .AddBinding(Label.TextProperty, new Binding(path: nameof(ValidatableObjectBase<object>.Errors), converter: new FirstValidationErrorConverter()))
+            .AssignDynamicResource(Label.TextColorProperty, "ErrorTextColor");
 
         public static string GetFontAwesomeFontFamily()
             => Device.RuntimePlatform switch

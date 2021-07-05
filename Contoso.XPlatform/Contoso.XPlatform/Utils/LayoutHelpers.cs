@@ -1,12 +1,7 @@
-﻿using AutoMapper;
-using Contoso.Forms.Configuration.EditForm;
-using Contoso.XPlatform.Flow.Settings.Screen;
-using Contoso.XPlatform.Services;
+﻿using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.Views;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Reflection;
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Utils
@@ -21,6 +16,41 @@ namespace Contoso.XPlatform.Utils
                 binding
             );
 
+            return bindable;
+        }
+
+        public static T SetAutomationPropertiesName<T>(this T bindable, string propertyName) where T : BindableObject
+        {
+            AutomationProperties.SetName(bindable, propertyName);
+
+            return bindable;
+        }
+
+        public static T AssignDynamicResource<T>(this T bindable, BindableProperty property, string key) where T : Element
+        {
+            bindable.SetDynamicResource
+            (
+                property, key
+            );
+
+            return bindable;
+        }
+
+        public static T SetGridColumn<T>(this T bindable, int column) where T : BindableObject
+        {
+            Grid.SetColumn(bindable, column);
+            return bindable;
+        }
+
+        public static T SetAbsoluteLayoutBounds<T>(this T bindable, Rectangle rectangle) where T : BindableObject
+        {
+            AbsoluteLayout.SetLayoutBounds(bindable, rectangle);
+            return bindable;
+        }
+
+        public static T SetAbsoluteLayoutFlags<T>(this T bindable, AbsoluteLayoutFlags absoluteLayoutFlags) where T : BindableObject
+        {
+            AbsoluteLayout.SetLayoutFlags(bindable, absoluteLayoutFlags);
             return bindable;
         }
 

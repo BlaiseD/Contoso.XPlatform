@@ -3,12 +3,14 @@ using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
+using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Contoso.XPlatform.ViewModels.Validatables
 {
@@ -18,15 +20,38 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             : base(name, setting.MultiSelectTemplate.TemplateName, validations, uiNotificationService)
         {
             this.Title = setting.Title;
+            this._multiSelectFormControlSettingsDescriptor = setting;
             this._multiSelectTemplate = setting.MultiSelectTemplate;
             this.httpService = httpService;
+            itemComparer = new MultiSelectItemComparer<E>(_multiSelectFormControlSettingsDescriptor.KeyFields);
+            SelectedItems = new ObservableCollection<object>();
             GetItemSource();
         }
 
         private readonly IHttpService httpService;
         private readonly MultiSelectTemplateDescriptor _multiSelectTemplate;
+        private readonly MultiSelectFormControlSettingsDescriptor _multiSelectFormControlSettingsDescriptor;
+        private readonly MultiSelectItemComparer<E> itemComparer;
 
         public MultiSelectTemplateDescriptor MultiSelectTemplate => _multiSelectTemplate;
+
+        public string DisplayText
+        {
+            get
+            {
+                if (Value == null)
+                    return string.Empty;
+
+                return string.Join
+                (
+                    ",",
+                    Value.Select
+                    (
+                        item => typeof(E).GetProperty(_multiSelectTemplate.TextField).GetValue(item)
+                    )
+                );
+            }
+        }
 
         private string _title;
         public string Title
@@ -42,19 +67,33 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             }
         }
 
-        private ObservableCollection<E> _selectedItems;
-        public ObservableCollection<E> SelectedItems
+        public override T Value
+        {
+            get { return base.Value; }
+            set
+            {
+                base.Value = value;
+
+                //UpdateSelectedItems();
+
+                OnPropertyChanged(nameof(DisplayText));
+                OnPropertyChanged(nameof(SelectedItems));
+            }
+        }
+
+        ObservableCollection<object> _selectedItems;
+        public ObservableCollection<object> SelectedItems
         {
             get
             {
                 return _selectedItems;
             }
-
             set
             {
-                _selectedItems = value;
-                Value = (T)_selectedItems;
-                OnPropertyChanged();
+                if (_selectedItems != value)
+                {
+                    _selectedItems = value;
+                }
             }
         }
 
@@ -87,11 +126,125 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 );
 
                 Items = response.DropDownList.OfType<E>().ToList();
+                UpdateSelectedItems();
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine($"{ e.GetType().Name + " : " + e.Message}");
                 throw;
+            }
+        }
+
+        private void UpdateSelectedItems()
+        {
+            if (Items?.Any() != true)
+                return;
+
+            var selected = Value?.Any() != true
+                ? Enumerable.Empty<object>()
+                : Items.Where(i => Value.Contains(i, itemComparer)).Cast<object>();
+
+            SelectedItems.Clear();
+            foreach (var item in selected)
+                SelectedItems.Add(item);
+        }
+
+        public ICommand TextChangedCommand => new Command
+        (
+            (parameter) =>
+            {
+                IsDirty = true;
+                string text = ((TextChangedEventArgs)parameter).NewTextValue;
+                if (text == null)
+                    return;
+
+                IsValid = Validate();
+            }
+        );
+
+        private ICommand _submitCommand;
+        public ICommand SubmitCommand
+        {
+            get
+            {
+                if (_submitCommand != null)
+                    return _submitCommand;
+
+                _submitCommand = new Command
+                (
+                    () =>
+                    {
+                        Value = (T)new ObservableCollection<E>
+                        (
+                            Items.Where(i => SelectedItems.Cast<E>().Contains(i, itemComparer))
+                        );
+
+                        //var currentNavigationPage = ((FlyoutPage)App.Current.MainPage).Detail;
+                        var currentNavigationPage = App.Current.MainPage;
+                        Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
+                        (
+                            () => currentNavigationPage.Navigation.PopModalAsync()
+                        );
+                    }
+                );
+
+                return _submitCommand;
+            }
+        }
+
+        private ICommand _openCommand;
+        public ICommand OpenCommand
+        {
+            get
+            {
+                if (_openCommand != null)
+                    return _openCommand;
+
+                _openCommand = new Command
+                (
+                    () =>
+                    {
+                        Page multiSelectPage = new Views.MultiSelectPageCS(this)
+                        {
+                            //BindingContext = this
+                        };
+                        multiSelectPage.SetDynamicResource(VisualElement.BackgroundColorProperty, "PageBackgroundColor");
+                        //var currentNavigationPage = ((FlyoutPage)App.Current.MainPage).Detail;
+                        var currentNavigationPage = App.Current.MainPage;
+                        Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
+                        (
+                            () => currentNavigationPage.Navigation.PushModalAsync
+                            (
+                                multiSelectPage
+                            )
+                        );
+                    });
+
+                return _openCommand;
+            }
+        }
+
+        private ICommand _cancelCommand;
+        public ICommand CancelCommand
+        {
+            get
+            {
+                if (_cancelCommand != null)
+                    return _cancelCommand;
+                
+                _cancelCommand = new Command
+                (
+                    () =>
+                    {
+                        //var currentNavigationPage = ((FlyoutPage)App.Current.MainPage).Detail;
+                        var currentNavigationPage = App.Current.MainPage;
+                        Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
+                        (
+                            () => currentNavigationPage.Navigation.PopModalAsync()
+                        );
+                    });
+
+                return _cancelCommand;
             }
         }
     }

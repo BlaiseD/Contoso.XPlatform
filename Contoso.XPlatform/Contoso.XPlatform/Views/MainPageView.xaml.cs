@@ -24,6 +24,7 @@ namespace Contoso.XPlatform.Views
             ViewModel = App.ServiceProvider.GetRequiredService<MainPageViewModel>();
             this.BindingContext = ViewModel;
             flyout.BindingContext = ViewModel;
+            FlowSettingsChanged(Descriptors.GetFlowSettings<EditFormSettingsDescriptor>("students"));
         }
 
         #region Properties
@@ -34,7 +35,7 @@ namespace Contoso.XPlatform.Views
         #region Methods
         protected override void OnAppearing()
         {
-            FlowSettingsChanged(Descriptors.GetFlowSettings<EditFormSettingsDescriptor>("students"));
+            
             base.OnAppearing();
         }
 
