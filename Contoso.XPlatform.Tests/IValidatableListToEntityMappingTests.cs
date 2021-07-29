@@ -33,7 +33,8 @@ namespace Contoso.XPlatform.Tests
                 Descriptors.InstructorFormWithInlineOfficeAssignment,
                 properties,
                 new UiNotificationService(),
-                new HttpServiceMock()
+                new HttpServiceMock(),
+                serviceProvider.GetRequiredService<IMapper>()
             ).CreateFieldsCollection();
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
             propertiesDictionary["ID"].Value = 3;
@@ -88,7 +89,8 @@ namespace Contoso.XPlatform.Tests
                 Descriptors.InstructorFormWithPopupOfficeAssignment,
                 properties,
                 new UiNotificationService(),
-                new HttpServiceMock()
+                new HttpServiceMock(),
+                serviceProvider.GetRequiredService<IMapper>()
             ).CreateFieldsCollection();
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
             propertiesDictionary["ID"].Value = 3;
@@ -143,7 +145,8 @@ namespace Contoso.XPlatform.Tests
                 Descriptors.DepartmentForm,
                 properties,
                 new UiNotificationService(),
-                new HttpServiceMock()
+                new HttpServiceMock(),
+                serviceProvider.GetRequiredService<IMapper>()
             ).CreateFieldsCollection();
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
             propertiesDictionary["DepartmentID"].Value = 1;

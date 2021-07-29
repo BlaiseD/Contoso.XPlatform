@@ -107,6 +107,24 @@ namespace Contoso.XPlatform.Utils
                         GetLabelForValidation()
                     }
                 }
+            ),
+            PopupFormGroupTemplate = new DataTemplate
+            (
+                () => new StackLayout
+                {
+                    Children =
+                    {
+                        GetPopupFormFieldControl(),
+                        GetLabelForValidation()
+                    }
+                }
+            ),
+            HiddenTemplate = new DataTemplate
+            (
+                () => new StackLayout
+                {
+                    IsVisible = false
+                }
             )
         };
 
@@ -186,6 +204,26 @@ namespace Contoso.XPlatform.Utils
             };
         }
 
+        public static Grid GetPopupFormFieldControl()
+        {
+            return new Grid
+            {
+                Children =
+                {
+                    GetEntryForFormPopupControl(),
+                    new BoxView()
+                },
+                GestureRecognizers =
+                {
+                    new TapGestureRecognizer().AddBinding
+                    (
+                        TapGestureRecognizer.CommandProperty,
+                        new Binding(path: "OpenCommand")
+                    )
+                }
+            };
+        }
+
         public static DatePicker GetDatePickerForValidation()
             => new DatePicker()
             {
@@ -205,6 +243,13 @@ namespace Contoso.XPlatform.Utils
             (
                 Entry.TextProperty, 
                 new Binding(nameof(MultiSelectValidatableObject<ObservableCollection<string>, string>.DisplayText))
+            );
+
+        public static Entry GetEntryForFormPopupControl()
+            => GetEntry().AddBinding
+            (
+                Entry.TextProperty,
+                new Binding(nameof(FormValidatableObject<object>.DisplayText))
             );
 
         public static Entry GetEntryForValidation(bool isPassword = false)

@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace Contoso.XPlatform.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MultiSelectPage : ContentPage
+    public partial class ChildFormPage : ContentPage
     {
-        public MultiSelectPage()
+        public ChildFormPage()
         {
             InitializeComponent();
             this.BackgroundColor = Color.Transparent;

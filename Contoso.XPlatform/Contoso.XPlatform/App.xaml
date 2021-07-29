@@ -100,6 +100,15 @@
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
 
+            <Style TargetType="StackLayout" x:Key="ChildFormPopupViewStyle">
+                <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}"/>
+                <Setter Property="HeightRequest" Value="464"/>
+                <Setter Property="WidthRequest" Value="330"/>
+                <Setter Property="Padding" Value="10,0" />
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+
             <Style TargetType="Grid" x:Key="MultiSelectItemStyle">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -116,14 +125,14 @@
                 </Setter>
             </Style>
 
-            <Style TargetType="Grid" x:Key="MultiSelectPopupHeaderStyle">
+            <Style TargetType="Grid" x:Key="PopupHeaderStyle">
                 <Setter Property="BackgroundColor" Value="{DynamicResource NavigationBarColor}"/>
                 <Setter Property="HeightRequest" Value="65"/>
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="Padding" Value="0"/>
             </Style>
 
-            <Style TargetType="Label" x:Key="MultiSelectPopupHeaderLabelStyle">
+            <Style TargetType="Label" x:Key="PopupHeaderLabelStyle">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
                 <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
@@ -131,7 +140,7 @@
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
 
-            <Style TargetType="BoxView" x:Key="MultiSelectPopupFooterSeparatorStyle">
+            <Style TargetType="BoxView" x:Key="PopupFooterSeparatorStyle">
                 <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
                 <Setter Property="HeightRequest" Value="1"/>
             </Style>
@@ -141,12 +150,17 @@
                 <Setter Property="HeightRequest" Value="340"/>
             </Style>
 
-            <Style TargetType="Grid" x:Key="MultiSelectPopupFooterStyle">
+            <Style TargetType="CollectionView" x:Key="ChildFormPopupCollectionViewStyle">
+                <Setter Property="SelectionMode" Value="None"/>
+                <Setter Property="HeightRequest" Value="340"/>
+            </Style>
+
+            <Style TargetType="Grid" x:Key="PopupFooterStyle">
                 <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="HeightRequest" Value="60"/>
             </Style>
 
-            <Style TargetType="Button" x:Key="MultiSelectPopupAcceptButtonStyle">
+            <Style TargetType="Button" x:Key="PopupAcceptButtonStyle">
                 <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="Text" Value="OK"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
@@ -154,7 +168,7 @@
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}"/>
             </Style>
 
-            <Style TargetType="Button" x:Key="MultiSelectPopupCancelButtonStyle">
+            <Style TargetType="Button" x:Key="PopupCancelButtonStyle">
                 <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="Text" Value="CANCEL"/>
                 <Setter Property="VerticalOptions" Value="Center"/>

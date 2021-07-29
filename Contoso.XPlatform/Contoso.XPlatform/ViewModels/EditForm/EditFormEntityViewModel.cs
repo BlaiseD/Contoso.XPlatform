@@ -9,7 +9,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
     public class EditFormEntityViewModel<TModel> : EditFormEntityViewModelBase
     {
         public EditFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IMapper mapper, IHttpService httpService)
-            : base(screenSettings, uiNotificationService, httpService)
+            : base(screenSettings, uiNotificationService, httpService, mapper)
         {
             this.validateIfManager = new ValidateIfManager<TModel>
             (

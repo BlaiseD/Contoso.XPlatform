@@ -20,5 +20,5 @@
     <OnPlatform x:Key="SelectedCommandButtonBackgroundColor" x:TypeArguments="Color">
         <On Platform="Android">#999999</On>
     </OnPlatform>
-    <Color x:Key="PopupViewBackgroundColor">#171717</Color>
+    <Color x:Key="PopupViewBackgroundColor">#CC171717</Color>
 </ResourceDictionary>

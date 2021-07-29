@@ -86,8 +86,8 @@ namespace Contoso.XPlatform.Views
             FlowSettingsChanged(Descriptors.GetFlowSettings<EditFormSettingsDescriptor>(item.InitialModule));
             //Page page = null;
 
-            if (item.InitialModule != "students" && item.InitialModule != "courses")
-                return;
+            //if (item.InitialModule != "students" && item.InitialModule != "courses")
+            //    return;
             //if (item.TargetType == typeof(EditFormViewCS))
             //{
             //    //page = new EditFormViewCS(CreateEditFormViewModel(Descriptors.ScreenSettings));

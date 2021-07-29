@@ -1,32 +1,31 @@
-﻿using Contoso.Forms.Configuration;
+﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels.Validatables;
-using System.Collections.ObjectModel;
 
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Views
 {
-    public class MultiSelectPageCS : ContentPage
+    public class ChildFormPageCS : ContentPage
     {
-        public MultiSelectPageCS(IValidatable multiSelectValidatable)
+        public ChildFormPageCS(IValidatable formValidatable)
         {
-            this.multiSelectValidatable = multiSelectValidatable;
-            this.multiSelectTemplateDescriptor = (MultiSelectTemplateDescriptor)this.multiSelectValidatable.GetType()
-                .GetProperty(nameof(MultiSelectValidatableObject<ObservableCollection<string>, string>.MultiSelectTemplate))
-                .GetValue(this.multiSelectValidatable);
+            this.formValidatable = formValidatable;
+            this.formGroupSettingsDescriptor = (FormGroupSettingsDescriptor)this.formValidatable.GetType()
+                .GetProperty(nameof(FormValidatableObject<object>.FormSettings))
+                .GetValue(this.formValidatable);
 
             Content = new AbsoluteLayout
             {
                 HorizontalOptions = LayoutOptions.Fill,
                 VerticalOptions = LayoutOptions.Fill,
-                Children =
+                Children = 
                 {
-                    new ContentView
-                    {
+                    new ContentView 
+                    { 
                         Content = new StackLayout
                         {
-                            Style = LayoutHelpers.GetStaticStyleResource("MultiSelectPopupViewStyle"),
+                            Style = LayoutHelpers.GetStaticStyleResource("ChildFormPopupViewStyle"),
                             Children =
                             {
                                 new Grid
@@ -42,11 +41,10 @@ namespace Contoso.XPlatform.Views
                                 },
                                 new CollectionView
                                 {
-                                    Style = LayoutHelpers.GetStaticStyleResource("MultiSelectPopupCollectionViewStyle"),
-                                    ItemTemplate = EditFormViewHelpers.GetMultiSelectItemTemplateSelector(this.multiSelectTemplateDescriptor)
+                                    Style = LayoutHelpers.GetStaticStyleResource("ChildFormPopupCollectionViewStyle"),
+                                    ItemTemplate = EditFormViewHelpers.QuestionTemplateSelector
                                 }
-                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Items"))
-                                .AddBinding(SelectableItemsView.SelectedItemsProperty, new Binding("SelectedItems")),
+                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Properties")),
                                 new BoxView { Style = LayoutHelpers.GetStaticStyleResource("PopupFooterSeparatorStyle") },
                                 new Grid
                                 {
@@ -83,10 +81,10 @@ namespace Contoso.XPlatform.Views
             };
 
             this.BackgroundColor = Color.Transparent;
-            this.BindingContext = this.multiSelectValidatable;
+            this.BindingContext = this.formValidatable;
         }
 
-        private IValidatable multiSelectValidatable;
-        private MultiSelectTemplateDescriptor multiSelectTemplateDescriptor;
+        private IValidatable formValidatable;
+        private FormGroupSettingsDescriptor formGroupSettingsDescriptor;
     }
 }

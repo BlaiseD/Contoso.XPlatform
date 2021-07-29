@@ -29,27 +29,6 @@ namespace Contoso.XPlatform.Views
 
         private void AddContent()
         {
-            transitionGrid = new Grid()
-                .AssignDynamicResource(VisualElement.BackgroundColorProperty, "PageBackgroundColor");
-            page = new StackLayout
-            {
-                Padding = new Thickness(30),
-                Children =
-                {
-                    new Label
-                    {
-                        Style = LayoutHelpers.GetStaticStyleResource("HeaderStyle")
-                    }
-                    .AddBinding(Label.TextProperty, new Binding("FormSettings.Title")),
-                    new CollectionView
-                    {
-                        SelectionMode = SelectionMode.Single,
-                        ItemTemplate = EditFormViewHelpers.QuestionTemplateSelector
-                    }
-                    .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Properties")),
-                }
-            };
-
             AddToolBarItems();
 
             Title = editFormEntityViewModel.FormSettings.Title;
@@ -57,8 +36,33 @@ namespace Contoso.XPlatform.Views
             {
                 Children =
                 {
-                    page,
-                    transitionGrid
+                    (
+                        page = new StackLayout
+                        {
+                            Padding = new Thickness(30),
+                            Children =
+                            {
+                                new Label
+                                {
+                                    Style = LayoutHelpers.GetStaticStyleResource("HeaderStyle")
+                                }
+                                .AddBinding(Label.TextProperty, new Binding("FormSettings.Title")),
+                                new CollectionView
+                                {
+                                    SelectionMode = SelectionMode.Single,
+                                    ItemTemplate = EditFormViewHelpers.QuestionTemplateSelector
+                                }
+                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Properties")),
+                            }
+                        }
+                    ),
+                    (
+                        transitionGrid = new Grid().AssignDynamicResource
+                        (
+                            VisualElement.BackgroundColorProperty, 
+                            "PageBackgroundColor"
+                        )
+                    )
                 }
             };
 

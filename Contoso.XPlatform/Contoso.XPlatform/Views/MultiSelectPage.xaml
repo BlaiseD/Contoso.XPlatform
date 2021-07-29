@@ -17,22 +17,22 @@
                         VerticalOptions="Fill">
             <ContentView BackgroundColor="{DynamicResource PopupViewBackgroundColor}" AbsoluteLayout.LayoutBounds="0.00, 0.00, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout Style="{StaticResource MultiSelectPopupViewStyle}">
-                    <Grid Style="{StaticResource MultiSelectPopupHeaderStyle}">
-                        <Label Style="{StaticResource MultiSelectPopupHeaderLabelStyle}" Text="{Binding Title}" />
+                    <Grid Style="{StaticResource PopupHeaderStyle}">
+                        <Label Style="{StaticResource PopupHeaderLabelStyle}" Text="{Binding Title}" />
                     </Grid>
                     <CollectionView Style="{StaticResource MultiSelectPopupCollectionViewStyle}"
                                     ItemsSource="{Binding Items}"
                                     SelectedItems="{Binding SelectedItems}"
                                     ItemTemplate="{StaticResource MultiSelectItemTemplateSelector}" />
-                    <BoxView Style="{StaticResource MultiSelectPopupFooterSeparatorStyle}"></BoxView>
-                    <Grid Style="{StaticResource MultiSelectPopupFooterStyle}">
+                    <BoxView Style="{StaticResource PopupFooterSeparatorStyle}"></BoxView>
+                    <Grid Style="{StaticResource PopupFooterStyle}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Style="{StaticResource MultiSelectPopupAcceptButtonStyle}" Grid.Column="2" Command="{Binding SubmitCommand}"></Button>
-                        <Button Style="{StaticResource MultiSelectPopupCancelButtonStyle}" Grid.Column="1" Command="{Binding CancelCommand}"></Button>
+                        <Button Style="{StaticResource PopupAcceptButtonStyle}" Grid.Column="2" Command="{Binding SubmitCommand}"></Button>
+                        <Button Style="{StaticResource PopupCancelButtonStyle}" Grid.Column="1" Command="{Binding CancelCommand}"></Button>
                     </Grid>
                 </StackLayout>
             </ContentView>

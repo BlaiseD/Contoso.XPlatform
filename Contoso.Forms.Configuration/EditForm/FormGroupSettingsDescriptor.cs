@@ -8,6 +8,8 @@ namespace Contoso.Forms.Configuration.EditForm
     {
         public override AbstractControlEnumDescriptor AbstractControlType => AbstractControlEnumDescriptor.FormGroup;
         public string Title { get; set; }
+        public string ValidFormControlText { get; set; }
+        public string InvalidFormControlText { get; set; }
         public bool ShowTitle { get; set; }
         public string ModelType { get; set; }
         public FormGroupTemplateDescriptor FormGroupTemplate { get; set; }

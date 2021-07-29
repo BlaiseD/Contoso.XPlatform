@@ -179,11 +179,9 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                             Items.Where(i => SelectedItems.Cast<E>().Contains(i, itemComparer))
                         );
 
-                        //var currentNavigationPage = ((FlyoutPage)App.Current.MainPage).Detail;
-                        var currentNavigationPage = App.Current.MainPage;
                         Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
                         (
-                            () => currentNavigationPage.Navigation.PopModalAsync()
+                            () => App.Current.MainPage.Navigation.PopModalAsync()
                         );
                     }
                 );
@@ -204,18 +202,14 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 (
                     () =>
                     {
-                        Page multiSelectPage = new Views.MultiSelectPageCS(this)
-                        {
-                            //BindingContext = this
-                        };
-                        multiSelectPage.SetDynamicResource(VisualElement.BackgroundColorProperty, "PageBackgroundColor");
-                        //var currentNavigationPage = ((FlyoutPage)App.Current.MainPage).Detail;
-                        var currentNavigationPage = App.Current.MainPage;
                         Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
                         (
-                            () => currentNavigationPage.Navigation.PushModalAsync
+                            () => App.Current.MainPage.Navigation.PushModalAsync
                             (
-                                multiSelectPage
+                                new Views.MultiSelectPageCS(this)
+                                {
+                                    //BindingContext = this
+                                }
                             )
                         );
                     });
@@ -236,11 +230,9 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 (
                     () =>
                     {
-                        //var currentNavigationPage = ((FlyoutPage)App.Current.MainPage).Detail;
-                        var currentNavigationPage = App.Current.MainPage;
                         Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
                         (
-                            () => currentNavigationPage.Navigation.PopModalAsync()
+                            () => App.Current.MainPage.Navigation.PopModalAsync()
                         );
                     });
 

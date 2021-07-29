@@ -1,4 +1,5 @@
-﻿using Contoso.Forms.Configuration;
+﻿using AutoMapper;
+using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
@@ -15,12 +16,12 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 {
     public abstract class EditFormEntityViewModelBase : ViewModelBase, IDisposable
     {
-        protected EditFormEntityViewModelBase(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService)
+        protected EditFormEntityViewModelBase(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper)
         {
             this.UiNotificationService = uiNotificationService;
             FormSettings = screenSettings.Settings;
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);
-            fieldsCollectionHelper = new FieldsCollectionHelper(this.FormSettings, Properties, this.UiNotificationService, httpService);
+            fieldsCollectionHelper = new FieldsCollectionHelper(this.FormSettings, Properties, this.UiNotificationService, httpService, mapper);
             fieldsCollectionHelper.CreateFieldsCollection();
             propertyChangedSubscription = this.UiNotificationService.ValueChanged.Subscribe(FieldChanged);
         }

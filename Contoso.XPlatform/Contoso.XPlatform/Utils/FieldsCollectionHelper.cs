@@ -18,18 +18,20 @@ namespace Contoso.XPlatform.Utils
 {
     public class FieldsCollectionHelper
     {
-        public FieldsCollectionHelper(IFormGroupSettings formSettings, ObservableCollection<IValidatable> properties, UiNotificationService uiNotificationService, IHttpService httpService)
+        public FieldsCollectionHelper(IFormGroupSettings formSettings, ObservableCollection<IValidatable> properties, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper)
         {
             this.formSettings = formSettings;
             this.properties = properties;
             this.uiNotificationService = uiNotificationService;
             this.httpService = httpService;
+            this.mapper = mapper;
         }
 
         private readonly IFormGroupSettings formSettings;
         private readonly ObservableCollection<IValidatable> properties;
         private readonly UiNotificationService uiNotificationService;
         private readonly IHttpService httpService;
+        private readonly IMapper mapper;
 
         public List<ValidateIf<TModel>> GetConditionalValidationConditions<TModel>(VariableDirectivesDictionary conditionalDirectives, IEnumerable<IValidatable> properties, IMapper mapper)
         {
@@ -250,7 +252,7 @@ namespace Contoso.XPlatform.Utils
         }
 
         private IValidatable _CreateFormValidatableObject<T>(FormGroupSettingsDescriptor setting, string name) where T : class
-            => new FormValidatableObject<T>(name, setting, new IValidationRule[] { }, this.uiNotificationService, this.httpService)
+            => new FormValidatableObject<T>(name, setting, new IValidationRule[] { }, this.uiNotificationService, this.httpService, this.mapper)
             {
                 Value = default
             };

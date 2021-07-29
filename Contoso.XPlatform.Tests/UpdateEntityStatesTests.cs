@@ -324,7 +324,8 @@ namespace Contoso.XPlatform.Tests
                 formSettings,
                 properties,
                 new UiNotificationService(),
-                new HttpServiceMock()
+                new HttpServiceMock(),
+                serviceProvider.GetRequiredService<IMapper>()
             ).CreateFieldsCollection();
 
             return properties;

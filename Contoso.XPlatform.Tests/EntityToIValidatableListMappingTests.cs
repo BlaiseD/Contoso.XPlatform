@@ -65,7 +65,8 @@ namespace Contoso.XPlatform.Tests
                 Descriptors.InstructorFormWithInlineOfficeAssignment, 
                 properties, 
                 new UiNotificationService(),
-                new HttpServiceMock()
+                new HttpServiceMock(),
+                serviceProvider.GetRequiredService<IMapper>()
             ).CreateFieldsCollection();
 
             //act
@@ -128,7 +129,8 @@ namespace Contoso.XPlatform.Tests
                 Descriptors.InstructorFormWithPopupOfficeAssignment,
                 properties,
                 new UiNotificationService(),
-                new HttpServiceMock()
+                new HttpServiceMock(),
+                serviceProvider.GetRequiredService<IMapper>()
             ).CreateFieldsCollection();
 
             //act
@@ -188,7 +190,8 @@ namespace Contoso.XPlatform.Tests
                 Descriptors.DepartmentForm,
                 properties,
                 new UiNotificationService(),
-                new HttpServiceMock()
+                new HttpServiceMock(),
+                serviceProvider.GetRequiredService<IMapper>()
             ).CreateFieldsCollection();
 
             //act
