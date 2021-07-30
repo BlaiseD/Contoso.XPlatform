@@ -17,15 +17,17 @@ namespace Contoso.XPlatform.ViewModels.Validatables
     {
         public PickerValidatableObject(string name, FormControlSettingsDescriptor setting, IHttpService httpService, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) 
             : base(name, setting.DropDownTemplate.TemplateName, validations, uiNotificationService)
-        {
-            this.Title = setting.Title;
+        {       
+            this.controlSettings = setting;
             this._dropDownTemplate = setting.DropDownTemplate;
             this.httpService = httpService;
+            this.Title = this._dropDownTemplate.LoadingIndicatorText;
             GetItemSource();
         }
 
         private readonly IHttpService httpService;
         private readonly DropDownTemplateDescriptor _dropDownTemplate;
+        private readonly FormControlSettingsDescriptor controlSettings;
 
         public DropDownTemplateDescriptor DropDownTemplate => _dropDownTemplate;
 
@@ -106,6 +108,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 );
 
                 Items = response.DropDownList.OfType<object>().ToList();
+                this.Title = controlSettings.Title;
             }
             catch (Exception e)
             {

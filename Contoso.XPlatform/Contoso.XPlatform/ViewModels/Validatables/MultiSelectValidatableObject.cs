@@ -25,6 +25,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             this.httpService = httpService;
             itemComparer = new MultiSelectItemComparer<E>(_multiSelectFormControlSettingsDescriptor.KeyFields);
             SelectedItems = new ObservableCollection<object>();
+            this.canExecute = false;
+            this.Placeholder = this._multiSelectTemplate.LoadingIndicatorText;
             GetItemSource();
         }
 
@@ -32,6 +34,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         private readonly MultiSelectTemplateDescriptor _multiSelectTemplate;
         private readonly MultiSelectFormControlSettingsDescriptor _multiSelectFormControlSettingsDescriptor;
         private readonly MultiSelectItemComparer<E> itemComparer;
+        private bool canExecute;
 
         public MultiSelectTemplateDescriptor MultiSelectTemplate => _multiSelectTemplate;
 
@@ -50,6 +53,20 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                         item => typeof(E).GetProperty(_multiSelectTemplate.TextField).GetValue(item)
                     )
                 );
+            }
+        }
+
+        private string _placeholder;
+        public string Placeholder
+        {
+            get => _placeholder;
+            set
+            {
+                if (_placeholder == value)
+                    return;
+
+                _placeholder = value;
+                OnPropertyChanged();
             }
         }
 
@@ -147,6 +164,9 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             SelectedItems.Clear();
             foreach (var item in selected)
                 SelectedItems.Add(item);
+
+            canExecute = true;
+            this.Placeholder = this._multiSelectTemplate.PlaceHolderText;
         }
 
         public ICommand TextChangedCommand => new Command
@@ -183,7 +203,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                         (
                             () => App.Current.MainPage.Navigation.PopModalAsync()
                         );
-                    }
+                    },
+                    () => canExecute
                 );
 
                 return _submitCommand;

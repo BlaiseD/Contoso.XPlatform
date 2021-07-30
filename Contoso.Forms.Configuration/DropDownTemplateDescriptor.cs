@@ -8,7 +8,7 @@ namespace Contoso.Forms.Configuration
         public string PlaceHolderText { get; set; }
         public string TextField { get; set; }
         public string ValueField { get; set; }
-        public string TextAndValueObjectType { get; set; }
+        public string LoadingIndicatorText { get; set; }
         public SelectorLambdaOperatorDescriptor TextAndValueSelector { get; set; }
         public RequestDetailsDescriptor RequestDetails { get; set; }
     }

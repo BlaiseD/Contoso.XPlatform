@@ -7,6 +7,24 @@ namespace Contoso.XPlatform.Utils
 {
     internal static class ReflectionHelpers
     {
+        public static void SetPropertyToDefaultValue(this object item, string propertyName)
+        {
+            PropertyInfo pInfo = item.GetType().GetProperty
+            (
+                propertyName,
+                BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance
+            );
+            pInfo.SetValue(item, Activator.CreateInstance(pInfo.PropertyType));
+        }
+
+        public static void SetPropertyValue(this object item, string propertyName, object propertyValue) 
+            => item.GetType().GetProperty
+            (
+                propertyName,
+                BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance
+            )
+            .SetValue(item, propertyValue);
+
         public static T GetPropertyValue<T>(this object item, string propertyName)
         {
             try

@@ -153,8 +153,8 @@ namespace Contoso.XPlatform
                     MultiSelectTemplate =  new MultiSelectTemplateDescriptor
                     {
                         TemplateName = "MultiSelectTemplate",
-                        PlaceHolderText = "Select One ...",
-                        TextAndValueObjectType = "System.Object",
+                        PlaceHolderText = "(Courses)",
+                        LoadingIndicatorText = "Loading ...",
                         ModelType = typeof(CourseAssignmentModel).AssemblyQualifiedName,
                         TextField = "CourseTitle",
                         ValueField = "CourseID",
@@ -361,8 +361,8 @@ namespace Contoso.XPlatform
                     MultiSelectTemplate =  new MultiSelectTemplateDescriptor
                     {
                         TemplateName = "MultiSelectTemplate",
-                        PlaceHolderText = "Select One ...",
-                        TextAndValueObjectType = "System.Object",
+                        PlaceHolderText = "(Courses)",
+                        LoadingIndicatorText = "Loading ...",
                         ModelType = typeof(CourseAssignmentModel).AssemblyQualifiedName,
                         TextField = "CourseTitle",
                         ValueField = "CourseID",
@@ -504,7 +504,7 @@ namespace Contoso.XPlatform
                     {
                         TemplateName = "PickerTemplate",
                         PlaceHolderText = "Select Administrator:",
-                        TextAndValueObjectType = "System.Object",
+                        LoadingIndicatorText = "Loading ...",
                         TextField = "FullName",
                         ValueField = "ID",
                         TextAndValueSelector = new SelectorLambdaOperatorDescriptor
@@ -710,7 +710,7 @@ namespace Contoso.XPlatform
                     {
                         TemplateName = "PickerTemplate",
                         PlaceHolderText = "Select credits:",
-                        TextAndValueObjectType = "System.Object",
+                        LoadingIndicatorText = "Loading ...",
                         TextField = "Text",
                         ValueField = "NumericValue",
                         TextAndValueSelector = new SelectorLambdaOperatorDescriptor
@@ -814,7 +814,7 @@ namespace Contoso.XPlatform
                     {
                         TemplateName = "PickerTemplate",
                         PlaceHolderText = "Select Department:",
-                        TextAndValueObjectType = "System.Object",
+                        LoadingIndicatorText = "Loading ...",
                         TextField = "Name",
                         ValueField = "DepartmentID",
                         TextAndValueSelector = new SelectorLambdaOperatorDescriptor
