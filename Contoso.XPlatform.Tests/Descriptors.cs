@@ -2,6 +2,7 @@
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
 using Contoso.Forms.Configuration;
+using Contoso.Forms.Configuration.Bindings;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.Navigation;
 using Contoso.Forms.Configuration.Validation;
@@ -685,6 +686,56 @@ namespace Contoso.XPlatform.Tests
                             }
                         }
                     ),
+                    FormsCollectionDisplayTemplate = new FormsCollectionDisplayTemplateDescriptor
+                    {
+                        TemplateName = "TextDetailTemplate",
+                        PlaceHolderText = "(Courses)",
+                        LoadingIndicatorText = "Loading ...",
+                        ModelType = typeof(CourseModel).AssemblyQualifiedName,
+                        Bindings = new CollectionViewItemBindingsDictionary
+                        (
+                            new List<CollectionViewItemBindingDescriptor>
+                            {
+                                new CollectionViewItemBindingDescriptor
+                                {
+                                    Name = "Text",
+                                    Property = "DepartmentName",
+                                    StringFormat = "{0}"
+                                },
+                                new CollectionViewItemBindingDescriptor
+                                {
+                                    Name = "Detail",
+                                    Property = "StartDate",
+                                    StringFormat = "{0:MMMM dd, yyyy}"
+                                }
+                            }
+                        ),
+                        CollectionSelector = new SelectorLambdaOperatorDescriptor
+                        {
+                            Selector = new OrderByOperatorDescriptor
+                            {
+                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                                SelectorBody = new MemberSelectorOperatorDescriptor
+                                {
+                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                    MemberFullName = "Title"
+                                },
+                                SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                                SelectorParameterName = "d"
+                            },
+                            SourceElementType = typeof(IQueryable<CourseModel>).AssemblyQualifiedName,
+                            ParameterName = "$it",
+                            BodyType = typeof(IEnumerable<CourseModel>).AssemblyQualifiedName
+                        },
+                        RequestDetails = new RequestDetailsDescriptor
+                        {
+                            DataSourceUrl = "api/List/GetList",
+                            ModelType = typeof(CourseModel).AssemblyQualifiedName,
+                            DataType = typeof(Course).AssemblyQualifiedName,
+                            ModelReturnType = typeof(IEnumerable<CourseModel>).AssemblyQualifiedName,
+                            DataReturnType = typeof(IEnumerable<Course>).AssemblyQualifiedName
+                        }
+                    },
                     FieldSettings = new List<FormItemSettingsDescriptor>
                     {
                         new FormControlSettingsDescriptor
