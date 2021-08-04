@@ -63,6 +63,39 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
         }
 
         [Fact]
+        public void Select_Courses_In_Ascending_Order_As_CourseModel_Type()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<CourseModel>, IEnumerable<CourseModel>>
+            (
+                GetCoursesBodyForCourseModelType(),
+                "q"
+            );
+            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
+            ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
+
+            //act
+            var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
+            var list = RequestHelpers.GetList<CourseModel, Course, IEnumerable<CourseModel>, IEnumerable<Course>>
+            (
+                new Business.Requests.GetTypedListRequest
+                {
+                    Selector = selectorLambdaOperatorDescriptor,
+                    ModelType = typeof(CourseModel).AssemblyQualifiedName,
+                    DataType = typeof(Course).AssemblyQualifiedName,
+                    ModelReturnType = typeof(IEnumerable<CourseModel>).AssemblyQualifiedName,
+                    DataReturnType = typeof(IEnumerable<Course>).AssemblyQualifiedName
+                },
+                repository,
+                mapper
+            ).Result.List.ToList();
+
+            //assert
+            AssertFilterStringIsCorrect(expression, "q => Convert(q.OrderBy(d => d.Title))");
+            Assert.Equal(7, list.Count);
+        }
+
+        [Fact]
         public void Select_Departments_In_Ascending_Order_As_DepartmentModel_Type()
         {
             //arrange
@@ -78,7 +111,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
             var list = RequestHelpers.GetObjectSelect<DepartmentModel, Department, IEnumerable<DepartmentModel>, IEnumerable<Department>>
             (
-                new Business.Requests.GetTypedDropDownListRequest
+                new Business.Requests.GetTypedListRequest
                 {
                     Selector = selectorLambdaOperatorDescriptor,
                     ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
@@ -111,7 +144,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
             var list = RequestHelpers.GetObjectSelect<InstructorModel, Instructor, IEnumerable<InstructorModel>, IEnumerable<Instructor>>
             (
-                new Business.Requests.GetTypedDropDownListRequest
+                new Business.Requests.GetTypedListRequest
                 {
                     Selector = selectorLambdaOperatorDescriptor,
                     ModelType = typeof(InstructorModel).AssemblyQualifiedName,
@@ -207,7 +240,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
             var response = RequestHelpers.GetLookupSelect<LookUpsModel, LookUps, IEnumerable<LookUpsModel>, IEnumerable<LookUps>>
             (
-                new Business.Requests.GetTypedDropDownListRequest
+                new Business.Requests.GetTypedListRequest
                 {
                     Selector = selectorLambdaOperatorDescriptor,
                     ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
@@ -240,7 +273,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
             var list = RequestHelpers.GetLookupSelect
             (
-                new Business.Requests.GetTypedDropDownListRequest
+                new Business.Requests.GetTypedListRequest
                 {
                     Selector = selectorLambdaOperatorDescriptor,
                     ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
@@ -273,7 +306,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
             var response = RequestHelpers.GetObjectSelect<LookUpsModel, LookUps, IEnumerable<LookUpsModel>, IEnumerable<LookUps>>
             (
-                new Business.Requests.GetTypedDropDownListRequest
+                new Business.Requests.GetTypedListRequest
                 {
                     Selector = selectorLambdaOperatorDescriptor,
                     ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
@@ -306,7 +339,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
             var list = RequestHelpers.GetObjectSelect
             (
-                new Business.Requests.GetTypedDropDownListRequest
+                new Business.Requests.GetTypedListRequest
                 {
                     Selector = selectorLambdaOperatorDescriptor,
                     ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
@@ -365,6 +398,19 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                     },
                     NewType = typeof(InstructorModel).AssemblyQualifiedName
                 },
+                SelectorParameterName = "d"
+            };
+
+        private OrderByOperatorDescriptor GetCoursesBodyForCourseModelType()
+            => new OrderByOperatorDescriptor
+            {
+                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                SelectorBody = new MemberSelectorOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                    MemberFullName = "Title"
+                },
+                SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
                 SelectorParameterName = "d"
             };
 

@@ -119,6 +119,17 @@ namespace Contoso.XPlatform.Utils
                     }
                 }
             ),
+            FormGroupArrayTemplate = new DataTemplate
+            (
+                () => new StackLayout
+                {
+                    Children =
+                    {
+                        GetPopupFormArrayFieldControl(),
+                        GetLabelForValidation()
+                    }
+                }
+            ),
             HiddenTemplate = new DataTemplate
             (
                 () => new StackLayout
@@ -224,6 +235,26 @@ namespace Contoso.XPlatform.Utils
             };
         }
 
+        public static Grid GetPopupFormArrayFieldControl()
+        {
+            return new Grid
+            {
+                Children =
+                {
+                    GetEntryForFormArrayPopupControl(),
+                    new BoxView()
+                },
+                GestureRecognizers =
+                {
+                    new TapGestureRecognizer().AddBinding
+                    (
+                        TapGestureRecognizer.CommandProperty,
+                        new Binding(path: "OpenCommand")
+                    )
+                }
+            };
+        }
+
         public static DatePicker GetDatePickerForValidation()
             => new DatePicker()
             {
@@ -250,6 +281,13 @@ namespace Contoso.XPlatform.Utils
             (
                 Entry.TextProperty,
                 new Binding(nameof(FormValidatableObject<object>.DisplayText))
+            );
+
+        public static Entry GetEntryForFormArrayPopupControl()
+            => GetEntry().AddBinding
+            (
+                Entry.TextProperty,
+                new Binding(nameof(FormArrayValidatableObject<ObservableCollection<string>, string>.DisplayText))
             );
 
         public static Entry GetEntryForValidation(bool isPassword = false)

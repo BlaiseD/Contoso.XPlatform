@@ -11,7 +11,7 @@ namespace Contoso.XPlatform.Views
         public ChildFormPageCS(IValidatable formValidatable)
         {
             this.formValidatable = formValidatable;
-            this.formGroupSettingsDescriptor = (FormGroupSettingsDescriptor)this.formValidatable.GetType()
+            this.formGroupSettingsDescriptor = (IFormGroupSettings)this.formValidatable.GetType()
                 .GetProperty(nameof(FormValidatableObject<object>.FormSettings))
                 .GetValue(this.formValidatable);
 
@@ -85,6 +85,6 @@ namespace Contoso.XPlatform.Views
         }
 
         private IValidatable formValidatable;
-        private FormGroupSettingsDescriptor formGroupSettingsDescriptor;
+        private IFormGroupSettings formGroupSettingsDescriptor;
     }
 }

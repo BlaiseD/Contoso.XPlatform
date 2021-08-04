@@ -43,7 +43,7 @@ namespace Contoso.Bsl.Utils
                 )
             };
 
-        public static async Task<GetLookupDropDownListResponse> GetLookupSelect(GetTypedDropDownListRequest request, IContextRepository contextRepository, IMapper mapper) 
+        public static async Task<GetLookupDropDownListResponse> GetLookupSelect(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper) 
             => await (Task<GetLookupDropDownListResponse>)"GetLookupSelect".GetSelectMethod()
             .MakeGenericMethod
             (
@@ -53,7 +53,7 @@ namespace Contoso.Bsl.Utils
                 Type.GetType(request.DataReturnType)
             ).Invoke(null, new object[] { request, contextRepository, mapper });
 
-        public static async Task<GetLookupDropDownListResponse> GetLookupSelect<TModel, TData, TModelReturn, TDataReturn>(GetTypedDropDownListRequest request, IContextRepository contextRepository, IMapper mapper)
+        public static async Task<GetLookupDropDownListResponse> GetLookupSelect<TModel, TData, TModelReturn, TDataReturn>(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper)
             where TModel : BaseModel
             where TData : BaseData
             => new GetLookupDropDownListResponse
@@ -65,7 +65,7 @@ namespace Contoso.Bsl.Utils
                 )
             };
 
-        public static async Task<GetObjectDropDownListResponse> GetObjectSelect(GetTypedDropDownListRequest request, IContextRepository contextRepository, IMapper mapper)
+        public static async Task<GetObjectDropDownListResponse> GetObjectSelect(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper)
             => await (Task<GetObjectDropDownListResponse>)"GetObjectSelect".GetSelectMethod()
             .MakeGenericMethod
             (
@@ -75,12 +75,34 @@ namespace Contoso.Bsl.Utils
                 Type.GetType(request.DataReturnType)
             ).Invoke(null, new object[] { request, contextRepository, mapper });
 
-        public static async Task<GetObjectDropDownListResponse> GetObjectSelect<TModel, TData, TModelReturn, TDataReturn>(GetTypedDropDownListRequest request, IContextRepository contextRepository, IMapper mapper)
+        public static async Task<GetObjectDropDownListResponse> GetObjectSelect<TModel, TData, TModelReturn, TDataReturn>(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper)
             where TModel : BaseModel
             where TData : BaseData
             => new GetObjectDropDownListResponse
             {
                 DropDownList = (IEnumerable<ViewModelBase>)await Query<TModel, TData, TModelReturn, TDataReturn>
+                (
+                    contextRepository,
+                    mapper.MapToOperator(request.Selector)
+                )
+            };
+
+        public static async Task<GetListResponse> GetList(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper)
+            => await (Task<GetListResponse>)"GetList".GetSelectMethod()
+            .MakeGenericMethod
+            (
+                Type.GetType(request.ModelType),
+                Type.GetType(request.DataType),
+                Type.GetType(request.ModelReturnType),
+                Type.GetType(request.DataReturnType)
+            ).Invoke(null, new object[] { request, contextRepository, mapper });
+
+        public static async Task<GetListResponse> GetList<TModel, TData, TModelReturn, TDataReturn>(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper)
+            where TModel : BaseModel
+            where TData : BaseData
+            => new GetListResponse
+            {
+                List = (IEnumerable<ViewModelBase>)await Query<TModel, TData, TModelReturn, TDataReturn>
                 (
                     contextRepository,
                     mapper.MapToOperator(request.Selector)

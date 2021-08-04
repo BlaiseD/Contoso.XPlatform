@@ -7,7 +7,8 @@ namespace Contoso.XPlatform.Services
     public interface IHttpService
     {
         Task<GetAnonymousDropDownListResponse> GetAnonymousDropDown(GetAnonymousDropDownListRequest request, string url = null);
-        Task<GetLookupDropDownListResponse> GetLookupDropDown(GetTypedDropDownListRequest request, string url = null);
-        Task<GetObjectDropDownListResponse> GetObjectDropDown(GetTypedDropDownListRequest request, string url = null);
+        Task<GetLookupDropDownListResponse> GetLookupDropDown(GetTypedListRequest request, string url = null);
+        Task<GetObjectDropDownListResponse> GetObjectDropDown(GetTypedListRequest request, string url = null);
+        Task<GetListResponse> GetList(GetTypedListRequest request, string url = null);
     }
 }

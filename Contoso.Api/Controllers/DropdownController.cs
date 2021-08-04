@@ -33,7 +33,7 @@ namespace Contoso.Api.Controllers
             );
 
         [HttpPost("GetLookupDropdown")]
-        public async Task<GetLookupDropDownListResponse> GetLookupDropDown([FromBody] GetTypedDropDownListRequest request) 
+        public async Task<GetLookupDropDownListResponse> GetLookupDropDown([FromBody] GetTypedListRequest request) 
             => await this.clientFactory.PostAsync<GetLookupDropDownListResponse>
             (
                 "api/Dropdown/GetLookupDropdown",
@@ -42,7 +42,7 @@ namespace Contoso.Api.Controllers
             );
 
         [HttpPost("GetObjectDropdown")]
-        public async Task<GetObjectDropDownListResponse> GetObjectDropDown([FromBody] GetTypedDropDownListRequest request) 
+        public async Task<GetObjectDropDownListResponse> GetObjectDropDown([FromBody] GetTypedListRequest request) 
             => await this.clientFactory.PostAsync<GetObjectDropDownListResponse>
             (
                 "api/Dropdown/GetObjectDropdown",

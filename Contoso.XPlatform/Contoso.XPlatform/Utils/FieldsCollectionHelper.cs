@@ -388,8 +388,8 @@ namespace Contoso.XPlatform.Utils
             return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
         }
 
-        private IValidatable _CreateFormArrayValidatableObject<T, E>(FormGroupArraySettingsDescriptor setting, string name) where T : ObservableCollection<E>
-            => new FormArrayValidatableObject<T, E>(name, setting, new IValidationRule[] { }, this.uiNotificationService)
+        private IValidatable _CreateFormArrayValidatableObject<T, E>(FormGroupArraySettingsDescriptor setting, string name) where T : ObservableCollection<E> where E : class
+            => new FormArrayValidatableObject<T, E>(name, setting, this.httpService, new IValidationRule[] { }, this.uiNotificationService)
             {
                 Value = default
             };

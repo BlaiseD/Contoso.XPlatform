@@ -96,7 +96,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             {
                 GetObjectDropDownListResponse response = await this.httpService.GetObjectDropDown
                 (
-                    new GetTypedDropDownListRequest
+                    new GetTypedListRequest
                     {
                         DataType = this._dropDownTemplate.RequestDetails.DataType,
                         ModelType = this._dropDownTemplate.RequestDetails.ModelType,

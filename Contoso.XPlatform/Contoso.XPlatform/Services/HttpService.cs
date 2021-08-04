@@ -46,7 +46,7 @@ namespace Contoso.XPlatform.Services
             return response;
         }
 
-        public async Task<GetLookupDropDownListResponse> GetLookupDropDown(GetTypedDropDownListRequest request, string url = null)
+        public async Task<GetLookupDropDownListResponse> GetLookupDropDown(GetTypedListRequest request, string url = null)
         {
             string jsonRequest = JsonSerializer.Serialize(request);
             var response = await GetFromCache<GetLookupDropDownListResponse>(jsonRequest);
@@ -69,7 +69,7 @@ namespace Contoso.XPlatform.Services
             return response;
         }
 
-        public async Task<GetObjectDropDownListResponse> GetObjectDropDown(GetTypedDropDownListRequest request, string url = null)
+        public async Task<GetObjectDropDownListResponse> GetObjectDropDown(GetTypedListRequest request, string url = null)
         {
             string jsonRequest = JsonSerializer.Serialize(request);
             var response = await GetFromCache<GetObjectDropDownListResponse>(jsonRequest);
@@ -91,6 +91,17 @@ namespace Contoso.XPlatform.Services
 
             return response;
         }
+
+        public Task<GetListResponse> GetList(GetTypedListRequest request, string url = null) 
+            => PollyHelpers.ExecutePolicyAsync
+            (
+                () => this.factory.PostAsync<GetListResponse>
+                (
+                    url ?? "api/List/GetList",
+                    JsonSerializer.Serialize(request),
+                    App.BASE_URL
+                )
+            );
 
         public async Task AddToCache<T>(string cacheName, T objectToAdd)
         {

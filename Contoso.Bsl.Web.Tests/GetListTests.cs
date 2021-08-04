@@ -13,9 +13,9 @@ using Xunit;
 
 namespace Contoso.Bsl.Web.Tests
 {
-    public class GetDropdownListTests
+    public class GetListTests
     {
-        public GetDropdownListTests()
+        public GetListTests()
         {
             Initialize();
         }
@@ -34,6 +34,19 @@ namespace Contoso.Bsl.Web.Tests
 
             this.clientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
         }
+
+        private OrderByOperatorDescriptor GetCoursesBodyForCourseModelType()
+            => new OrderByOperatorDescriptor
+            {
+                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                SelectorBody = new MemberSelectorOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                    MemberFullName = "Title"
+                },
+                SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                SelectorParameterName = "d"
+            };
 
         private SelectOperatorDescriptor GetDepartmentsBodyForDepartmentModelType()
             => new SelectOperatorDescriptor
@@ -146,7 +159,7 @@ namespace Contoso.Bsl.Web.Tests
                 "api/Dropdown/GetLookupDropdown",
                 JsonSerializer.Serialize
                 (
-                    new Business.Requests.GetTypedDropDownListRequest
+                    new Business.Requests.GetTypedListRequest
                     {
                         Selector = selectorLambdaOperatorDescriptor,
                         ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
@@ -175,7 +188,7 @@ namespace Contoso.Bsl.Web.Tests
                 "api/Dropdown/GetObjectDropdown",
                 JsonSerializer.Serialize
                 (
-                    new Business.Requests.GetTypedDropDownListRequest
+                    new Business.Requests.GetTypedListRequest
                     {
                         Selector = selectorLambdaOperatorDescriptor,
                         ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
@@ -204,13 +217,42 @@ namespace Contoso.Bsl.Web.Tests
                 "api/Dropdown/GetObjectDropdown",
                 JsonSerializer.Serialize
                 (
-                    new Business.Requests.GetTypedDropDownListRequest
+                    new Business.Requests.GetTypedListRequest
                     {
                         Selector = selectorLambdaOperatorDescriptor,
                         ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
                         DataType = typeof(Department).AssemblyQualifiedName,
                         ModelReturnType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName,
                         DataReturnType = typeof(IEnumerable<Department>).AssemblyQualifiedName
+                    }
+                )
+            );
+
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async void GetListRequest_As_CourseModel()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<CourseModel>, IEnumerable<CourseModel>>
+            (
+                GetCoursesBodyForCourseModelType(),
+                "q"
+            );
+
+            var result = await this.clientFactory.PostAsync<GetListResponse>
+            (
+                "api/List/GetList",
+                JsonSerializer.Serialize
+                (
+                    new Business.Requests.GetTypedListRequest
+                    {
+                        Selector = selectorLambdaOperatorDescriptor,
+                        ModelType = typeof(CourseModel).AssemblyQualifiedName,
+                        DataType = typeof(Course).AssemblyQualifiedName,
+                        ModelReturnType = typeof(IEnumerable<CourseModel>).AssemblyQualifiedName,
+                        DataReturnType = typeof(IEnumerable<Course>).AssemblyQualifiedName
                     }
                 )
             );

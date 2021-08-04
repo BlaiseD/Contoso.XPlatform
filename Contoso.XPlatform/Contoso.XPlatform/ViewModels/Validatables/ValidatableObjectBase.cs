@@ -23,7 +23,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         private bool _isDirty;
         private Dictionary<string, string> _errors = new Dictionary<string, string>();
         private string _templateName;
-        private UiNotificationService uiNotificationService;
+        protected UiNotificationService uiNotificationService;
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion Fields

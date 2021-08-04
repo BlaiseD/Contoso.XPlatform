@@ -33,7 +33,7 @@ namespace Contoso.Bsl.Controllers
         }
 
         [HttpPost("GetLookupDropdown")]
-        public async Task<GetLookupDropDownListResponse> GetLookupDropDown([FromBody] GetTypedDropDownListRequest request)
+        public async Task<GetLookupDropDownListResponse> GetLookupDropDown([FromBody] GetTypedListRequest request)
         {
             return await RequestHelpers.GetLookupSelect
             (
@@ -44,7 +44,7 @@ namespace Contoso.Bsl.Controllers
         }
 
         [HttpPost("GetObjectDropdown")]
-        public async Task<GetObjectDropDownListResponse> GetObjectDropDown([FromBody] GetTypedDropDownListRequest request)
+        public async Task<GetObjectDropDownListResponse> GetObjectDropDown([FromBody] GetTypedListRequest request)
         {
             return await RequestHelpers.GetObjectSelect
             (

@@ -12,7 +12,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class FormValidatableObject<T> : ValidatableObjectBase<T> where T : class
     {
-        public FormValidatableObject(string name, FormGroupSettingsDescriptor setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper) : base(name, setting.FormGroupTemplate.TemplateName, validations, uiNotificationService)
+        public FormValidatableObject(string name, IFormGroupSettings setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper) : base(name, setting.FormGroupTemplate.TemplateName, validations, uiNotificationService)
         {
             this.FormSettings = setting;
             this.Title = this.FormSettings.Title;
@@ -23,7 +23,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         }
 
         public ObservableCollection<IValidatable> Properties { get; set; } = new ObservableCollection<IValidatable>();
-        public FormGroupSettingsDescriptor FormSettings { get; set; }
+        
+        public IFormGroupSettings FormSettings { get; set; }
         private readonly IMapper mapper;
 
         private string _title;

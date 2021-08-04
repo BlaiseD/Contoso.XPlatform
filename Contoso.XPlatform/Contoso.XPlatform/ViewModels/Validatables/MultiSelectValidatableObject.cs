@@ -19,9 +19,9 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         public MultiSelectValidatableObject(string name, MultiSelectFormControlSettingsDescriptor setting, IHttpService httpService, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService)
             : base(name, setting.MultiSelectTemplate.TemplateName, validations, uiNotificationService)
         {
-            this.Title = setting.Title;
             this._multiSelectFormControlSettingsDescriptor = setting;
             this._multiSelectTemplate = setting.MultiSelectTemplate;
+            this.Title = this._multiSelectTemplate.LoadingIndicatorText;
             this.httpService = httpService;
             itemComparer = new MultiSelectItemComparer<E>(_multiSelectFormControlSettingsDescriptor.KeyFields);
             SelectedItems = new ObservableCollection<object>();
@@ -131,7 +131,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             {
                 GetObjectDropDownListResponse response = await this.httpService.GetObjectDropDown
                 (
-                    new GetTypedDropDownListRequest
+                    new GetTypedListRequest
                     {
                         DataType = this._multiSelectTemplate.RequestDetails.DataType,
                         ModelType = this._multiSelectTemplate.RequestDetails.ModelType,
@@ -166,6 +166,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 SelectedItems.Add(item);
 
             canExecute = true;
+            this.Title = this._multiSelectFormControlSettingsDescriptor.Title;
             this.Placeholder = this._multiSelectTemplate.PlaceHolderText;
         }
 
