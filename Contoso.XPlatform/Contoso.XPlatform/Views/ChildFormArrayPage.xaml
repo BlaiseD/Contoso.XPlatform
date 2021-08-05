@@ -4,22 +4,24 @@
              x:Class="Contoso.XPlatform.Views.ChildFormArrayPage">
     <ContentPage.Resources>
         <DataTemplate x:Key="TextDetailTemplate">
-            <Grid Padding="10" HeightRequest="60">
-                <Label Text="{Binding DepartmentName}" 
+            <Grid Style="{StaticResource FormArrayItemStyle}">
+                <StackLayout Padding="10">
+                    <Label Text="{Binding DepartmentName}" 
                        FontAttributes="Bold" />
-                <Label Text="{Binding StartDate, StringFormat='{0:MMMM dd, yyyy}'}"
-                       FontAttributes="Italic" 
-                       VerticalOptions="End" />
+                    <Label Text="{Binding StartDate, StringFormat='{0:MMMM dd, yyyy}'}"
+                       FontAttributes="Italic" />
+                </StackLayout>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="HeaderTextDetailTemplate">
-            <Grid Padding="10" HeightRequest="60">
-                <Label Text="{Binding DepartmentName}" 
+            <Grid Style="{StaticResource FormArrayItemStyle}">
+                <StackLayout Padding="10">
+                    <Label Text="{Binding DepartmentName}" 
                        FontAttributes="Bold" />
-                <Label Text="{Binding Budget, StringFormat='Budget: {0:c}'}" VerticalOptions="Center" />
-                <Label Text="{Binding StartDate, StringFormat='{0:MMMM dd, yyyy}'}"
-                       FontAttributes="Italic" 
-                       VerticalOptions="End" />
+                    <Label Text="{Binding Budget, StringFormat='Budget: {0:c}'}" />
+                    <Label Text="{Binding StartDate, StringFormat='{0:MMMM dd, yyyy}'}"
+                       FontAttributes="Italic"  />
+                </StackLayout>
             </Grid>
         </DataTemplate>
     </ContentPage.Resources>
@@ -34,6 +36,7 @@
                     </Grid>
                     <CollectionView Style="{StaticResource FormArrayPopupCollectionViewStyle}"
                                     ItemsSource="{Binding Entities}"
+                                    SelectionChangedCommand="{Binding SelectionChangedCommand}"
                                     ItemTemplate="{StaticResource TextDetailTemplate}" />
                     <BoxView Style="{StaticResource PopupFooterSeparatorStyle}"></BoxView>
                     <Grid Style="{StaticResource PopupFooterStyle}">

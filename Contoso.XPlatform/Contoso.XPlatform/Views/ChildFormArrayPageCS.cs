@@ -46,7 +46,9 @@ namespace Contoso.XPlatform.Views
                                     Style = LayoutHelpers.GetStaticStyleResource("FormArrayPopupCollectionViewStyle"),
                                     ItemTemplate = GetCollectionViewItemTemplate()
                                 }
-                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Entities")),
+                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Entities"))
+                                .AddBinding(SelectableItemsView.SelectionChangedCommandProperty, new Binding("SelectionChangedCommand"))
+                                .AddBinding(SelectableItemsView.SelectedItemProperty, new Binding("SelectedItem")),
                                 new BoxView { Style = LayoutHelpers.GetStaticStyleResource("PopupFooterSeparatorStyle") },
                                 new Grid
                                 {
@@ -116,50 +118,56 @@ namespace Contoso.XPlatform.Views
                     (
                         () => new Grid
                         {
-                            Padding = new Thickness(10),
-                            HeightRequest = 60,
-                            Children =
-                            {
-                                new Label
+                            Style = LayoutHelpers.GetStaticStyleResource("FormArrayItemStyle"),
+                            Children = 
+                            { 
+                                new StackLayout
                                 {
-                                    FontAttributes = FontAttributes.Bold
+                                    Margin = new Thickness(2),
+                                    Padding = new Thickness(7),
+                                    Children =
+                                    {
+                                        new Label
+                                        {
+                                            FontAttributes = FontAttributes.Bold
+                                        }
+                                        .AddBinding
+                                        (
+                                            Label.TextProperty,
+                                            new Binding
+                                            (
+                                                formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Header].Property,
+                                                stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Header].StringFormat
+                                            )
+                                        ),
+                                        new Label
+                                        {
+                                        }
+                                        .AddBinding
+                                        (
+                                            Label.TextProperty,
+                                            new Binding
+                                            (
+                                                formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].Property,
+                                                stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].StringFormat
+                                            )
+                                        ),
+                                        new Label
+                                        {
+                                            FontAttributes = FontAttributes.Italic
+                                        }
+                                        .AddBinding
+                                        (
+                                            Label.TextProperty,
+                                            new Binding
+                                            (
+                                                formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].Property,
+                                                stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].StringFormat
+                                            )
+                                        )
+                                    }
                                 }
-                                .AddBinding
-                                (
-                                    Label.TextProperty, 
-                                    new Binding
-                                    (
-                                        formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Header].Name,
-                                        stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Header].StringFormat 
-                                    )
-                                ),
-                                new Label
-                                { 
-                                    VerticalOptions = LayoutOptions.Center 
-                                }
-                                .AddBinding
-                                (
-                                    Label.TextProperty,
-                                    new Binding
-                                    (
-                                        formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].Name,
-                                        stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].StringFormat
-                                    )
-                                ),
-                                new Label
-                                {
-                                    FontAttributes = FontAttributes.Italic,
-                                    VerticalOptions = LayoutOptions.End
-                                }
-                                .AddBinding
-                                (
-                                    Label.TextProperty,
-                                    new Binding
-                                    (
-                                        formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].Name,
-                                        stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].StringFormat
-                                    )
-                                )
+                                .AssignDynamicResource(VisualElement.BackgroundColorProperty, "ResultListBackgroundColor")
                             }
                         }
                     );
@@ -168,37 +176,45 @@ namespace Contoso.XPlatform.Views
                     (
                         () => new Grid
                         {
-                            Padding = new Thickness(10),
-                            HeightRequest = 60,
-                            Children =
-                            {
-                                new Label
+                            Style = LayoutHelpers.GetStaticStyleResource("FormArrayItemStyle"),
+                            Children = 
+                            { 
+                                new StackLayout
                                 {
-                                    FontAttributes = FontAttributes.Bold
+                                    Margin = new Thickness(2),
+                                    Padding = new Thickness(7),
+                                    Children =
+                                    {
+                                        new Label
+                                        {
+                                            FontAttributes = FontAttributes.Bold
+                                        }
+                                        .AddBinding
+                                        (
+                                            Label.TextProperty,
+                                            new Binding
+                                            (
+                                                formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].Property,
+                                                stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].StringFormat
+                                            )
+                                        ),
+                                        new Label
+                                        {
+                                            FontAttributes = FontAttributes.Italic,
+                                            VerticalOptions = LayoutOptions.Center
+                                        }
+                                        .AddBinding
+                                        (
+                                            Label.TextProperty,
+                                            new Binding
+                                            (
+                                                formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].Property,
+                                                stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].StringFormat
+                                            )
+                                        )
+                                    }
                                 }
-                                .AddBinding
-                                (
-                                    Label.TextProperty,
-                                    new Binding
-                                    (
-                                        formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].Name,
-                                        stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].StringFormat
-                                    )
-                                ),
-                                new Label
-                                {
-                                    FontAttributes = FontAttributes.Italic,
-                                    VerticalOptions = LayoutOptions.End
-                                }
-                                .AddBinding
-                                (
-                                    Label.TextProperty,
-                                    new Binding
-                                    (
-                                        formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].Name,
-                                        stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].StringFormat
-                                    )
-                                )
+                                .AssignDynamicResource(VisualElement.BackgroundColorProperty, "ResultListBackgroundColor")
                             }
                         }
                     );

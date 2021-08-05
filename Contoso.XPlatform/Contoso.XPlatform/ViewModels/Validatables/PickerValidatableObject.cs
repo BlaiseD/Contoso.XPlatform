@@ -72,9 +72,10 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                     return;
 
                 _selectedItem = value;
-                Value = _selectedItem == null ?
-                    default :
-                    _selectedItem.GetPropertyValue<T>(_dropDownTemplate.ValueField);
+                Value = _selectedItem == null 
+                    ? default 
+                    : _selectedItem.GetPropertyValue<T>(_dropDownTemplate.ValueField);
+
                 OnPropertyChanged();
             }
         }
@@ -107,7 +108,11 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                     this._dropDownTemplate.RequestDetails.DataSourceUrl
                 );
 
-                Items = response.DropDownList.OfType<object>().ToList();
+                Items = null;
+                await System.Threading.Tasks.Task.Delay(10);
+                Items = response.DropDownList.Cast<object>().ToList();
+                OnPropertyChanged(nameof(SelectedItem));
+
                 this.Title = controlSettings.Title;
             }
             catch (Exception e)

@@ -14,7 +14,7 @@ namespace Contoso.XPlatform.Views
             this.formGroupSettingsDescriptor = (IFormGroupSettings)this.formValidatable.GetType()
                 .GetProperty(nameof(FormValidatableObject<object>.FormSettings))
                 .GetValue(this.formValidatable);
-
+            
             Content = new AbsoluteLayout
             {
                 HorizontalOptions = LayoutOptions.Fill,

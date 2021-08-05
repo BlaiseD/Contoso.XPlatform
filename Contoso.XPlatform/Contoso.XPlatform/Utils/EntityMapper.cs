@@ -17,7 +17,7 @@ namespace Contoso.XPlatform.Utils
         public static Dictionary<string, object> ValidatableListToObjectDictionary(this IEnumerable<IValidatable> properties, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings)
             => properties.ToDictionary(p => p.Name, p => p.Value).ToObjectDictionaryFromValidatableObjects(mapper, fieldSettings);
 
-        public static object ToModelObject(this IEnumerable<IValidatable> properties, Type entityType, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings)
+        public static object ToModelObject(this IEnumerable<IValidatable> properties, Type entityType, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings, object destination = null)
         {
             MethodInfo methodInfo = typeof(EntityMapper).GetMethod
             (
@@ -27,18 +27,32 @@ namespace Contoso.XPlatform.Utils
                 {
                     typeof(IEnumerable<IValidatable>),
                     typeof(IMapper),
-                    typeof(List<FormItemSettingsDescriptor>)
+                    typeof(List<FormItemSettingsDescriptor>),
+                    typeof(object)
                 }
             ).MakeGenericMethod(entityType);
 
-            return methodInfo.Invoke(null, new object[] { properties, mapper, fieldSettings });
+            return methodInfo.Invoke(null, new object[] { properties, mapper, fieldSettings, destination });
         }
 
-        public static T ToModelObject<T>(this IEnumerable<IValidatable> properties, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings) 
-            => mapper.Map<T>
+        public static T ToModelObject<T>(this IEnumerable<IValidatable> properties, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings, object destination = null)
+        {
+            if (destination == null)
+            {
+                return mapper.Map<T>
+                (
+                    properties.ToDictionary(p => p.Name, p => p.Value).ToObjectDictionaryFromValidatableObjects(mapper, fieldSettings)
+                );
+            }
+
+            return (T)mapper.Map
             (
-                properties.ToDictionary(p => p.Name, p => p.Value).ToObjectDictionaryFromValidatableObjects(mapper, fieldSettings)
+                properties.ToDictionary(p => p.Name, p => p.Value).ToObjectDictionaryFromValidatableObjects(mapper, fieldSettings),
+                destination,
+                typeof(Dictionary<string, object>),
+                typeof(T)
             );
+        }
 
         /// <summary>
         /// Ensures all child objects and collections are dictionaries
@@ -194,7 +208,7 @@ namespace Contoso.XPlatform.Utils
 
         public static void UpdateValidatables(this IEnumerable<IValidatable> properties, object source, List<FormItemSettingsDescriptor> fieldSettings, IMapper mapper, string parentField = null)
         {
-            IDictionary<string, object> existingValues = mapper.Map<Dictionary<string, object>>(source);
+            IDictionary<string, object> existingValues = mapper.Map<Dictionary<string, object>>(source) ?? new Dictionary<string, object>();//.ToObjectDictionaryFromEntity(mapper, fieldSettings);
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(p => p.Name);
             foreach (var setting in fieldSettings)
             {
@@ -344,6 +358,6 @@ namespace Contoso.XPlatform.Utils
         }
 
         private static bool IsEmpty(this IDictionary<string, object> dictionary)
-            => !dictionary.Any();
+            => dictionary?.Any() != true;
     }
 }

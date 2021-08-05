@@ -100,7 +100,7 @@
             <DataTemplate x:Key="PickerTemplate">
                 <StackLayout>
                     <Picker x:Name="pickerDemo" 
-                            SelectedItem="{Binding Value}"
+                            SelectedItem="{Binding SelectedItem}"
                             Title="{Binding Title}"
                             ItemsSource="{Binding Items}">
                         <Picker.Behaviors>

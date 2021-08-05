@@ -63,6 +63,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             set
             {
                 base.Value = value;
+                Properties.UpdateValidatables(base.Value, FormSettings.FieldSettings, this.mapper);
 
                 IsValid = Validate();
 
@@ -99,7 +100,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                         (
                             typeof(T), 
                             this.mapper, 
-                            this.FormSettings.FieldSettings
+                            this.FormSettings.FieldSettings,
+                            Value
                         );
 
                         Placeholder = IsValid ? this.FormSettings.ValidFormControlText : this.FormSettings.InvalidFormControlText;

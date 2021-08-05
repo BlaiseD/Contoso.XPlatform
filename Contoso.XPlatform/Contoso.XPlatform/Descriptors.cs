@@ -885,15 +885,21 @@ namespace Contoso.XPlatform
                             {
                                 new CollectionViewItemBindingDescriptor
                                 {
+                                    Name = "Header",
+                                    Property = "CourseID",
+                                    StringFormat = "ID {0}"
+                                },
+                                new CollectionViewItemBindingDescriptor
+                                {
                                     Name = "Text",
-                                    Property = "DepartmentName",
+                                    Property = "Title",
                                     StringFormat = "{0}"
                                 },
                                 new CollectionViewItemBindingDescriptor
                                 {
                                     Name = "Detail",
-                                    Property = "StartDate",
-                                    StringFormat = "{0:MMMM dd, yyyy}"
+                                    Property = "Credits",
+                                    StringFormat = "Credits: {0}"
                                 }
                             }
                         ),

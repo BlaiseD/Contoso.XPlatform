@@ -25,7 +25,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             this.Title = setting.FormsCollectionDisplayTemplate.LoadingIndicatorText;
             this.httpService = httpService;
             this.Placeholder = this.formsCollectionDisplayTemplateDescriptor.LoadingIndicatorText;
-            _entities = new ObservableCollection<E>();
+            Entities = new ObservableCollection<E>();
             LoadEntities();
         }
 
@@ -73,7 +73,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             }
             set
             {
-                if (!_selectedItem.Equals(value))
+                if (_selectedItem == null || !_selectedItem.Equals(value))
                 {
                     _selectedItem = value;
                     OnPropertyChanged();
@@ -100,21 +100,20 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         {
             try
             {
-                //GetListResponse response = await this.httpService.GetList
-                //(
-                //    new GetTypedListRequest
-                //    {
-                //        DataType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.DataType,
-                //        ModelType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.ModelType,
-                //        ModelReturnType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.ModelReturnType,
-                //        DataReturnType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.DataReturnType,
-                //        Selector = this.formsCollectionDisplayTemplateDescriptor.CollectionSelector
-                //    },
-                //    this.formsCollectionDisplayTemplateDescriptor.RequestDetails.DataSourceUrl
-                //);
+                GetListResponse response = await this.httpService.GetList
+                (
+                    new GetTypedListRequest
+                    {
+                        DataType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.DataType,
+                        ModelType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.ModelType,
+                        ModelReturnType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.ModelReturnType,
+                        DataReturnType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.DataReturnType,
+                        Selector = this.formsCollectionDisplayTemplateDescriptor.CollectionSelector
+                    },
+                    this.formsCollectionDisplayTemplateDescriptor.RequestDetails.DataSourceUrl
+                );
 
-                //Entities = new ObservableCollection<E>(response.List.OfType<E>());
-                //Entities = new ObservableCollection<E>();
+                Entities = new ObservableCollection<E>(response.List.OfType<E>());
                 this.Title = this.FormSettings.Title;
                 this.Placeholder = this.formsCollectionDisplayTemplateDescriptor.PlaceHolderText;
             }
@@ -246,7 +245,10 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                             )
                         );
                     },
-                    () => SelectedItem != null
+                    () => 
+                    { 
+                        return SelectedItem != null; 
+                    }
                 );
 
                 return _editCommand;
@@ -289,7 +291,27 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                     }
                 );
 
-                return _editCommand;
+                return _addCommand;
+            }
+        }
+
+        private ICommand _selectionChangedCommand;
+        public ICommand SelectionChangedCommand
+        {
+            get
+            {
+                if (_selectionChangedCommand != null)
+                    return _selectionChangedCommand;
+
+                _selectionChangedCommand = new Command
+                (
+                    () =>
+                    {
+                        (EditCommand as Command).ChangeCanExecute();
+                    }
+                );
+
+                return _selectionChangedCommand;
             }
         }
     }
