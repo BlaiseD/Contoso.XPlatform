@@ -26,11 +26,17 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         }
 
         private readonly ValidateIfManager<TModel> validateIfManager;
+        private TModel entity;
 
         public override void Dispose()
         {
             base.Dispose();
             Dispose(this.validateIfManager);
+        }
+
+        private async void GetEntity()
+        {
+
         }
     }
 }

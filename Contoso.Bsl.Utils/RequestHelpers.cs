@@ -109,6 +109,27 @@ namespace Contoso.Bsl.Utils
                 )
             };
 
+        public static async Task<GetEntityResponse> GetEntity(GetEntityRequest request, IContextRepository contextRepository, IMapper mapper)
+            => await (Task<GetEntityResponse>)"GetEntity".GetSelectMethod()
+            .MakeGenericMethod
+            (
+                Type.GetType(request.ModelType),
+                Type.GetType(request.DataType)
+            ).Invoke(null, new object[] { request, contextRepository, mapper });
+
+        public static async Task<GetEntityResponse> GetEntity<TModel, TData>(GetEntityRequest request, IContextRepository contextRepository, IMapper mapper)
+            where TModel : ViewModelBase
+            where TData : BaseData
+            => new GetEntityResponse
+            {
+                Entity = await QueryEntity<TModel, TData>
+                (
+                    contextRepository,
+                    mapper.MapToOperator(request.Filter),
+                    mapper.MapExpansion(request.SelectExpandDefinition)
+                )
+            };
+
         private static Task<IEnumerable<dynamic>> Query<TModel, TData>(IContextRepository repository,
             IExpressionPart queryExpression)
             where TModel : BaseModel
@@ -128,6 +149,19 @@ namespace Contoso.Bsl.Utils
                 (Expression<Func<IQueryable<TModel>, TModelReturn>>)queryExpression.Build(),
                 (SelectExpandDefinition)null
             );
+
+        private async static Task<TModel> QueryEntity<TModel, TData>(IContextRepository repository,
+            IExpressionPart filterExpression, SelectExpandDefinition selectExpandDefinition = null)
+            where TModel : BaseModel
+            where TData : BaseData 
+            => (
+                    await repository.GetAsync<TModel, TData>
+                    (
+                        (Expression<Func<TModel, bool>>)filterExpression.Build(),
+                        null,
+                        selectExpandDefinition
+                    )
+               ).FirstOrDefault();
 
         private static MethodInfo GetSelectMethod(this string methodName)
            => typeof(RequestHelpers).GetMethods().Single(m => m.Name == methodName && m.IsGenericMethod);

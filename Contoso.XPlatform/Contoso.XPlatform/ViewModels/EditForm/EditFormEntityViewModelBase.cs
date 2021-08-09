@@ -19,6 +19,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         protected EditFormEntityViewModelBase(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper)
         {
             this.UiNotificationService = uiNotificationService;
+            this.httpService = httpService;
             FormSettings = screenSettings.Settings;
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);
             fieldsCollectionHelper = new FieldsCollectionHelper(this.FormSettings, Properties, this.UiNotificationService, httpService, mapper);
@@ -33,6 +34,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 
         internal readonly FieldsCollectionHelper fieldsCollectionHelper;
         protected IDictionary<string, object> values;
+        protected IHttpService httpService;
         private readonly IDisposable propertyChangedSubscription;
 
         private ICommand _submitCommand;
@@ -67,11 +69,6 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                 (isTrue, next) => next.Validate() && isTrue
             );
 
-        private void FieldChanged(string fieldName)
-        {
-            (SubmitCommand as Command).ChangeCanExecute();
-        }
-
         public virtual void Dispose()
         {
             Dispose(this.propertyChangedSubscription);
@@ -81,6 +78,11 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         {
             if (disposable != null)
                 disposable.Dispose();
+        }
+
+        private void FieldChanged(string fieldName)
+        {
+            (SubmitCommand as Command).ChangeCanExecute();
         }
     }
 }

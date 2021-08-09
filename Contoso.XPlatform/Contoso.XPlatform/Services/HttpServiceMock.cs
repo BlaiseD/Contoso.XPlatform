@@ -13,22 +13,27 @@ namespace Contoso.XPlatform.Services
     {
         public Task<GetAnonymousDropDownListResponse> GetAnonymousDropDown(GetAnonymousDropDownListRequest request, string url = null)
         {
-            return Task.FromResult(new GetAnonymousDropDownListResponse { DropDownList = new List<object> { } });
+            return Task.FromResult(new GetAnonymousDropDownListResponse { Success = true, DropDownList = new List<object> { } });
         }
 
         public Task<GetLookupDropDownListResponse> GetLookupDropDown(GetTypedListRequest request, string url = null)
         {
-            return Task.FromResult(new GetLookupDropDownListResponse { DropDownList = new List<LookUpsModel> { } });
+            return Task.FromResult(new GetLookupDropDownListResponse { Success = true, DropDownList = new List<LookUpsModel> { } });
         }
 
         public Task<GetObjectDropDownListResponse> GetObjectDropDown(GetTypedListRequest request, string url = null)
         {
-            return Task.FromResult(new GetObjectDropDownListResponse { DropDownList = new List<ViewModelBase> { } });
+            return Task.FromResult(new GetObjectDropDownListResponse { Success = true, DropDownList = new List<ViewModelBase> { } });
         }
 
         public Task<GetListResponse> GetList(GetTypedListRequest request, string url = null)
         {
-            return Task.FromResult(new GetListResponse { List = new List<ViewModelBase> { } });
+            return Task.FromResult(new GetListResponse { Success = true, List = new List<ViewModelBase> { } });
+        }
+
+        public Task<GetEntityResponse> GetEntity(GetEntityRequest request, string url = null)
+        {
+            return Task.FromResult(new GetEntityResponse { Success = true });
         }
     }
 }

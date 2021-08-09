@@ -2,7 +2,7 @@
 
 namespace Contoso.Bsl.Business.Requests
 {
-    public class GetTypedListRequest
+    public class GetTypedListRequest : BaseRequest
     {
         public SelectorLambdaOperatorDescriptor Selector { get; set; }
         public string ModelType { get; set; }

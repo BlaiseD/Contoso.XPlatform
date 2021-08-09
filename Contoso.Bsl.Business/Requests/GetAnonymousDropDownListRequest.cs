@@ -4,7 +4,7 @@ using LogicBuilder.Domain;
 
 namespace Contoso.Bsl.Business.Requests
 {
-    public class GetAnonymousDropDownListRequest
+    public class GetAnonymousDropDownListRequest : BaseRequest
     {
         public SelectorLambdaOperatorDescriptor Selector { get; set; }
         public string ModelType { get; set; }

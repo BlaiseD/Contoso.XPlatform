@@ -96,6 +96,94 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
         }
 
         [Fact]
+        public void Get_Departments_ById_And_Courses_WithGenericHelper()
+        {
+            //arrange
+            var filterLambdaOperatorDescriptor = GetFilterExpressionDescriptor<DepartmentModel>
+            (
+                GetDepartmentByIdFilterBody(1),
+                "q"
+            );
+
+            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
+            ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
+
+            //act
+            var expression = mapper.MapToOperator(filterLambdaOperatorDescriptor).Build();
+            var selectAndExpand = new Common.Configuration.ExpansionDescriptors.SelectExpandDefinitionDescriptor
+            {
+                ExpandedItems = new List<Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor>
+                {
+                    new Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor
+                    {
+                        MemberName = "Courses"
+                    }
+                }
+            };
+
+            var entity = (DepartmentModel)RequestHelpers.GetEntity<DepartmentModel, Department>
+            (
+                new Business.Requests.GetEntityRequest
+                {
+                    Filter = filterLambdaOperatorDescriptor,
+                    SelectExpandDefinition = selectAndExpand,
+                    ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                    DataType = typeof(Department).AssemblyQualifiedName
+                },
+                repository,
+                mapper
+            ).Result.Entity;
+
+            //assert
+            AssertFilterStringIsCorrect(expression, "q => (q.DepartmentID == 1)");
+            Assert.Equal(1, entity.Courses.Count);
+        }
+
+        [Fact]
+        public void Get_Departments_ById_And_Courses_WithoutGenericHelper()
+        {
+            //arrange
+            var filterLambdaOperatorDescriptor = GetFilterExpressionDescriptor<DepartmentModel>
+            (
+                GetDepartmentByIdFilterBody(2),
+                "q"
+            );
+
+            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
+            ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
+
+            //act
+            var expression = mapper.MapToOperator(filterLambdaOperatorDescriptor).Build();
+            var selectAndExpand = new Common.Configuration.ExpansionDescriptors.SelectExpandDefinitionDescriptor
+            {
+                ExpandedItems = new List<Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor>
+                {
+                    new Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor
+                    {
+                        MemberName = "Courses"
+                    }
+                }
+            };
+
+            var entity = (DepartmentModel)RequestHelpers.GetEntity
+            (
+                new Business.Requests.GetEntityRequest
+                {
+                    Filter = filterLambdaOperatorDescriptor,
+                    SelectExpandDefinition = selectAndExpand,
+                    ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                    DataType = typeof(Department).AssemblyQualifiedName
+                },
+                repository,
+                mapper
+            ).Result.Entity;
+
+            //assert
+            AssertFilterStringIsCorrect(expression, "q => (q.DepartmentID == 2)");
+            Assert.Equal(2, entity.Courses.Count);
+        }
+
+        [Fact]
         public void Select_Departments_In_Ascending_Order_As_DepartmentModel_Type()
         {
             //arrange
@@ -401,6 +489,17 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                 SelectorParameterName = "d"
             };
 
+        private EqualsBinaryOperatorDescriptor GetDepartmentByIdFilterBody(int id)
+            => new EqualsBinaryOperatorDescriptor
+            {
+                Left = new MemberSelectorOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                    MemberFullName = "DepartmentID"
+                },
+                Right = new ConstantOperatorDescriptor { Type = typeof(int).FullName, ConstantValue = id }
+            };
+
         private OrderByOperatorDescriptor GetCoursesBodyForCourseModelType()
             => new OrderByOperatorDescriptor
             {
@@ -594,6 +693,14 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                 SourceElementType = typeof(T).AssemblyQualifiedName,
                 ParameterName = parameterName,
                 BodyType = typeof(TResult).AssemblyQualifiedName
+            };
+
+        private FilterLambdaOperatorDescriptor GetFilterExpressionDescriptor<T>(OperatorDescriptorBase filterBody, string parameterName = "$it")
+            => new FilterLambdaOperatorDescriptor
+            {
+                FilterBody = filterBody,
+                SourceElementType = typeof(T).AssemblyQualifiedName,
+                ParameterName = parameterName
             };
 
         private void AssertFilterStringIsCorrect(Expression expression, string expected)

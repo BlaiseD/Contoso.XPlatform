@@ -13,9 +13,9 @@ using Xunit;
 
 namespace Contoso.Bsl.Web.Tests
 {
-    public class GetListTests
+    public class GetTests
     {
-        public GetListTests()
+        public GetTests()
         {
             Initialize();
         }
@@ -133,6 +133,17 @@ namespace Contoso.Bsl.Web.Tests
                 SelectorParameterName = "l"
             };
 
+        private EqualsBinaryOperatorDescriptor GetDepartmentByIdFilterBody(int id)
+            => new EqualsBinaryOperatorDescriptor
+            {
+                Left = new MemberSelectorOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                    MemberFullName = "DepartmentID"
+                },
+                Right = new ConstantOperatorDescriptor { Type = typeof(int).FullName, ConstantValue = 2 }
+            };
+
         private SelectorLambdaOperatorDescriptor GetExpressionDescriptor<T, TResult>(OperatorDescriptorBase selectorBody, string parameterName = "$it")
             => new SelectorLambdaOperatorDescriptor
             {
@@ -140,6 +151,14 @@ namespace Contoso.Bsl.Web.Tests
                 SourceElementType = typeof(T).AssemblyQualifiedName,
                 ParameterName = parameterName,
                 BodyType = typeof(TResult).AssemblyQualifiedName
+            };
+
+        private FilterLambdaOperatorDescriptor GetFilterExpressionDescriptor<T>(OperatorDescriptorBase filterBody, string parameterName = "$it")
+            => new FilterLambdaOperatorDescriptor
+            {
+                FilterBody = filterBody,
+                SourceElementType = typeof(T).AssemblyQualifiedName,
+                ParameterName = parameterName
             };
         #endregion Helpers
 
@@ -258,6 +277,41 @@ namespace Contoso.Bsl.Web.Tests
             );
 
             Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async void GetEntityRequest_As_DeopartmentModel()
+        {
+            var result = await this.clientFactory.PostAsync<GetEntityResponse>
+            (
+                "api/Entity/GetEntity",
+                JsonSerializer.Serialize
+                (
+                    new Business.Requests.GetEntityRequest
+                    {
+                        Filter = GetFilterExpressionDescriptor<DepartmentModel>
+                        (
+                            GetDepartmentByIdFilterBody(2),
+                            "q"
+                        ),
+                        SelectExpandDefinition = new Common.Configuration.ExpansionDescriptors.SelectExpandDefinitionDescriptor
+                        {
+                            ExpandedItems = new List<Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor>
+                            {
+                                new Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor
+                                {
+                                    MemberName = "Courses"
+                                }
+                            }
+                        },
+                        ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                        DataType = typeof(Department).AssemblyQualifiedName
+                    }
+                )
+            );
+
+            Assert.NotNull(result);
+            Assert.NotNull(result.Entity);
         }
         #endregion Tests
     }
