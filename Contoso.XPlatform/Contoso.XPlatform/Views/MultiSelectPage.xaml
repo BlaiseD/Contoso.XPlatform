@@ -5,8 +5,10 @@
              x:Class="Contoso.XPlatform.Views.MultiSelectPage">
     <ContentPage.Resources>
         <DataTemplate x:Key="SingleFieldTemplate">
-            <Grid Padding="10" Style="{StaticResource MultiSelectItemStyle}">
-                <Label VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" Text="{Binding CourseTitle}" />
+            <Grid Style="{StaticResource MultiSelectItemStyle}">
+                <StackLayout Margin="2" Padding="7" BackgroundColor="{DynamicResource ResultListBackgroundColor}">
+                    <Label VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" Text="{Binding CourseTitle}" />
+                </StackLayout>
             </Grid>
         </DataTemplate>
         <utils:MultiSelectItemTemplateSelector x:Key="MultiSelectItemTemplateSelector"

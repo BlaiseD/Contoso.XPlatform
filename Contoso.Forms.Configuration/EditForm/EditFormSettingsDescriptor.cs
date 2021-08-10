@@ -1,5 +1,4 @@
-﻿using Contoso.Common.Configuration.ExpressionDescriptors;
-using Contoso.Forms.Configuration.Directives;
+﻿using Contoso.Forms.Configuration.Directives;
 using Contoso.Forms.Configuration.Validation;
 using System.Collections.Generic;
 
@@ -13,9 +12,9 @@ namespace Contoso.Forms.Configuration.EditForm
         public EditFormRequestDetailsDescriptor RequestDetails { get; set; }
         public ValidationMessageDictionary ValidationMessages { get; set; }
         public List<FormItemSettingsDescriptor> FieldSettings { get; set; }
-        public FilterLambdaOperatorDescriptor Filter { get; set; }
         public VariableDirectivesDictionary ConditionalDirectives { get; set; }
         public string ModelType { get; set; }//Helps Json (deserializer ??) on create
+        public string DataType { get; set; }
         public string ValidFormControlText { get; set; }
         public string InvalidFormControlText { get; set; }
     }

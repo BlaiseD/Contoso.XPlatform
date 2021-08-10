@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
-using Contoso.Common.Configuration.ExpressionDescriptors;
-using Contoso.Data;
 using Contoso.Domain;
 using LogicBuilder.Data;
 using LogicBuilder.Domain;
-using LogicBuilder.EntityFrameworkCore.SqlServer;
 using LogicBuilder.EntityFrameworkCore.SqlServer.Repositories;
 using LogicBuilder.Expressions.Utils.Expansions;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder;
@@ -40,7 +37,8 @@ namespace Contoso.Bsl.Utils
                 (
                     contextRepository,
                     mapper.MapToOperator(request.Selector)
-                )
+                ),
+                Success = true
             };
 
         public static async Task<GetLookupDropDownListResponse> GetLookupSelect(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper) 
@@ -62,7 +60,8 @@ namespace Contoso.Bsl.Utils
                 (
                     contextRepository,
                     mapper.MapToOperator(request.Selector)
-                )
+                ),
+                Success = true
             };
 
         public static async Task<GetObjectDropDownListResponse> GetObjectSelect(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper)
@@ -84,7 +83,8 @@ namespace Contoso.Bsl.Utils
                 (
                     contextRepository,
                     mapper.MapToOperator(request.Selector)
-                )
+                ),
+                Success = true
             };
 
         public static async Task<GetListResponse> GetList(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper)
@@ -106,7 +106,8 @@ namespace Contoso.Bsl.Utils
                 (
                     contextRepository,
                     mapper.MapToOperator(request.Selector)
-                )
+                ),
+                Success = true
             };
 
         public static async Task<GetEntityResponse> GetEntity(GetEntityRequest request, IContextRepository contextRepository, IMapper mapper)
@@ -127,7 +128,8 @@ namespace Contoso.Bsl.Utils
                     contextRepository,
                     mapper.MapToOperator(request.Filter),
                     mapper.MapExpansion(request.SelectExpandDefinition)
-                )
+                ),
+                Success = true
             };
 
         private static Task<IEnumerable<dynamic>> Query<TModel, TData>(IContextRepository repository,

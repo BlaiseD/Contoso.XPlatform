@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Contoso.Bsl.Business.Requests;
-using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Validators;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -22,11 +19,9 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         {
             this.FormSettings = setting;
             this.formsCollectionDisplayTemplateDescriptor = setting.FormsCollectionDisplayTemplate;
-            this.Title = setting.FormsCollectionDisplayTemplate.LoadingIndicatorText;
             this.httpService = httpService;
-            this.Placeholder = this.formsCollectionDisplayTemplateDescriptor.LoadingIndicatorText;
-            Entities = new ObservableCollection<E>();
-            LoadEntities();
+            this.Title = this.FormSettings.Title;
+            this.Placeholder = this.formsCollectionDisplayTemplateDescriptor.PlaceHolderText;
         }
 
         private readonly IHttpService httpService;
@@ -81,48 +76,6 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             }
         }
 
-        private ObservableCollection<E> _entities;
-        public ObservableCollection<E> Entities
-        {
-            get
-            {
-                return _entities;
-            }
-            set
-            {
-                _entities = value ?? new ObservableCollection<E>();
-                Value = (T)_entities;
-                OnPropertyChanged();
-            }
-        }
-
-        private async void LoadEntities()
-        {
-            try
-            {
-                GetListResponse response = await this.httpService.GetList
-                (
-                    new GetTypedListRequest
-                    {
-                        DataType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.DataType,
-                        ModelType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.ModelType,
-                        ModelReturnType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.ModelReturnType,
-                        DataReturnType = this.formsCollectionDisplayTemplateDescriptor.RequestDetails.DataReturnType,
-                        Selector = this.formsCollectionDisplayTemplateDescriptor.CollectionSelector
-                    },
-                    this.formsCollectionDisplayTemplateDescriptor.RequestDetails.DataSourceUrl
-                );
-
-                Entities = new ObservableCollection<E>(response.List.OfType<E>());
-                this.Title = this.FormSettings.Title;
-                this.Placeholder = this.formsCollectionDisplayTemplateDescriptor.PlaceHolderText;
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine($"{ e.GetType().Name + " : " + e.Message}");
-                throw;
-            }
-        }
         public ICommand TextChangedCommand => new Command
         (
             (parameter) =>
@@ -178,9 +131,6 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                             () => App.Current.MainPage.Navigation.PushModalAsync
                             (
                                 new Views.ChildFormArrayPageCS(this)
-                                {
-                                    //BindingContext = this
-                                }
                             )
                         );
                     });
@@ -231,7 +181,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                                 (
                                     new FormValidatableObject<E>
                                     (
-                                        Entities.IndexOf(this.SelectedItem).ToString(),
+                                        Value.IndexOf(this.SelectedItem).ToString(),
                                         this.FormSettings,
                                         new IValidationRule[] { },
                                         this.uiNotificationService,
@@ -245,10 +195,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                             )
                         );
                     },
-                    () => 
-                    { 
-                        return SelectedItem != null; 
-                    }
+                    () => SelectedItem != null
                 );
 
                 return _editCommand;
@@ -275,7 +222,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                                 (
                                     new FormValidatableObject<E>
                                     (
-                                        Entities.Count().ToString(),
+                                        Value.Count().ToString(),
                                         this.FormSettings,
                                         new IValidationRule[] { },
                                         this.uiNotificationService,

@@ -46,7 +46,7 @@ namespace Contoso.XPlatform.Views
                                     Style = LayoutHelpers.GetStaticStyleResource("FormArrayPopupCollectionViewStyle"),
                                     ItemTemplate = GetCollectionViewItemTemplate()
                                 }
-                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Entities"))
+                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Value"))
                                 .AddBinding(SelectableItemsView.SelectionChangedCommandProperty, new Binding("SelectionChangedCommand"))
                                 .AddBinding(SelectableItemsView.SelectedItemProperty, new Binding("SelectedItem")),
                                 new BoxView { Style = LayoutHelpers.GetStaticStyleResource("PopupFooterSeparatorStyle") },

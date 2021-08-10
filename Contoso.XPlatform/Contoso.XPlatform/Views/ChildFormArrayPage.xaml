@@ -35,7 +35,7 @@
                         <Label Style="{StaticResource PopupHeaderLabelStyle}" Text="{Binding Title}" />
                     </Grid>
                     <CollectionView Style="{StaticResource FormArrayPopupCollectionViewStyle}"
-                                    ItemsSource="{Binding Entities}"
+                                    ItemsSource="{Binding Value}"
                                     SelectionChangedCommand="{Binding SelectionChangedCommand}"
                                     ItemTemplate="{StaticResource TextDetailTemplate}" />
                     <BoxView Style="{StaticResource PopupFooterSeparatorStyle}"></BoxView>

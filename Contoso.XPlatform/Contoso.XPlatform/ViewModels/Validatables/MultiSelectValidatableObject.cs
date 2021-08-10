@@ -91,7 +91,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             {
                 base.Value = value;
 
-                //UpdateSelectedItems();
+                UpdateSelectedItems();
 
                 OnPropertyChanged(nameof(DisplayText));
                 OnPropertyChanged(nameof(SelectedItems));
@@ -229,9 +229,10 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                             () => App.Current.MainPage.Navigation.PushModalAsync
                             (
                                 new Views.MultiSelectPageCS(this)
-                                {
-                                    //BindingContext = this
-                                }
+                                //new Views.MultiSelectPage()
+                                //{
+                                //    BindingContext = this
+                                //}
                             )
                         );
                     });

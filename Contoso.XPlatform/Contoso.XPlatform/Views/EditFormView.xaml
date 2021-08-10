@@ -76,7 +76,11 @@
                     <Label 
                     Text="{Binding Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                     IsVisible="{Binding IsValid, Converter={StaticResource InverseBoolConverter}}"
-                    Style="{StaticResource ErrorTextStyle}"/>
+                    Style="{StaticResource ErrorTextStyle}">
+                        <Label.Behaviors>
+                            <behaviour:ErrorLabelValidationBehavior  IsValid="{Binding IsValid}" IsDirty="{Binding IsDirty}" />
+                        </Label.Behaviors>
+                    </Label>
                 </StackLayout>
             </DataTemplate>
             <DataTemplate x:Key="CheckboxTemplate">
@@ -270,10 +274,10 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <Grid.RowDefinitions>
+            <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>
+            </Grid.RowDefinitions>-->
             <StackLayout x:Name="page" Grid.Row="0" Padding="30"
                          VerticalOptions="CenterAndExpand">
                 <Label Text="{Binding FormSettings.Title}"
@@ -284,20 +288,6 @@
                             ItemTemplate="{StaticResource QuestionTemplateSelector}">
                 </CollectionView>
             </StackLayout>
-            <Grid BackgroundColor="{DynamicResource CommandBarBackgroundColor}" Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackLayout Padding="3"
-                         Grid.Column="1"
-                         BindableLayout.ItemsSource="{Binding Buttons}"
-                         BindableLayout.ItemTemplateSelector="{StaticResource CommandButtonSelector}"
-                         Orientation="Horizontal"
-                         VerticalOptions="Center"
-                         HorizontalOptions="Fill">
-                </StackLayout>
-            </Grid>
             <Grid Grid.Row="0" x:Name="transitionGrid" BackgroundColor="{DynamicResource PageBackgroundColor}" />
         </Grid>
 

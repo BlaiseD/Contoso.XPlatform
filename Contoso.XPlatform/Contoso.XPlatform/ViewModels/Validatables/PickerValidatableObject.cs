@@ -109,7 +109,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 );
 
                 Items = null;
-                await System.Threading.Tasks.Task.Delay(10);
+                await System.Threading.Tasks.Task.Delay(400);
                 Items = response.DropDownList.Cast<object>().ToList();
                 OnPropertyChanged(nameof(SelectedItem));
 

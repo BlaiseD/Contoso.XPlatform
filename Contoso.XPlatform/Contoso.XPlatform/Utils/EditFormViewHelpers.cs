@@ -24,16 +24,24 @@ namespace Contoso.XPlatform.Utils
                 (
                     () => new Grid
                     {
-                        Padding = new Thickness(10),
                         Style = LayoutHelpers.GetStaticStyleResource("MultiSelectItemStyle"),
                         Children =
                         {
-                            new Label 
-                            { 
-                                VerticalOptions = LayoutOptions.Center,
-                                HorizontalOptions = LayoutOptions.Center,
-                                FontAttributes = FontAttributes.Bold
-                            }.AddBinding(Label.TextProperty, new Binding(multiSelectTemplateDescriptor.TextField))
+                            new StackLayout
+                            {
+                                Margin = new Thickness(2),
+                                Padding = new Thickness(7),
+                                Children =
+                                {
+                                    new Label
+                                    {
+                                        VerticalOptions = LayoutOptions.Center,
+                                        HorizontalOptions = LayoutOptions.Center,
+                                        FontAttributes = FontAttributes.Bold
+                                    }.AddBinding(Label.TextProperty, new Binding(multiSelectTemplateDescriptor.TextField))
+                                }
+                            }
+                            .AssignDynamicResource(VisualElement.BackgroundColorProperty, "ResultListBackgroundColor")
                         }
                     }
                 )

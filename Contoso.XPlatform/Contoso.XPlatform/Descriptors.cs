@@ -23,7 +23,36 @@ namespace Contoso.XPlatform
             DisplayField = "FullName",
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
-                GetUrl = "/Instructor/GetSingle"
+                GetUrl = "/Instructor/GetSingle",
+                EditType = EditType.Update,
+                Filter = new FilterLambdaOperatorDescriptor
+                {
+                    FilterBody = new EqualsBinaryOperatorDescriptor
+                    {
+                        Left = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "f" },
+                            MemberFullName = "ID"
+                        },
+                        Right = new ConstantOperatorDescriptor { Type = typeof(int).FullName, ConstantValue = 3 }
+                    },
+                    SourceElementType = typeof(InstructorModel).AssemblyQualifiedName,
+                    ParameterName = "f"
+                },
+                SelectExpandDefinition = new Common.Configuration.ExpansionDescriptors.SelectExpandDefinitionDescriptor
+                {
+                    ExpandedItems = new List<Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor>
+                    {
+                        new Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor
+                        {
+                            MemberName = "Courses"
+                        },
+                        new Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor
+                        {
+                            MemberName = "OfficeAssignment"
+                        }
+                    }
+                }
             },
             ValidationMessages = new ValidationMessageDictionary
             (
@@ -208,7 +237,8 @@ namespace Contoso.XPlatform
                     }
                 }
             },
-            ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            DataType = typeof(Instructor).AssemblyQualifiedName
         };
 
         internal static EditFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new EditFormSettingsDescriptor
@@ -217,7 +247,36 @@ namespace Contoso.XPlatform
             DisplayField = "FullName",
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
-                GetUrl = "/Instructor/GetSingle"
+                GetUrl = "/Instructor/GetSingle",
+                EditType = EditType.Update,
+                Filter = new FilterLambdaOperatorDescriptor
+                {
+                    FilterBody = new EqualsBinaryOperatorDescriptor
+                    {
+                        Left = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "f" },
+                            MemberFullName = "ID"
+                        },
+                        Right = new ConstantOperatorDescriptor { Type = typeof(int).FullName, ConstantValue = 3 }
+                    },
+                    SourceElementType = typeof(InstructorModel).AssemblyQualifiedName,
+                    ParameterName = "f"
+                },
+                SelectExpandDefinition = new Common.Configuration.ExpansionDescriptors.SelectExpandDefinitionDescriptor
+                {
+                    ExpandedItems = new List<Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor>
+                    {
+                        new Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor
+                        {
+                            MemberName = "Courses"
+                        },
+                        new Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor
+                        {
+                            MemberName = "OfficeAssignment"
+                        }
+                    }
+                }
             },
             ValidationMessages = new ValidationMessageDictionary
             (
@@ -416,7 +475,8 @@ namespace Contoso.XPlatform
                     }
                 }
             },
-            ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            DataType = typeof(Instructor).AssemblyQualifiedName
         };
 
         internal static EditFormSettingsDescriptor DepartmentForm = new EditFormSettingsDescriptor
@@ -425,7 +485,22 @@ namespace Contoso.XPlatform
             DisplayField = "Name",
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
-                GetUrl = "/Department/GetSingle"
+                GetUrl = "/Department/GetSingle",
+                EditType = EditType.Update,
+                Filter = new FilterLambdaOperatorDescriptor
+                {
+                    FilterBody = new EqualsBinaryOperatorDescriptor
+                    {
+                        Left = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "f" },
+                            MemberFullName = "DepartmentID"
+                        },
+                        Right = new ConstantOperatorDescriptor { Type = typeof(int).FullName, ConstantValue = 1 }
+                    },
+                    SourceElementType = typeof(DepartmentModel).AssemblyQualifiedName,
+                    ParameterName = "f"
+                }
             },
             ValidationMessages = new ValidationMessageDictionary
             (
@@ -621,7 +696,8 @@ namespace Contoso.XPlatform
                     }
                 }
             },
-            ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            DataType = typeof(Department).AssemblyQualifiedName
         };
 
         internal static EditFormSettingsDescriptor DepartmentFormWithCourses = new EditFormSettingsDescriptor
@@ -630,7 +706,32 @@ namespace Contoso.XPlatform
             DisplayField = "Name",
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
-                GetUrl = "/Department/GetSingle"
+                GetUrl = "/Department/GetSingle",
+                EditType = EditType.Update,
+                Filter = new FilterLambdaOperatorDescriptor
+                {
+                    FilterBody = new EqualsBinaryOperatorDescriptor
+                    {
+                        Left = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "f" },
+                            MemberFullName = "DepartmentID"
+                        },
+                        Right = new ConstantOperatorDescriptor { Type = typeof(int).FullName, ConstantValue = 2 }
+                    },
+                    SourceElementType = typeof(DepartmentModel).AssemblyQualifiedName,
+                    ParameterName = "f"
+                },
+                SelectExpandDefinition = new Common.Configuration.ExpansionDescriptors.SelectExpandDefinitionDescriptor
+                {
+                    ExpandedItems = new List<Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor>
+                    {
+                        new Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor
+                        {
+                            MemberName = "Courses"
+                        }
+                    }
+                }
             },
             ValidationMessages = new ValidationMessageDictionary
             (
@@ -1161,7 +1262,8 @@ namespace Contoso.XPlatform
                     KeyFields = new List<string> { "CourseID" }
                 }
             },
-            ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            DataType = typeof(Department).AssemblyQualifiedName
         };
 
         internal static EditFormSettingsDescriptor CourseForm = new EditFormSettingsDescriptor
@@ -1170,7 +1272,22 @@ namespace Contoso.XPlatform
             DisplayField = "FullName",
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
-                GetUrl = "/Course/GetSingle"
+                GetUrl = "/Course/GetSingle",
+                EditType = EditType.Update,
+                Filter = new FilterLambdaOperatorDescriptor
+                {
+                    FilterBody = new EqualsBinaryOperatorDescriptor
+                    {
+                        Left = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "f" },
+                            MemberFullName = "CourseID"
+                        },
+                        Right = new ConstantOperatorDescriptor { Type = typeof(int).FullName, ConstantValue = 1050 }
+                    },
+                    SourceElementType = typeof(CourseModel).AssemblyQualifiedName,
+                    ParameterName = "f"
+                }
             },
             ValidationMessages = new ValidationMessageDictionary
             (
@@ -1440,7 +1557,8 @@ namespace Contoso.XPlatform
                     }
                 }
             },
-            ModelType = "Contoso.Domain.Entities.CourseModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            ModelType = "Contoso.Domain.Entities.CourseModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            DataType = typeof(Course).AssemblyQualifiedName
         };
 
         internal static EditFormSettingsDescriptor StudentForm = new EditFormSettingsDescriptor
@@ -1449,7 +1567,22 @@ namespace Contoso.XPlatform
             DisplayField = "FullName",
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
-                GetUrl = "/Student/GetSingle"
+                GetUrl = "/Student/GetSingle",
+                EditType = EditType.Update,
+                Filter = new FilterLambdaOperatorDescriptor
+                {
+                    FilterBody = new EqualsBinaryOperatorDescriptor
+                    {
+                        Left = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "f" },
+                            MemberFullName = "ID"
+                        },
+                        Right = new ConstantOperatorDescriptor { Type = typeof(int).FullName, ConstantValue = 1}
+                    },
+                    SourceElementType = typeof(StudentModel).AssemblyQualifiedName,
+                    ParameterName = "f"
+                }
             },
             ValidationMessages = new ValidationMessageDictionary
             (
@@ -1586,7 +1719,8 @@ namespace Contoso.XPlatform
                     }
                 }
             ),
-            ModelType = "Contoso.Domain.Entities.StudentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            ModelType = "Contoso.Domain.Entities.StudentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            DataType = typeof(Student).AssemblyQualifiedName
         };
 
         internal static IList<CommandButtonDescriptor> ButtonDescriptors = new List<CommandButtonDescriptor>
@@ -1602,11 +1736,9 @@ namespace Contoso.XPlatform
             else if (moduleName == "courses")
                 return new ScreenSettings<EditFormSettingsDescriptor>(CourseForm, ButtonDescriptors, ViewType.EditForm);
             else if (moduleName == "departments")
-                //DepartmentFormWithCourses
                 //return new ScreenSettings<EditFormSettingsDescriptor>(DepartmentForm, ButtonDescriptors, ViewType.EditForm);
                 return new ScreenSettings<EditFormSettingsDescriptor>(DepartmentFormWithCourses, ButtonDescriptors, ViewType.EditForm);
             else if (moduleName == "instructors")
-                //InstructorFormWithPopupOfficeAssignment
                 //return new ScreenSettings<EditFormSettingsDescriptor>(InstructorForm, ButtonDescriptors, ViewType.EditForm);
                 return new ScreenSettings<EditFormSettingsDescriptor>(InstructorFormWithPopupOfficeAssignment, ButtonDescriptors, ViewType.EditForm);
             else
