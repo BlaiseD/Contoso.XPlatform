@@ -57,27 +57,41 @@ namespace Contoso.XPlatform.Views
                                     {
                                         new ColumnDefinition{ Width = new GridLength(1, GridUnitType.Star) },
                                         new ColumnDefinition{ Width = new GridLength(1, GridUnitType.Star) },
+                                        new ColumnDefinition{ Width = new GridLength(1, GridUnitType.Star) },
+                                        new ColumnDefinition{ Width = new GridLength(1, GridUnitType.Star) },
                                         new ColumnDefinition{ Width = new GridLength(1, GridUnitType.Star) }
                                     },
                                     Children =
                                     {
                                         new Button
                                         {
+                                            Style = LayoutHelpers.GetStaticStyleResource("PopupAddButtonStyle")
+                                        }
+                                        .AddBinding(Button.CommandProperty, new Binding("AddCommand")),
+                                        new Button
+                                        {
                                             Style = LayoutHelpers.GetStaticStyleResource("PopupEditButtonStyle")
                                         }
-                                        .AddBinding(Button.CommandProperty, new Binding("EditCommand")),
+                                        .AddBinding(Button.CommandProperty, new Binding("EditCommand"))
+                                        .SetGridColumn(1),
+                                        new Button
+                                        {
+                                            Style = LayoutHelpers.GetStaticStyleResource("PopupDeleteButtonStyle")
+                                        }
+                                        .AddBinding(Button.CommandProperty, new Binding("DeleteCommand"))
+                                        .SetGridColumn(2),
                                         new Button
                                         {
                                             Style = LayoutHelpers.GetStaticStyleResource("PopupCancelButtonStyle")
                                         }
                                         .AddBinding(Button.CommandProperty, new Binding("CancelCommand"))
-                                        .SetGridColumn(1),
+                                        .SetGridColumn(3),
                                         new Button
                                         {
                                             Style = LayoutHelpers.GetStaticStyleResource("PopupAcceptButtonStyle")
                                         }
                                         .AddBinding(Button.CommandProperty, new Binding("SubmitCommand"))
-                                        .SetGridColumn(2)
+                                        .SetGridColumn(4)
                                     }
                                 }
                             }

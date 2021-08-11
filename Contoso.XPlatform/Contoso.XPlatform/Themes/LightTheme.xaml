@@ -5,6 +5,7 @@
     <Color x:Key="PageBackgroundColor">White</Color>
     <Color x:Key="NavigationBarColor">WhiteSmoke</Color>
     <Color x:Key="PrimaryColor">WhiteSmoke</Color>
+    <Color x:Key="PressedPrimaryColor">#B2F5F5F5</Color>
     <Color x:Key="SecondaryColor">Black</Color>
     <Color x:Key="PrimaryTextColor">Black</Color>
     <Color x:Key="SecondaryTextColor">White</Color>

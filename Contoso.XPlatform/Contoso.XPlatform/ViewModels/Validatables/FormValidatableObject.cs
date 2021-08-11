@@ -3,14 +3,16 @@ using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.ViewModels.Validatables
 {
-    public class FormValidatableObject<T> : ValidatableObjectBase<T> where T : class
+    public class FormValidatableObject<T> : ValidatableObjectBase<T>, IDisposable where T : class
     {
         public FormValidatableObject(string name, IFormGroupSettings setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper) : base(name, setting.FormGroupTemplate.TemplateName, validations, uiNotificationService)
         {
@@ -20,12 +22,14 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             this.mapper = mapper;
             FieldsCollectionHelper fieldsCollectionHelper = new FieldsCollectionHelper(setting, Properties, uiNotificationService, httpService, this.mapper);
             fieldsCollectionHelper.CreateFieldsCollection();
+            propertyChangedSubscription = this.uiNotificationService.ValueChanged.Subscribe(FieldChanged);
         }
 
         public ObservableCollection<IValidatable> Properties { get; set; } = new ObservableCollection<IValidatable>();
         
         public IFormGroupSettings FormSettings { get; set; }
         private readonly IMapper mapper;
+        private readonly IDisposable propertyChangedSubscription;
 
         private string _title;
         public string Title
@@ -110,7 +114,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                         (
                             () => App.Current.MainPage.Navigation.PopModalAsync()
                         );
-                    }
+                    },
+                    canExecute: AreFieldsValid
                 );
 
                 return _submitCommand;
@@ -134,12 +139,10 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                             () => App.Current.MainPage.Navigation.PushModalAsync
                             (
                                 new Views.ChildFormPageCS(this)
-                                {
-                                    //BindingContext = this
-                                }
                             )
                         );
-                    });
+                    }
+                );
 
                 return _openCommand;
             }
@@ -165,6 +168,29 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
                 return _cancelCommand;
             }
+        }
+
+        public virtual void Dispose()
+        {
+            Dispose(this.propertyChangedSubscription);
+        }
+
+        protected void Dispose(IDisposable disposable)
+        {
+            if (disposable != null)
+                disposable.Dispose();
+        }
+
+        private bool AreFieldsValid()
+            => Properties.Aggregate
+            (
+                true,
+                (isTrue, next) => next.Validate() && isTrue
+            );
+
+        private void FieldChanged(string fieldName)
+        {
+            (SubmitCommand as Command).ChangeCanExecute();
         }
     }
 }

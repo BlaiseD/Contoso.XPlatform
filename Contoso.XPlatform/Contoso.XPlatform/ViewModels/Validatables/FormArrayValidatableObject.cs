@@ -6,7 +6,6 @@ using Contoso.XPlatform.Validators;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -171,34 +170,34 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
                 _editCommand = new Command
                 (
-                    () =>
-                    {
-                        Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
-                        (
-                            () => App.Current.MainPage.Navigation.PushModalAsync
-                            (
-                                new Views.ChildFormPageCS
-                                (
-                                    new FormValidatableObject<E>
-                                    (
-                                        Value.IndexOf(this.SelectedItem).ToString(),
-                                        this.FormSettings,
-                                        new IValidationRule[] { },
-                                        this.uiNotificationService,
-                                        this.httpService,
-                                        App.ServiceProvider.GetRequiredService<IMapper>()
-                                    )
-                                    {
-                                        Value = this.SelectedItem
-                                    }
-                                )
-                            )
-                        );
-                    },
+                    Edit,
                     () => SelectedItem != null
                 );
 
                 return _editCommand;
+            }
+        }
+
+        private ICommand _deleteCommand;
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                if (_deleteCommand != null)
+                    return _deleteCommand;
+
+                _deleteCommand = new Command
+                (
+                    () =>
+                    {
+                        Value.Remove(this.SelectedItem);
+                        this.SelectedItem = null;
+                        CheckCanExecute();
+                    },
+                    () => SelectedItem != null
+                );
+
+                return _deleteCommand;
             }
         }
 
@@ -214,27 +213,9 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 (
                     () =>
                     {
-                        Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
-                        (
-                            () => App.Current.MainPage.Navigation.PushModalAsync
-                            (
-                                new Views.ChildFormPageCS
-                                (
-                                    new FormValidatableObject<E>
-                                    (
-                                        Value.Count().ToString(),
-                                        this.FormSettings,
-                                        new IValidationRule[] { },
-                                        this.uiNotificationService,
-                                        this.httpService,
-                                        App.ServiceProvider.GetRequiredService<IMapper>()
-                                    )
-                                    {
-                                        Value = default
-                                    }
-                                )
-                            )
-                        );
+                        E newItem = System.Activator.CreateInstance<E>();
+                        Value.Add(newItem);
+                        SelectedItem = newItem;
                     }
                 );
 
@@ -252,14 +233,42 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
                 _selectionChangedCommand = new Command
                 (
-                    () =>
-                    {
-                        (EditCommand as Command).ChangeCanExecute();
-                    }
+                    CheckCanExecute
                 );
 
                 return _selectionChangedCommand;
             }
+        }
+
+        private void CheckCanExecute()
+        {
+            (EditCommand as Command).ChangeCanExecute();
+            (DeleteCommand as Command).ChangeCanExecute();
+        }
+
+        private void Edit()
+        {
+            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
+            (
+                () => App.Current.MainPage.Navigation.PushModalAsync
+                (
+                    new Views.ChildFormPageCS
+                    (
+                        new FormValidatableObject<E>
+                        (
+                            Value.IndexOf(this.SelectedItem).ToString(),
+                            this.FormSettings,
+                            new IValidationRule[] { },
+                            this.uiNotificationService,
+                            this.httpService,
+                            App.ServiceProvider.GetRequiredService<IMapper>()
+                        )
+                        {
+                            Value = this.SelectedItem
+                        }
+                    )
+                )
+            );
         }
     }
 }

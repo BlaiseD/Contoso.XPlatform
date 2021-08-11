@@ -75,14 +75,15 @@ namespace Contoso.XPlatform.Views
             ToolbarItem BuildToolbarItem(CommandButtonDescriptor button) 
                 => new ToolbarItem
                 {
+                    
                     AutomationId = button.ShortString,
-                    Text = button.LongString,
-                    //IconImageSource = new FontImageSource
-                    //{
-                    //    FontFamily = EditFormViewHelpers.GetFontAwesomeFontFamily(),
-                    //    Glyph = FontAwesomeIcons.Solid[button.ButtonIcon],
-                    //    Size = 20
-                    //},
+                    //Text = button.LongString,
+                    IconImageSource = new FontImageSource
+                    {
+                        FontFamily = EditFormViewHelpers.GetFontAwesomeFontFamily(),
+                        Glyph = FontAwesomeIcons.Solid[button.ButtonIcon],
+                        Size = 20
+                    },
                     Order = ToolbarItemOrder.Primary,
                     Priority = 0,
                     CommandParameter = button
