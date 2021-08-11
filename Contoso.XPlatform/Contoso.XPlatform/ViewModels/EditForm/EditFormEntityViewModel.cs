@@ -60,12 +60,12 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                 )
             );
 
-            //if (getEntityResponse.Success == false)
-                //return;
+            if (getEntityResponse.Success == false)
+                return;
 
             Properties.UpdateValidatables
             (
-                (TModel)getEntityResponse.Entity,
+                getEntityResponse.Entity,
                 this.FormSettings.FieldSettings,
                 App.ServiceProvider.GetRequiredService<IMapper>()
             );

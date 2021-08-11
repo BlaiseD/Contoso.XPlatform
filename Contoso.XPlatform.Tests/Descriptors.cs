@@ -494,6 +494,7 @@ namespace Contoso.XPlatform.Tests
                     DomElementId = "mudgetId",
                     Title = "Budget",
                     Placeholder = "Budget (required)",
+                    StringFormat = "{0:F2}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
                     ValidationSetting = new FieldValidationSettingsDescriptor
                     {

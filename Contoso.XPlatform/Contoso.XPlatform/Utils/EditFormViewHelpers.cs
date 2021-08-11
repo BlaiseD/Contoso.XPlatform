@@ -10,12 +10,6 @@ namespace Contoso.XPlatform.Utils
 {
     internal static class EditFormViewHelpers
     {
-        public static CommandButtonSelector GetCommandButtonSelector(Type viewModelType, EventHandler buttonTappedHandler) => new CommandButtonSelector
-        {
-            SubmitButtonTemplate = GetButtonTemplate("SubmitCommand", viewModelType, buttonTappedHandler),
-            NavigateButtonTemplate = GetButtonTemplate("NavigateCommand", viewModelType, buttonTappedHandler)
-        };
-
         public static MultiSelectItemTemplateSelector GetMultiSelectItemTemplateSelector(MultiSelectTemplateDescriptor multiSelectTemplateDescriptor)
         {
             return new MultiSelectItemTemplateSelector
@@ -299,11 +293,21 @@ namespace Contoso.XPlatform.Utils
             );
 
         public static Entry GetEntryForValidation(bool isPassword = false)
-            => GetEntry(isPassword).AddBinding
-            (
-                Entry.TextProperty, 
-                new Binding(nameof(EntryValidatableObject<string>.Value))
-            );
+        {
+            return AddBindingWithStringFormat(GetEntry(isPassword));
+
+            Entry AddBindingWithStringFormat(Entry entry)
+                => entry.AddBinding
+                (
+                    Entry.TextProperty,
+                    new Binding
+                    (
+                        path: nameof(EntryValidatableObject<string>.Value),
+                        converter: new StringFormatConverter(),
+                        converterParameter: entry
+                    )
+                );
+        }
 
         public static Entry GetPasswordEntryForValidation()
             => GetEntryForValidation(isPassword: true);

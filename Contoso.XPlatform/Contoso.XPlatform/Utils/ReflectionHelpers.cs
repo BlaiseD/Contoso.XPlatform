@@ -53,10 +53,7 @@ namespace Contoso.XPlatform.Utils
             if (typeof(T) == valueObjectType)
                 return (T)valueObject;
 
-            if (valueObjectType.IsLiteralType() && valueObject.ToString().TryParse(typeof(T), out object result))
-                return (T)result;
-
-            throw new ArgumentException("0C62AA0A-F86F-4E0E-BB33-3B3090C72B60");
+            return (T)Convert.ChangeType(valueObject, typeof(T));
         }
 
         internal static bool TryParse(this string toParse, Type type, out object result)

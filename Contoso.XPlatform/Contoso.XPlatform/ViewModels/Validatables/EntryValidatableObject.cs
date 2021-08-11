@@ -13,7 +13,10 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             : base(name, setting.TextTemplate.TemplateName, validations, uiNotificationService)
         {
             Placeholder = setting.Placeholder;
+            FormControlSettingsDescriptor = setting;
         }
+
+        public FormControlSettingsDescriptor FormControlSettingsDescriptor { get; }
 
         private string _placeholder;
         public string Placeholder
