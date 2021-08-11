@@ -54,8 +54,8 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                     {
                         Filter = this.FormSettings.RequestDetails.Filter,
                         SelectExpandDefinition = this.FormSettings.RequestDetails.SelectExpandDefinition,
-                        ModelType = this.FormSettings.ModelType,
-                        DataType = this.FormSettings.DataType
+                        ModelType = this.FormSettings.RequestDetails.ModelType,
+                        DataType = this.FormSettings.RequestDetails.DataType
                     }
                 )
             );

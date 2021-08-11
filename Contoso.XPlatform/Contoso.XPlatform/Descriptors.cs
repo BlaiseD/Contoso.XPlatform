@@ -24,6 +24,8 @@ namespace Contoso.XPlatform
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle",
+                ModelType = typeof(InstructorModel).AssemblyQualifiedName,
+                DataType = typeof(Instructor).AssemblyQualifiedName,
                 EditType = EditType.Update,
                 Filter = new FilterLambdaOperatorDescriptor
                 {
@@ -238,7 +240,6 @@ namespace Contoso.XPlatform
                 }
             },
             ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
-            DataType = typeof(Instructor).AssemblyQualifiedName
         };
 
         internal static EditFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new EditFormSettingsDescriptor
@@ -248,6 +249,8 @@ namespace Contoso.XPlatform
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle",
+                ModelType = typeof(InstructorModel).AssemblyQualifiedName,
+                DataType = typeof(Instructor).AssemblyQualifiedName,
                 EditType = EditType.Update,
                 Filter = new FilterLambdaOperatorDescriptor
                 {
@@ -475,8 +478,7 @@ namespace Contoso.XPlatform
                     }
                 }
             },
-            ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
-            DataType = typeof(Instructor).AssemblyQualifiedName
+            ModelType = typeof(InstructorModel).AssemblyQualifiedName,
         };
 
         internal static EditFormSettingsDescriptor DepartmentForm = new EditFormSettingsDescriptor
@@ -486,6 +488,8 @@ namespace Contoso.XPlatform
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle",
+                ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                DataType = typeof(Department).AssemblyQualifiedName,
                 EditType = EditType.Update,
                 Filter = new FilterLambdaOperatorDescriptor
                 {
@@ -697,8 +701,7 @@ namespace Contoso.XPlatform
                     }
                 }
             },
-            ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
-            DataType = typeof(Department).AssemblyQualifiedName
+            ModelType = typeof(DepartmentModel).AssemblyQualifiedName
         };
 
         internal static EditFormSettingsDescriptor DepartmentFormWithCourses = new EditFormSettingsDescriptor
@@ -708,6 +711,8 @@ namespace Contoso.XPlatform
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle",
+                ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                DataType = typeof(Department).AssemblyQualifiedName,
                 EditType = EditType.Update,
                 Filter = new FilterLambdaOperatorDescriptor
                 {
@@ -1264,8 +1269,7 @@ namespace Contoso.XPlatform
                     KeyFields = new List<string> { "CourseID" }
                 }
             },
-            ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
-            DataType = typeof(Department).AssemblyQualifiedName
+            ModelType = typeof(DepartmentModel).AssemblyQualifiedName
         };
 
         internal static EditFormSettingsDescriptor CourseForm = new EditFormSettingsDescriptor
@@ -1275,6 +1279,8 @@ namespace Contoso.XPlatform
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
                 GetUrl = "/Course/GetSingle",
+                ModelType = typeof(CourseModel).AssemblyQualifiedName,
+                DataType = typeof(Course).AssemblyQualifiedName,
                 EditType = EditType.Update,
                 Filter = new FilterLambdaOperatorDescriptor
                 {
@@ -1559,8 +1565,7 @@ namespace Contoso.XPlatform
                     }
                 }
             },
-            ModelType = "Contoso.Domain.Entities.CourseModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
-            DataType = typeof(Course).AssemblyQualifiedName
+            ModelType = typeof(CourseModel).AssemblyQualifiedName
         };
 
         internal static EditFormSettingsDescriptor StudentForm = new EditFormSettingsDescriptor
@@ -1570,6 +1575,8 @@ namespace Contoso.XPlatform
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
                 GetUrl = "/Student/GetSingle",
+                ModelType = typeof(StudentModel).AssemblyQualifiedName,
+                DataType = typeof(Student).AssemblyQualifiedName,
                 EditType = EditType.Update,
                 Filter = new FilterLambdaOperatorDescriptor
                 {
@@ -1721,8 +1728,7 @@ namespace Contoso.XPlatform
                     }
                 }
             ),
-            ModelType = "Contoso.Domain.Entities.StudentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
-            DataType = typeof(Student).AssemblyQualifiedName
+            ModelType = typeof(StudentModel).AssemblyQualifiedName
         };
 
         internal static IList<CommandButtonDescriptor> ButtonDescriptors = new List<CommandButtonDescriptor>
