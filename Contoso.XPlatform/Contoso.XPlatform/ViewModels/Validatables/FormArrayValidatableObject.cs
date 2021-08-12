@@ -4,6 +4,7 @@ using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Validators;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -71,6 +72,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 {
                     _selectedItem = value;
                     OnPropertyChanged();
+                    CheckCanExecute();
                 }
             }
         }
@@ -192,7 +194,6 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                     {
                         Value.Remove(this.SelectedItem);
                         this.SelectedItem = null;
-                        CheckCanExecute();
                     },
                     () => SelectedItem != null
                 );
@@ -211,12 +212,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
                 _addCommand = new Command
                 (
-                    () =>
-                    {
-                        E newItem = System.Activator.CreateInstance<E>();
-                        Value.Add(newItem);
-                        SelectedItem = newItem;
-                    }
+                     Add
                 );
 
                 return _addCommand;
@@ -269,6 +265,42 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                     )
                 )
             );
+        }
+
+        private void Add()
+        {
+            E newItem = Activator.CreateInstance<E>();
+            Value.Add(newItem);
+            SelectedItem = newItem;
+
+            var addValidatable = new AddFormValidatableObject<E>
+            (
+                Value?.Count.ToString(),
+                this.FormSettings,
+                new IValidationRule[] { },
+                this.uiNotificationService,
+                this.httpService,
+                App.ServiceProvider.GetRequiredService<IMapper>()
+            )
+            {
+                Value = newItem
+            };
+
+            addValidatable.AddCancelled += AddValidatable_AddCancelled;
+
+            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
+            (
+                () => App.Current.MainPage.Navigation.PushModalAsync
+                (
+                    new Views.ChildFormPageCS(addValidatable)
+                )
+            );
+        }
+
+        private void AddValidatable_AddCancelled(object sender, System.EventArgs e)
+        {
+            Value.Remove(((AddFormValidatableObject<E>)sender).Value);
+            SelectedItem = null; 
         }
     }
 }

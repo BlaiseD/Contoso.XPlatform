@@ -158,16 +158,19 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
                 _cancelCommand = new Command
                 (
-                    () =>
-                    {
-                        Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
-                        (
-                            () => App.Current.MainPage.Navigation.PopModalAsync()
-                        );
-                    });
+                    Cancel
+                );
 
                 return _cancelCommand;
             }
+        }
+
+        protected virtual void Cancel()
+        {
+            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
+            (
+                () => App.Current.MainPage.Navigation.PopModalAsync()
+            );
         }
 
         public virtual void Dispose()
