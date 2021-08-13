@@ -8,9 +8,7 @@ using LogicBuilder.Expressions.Utils.Expansions;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleToAttribute("Contoso.Bsl.Flow.Integration.Tests")]
 namespace Contoso.Bsl.Utils
 {
     public static class MappingOperations
