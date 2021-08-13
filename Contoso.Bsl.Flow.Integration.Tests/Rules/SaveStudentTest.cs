@@ -3,6 +3,7 @@ using AutoMapper.Extensions.ExpressionMapping;
 using Contoso.AutoMapperProfiles;
 using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
+using Contoso.Bsl.Flow.Cache;
 using Contoso.Contexts;
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
@@ -172,6 +173,8 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
                 .AddTransient<FlowActivityFactory, FlowActivityFactory>()
                 .AddTransient<DirectorFactory, DirectorFactory>()
                 .AddTransient<ICustomActions, CustomActions>()
+                .AddSingleton<FlowDataCache, FlowDataCache>()
+                .AddSingleton<Progress, Progress>()
                 .AddSingleton<IRulesCache>(sp =>
                 {
                     return Bsl.Flow.Rules.RulesService.LoadRules().GetAwaiter().GetResult();

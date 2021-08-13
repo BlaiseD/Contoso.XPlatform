@@ -1,8 +1,9 @@
 using AutoMapper;
 using AutoMapper.Extensions.ExpressionMapping;
 using Contoso.AutoMapperProfiles;
-using Contoso.Common.Configuration.Json;
 using Contoso.Bsl.Flow;
+using Contoso.Bsl.Flow.Cache;
+using Contoso.Common.Configuration.Json;
 using Contoso.Contexts;
 using Contoso.Domain.Json;
 using Contoso.Repositories;
@@ -11,7 +12,6 @@ using Contoso.Utils;
 using LogicBuilder.RulesDirector;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -20,9 +20,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Contoso.Bsl
 {
@@ -91,6 +88,8 @@ namespace Contoso.Bsl
             .AddScoped<DirectorFactory, DirectorFactory>()
             .AddScoped<ICustomActions, CustomActions>()
             .AddMemoryCache()
+            .AddSingleton<FlowDataCache, FlowDataCache>()
+            .AddSingleton<Progress, Progress>()
             .AddSingleton<IRulesCache>(sp =>
             {
                 const string rulesKey = "rules";

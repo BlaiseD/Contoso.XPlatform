@@ -5,7 +5,6 @@ using LogicBuilder.RulesDirector;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Contoso.Bsl.Flow
 {
@@ -16,19 +15,23 @@ namespace Contoso.Bsl.Flow
             DirectorFactory directorFactory,
             FlowActivityFactory flowActivityFactory,
             ISchoolRepository SchoolRepository,
-            ILogger<FlowManager> logger)
+            ILogger<FlowManager> logger, 
+            Progress progress,
+            FlowDataCache flowDataCache)
         {
             this.CustomActions = customActions;
             this.logger = logger;
             this.SchoolRepository = SchoolRepository;
             this.Mapper = mapper;
+            this.Progress = progress;
+            this.FlowDataCache = flowDataCache;
             this.Director = directorFactory.Create(this);
             this.FlowActivity = flowActivityFactory.Create(this);
         }
 
         public IFlowActivity FlowActivity { get; }
-        public FlowDataCache FlowDataCache { get; } = new FlowDataCache();
-        public Progress Progress { get; } = new Progress();
+        public FlowDataCache FlowDataCache { get; }
+        public Progress Progress { get; }
         public ICustomActions CustomActions { get; }
 
         private ILogger<FlowManager> logger;
