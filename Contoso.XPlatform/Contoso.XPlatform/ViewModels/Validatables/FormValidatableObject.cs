@@ -14,14 +14,13 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class FormValidatableObject<T> : ValidatableObjectBase<T>, IDisposable where T : class
     {
-        public FormValidatableObject(string name, IFormGroupSettings setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper) : base(name, setting.FormGroupTemplate.TemplateName, validations, uiNotificationService)
+        public FormValidatableObject(string name, IFormGroupSettings setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder) : base(name, setting.FormGroupTemplate.TemplateName, validations, uiNotificationService)
         {
             this.FormSettings = setting;
             this.Title = this.FormSettings.Title;
             this.Placeholder = this.FormSettings.ValidFormControlText;
             this.mapper = mapper;
-            FieldsCollectionHelper fieldsCollectionHelper = new FieldsCollectionHelper(setting, Properties, uiNotificationService, httpService, this.mapper);
-            fieldsCollectionHelper.CreateFieldsCollection();
+            fieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings, Properties);
             propertyChangedSubscription = this.uiNotificationService.ValueChanged.Subscribe(FieldChanged);
         }
 

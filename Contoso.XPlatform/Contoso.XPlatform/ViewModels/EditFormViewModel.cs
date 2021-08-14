@@ -35,8 +35,10 @@ namespace Contoso.XPlatform.ViewModels
                 {
                     screenSettings,
                     App.ServiceProvider.GetRequiredService<UiNotificationService>(),
+                    App.ServiceProvider.GetRequiredService<IHttpService>(),
                     App.ServiceProvider.GetRequiredService<IMapper>(),
-                    App.ServiceProvider.GetRequiredService<IHttpService>()
+                    App.ServiceProvider.GetRequiredService<IFieldsCollectionBuilder>(),
+                    App.ServiceProvider.GetRequiredService<IConditionalValidationConditionsBuilder>()
                 }
             );
 

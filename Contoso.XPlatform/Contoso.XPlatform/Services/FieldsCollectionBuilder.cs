@@ -1,89 +1,40 @@
 ﻿using AutoMapper;
-using Contoso.Forms.Configuration.Directives;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.Validation;
-using Contoso.XPlatform.Services;
+using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
 using Contoso.XPlatform.Validators.Rules;
 using Contoso.XPlatform.ViewModels.Validatables;
-using LogicBuilder.Expressions.Utils.ExpressionBuilder.Lambda;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Contoso.XPlatform.Utils
+namespace Contoso.XPlatform.Services
 {
-    public class FieldsCollectionHelper
+    public class FieldsCollectionBuilder : IFieldsCollectionBuilder
     {
-        public FieldsCollectionHelper(IFormGroupSettings formSettings, ObservableCollection<IValidatable> properties, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper)
+        private IFormGroupSettings formSettings;
+        private ObservableCollection<IValidatable> properties;
+        private readonly UiNotificationService uiNotificationService;
+        private readonly IHttpService httpService;
+        private readonly IMapper mapper;
+
+        public FieldsCollectionBuilder(UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper)
         {
-            this.formSettings = formSettings;
-            this.properties = properties;
             this.uiNotificationService = uiNotificationService;
             this.httpService = httpService;
             this.mapper = mapper;
         }
 
-        private readonly IFormGroupSettings formSettings;
-        private readonly ObservableCollection<IValidatable> properties;
-        private readonly UiNotificationService uiNotificationService;
-        private readonly IHttpService httpService;
-        private readonly IMapper mapper;
-
-        public List<ValidateIf<TModel>> GetConditionalValidationConditions<TModel>(VariableDirectivesDictionary conditionalDirectives, IEnumerable<IValidatable> properties, IMapper mapper)
+        public void CreateFieldsCollection(IFormGroupSettings formSettings, ObservableCollection<IValidatable> properties)
         {
-            if (conditionalDirectives == null)
-                return new List<ValidateIf<TModel>>();
-
-            const string PARAMETERS_KEY = "parameters";
-            List<ValidateIf<TModel>> list = new List<ValidateIf<TModel>>();
-            
-            IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(p => p.Name);
-
-            foreach (var kvp in conditionalDirectives)
-            {
-                kvp.Value.ForEach
-                (
-                    descriptor =>
-                    {
-                        if (descriptor.Definition.ClassName == nameof(ValidateIf<TModel>))
-                        {
-                            var validatable = propertiesDictionary[kvp.Key];
-                            validatable.Validations.ForEach
-                            (
-                                validationRule =>
-                                {
-                                    list.Add
-                                    (
-                                        new ValidateIf<TModel>
-                                        {
-                                            Field = kvp.Key,
-                                            Validator = validationRule,
-                                            Evaluator = (Expression<Func<TModel, bool>>)mapper.Map<FilterLambdaOperator>
-                                            (
-                                                descriptor.Condition,
-                                                opts => opts.Items[PARAMETERS_KEY] = GetParameters()
-                                            ).Build()
-                                        }
-                                    );
-                                }
-                            );
-                        }
-                    }
-                );
-            }
-
-            return list;
+            this.formSettings = formSettings;
+            this.properties = properties;
+            this.CreateFieldsCollection(this.formSettings.FieldSettings);
         }
-
-        private static IDictionary<string, ParameterExpression> GetParameters()
-            => new Dictionary<string, ParameterExpression>();
-
-        public void CreateFieldsCollection() 
-            => this.CreateFieldsCollection(this.formSettings.FieldSettings);
 
         private void CreateFieldsCollection(List<FormItemSettingsDescriptor> fieldSettings, string parentName = null)
         {
@@ -127,11 +78,11 @@ namespace Contoso.XPlatform.Utils
 
         private void AddFormGroupSettings(FormGroupSettingsDescriptor setting, string parentName = null)
         {
-            if (setting.FormGroupTemplate == null 
+            if (setting.FormGroupTemplate == null
                 || string.IsNullOrEmpty(setting.FormGroupTemplate.TemplateName))
                 throw new ArgumentException($"{nameof(setting.FormGroupTemplate)}: 4817E6BF-0B48-4829-BAB8-7AD17E006EA7");
 
-            switch(setting.FormGroupTemplate.TemplateName)
+            switch (setting.FormGroupTemplate.TemplateName)
             {
                 case FromGroupTemplateNames.InlineFormGroupTemplate:
                     AddFormGroupInline(setting, parentName);
@@ -149,7 +100,7 @@ namespace Contoso.XPlatform.Utils
             properties.Add(CreateFormValidatableObject(setting, GetFieldName(setting.Field, parentName)));
         }
 
-        private void AddFormGroupInline(FormGroupSettingsDescriptor setting, string parentName) 
+        private void AddFormGroupInline(FormGroupSettingsDescriptor setting, string parentName)
             => CreateFieldsCollection(setting.FieldSettings, GetFieldName(setting.Field, parentName));
 
         private void AddFormControl(FormControlSettingsDescriptor setting, string name)
@@ -223,7 +174,7 @@ namespace Contoso.XPlatform.Utils
             }
         }
 
-        private IValidationRule[] GetValidationRules(FormControlSettingsDescriptor setting) 
+        private IValidationRule[] GetValidationRules(FormControlSettingsDescriptor setting)
             => setting.ValidationSetting?.Validators?.Select
             (
                 validator => GetValidatorRule(validator, setting)
@@ -234,7 +185,7 @@ namespace Contoso.XPlatform.Utils
 
         private IValidatable CreateFormValidatableObject(FormGroupSettingsDescriptor setting, string name)
         {
-            MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
+            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
             (
                 "_CreateFormValidatableObject",
                 1,
@@ -252,14 +203,14 @@ namespace Contoso.XPlatform.Utils
         }
 
         private IValidatable _CreateFormValidatableObject<T>(FormGroupSettingsDescriptor setting, string name) where T : class
-            => new FormValidatableObject<T>(name, setting, new IValidationRule[] { }, this.uiNotificationService, this.httpService, this.mapper)
+            => new FormValidatableObject<T>(name, setting, new IValidationRule[] { }, this.uiNotificationService, this.mapper, App.ServiceProvider.GetRequiredService<IFieldsCollectionBuilder>())
             {
                 Value = default
             };
 
         private IValidatable CreateHiddenValidatableObject(FormControlSettingsDescriptor setting, string name)
         {
-            MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
+            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
             (
                 "_CreateHiddenValidatableObject",
                 1,
@@ -284,7 +235,7 @@ namespace Contoso.XPlatform.Utils
 
         private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting, string name)
         {
-            MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
+            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
             (
                 "_CreateEntryValidatableObject",
                 1,
@@ -301,7 +252,7 @@ namespace Contoso.XPlatform.Utils
             return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
         }
 
-        private IValidatable _CreateEntryValidatableObject<T>(FormControlSettingsDescriptor setting, string name) 
+        private IValidatable _CreateEntryValidatableObject<T>(FormControlSettingsDescriptor setting, string name)
             => new EntryValidatableObject<T>(name, setting, GetValidationRules(setting), this.uiNotificationService)
             {
                 Value = (T)ValidatableObjectFactory.GetValue(setting, default(T))
@@ -319,7 +270,7 @@ namespace Contoso.XPlatform.Utils
 
         private IValidatable CreatePickerValidatableObject(FormControlSettingsDescriptor setting, string name)
         {
-            MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
+            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
             (
                 "_CreatePickerValidatableObject",
                 1,
@@ -336,7 +287,7 @@ namespace Contoso.XPlatform.Utils
             return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
         }
 
-        private IValidatable _CreatePickerValidatableObject<T>(FormControlSettingsDescriptor setting, string name) 
+        private IValidatable _CreatePickerValidatableObject<T>(FormControlSettingsDescriptor setting, string name)
             => new PickerValidatableObject<T>(name, setting, this.httpService, GetValidationRules(setting), this.uiNotificationService)
             {
                 Value = default
@@ -345,7 +296,7 @@ namespace Contoso.XPlatform.Utils
         private IValidatable CreateMultiSelectValidatableObject(MultiSelectFormControlSettingsDescriptor setting, string name)
         {
             Type elemmentType = Type.GetType(setting.MultiSelectTemplate.ModelType);
-            MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
+            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
             (
                 "_CreateMultiSelectValidatableObject",
                 2,
@@ -363,7 +314,7 @@ namespace Contoso.XPlatform.Utils
         }
 
         private IValidatable _CreateMultiSelectValidatableObject<T, E>(MultiSelectFormControlSettingsDescriptor setting, string name) where T : ObservableCollection<E>
-            => new MultiSelectValidatableObject<T,E>(name, setting, this.httpService, GetValidationRules(setting), this.uiNotificationService)
+            => new MultiSelectValidatableObject<T, E>(name, setting, this.httpService, GetValidationRules(setting), this.uiNotificationService)
             {
                 Value = default
             };
@@ -371,7 +322,7 @@ namespace Contoso.XPlatform.Utils
         private IValidatable CreateFormArrayValidatableObject(FormGroupArraySettingsDescriptor setting, string name)
         {
             Type elemmentType = Type.GetType(setting.ModelType);
-            MethodInfo methodInfo = typeof(FieldsCollectionHelper).GetMethod
+            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
             (
                 "_CreateFormArrayValidatableObject",
                 2,
@@ -389,7 +340,7 @@ namespace Contoso.XPlatform.Utils
         }
 
         private IValidatable _CreateFormArrayValidatableObject<T, E>(FormGroupArraySettingsDescriptor setting, string name) where T : ObservableCollection<E> where E : class
-            => new FormArrayValidatableObject<T, E>(name, setting, this.httpService, new IValidationRule[] { }, this.uiNotificationService)
+            => new FormArrayValidatableObject<T, E>(name, setting, new IValidationRule[] { }, this.uiNotificationService)
             {
                 Value = default
             };

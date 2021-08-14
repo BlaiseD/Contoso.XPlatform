@@ -60,14 +60,11 @@ namespace Contoso.XPlatform.Tests
                 }
             };
             ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            new FieldsCollectionHelper
+            serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
                 Descriptors.InstructorFormWithInlineOfficeAssignment, 
-                properties, 
-                new UiNotificationService(),
-                new HttpServiceMock(),
-                serviceProvider.GetRequiredService<IMapper>()
-            ).CreateFieldsCollection();
+                properties
+            );
 
             //act
             properties.UpdateValidatables
@@ -124,14 +121,11 @@ namespace Contoso.XPlatform.Tests
                 }
             };
             ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            new FieldsCollectionHelper
+            serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.InstructorFormWithPopupOfficeAssignment,
-                properties,
-                new UiNotificationService(),
-                new HttpServiceMock(),
-                serviceProvider.GetRequiredService<IMapper>()
-            ).CreateFieldsCollection();
+                Descriptors.InstructorFormWithPopupOfficeAssignment, 
+                properties
+            );
 
             //act
             properties.UpdateValidatables
@@ -185,14 +179,11 @@ namespace Contoso.XPlatform.Tests
                 }
             };
             ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            new FieldsCollectionHelper
+            serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
                 Descriptors.DepartmentForm,
-                properties,
-                new UiNotificationService(),
-                new HttpServiceMock(),
-                serviceProvider.GetRequiredService<IMapper>()
-            ).CreateFieldsCollection();
+                properties
+            );
 
             //act
             properties.UpdateValidatables
@@ -229,7 +220,14 @@ namespace Contoso.XPlatform.Tests
                     MapperConfiguration
                 )
                 .AddTransient<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService))
+                .AddSingleton<UiNotificationService, UiNotificationService>()
+                .AddTransient<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
+                .AddTransient<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
+                .AddHttpClient()
+                .AddSingleton<IHttpService, HttpServiceMock>()
                 .BuildServiceProvider();
+
+            App.ServiceProvider = serviceProvider;
         }
     }
 }

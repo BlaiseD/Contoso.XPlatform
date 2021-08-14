@@ -40,6 +40,8 @@ namespace Contoso.XPlatform
                     )
                 )
                 .AddTransient<MainPageViewModel, MainPageViewModel>()
+                .AddTransient<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
+                .AddTransient<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpService>();
         }

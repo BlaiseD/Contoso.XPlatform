@@ -13,17 +13,16 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 {
     public class EditFormEntityViewModel<TModel> : EditFormEntityViewModelBase where TModel : Domain.ViewModelBase
     {
-        public EditFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IMapper mapper, IHttpService httpService)
-            : base(screenSettings, uiNotificationService, httpService, mapper)
+        public EditFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder)
+            : base(screenSettings, uiNotificationService, httpService, mapper, fieldsCollectionBuilder)
         {
             this.validateIfManager = new ValidateIfManager<TModel>
             (
                 Properties,
-                fieldsCollectionHelper.GetConditionalValidationConditions<TModel>
+                conditionalValidationConditionsBuilder.GetConditions<TModel>
                 (
                     FormSettings.ConditionalDirectives,
-                    Properties,
-                    mapper
+                    Properties
                 ),
                 mapper,
                 this.UiNotificationService

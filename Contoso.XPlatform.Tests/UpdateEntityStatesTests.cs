@@ -319,14 +319,11 @@ namespace Contoso.XPlatform.Tests
         private ObservableCollection<IValidatable> CreateValidatablesFromSettings(IFormGroupSettings formSettings)
         {
             ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            new FieldsCollectionHelper
+            serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
                 formSettings,
-                properties,
-                new UiNotificationService(),
-                new HttpServiceMock(),
-                serviceProvider.GetRequiredService<IMapper>()
-            ).CreateFieldsCollection();
+                properties
+            );
 
             return properties;
         }
@@ -346,6 +343,11 @@ namespace Contoso.XPlatform.Tests
                     MapperConfiguration
                 )
                 .AddTransient<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService))
+                .AddSingleton<UiNotificationService, UiNotificationService>()
+                .AddTransient<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
+                .AddTransient<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
+                .AddHttpClient()
+                .AddSingleton<IHttpService, HttpServiceMock>()
                 .BuildServiceProvider();
         }
     }
