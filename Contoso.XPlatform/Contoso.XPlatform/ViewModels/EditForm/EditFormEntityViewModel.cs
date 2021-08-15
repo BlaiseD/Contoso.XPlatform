@@ -14,8 +14,9 @@ namespace Contoso.XPlatform.ViewModels.EditForm
     public class EditFormEntityViewModel<TModel> : EditFormEntityViewModelBase where TModel : Domain.ViewModelBase
     {
         public EditFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder)
-            : base(screenSettings, uiNotificationService, httpService, mapper, fieldsCollectionBuilder)
+            : base(screenSettings, uiNotificationService, httpService, fieldsCollectionBuilder)
         {
+            this.mapper = mapper;
             this.validateIfManager = new ValidateIfManager<TModel>
             (
                 Properties,
@@ -24,7 +25,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                     FormSettings.ConditionalDirectives,
                     Properties
                 ),
-                mapper,
+                this.mapper,
                 this.UiNotificationService
             );
 
@@ -33,6 +34,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         }
 
         private readonly ValidateIfManager<TModel> validateIfManager;
+        private readonly IMapper mapper;
 
         public override void Dispose()
         {
@@ -66,7 +68,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             (
                 getEntityResponse.Entity,
                 this.FormSettings.FieldSettings,
-                App.ServiceProvider.GetRequiredService<IMapper>()
+                this.mapper
             );
         }
     }
