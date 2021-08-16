@@ -15,7 +15,7 @@ namespace Contoso.XPlatform.Utils
 
             List<Task> tasks = new List<Task>
             {
-                (delay = Task.Delay(200)),
+                (delay = Task.Delay(400)),
                 (getResponse = action())
             };
 
