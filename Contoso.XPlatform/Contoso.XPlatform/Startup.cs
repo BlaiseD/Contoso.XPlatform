@@ -33,6 +33,8 @@ namespace Contoso.XPlatform
                         cfg.AllowNullCollections = true;
                     })
                 )
+                .AddHttpClient()
+                .AddSingleton<IHttpService, HttpService>()
                 .AddTransient<IMapper>
                 (
                     sp => new Mapper
@@ -42,8 +44,7 @@ namespace Contoso.XPlatform
                     )
                 )
                 .AddTransient<MainPageViewModel, MainPageViewModel>()
-                .AddHttpClient()
-                .AddSingleton<IHttpService, HttpService>();
+                .AddTransient<EditFormViewModel, EditFormViewModel>();
         }
     }
 }

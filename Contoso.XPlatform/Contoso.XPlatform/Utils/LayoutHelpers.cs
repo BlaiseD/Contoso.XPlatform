@@ -1,6 +1,7 @@
 ﻿using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.Views;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using Xamarin.Forms;
 
@@ -67,22 +68,27 @@ namespace Contoso.XPlatform.Utils
         {
             return CreatePage(Enum.GetName(typeof(ViewType), screenSettings.ViewType));
 
-            Page CreatePage(string viewName) 
-                => (Page)Activator.CreateInstance
+            Page CreatePage(string viewName)
+            {
+                FlyoutDetailViewModelBase viewModel = (FlyoutDetailViewModelBase)App.ServiceProvider.GetRequiredService
+                (
+                    typeof(FlyoutDetailViewModelBase).Assembly.GetType
+                    (
+                        $"Contoso.XPlatform.ViewModels.{viewName}ViewModel"
+                    )
+                );
+
+                viewModel.Initialize(screenSettings);
+
+                return (Page)Activator.CreateInstance
                 (
                     typeof(MainPageView).Assembly.GetType
                     (
                         $"Contoso.XPlatform.Views.{viewName}ViewCS"
                     ),
-                    (ViewModelBase)Activator.CreateInstance
-                    (
-                        typeof(ViewModelBase).Assembly.GetType
-                        (
-                            $"Contoso.XPlatform.ViewModels.{viewName}ViewModel"
-                        ),
-                        screenSettings
-                    )
+                    viewModel
                 );
+            }
         }
     }
 }

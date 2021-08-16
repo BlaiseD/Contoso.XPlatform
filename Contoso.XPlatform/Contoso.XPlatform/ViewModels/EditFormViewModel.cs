@@ -3,15 +3,29 @@ using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.ViewModels.EditForm;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
 
 namespace Contoso.XPlatform.ViewModels
 {
-    public class EditFormViewModel : ViewModelBase
+    public class EditFormViewModel : FlyoutDetailViewModelBase
     {
-        public EditFormViewModel(ScreenSettingsBase screenSettings)
+        private readonly UiNotificationService uiNotificationService;
+        private readonly IHttpService httpService;
+        private readonly IMapper mapper;
+        private readonly IFieldsCollectionBuilder fieldsCollectionBuilder;
+        private readonly IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder;
+
+        public EditFormViewModel(UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder)
+        {
+            this.uiNotificationService = uiNotificationService;
+            this.httpService = httpService;
+            this.mapper = mapper;
+            this.fieldsCollectionBuilder = fieldsCollectionBuilder;
+            this.conditionalValidationConditionsBuilder = conditionalValidationConditionsBuilder;
+        }
+
+        public override void Initialize(ScreenSettingsBase screenSettings)
         {
             EditFormEntityViewModel = CreateEditFormViewModel((ScreenSettings<EditFormSettingsDescriptor>)screenSettings);
         }
@@ -34,11 +48,11 @@ namespace Contoso.XPlatform.ViewModels
                 new object[]
                 {
                     screenSettings,
-                    App.ServiceProvider.GetRequiredService<UiNotificationService>(),
-                    App.ServiceProvider.GetRequiredService<IHttpService>(),
-                    App.ServiceProvider.GetRequiredService<IMapper>(),
-                    App.ServiceProvider.GetRequiredService<IFieldsCollectionBuilder>(),
-                    App.ServiceProvider.GetRequiredService<IConditionalValidationConditionsBuilder>()
+                    this.uiNotificationService,
+                    this.httpService,
+                    this.mapper,
+                    this.fieldsCollectionBuilder,
+                    this.conditionalValidationConditionsBuilder
                 }
             );
 
