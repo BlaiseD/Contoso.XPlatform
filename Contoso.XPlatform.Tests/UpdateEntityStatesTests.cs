@@ -318,14 +318,10 @@ namespace Contoso.XPlatform.Tests
 
         private ObservableCollection<IValidatable> CreateValidatablesFromSettings(IFormGroupSettings formSettings)
         {
-            ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            return serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                formSettings,
-                properties
+                formSettings
             );
-
-            return properties;
         }
         static MapperConfiguration MapperConfiguration;
         private void Initialize()

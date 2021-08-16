@@ -59,11 +59,9 @@ namespace Contoso.XPlatform.Tests
                     }
                 }
             };
-            ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.InstructorFormWithInlineOfficeAssignment, 
-                properties
+                Descriptors.InstructorFormWithInlineOfficeAssignment
             );
 
             //act
@@ -120,11 +118,9 @@ namespace Contoso.XPlatform.Tests
                     }
                 }
             };
-            ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.InstructorFormWithPopupOfficeAssignment, 
-                properties
+                Descriptors.InstructorFormWithPopupOfficeAssignment
             );
 
             //act
@@ -178,11 +174,9 @@ namespace Contoso.XPlatform.Tests
                     }
                 }
             };
-            ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.DepartmentForm,
-                properties
+                Descriptors.DepartmentForm
             );
 
             //act

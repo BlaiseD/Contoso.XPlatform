@@ -6,7 +6,6 @@ using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace Contoso.XPlatform.ViewModels.EditForm

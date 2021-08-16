@@ -20,11 +20,11 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             this.Title = this.FormSettings.Title;
             this.Placeholder = this.FormSettings.ValidFormControlText;
             this.mapper = mapper;
-            fieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings, Properties);
+            Properties = fieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
             propertyChangedSubscription = this.uiNotificationService.ValueChanged.Subscribe(FieldChanged);
         }
 
-        public ObservableCollection<IValidatable> Properties { get; set; } = new ObservableCollection<IValidatable>();
+        public ObservableCollection<IValidatable> Properties { get; }
         
         public IFormGroupSettings FormSettings { get; set; }
         private readonly IMapper mapper;

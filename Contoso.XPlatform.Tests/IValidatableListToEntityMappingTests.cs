@@ -27,11 +27,9 @@ namespace Contoso.XPlatform.Tests
         public void MapIValidatableListModelWithInlineOfficeAssignmentToInstructor()
         {
             //arrange
-            ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.InstructorFormWithInlineOfficeAssignment,
-                properties
+                Descriptors.InstructorFormWithInlineOfficeAssignment
             );
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
             propertiesDictionary["ID"].Value = 3;
@@ -80,11 +78,9 @@ namespace Contoso.XPlatform.Tests
         public void MapIValidatableListModelWithPopupOfficeAssignmentToInstructor()
         {
             //arrange
-            ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.InstructorFormWithPopupOfficeAssignment,
-                properties
+                Descriptors.InstructorFormWithPopupOfficeAssignment
             );
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
             propertiesDictionary["ID"].Value = 3;
@@ -133,11 +129,9 @@ namespace Contoso.XPlatform.Tests
         public void MapIValidatableListModelToDepartment()
         {
             //arrange
-            ObservableCollection<IValidatable> properties = new ObservableCollection<IValidatable>();
-            serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.DepartmentForm,
-                properties
+                Descriptors.DepartmentForm
             );
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
             propertiesDictionary["DepartmentID"].Value = 1;

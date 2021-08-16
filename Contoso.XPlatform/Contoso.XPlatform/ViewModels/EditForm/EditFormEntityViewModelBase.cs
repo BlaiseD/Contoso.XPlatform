@@ -22,12 +22,12 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             this.httpService = httpService;
             FormSettings = screenSettings.Settings;
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);
-            fieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings, Properties);
+            Properties = fieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
             propertyChangedSubscription = this.UiNotificationService.ValueChanged.Subscribe(FieldChanged);
         }
 
         public EditFormSettingsDescriptor FormSettings { get; set; }
-        public ObservableCollection<IValidatable> Properties { get; set; } = new ObservableCollection<IValidatable>();
+        public ObservableCollection<IValidatable> Properties { get; set; }
         public UiNotificationService UiNotificationService { get; set; }
         public ObservableCollection<CommandButtonDescriptor> Buttons { get; set; }
 

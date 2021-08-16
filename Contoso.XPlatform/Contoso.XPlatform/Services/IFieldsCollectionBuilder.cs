@@ -6,6 +6,6 @@ namespace Contoso.XPlatform.Services
 {
     public interface IFieldsCollectionBuilder
     {
-        void CreateFieldsCollection(IFormGroupSettings formSettings, ObservableCollection<IValidatable> properties);
+        ObservableCollection<IValidatable> CreateFieldsCollection(IFormGroupSettings formSettings);
     }
 }
