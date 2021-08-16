@@ -136,7 +136,8 @@ namespace Contoso.XPlatform.Utils
             (
                 () => new StackLayout
                 {
-                    IsVisible = false
+                    IsVisible = false,
+                    HeightRequest = 1
                 }
             )
         };

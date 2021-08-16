@@ -13,7 +13,7 @@
             <converter:DebugConverter x:Key="DebugConverter"/>
 
             <DataTemplate x:Key="HiddenTemplate">
-                <StackLayout IsVisible="false">
+                <StackLayout IsVisible="false" HeightRequest="1">
                 </StackLayout>
             </DataTemplate>
 
