@@ -193,13 +193,11 @@ namespace Contoso.XPlatform.Tests
                 )
                 .AddTransient<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService))
                 .AddSingleton<UiNotificationService, UiNotificationService>()
-                .AddTransient<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
-                .AddTransient<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
+                .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
+                .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpServiceMock>()
                 .BuildServiceProvider();
-
-            App.ServiceProvider = serviceProvider;
         }
     }
 }

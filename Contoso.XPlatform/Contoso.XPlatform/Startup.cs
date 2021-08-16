@@ -23,6 +23,8 @@ namespace Contoso.XPlatform
         {
             services
                 .AddSingleton<UiNotificationService, UiNotificationService>()
+                .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
+                .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddSingleton<AutoMapper.IConfigurationProvider>
                 (
                     new MapperConfiguration(cfg =>
@@ -40,8 +42,6 @@ namespace Contoso.XPlatform
                     )
                 )
                 .AddTransient<MainPageViewModel, MainPageViewModel>()
-                .AddTransient<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
-                .AddTransient<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpService>();
         }
