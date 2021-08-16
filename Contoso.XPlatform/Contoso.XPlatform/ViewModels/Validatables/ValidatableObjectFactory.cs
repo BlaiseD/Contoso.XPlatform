@@ -6,25 +6,30 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     internal static class ValidatableObjectFactory
     {
-        public static readonly DateTime DefaultDateTime = new DateTime(1900, 1, 1);
+        private static readonly DateTime DefaultDateTime = new DateTime(1900, 1, 1);
 
-        public static object GetValue(FormControlSettingsDescriptor setting, object defaultValue) 
+        public static IValidatable GetValidatable(object validatable, FormControlSettingsDescriptor setting)
+        {
+            ((IValidatable)validatable).Value = GetValue(setting);
+            return (IValidatable)validatable;
+        }
+
+        private static object GetValue(FormControlSettingsDescriptor setting)
             => typeof(ValidatableObjectFactory)
                 .GetMethod
                 (
-                    "_GetValue", 
+                    "_GetValue",
                     1,
                     BindingFlags.NonPublic | BindingFlags.Static,
                     null,
-                    new Type[] 
-                    { 
-                        typeof(FormControlSettingsDescriptor), 
-                        typeof(object)
+                    new Type[]
+                    {
+                        typeof(FormControlSettingsDescriptor)
                     },
                     null
                 )
                 .MakeGenericMethod(Type.GetType(setting.Type))
-                .Invoke(null, new object[] { setting, defaultValue });
+                .Invoke(null, new object[] { setting });
 
         private static T _GetValue<T>(FormControlSettingsDescriptor setting, object defaultValue)
         {
@@ -34,5 +39,12 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
             return (T)(setting.ValidationSetting?.DefaultValue ?? defaultValue);
         }
+
+        private static T _GetValue<T>(FormControlSettingsDescriptor setting) 
+            => _GetValue<T>
+            (
+                setting, 
+                typeof(T) == typeof(DateTime) ? DefaultDateTime : default(T)
+            );
     }
 }

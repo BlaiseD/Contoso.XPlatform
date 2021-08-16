@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 
 namespace Contoso.XPlatform.Services
 {
@@ -185,164 +184,114 @@ namespace Contoso.XPlatform.Services
 
         private IValidatable CreateFormValidatableObject(FormGroupSettingsDescriptor setting, string name)
         {
-            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
+            return (IValidatable)Activator.CreateInstance
             (
-                "_CreateFormValidatableObject",
-                1,
-                BindingFlags.NonPublic | BindingFlags.Instance,
-                null,
-                new Type[]
-                {
-                    typeof(FormGroupSettingsDescriptor),
-                    typeof(string)
-                },
-                null
-            ).MakeGenericMethod(Type.GetType(setting.ModelType));
-
-            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
+                typeof(FormValidatableObject<>).MakeGenericType(Type.GetType(setting.ModelType)),
+                name,
+                setting,
+                new IValidationRule[] { },
+                this.uiNotificationService,
+                this.mapper, 
+                App.ServiceProvider.GetRequiredService<IFieldsCollectionBuilder>()
+            );
         }
 
-        private IValidatable _CreateFormValidatableObject<T>(FormGroupSettingsDescriptor setting, string name) where T : class
-            => new FormValidatableObject<T>(name, setting, new IValidationRule[] { }, this.uiNotificationService, this.mapper, App.ServiceProvider.GetRequiredService<IFieldsCollectionBuilder>())
-            {
-                Value = default
-            };
-
-        private IValidatable CreateHiddenValidatableObject(FormControlSettingsDescriptor setting, string name)
-        {
-            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
+        private IValidatable CreateHiddenValidatableObject(FormControlSettingsDescriptor setting, string name) 
+            => ValidatableObjectFactory.GetValidatable
             (
-                "_CreateHiddenValidatableObject",
-                1,
-                BindingFlags.NonPublic | BindingFlags.Instance,
-                null,
-                new Type[]
-                {
-                    typeof(FormControlSettingsDescriptor),
-                    typeof(string)
-                },
-                null
-            ).MakeGenericMethod(Type.GetType(setting.Type));
-
-            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
-        }
-
-        private IValidatable _CreateHiddenValidatableObject<T>(FormControlSettingsDescriptor setting, string name)
-            => new HiddenValidatableObject<T>(name, setting, GetValidationRules(setting), this.uiNotificationService)
-            {
-                Value = (T)ValidatableObjectFactory.GetValue(setting, default(T))
-            };
-
-        private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting, string name)
-        {
-            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
-            (
-                "_CreateEntryValidatableObject",
-                1,
-                BindingFlags.NonPublic | BindingFlags.Instance,
-                null,
-                new Type[]
-                {
-                    typeof(FormControlSettingsDescriptor),
-                    typeof(string)
-                },
-                null
-            ).MakeGenericMethod(Type.GetType(setting.Type));
-
-            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
-        }
-
-        private IValidatable _CreateEntryValidatableObject<T>(FormControlSettingsDescriptor setting, string name)
-            => new EntryValidatableObject<T>(name, setting, GetValidationRules(setting), this.uiNotificationService)
-            {
-                Value = (T)ValidatableObjectFactory.GetValue(setting, default(T))
-            };
-
-        private IValidatable CreateDatePickerValidatableObject(FormControlSettingsDescriptor setting, string name)
-            => new DatePickerValidatableObject(name, setting, GetValidationRules(setting), this.uiNotificationService)
-            {
-                Value = (DateTime)ValidatableObjectFactory.GetValue
+                Activator.CreateInstance
                 (
+                    typeof(HiddenValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
+                    name,
                     setting,
-                    ValidatableObjectFactory.DefaultDateTime
-                )
-            };
+                    GetValidationRules(setting),
+                    this.uiNotificationService
+                ),
+                setting
+            );
 
-        private IValidatable CreatePickerValidatableObject(FormControlSettingsDescriptor setting, string name)
-        {
-            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
+        private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting, string name) 
+            => ValidatableObjectFactory.GetValidatable
             (
-                "_CreatePickerValidatableObject",
-                1,
-                BindingFlags.NonPublic | BindingFlags.Instance,
-                null,
-                new Type[]
-                {
-                    typeof(FormControlSettingsDescriptor),
-                    typeof(string)
-                },
-                null
-            ).MakeGenericMethod(Type.GetType(setting.Type));
+                Activator.CreateInstance
+                (
+                    typeof(EntryValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
+                    name,
+                    setting,
+                    GetValidationRules(setting),
+                    this.uiNotificationService
+                ),
+                setting
+            );
 
-            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
-        }
+        private IValidatable CreateDatePickerValidatableObject(FormControlSettingsDescriptor setting, string name) 
+            => ValidatableObjectFactory.GetValidatable
+            (
+                Activator.CreateInstance
+                (
+                    typeof(DatePickerValidatableObject),
+                    name,
+                    setting,
+                    GetValidationRules(setting),
+                    this.uiNotificationService
+                ),
+                setting
+            );
 
-        private IValidatable _CreatePickerValidatableObject<T>(FormControlSettingsDescriptor setting, string name)
-            => new PickerValidatableObject<T>(name, setting, this.httpService, GetValidationRules(setting), this.uiNotificationService)
-            {
-                Value = default
-            };
+        private IValidatable CreatePickerValidatableObject(FormControlSettingsDescriptor setting, string name) 
+            => ValidatableObjectFactory.GetValidatable
+            (
+                Activator.CreateInstance
+                (
+                    typeof(PickerValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
+                    name,
+                    setting,
+                    this.httpService,
+                    GetValidationRules(setting),
+                    this.uiNotificationService
+                ),
+                setting
+            );
 
         private IValidatable CreateMultiSelectValidatableObject(MultiSelectFormControlSettingsDescriptor setting, string name)
         {
-            Type elemmentType = Type.GetType(setting.MultiSelectTemplate.ModelType);
-            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
-            (
-                "_CreateMultiSelectValidatableObject",
-                2,
-                BindingFlags.NonPublic | BindingFlags.Instance,
-                null,
-                new Type[]
-                {
-                    typeof(MultiSelectFormControlSettingsDescriptor),
-                    typeof(string)
-                },
-                null
-            ).MakeGenericMethod(typeof(ObservableCollection<>).MakeGenericType(elemmentType), elemmentType);
-
-            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
+            return GetValidatable(Type.GetType(setting.MultiSelectTemplate.ModelType));
+            IValidatable GetValidatable(Type elementType)
+                => ValidatableObjectFactory.GetValidatable
+                (
+                    Activator.CreateInstance
+                    (
+                        typeof(MultiSelectValidatableObject<,>).MakeGenericType
+                        (
+                            typeof(ObservableCollection<>).MakeGenericType(elementType),
+                            elementType
+                        ),
+                        name,
+                        setting,
+                        this.httpService,
+                        GetValidationRules(setting),
+                        this.uiNotificationService
+                    ),
+                    setting
+                );
         }
-
-        private IValidatable _CreateMultiSelectValidatableObject<T, E>(MultiSelectFormControlSettingsDescriptor setting, string name) where T : ObservableCollection<E>
-            => new MultiSelectValidatableObject<T, E>(name, setting, this.httpService, GetValidationRules(setting), this.uiNotificationService)
-            {
-                Value = default
-            };
 
         private IValidatable CreateFormArrayValidatableObject(FormGroupArraySettingsDescriptor setting, string name)
         {
-            Type elemmentType = Type.GetType(setting.ModelType);
-            MethodInfo methodInfo = typeof(FieldsCollectionBuilder).GetMethod
-            (
-                "_CreateFormArrayValidatableObject",
-                2,
-                BindingFlags.NonPublic | BindingFlags.Instance,
-                null,
-                new Type[]
-                {
-                    typeof(FormGroupArraySettingsDescriptor),
-                    typeof(string)
-                },
-                null
-            ).MakeGenericMethod(typeof(ObservableCollection<>).MakeGenericType(elemmentType), elemmentType);
-
-            return (IValidatable)methodInfo.Invoke(this, new object[] { setting, name });
+            return GetValidatable(Type.GetType(setting.ModelType));
+            IValidatable GetValidatable(Type elementType)
+                => (IValidatable)Activator.CreateInstance
+                (
+                    typeof(FormArrayValidatableObject<,>).MakeGenericType
+                    (
+                        typeof(ObservableCollection<>).MakeGenericType(elementType),
+                        elementType
+                    ),
+                    name,
+                    setting,
+                    new IValidationRule[] { },
+                    this.uiNotificationService
+                );
         }
-
-        private IValidatable _CreateFormArrayValidatableObject<T, E>(FormGroupArraySettingsDescriptor setting, string name) where T : ObservableCollection<E> where E : class
-            => new FormArrayValidatableObject<T, E>(name, setting, new IValidationRule[] { }, this.uiNotificationService)
-            {
-                Value = default
-            };
     }
 }
