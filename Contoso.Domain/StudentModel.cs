@@ -83,6 +83,8 @@ namespace Contoso.Domain.Entities
 			}
 		}
 
+		public string EnrollmentDateString { get; set; }
+
 		private ICollection<EnrollmentModel> _enrollments;
 		[ListEditorControl(ListControlType.HashSetForm)]
 		[AlsoKnownAs("Student_Enrollments")]

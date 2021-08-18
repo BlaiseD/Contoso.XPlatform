@@ -290,6 +290,30 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             Assert.Equal(2, students.First().Enrollments.Count);
             Assert.Equal("A", students.First().Enrollments.Last().GradeLetter);
         }
+
+        [Fact]
+        public void Get_enrollments_filtered_by_grade_letter()
+        {
+            ICollection<EnrollmentModel> enrollments = ProjectionOperations<EnrollmentModel, Enrollment>.GetItems
+            (
+                serviceProvider.GetRequiredService<ISchoolRepository>(),
+                serviceProvider.GetRequiredService<IMapper>(),
+                new FilterLambdaOperatorParameter
+                (
+                    new EqualsBinaryOperatorParameter
+                    (
+                        new MemberSelectorOperatorParameter("GradeLetter", new ParameterOperatorParameter("f")),
+                        new ConstantOperatorParameter("A")
+                    ),
+                    typeof(EnrollmentModel),
+                    "f"
+                ),
+                null,
+                null
+            );
+
+            Assert.Single(enrollments);
+        }
         #endregion Tests
 
         #region Helpers

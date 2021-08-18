@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Contoso.Common.Configuration\Contoso.Common.Configuration.csproj" />
+    <ProjectReference Include="..\Contoso.Contexts\Contoso.Contexts.csproj" />
     <ProjectReference Include="..\Contoso.Data\Contoso.Data.csproj" />
     <ProjectReference Include="..\Contoso.Domain\Contoso.Domain.csproj" />
     <ProjectReference Include="..\Contoso.Forms.Configuration\Contoso.Forms.Configuration.csproj" />

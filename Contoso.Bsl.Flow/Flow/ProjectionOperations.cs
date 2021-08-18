@@ -48,11 +48,6 @@ namespace Contoso.Bsl.Flow
                 mapper.MapExpansion(expansion)
             ).Result;
 
-        private static Expression<Func<TModel, bool>> GetFilter(object p)
-        {
-            throw new NotImplementedException();
-        }
-
         public static Expression<Func<TModel, bool>> GetFilter(IExpressionPart filterExpression)
             => (Expression<Func<TModel, bool>>)filterExpression?.Build();
 

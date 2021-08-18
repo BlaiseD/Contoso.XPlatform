@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
-using System;
 
 namespace Contoso.AutoMapperProfiles
 {
@@ -38,7 +37,18 @@ namespace Contoso.AutoMapperProfiles
                 .ForMember(dest => dest.CourseTitle, opts => opts.MapFrom(x => x.Course.Title))
                 .ForMember(dest => dest.StudentName, opts => opts.MapFrom(x => x.Student.FirstName + " " + x.Student.LastName))
                 .ForMember(dest => dest.Grade, opts => opts.MapFrom(x => x.Grade.HasValue ? (Contoso.Domain.Entities.Grade?)(int)x.Grade.Value : null))
-                .ForMember(dest => dest.GradeLetter, opts => opts.MapFrom(x => x.Grade.ToString()))
+                .ForMember
+                (
+                    dest => dest.GradeLetter,
+                    opts => opts.MapFrom
+                    (
+                        x => x.Grade == Data.Entities.Grade.A ? "A"
+                            : x.Grade == Data.Entities.Grade.B ? "B"
+                            : x.Grade == Data.Entities.Grade.C ? "C"
+                            : x.Grade == Data.Entities.Grade.D ? "D"
+                            : x.Grade == Data.Entities.Grade.F ? "F" : ""
+                    )
+                )
                 .ForAllMembers(o => o.ExplicitExpansion());
 
             CreateMap<InstructorModel, Instructor>()
@@ -54,6 +64,14 @@ namespace Contoso.AutoMapperProfiles
             CreateMap<StudentModel, Student>()
                 .ReverseMap()
             .ForMember(dest => dest.FullName, opts => opts.MapFrom(x => x.FirstName + " " + x.LastName))
+            .ForMember
+            (
+                dest => dest.EnrollmentDateString,
+                opts => opts.MapFrom
+                (
+                    x => Contexts.BaseDbContextSqlFunctions.FormatDateTime(x.EnrollmentDate, "MM/dd/yyyy", "en-US")
+                )
+            )
             .ForAllMembers(o => o.ExplicitExpansion());
 
             CreateMap<LookUpsModel, LookUps>().ReverseMap();

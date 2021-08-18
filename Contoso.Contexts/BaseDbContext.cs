@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Contoso.Contexts
 {
@@ -17,6 +14,7 @@ namespace Contoso.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            BaseDbContextSqlFunctions.Register(modelBuilder);
             this.EntityConfigurationHandler.Configure(modelBuilder);
         }
     }
