@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Contoso.Bsl.Utils\Contoso.Bsl.Utils.csproj" />
     <ProjectReference Include="..\Contoso.XPlatform\Contoso.XPlatform\Contoso.XPlatform.csproj" />
   </ItemGroup>
 

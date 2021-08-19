@@ -1,10 +1,12 @@
-﻿using Contoso.Common.Configuration.ExpressionDescriptors;
+﻿using Contoso.Common.Configuration.ExpansionDescriptors;
+using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.Bindings;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.Navigation;
+using Contoso.Forms.Configuration.SearchForm;
 using Contoso.Forms.Configuration.Validation;
 using Contoso.XPlatform.Flow.Cache;
 using Contoso.XPlatform.Flow.Settings;
@@ -1729,6 +1731,74 @@ namespace Contoso.XPlatform
                 }
             ),
             ModelType = typeof(StudentModel).AssemblyQualifiedName
+        };
+
+        internal static SearchFormSettingsDescriptor StudentSearchForm = new SearchFormSettingsDescriptor
+        {
+            Title = "Student",
+            ModelType = typeof(StudentModel).AssemblyQualifiedName,
+            DataType = typeof(Student).AssemblyQualifiedName,
+            LoadingIndicatorText = "Loading ...",
+            ItemTemplateName = "HeaderTextDetailTemplate",
+            Bindings = new CollectionViewItemBindingsDictionary
+            (
+                new List<CollectionViewItemBindingDescriptor>
+                {
+                    new CollectionViewItemBindingDescriptor
+                    {
+                        Name = "Header",
+                        Property = "D",
+                        StringFormat = "ID {0}"
+                    },
+                    new CollectionViewItemBindingDescriptor
+                    {
+                        Name = "Text",
+                        Property = "FullName",
+                        StringFormat = "{0}"
+                    },
+                    new CollectionViewItemBindingDescriptor
+                    {
+                        Name = "Detail",
+                        Property = "EnrollmentDate",
+                        StringFormat = "Enrollment Date: {0:MM/dd/yyyy}"
+                    }
+                }
+            ),
+            SortDescriptor = new SortCollectionDescriptor
+            {
+                SortDescriptions = new List<SortDescriptionDescriptor>
+                {
+                    new SortDescriptionDescriptor
+                    {
+                        PropertyName = "FullName",
+                        SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending
+                    }
+                },
+                Take = 2
+            },
+            SearchDescriptor = new SearchFilterGroupDescriptor
+            {
+                Filters = new List<SearchFilterDescriptorBase>
+                {
+                    new SearchFilterDescriptor { Field = "EnrollmentDateString" },
+                    new SearchFilterGroupDescriptor
+                    {
+                        Filters = new List<SearchFilterDescriptorBase>
+                        {
+                            new SearchFilterDescriptor { Field = "FirstName" },
+                            new SearchFilterDescriptor { Field = "LastName" }
+                        }
+                    }
+                }
+            },
+            RequestDetails = new RequestDetailsDescriptor
+            {
+                DataSourceUrl = "api/List/GetList",
+                ModelType = typeof(StudentModel).AssemblyQualifiedName,
+                DataType = typeof(Student).AssemblyQualifiedName,
+                ModelReturnType = typeof(IEnumerable<StudentModel>).AssemblyQualifiedName,
+                DataReturnType = typeof(IEnumerable<Student>).AssemblyQualifiedName
+            }
         };
 
         internal static IList<CommandButtonDescriptor> ButtonDescriptors = new List<CommandButtonDescriptor>

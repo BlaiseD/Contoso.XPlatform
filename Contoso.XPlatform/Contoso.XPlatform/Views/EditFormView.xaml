@@ -5,8 +5,6 @@
              xmlns:behaviour="clr-namespace:Contoso.XPlatform.Behaviours"
              xmlns:converter="clr-namespace:Contoso.XPlatform.Converters"
              xmlns:utils="clr-namespace:Contoso.XPlatform.Utils"
-             xmlns:vm="clr-namespace:Contoso.XPlatform.ViewModels"
-             xmlns:models="clr-namespace:Contoso.Domain.Entities;assembly=Contoso.Domain"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              Title="Page 4">
     <ContentPage.Resources>

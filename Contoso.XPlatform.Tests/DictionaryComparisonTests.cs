@@ -86,7 +86,7 @@ namespace Contoso.XPlatform.Tests
         }
 
         [Fact]
-        public void ShouldReturnFalseForMisMatchInAChildCollectionCound()
+        public void ShouldReturnFalseForMisMatchInAChildCollectionCount()
         {
             var firstCoursesList = (List<Dictionary<string, object>>)first["Courses"];
             firstCoursesList.Add(new Dictionary<string, object> { });
