@@ -34,6 +34,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 
         private readonly ValidateIfManager<TModel> validateIfManager;
         private readonly IMapper mapper;
+        private TModel entity;
 
         public override void Dispose()
         {
@@ -46,7 +47,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             if (this.FormSettings.RequestDetails.Filter == null)
                 throw new ArgumentException($"{nameof(this.FormSettings.RequestDetails.Filter)}: 883E834F-98A6-4DF7-9D07-F1BB0D6639E1");
 
-            GetEntityResponse getEntityResponse = await BusyIndaicatorHelpers.ExecuteRequestWithBusyIndicator
+            GetEntityResponse getEntityResponse = await BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
             (
                 () => httpService.GetEntity
                 (
@@ -63,6 +64,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             if (getEntityResponse.Success == false)
                 return;
 
+            this.entity = (TModel)getEntityResponse.Entity;
             Properties.UpdateValidatables
             (
                 getEntityResponse.Entity,

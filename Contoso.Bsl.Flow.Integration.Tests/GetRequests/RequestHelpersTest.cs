@@ -96,6 +96,39 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
         }
 
         [Fact]
+        public void Select_Students_In_Ascending_Order_As_StudentModel_Type()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<StudentModel>, IEnumerable<StudentModel>>
+            (
+                GetStudentsBodyForStudentModelType(),
+                "q"
+            );
+            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
+            ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
+
+            //act
+            var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
+            var list = RequestHelpers.GetList<StudentModel, Student, IEnumerable<StudentModel>, IEnumerable<Student>>
+            (
+                new Business.Requests.GetTypedListRequest
+                {
+                    Selector = selectorLambdaOperatorDescriptor,
+                    ModelType = typeof(StudentModel).AssemblyQualifiedName,
+                    DataType = typeof(Student).AssemblyQualifiedName,
+                    ModelReturnType = typeof(IEnumerable<StudentModel>).AssemblyQualifiedName,
+                    DataReturnType = typeof(IEnumerable<Student>).AssemblyQualifiedName
+                },
+                repository,
+                mapper
+            ).Result.List.ToList();
+
+            //assert
+            AssertFilterStringIsCorrect(expression, "q => Convert(q.OrderBy(d => d.FullName).Take(2))");
+            Assert.Equal(2, list.Count);
+        }
+
+        [Fact]
         public void Get_Departments_ById_And_Courses_WithGenericHelper()
         {
             //arrange
@@ -511,6 +544,23 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                 },
                 SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
                 SelectorParameterName = "d"
+            };
+
+        private TakeOperatorDescriptor GetStudentsBodyForStudentModelType()
+            => new TakeOperatorDescriptor
+            {
+                SourceOperand = new OrderByOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                    SelectorBody = new MemberSelectorOperatorDescriptor
+                    {
+                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                        MemberFullName = "FullName"
+                    },
+                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                    SelectorParameterName = "d"
+                },
+                Count = 2
             };
 
         private SelectOperatorDescriptor GetDepartmentsBodyForDepartmentModelType()

@@ -8,7 +8,6 @@ namespace Contoso.XPlatform.Services
     public interface ISearchSelectorBuilder
     {
         FilterLambdaOperatorDescriptor CreateFilter(SearchFilterGroupDescriptor descriptor, Type modelType, string searchText);
-        SelectorLambdaOperatorDescriptor CreatePagingSelector(SortCollectionDescriptor descriptor, Type modelType);
         SelectorLambdaOperatorDescriptor CreatePagingSelector(SortCollectionDescriptor sortDescriptor, Type modelType, SearchFilterGroupDescriptor filterGroupDescriptor, string searchText);
     }
 }

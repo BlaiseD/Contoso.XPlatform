@@ -64,7 +64,14 @@
                 <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
                 <Setter Property="PlaceholderColor" Value = "{DynamicResource TertiaryTextColor}" />
             </Style>
-            
+
+            <Style TargetType="SearchBar">
+                <Setter Property="Margin" Value = "0,10,0,0" />
+                <Setter Property="BackgroundColor" Value = "{DynamicResource EntryBackgroundColor}" />
+                <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
+                <Setter Property="PlaceholderColor" Value = "{DynamicResource TertiaryTextColor}" />
+            </Style>
+
             <Style TargetType="Picker">
                 <Setter Property="Margin" Value = "0,10,0,0" />
                 <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
@@ -179,6 +186,10 @@
             <Style TargetType="CollectionView" x:Key="FormArrayPopupCollectionViewStyle">
                 <Setter Property="SelectionMode" Value="Single"/>
                 <Setter Property="HeightRequest" Value="340"/>
+            </Style>
+
+            <Style TargetType="CollectionView" x:Key="SearchFormCollectionViewStyle">
+                <Setter Property="SelectionMode" Value="Single"/>
             </Style>
 
             <Style TargetType="CollectionView" x:Key="ChildFormPopupCollectionViewStyle">

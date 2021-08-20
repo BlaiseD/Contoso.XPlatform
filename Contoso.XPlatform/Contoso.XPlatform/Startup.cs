@@ -35,6 +35,7 @@ namespace Contoso.XPlatform
                 )
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpService>()
+                .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
                 .AddTransient<IMapper>
                 (
                     sp => new Mapper
@@ -44,7 +45,8 @@ namespace Contoso.XPlatform
                     )
                 )
                 .AddTransient<MainPageViewModel, MainPageViewModel>()
-                .AddTransient<EditFormViewModel, EditFormViewModel>();
+                .AddTransient<EditFormViewModel, EditFormViewModel>()
+                .AddTransient<SearchPageViewModel, SearchPageViewModel>();
         }
     }
 }

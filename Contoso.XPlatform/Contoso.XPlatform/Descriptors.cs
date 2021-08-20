@@ -1739,6 +1739,7 @@ namespace Contoso.XPlatform
             ModelType = typeof(StudentModel).AssemblyQualifiedName,
             DataType = typeof(Student).AssemblyQualifiedName,
             LoadingIndicatorText = "Loading ...",
+            FilterPlaceholder = "Filter",
             ItemTemplateName = "HeaderTextDetailTemplate",
             Bindings = new CollectionViewItemBindingsDictionary
             (
@@ -1780,7 +1781,7 @@ namespace Contoso.XPlatform
             {
                 Filters = new List<SearchFilterDescriptorBase>
                 {
-                    new SearchFilterDescriptor { Field = "EnrollmentDateString" },
+                    new SearchFilterDescriptor { Field = "FullName" },
                     new SearchFilterGroupDescriptor
                     {
                         Filters = new List<SearchFilterDescriptorBase>
@@ -1807,7 +1808,15 @@ namespace Contoso.XPlatform
             new CommandButtonDescriptor { Id = 2, LongString = "Home", ShortString = "H", Command = "NavigateCommand", ButtonIcon = "Home" }
         };
 
-        internal static ScreenSettings<EditFormSettingsDescriptor> GetScreenSettings(string moduleName)
+        internal static IList<CommandButtonDescriptor> SearchFormButtonDescriptors = new List<CommandButtonDescriptor>
+        {
+            new CommandButtonDescriptor { Id = 1, LongString = "Add", ShortString = "A", Command = "AddCommand", ButtonIcon = "Plus" },
+            new CommandButtonDescriptor { Id = 2, LongString = "Edit", ShortString = "E", Command = "EditCommand", ButtonIcon = "Edit" },
+            new CommandButtonDescriptor { Id = 3, LongString = "Detail", ShortString = "D0", Command = "DetailCommand", ButtonIcon = "Info" },
+            new CommandButtonDescriptor { Id = 4, LongString = "Delete", ShortString = "D1", Command = "DeleteCommand", ButtonIcon = "TrashAlt" }
+        };
+
+        internal static ScreenSettingsBase GetScreenSettings(string moduleName)
         {
             if (moduleName == "students")
                 return new ScreenSettings<EditFormSettingsDescriptor>(StudentForm, ButtonDescriptors, ViewType.EditForm);
@@ -1819,6 +1828,8 @@ namespace Contoso.XPlatform
             else if (moduleName == "instructors")
                 //return new ScreenSettings<EditFormSettingsDescriptor>(InstructorForm, ButtonDescriptors, ViewType.EditForm);
                 return new ScreenSettings<EditFormSettingsDescriptor>(InstructorFormWithPopupOfficeAssignment, ButtonDescriptors, ViewType.EditForm);
+            else if (moduleName == "studentslist")
+                return new ScreenSettings<SearchFormSettingsDescriptor>(StudentSearchForm, SearchFormButtonDescriptors, ViewType.SearchPage);
             else
             {
                 DisplayInvalidPageMessage(moduleName);
@@ -1871,6 +1882,12 @@ namespace Contoso.XPlatform
                     InitialModule = "instructors",
                     Icon = "ChalkboardTeacher",
                     Text = "Instructors"
+                },
+                new NavigationMenuItemDescriptor
+                {
+                    InitialModule = "studentslist",
+                    Icon = "Users",
+                    Text = "studentslist"
                 }
             }
         };

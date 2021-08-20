@@ -11,9 +11,6 @@ namespace Contoso.XPlatform.Services
         public FilterLambdaOperatorDescriptor CreateFilter(SearchFilterGroupDescriptor descriptor, Type modelType, string searchText) 
             => CreateSearchFilterHelper.CreateFilter(descriptor, modelType, searchText);
 
-        public SelectorLambdaOperatorDescriptor CreatePagingSelector(SortCollectionDescriptor descriptor, Type modelType) 
-            => CreatePagingSelectorHelper.CreatePagingSelector(descriptor, modelType);
-
         public SelectorLambdaOperatorDescriptor CreatePagingSelector(SortCollectionDescriptor sortDescriptor, Type modelType, SearchFilterGroupDescriptor filterGroupDescriptor, string searchText)
             => CreatePagingSelectorHelper.CreatePagingSelector(sortDescriptor, modelType, filterGroupDescriptor, searchText);
     }

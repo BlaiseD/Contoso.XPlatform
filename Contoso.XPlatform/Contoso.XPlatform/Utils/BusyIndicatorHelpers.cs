@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Contoso.XPlatform.Utils
 {
-    internal static class BusyIndaicatorHelpers
+    internal static class BusyIndicatorHelpers
     {
         public async static Task<TResult> ExecuteRequestWithBusyIndicator<TResult>(Func<Task<TResult>> action) where TResult : class
         {

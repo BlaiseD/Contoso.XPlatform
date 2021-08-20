@@ -2,6 +2,7 @@
 using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Forms.Configuration.SearchForm;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Contoso.XPlatform.Utils
@@ -12,23 +13,27 @@ namespace Contoso.XPlatform.Utils
         private static readonly string selectorParameterName = "s";
         private static readonly string filterParameterName = "f";
 
-        public static SelectorLambdaOperatorDescriptor CreatePagingSelector(SortCollectionDescriptor sortDescriptor, Type modelType) 
+        public static SelectorLambdaOperatorDescriptor CreatePagingSelector(SortCollectionDescriptor sortDescriptor, Type modelType, SearchFilterGroupDescriptor filterGroupDescriptor, string searchText)
+            => string.IsNullOrEmpty(searchText)
+                ? CreatePagingSelector(sortDescriptor, modelType)
+                : GetSelector
+                (
+                    typeof(IQueryable<>).MakeGenericType(modelType).AssemblyQualifiedName,
+                    typeof(IEnumerable<>).MakeGenericType(modelType).AssemblyQualifiedName,
+                    sortDescriptor,
+                    CreateWhereBody(filterGroupDescriptor, searchText)
+                );
+
+        private static SelectorLambdaOperatorDescriptor CreatePagingSelector(SortCollectionDescriptor sortDescriptor, Type modelType)
             => GetSelector
             (
                 typeof(IQueryable<>).MakeGenericType(modelType).AssemblyQualifiedName,
+                typeof(IEnumerable<>).MakeGenericType(modelType).AssemblyQualifiedName,
                 sortDescriptor,
                 new ParameterOperatorDescriptor { ParameterName = queryParameterName }
             );
 
-        public static SelectorLambdaOperatorDescriptor CreatePagingSelector(SortCollectionDescriptor sortDescriptor, Type modelType, SearchFilterGroupDescriptor filterGroupDescriptor, string searchText) 
-            => GetSelector
-            (
-                typeof(IQueryable<>).MakeGenericType(modelType).AssemblyQualifiedName,
-                sortDescriptor,
-                CreateWhereBody(filterGroupDescriptor, searchText)
-            );
-
-        private static SelectorLambdaOperatorDescriptor GetSelector(string queryableType, SortCollectionDescriptor sortDescriptor, OperatorDescriptorBase sourceOperand)
+        private static SelectorLambdaOperatorDescriptor GetSelector(string queryableType, string enumerableType, SortCollectionDescriptor sortDescriptor, OperatorDescriptorBase sourceOperand)
                 => new SelectorLambdaOperatorDescriptor
                 {
                     Selector = CreatePagingDescriptor
@@ -41,7 +46,7 @@ namespace Contoso.XPlatform.Utils
                         )
                     ),
                     ParameterName = queryParameterName,
-                    BodyType = queryableType,
+                    BodyType = enumerableType,
                     SourceElementType = queryableType
                 };
 
