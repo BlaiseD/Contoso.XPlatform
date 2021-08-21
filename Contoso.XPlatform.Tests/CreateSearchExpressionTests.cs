@@ -62,13 +62,13 @@ namespace Contoso.XPlatform.Tests
             );
 
             SelectorLambdaOperator selectorLambdaOperator = (SelectorLambdaOperator)serviceProvider.GetRequiredService<IMapper>().MapToOperator(selectorLambdaOperatorDescriptor);
-            Expression<Func<IQueryable<StudentModel>, IEnumerable<StudentModel>>> selector = (Expression<Func<IQueryable<StudentModel>, IEnumerable<StudentModel>>>)selectorLambdaOperator.Build();
+            Expression<Func<IQueryable<StudentModel>, IQueryable<StudentModel>>> selector = (Expression<Func<IQueryable<StudentModel>, IQueryable<StudentModel>>>)selectorLambdaOperator.Build();
 
             //assert
             AssertFilterStringIsCorrect
             (
                 selector,
-                "q => Convert(q.OrderBy(s => s.FirstName).ThenBy(s => s.LastName).Skip(3).Take(2))"
+                "q => q.OrderBy(s => s.FirstName).ThenBy(s => s.LastName).Skip(3).Take(2)"
             );
         }
 
@@ -85,13 +85,13 @@ namespace Contoso.XPlatform.Tests
             );
 
             SelectorLambdaOperator selectorLambdaOperator = (SelectorLambdaOperator)serviceProvider.GetRequiredService<IMapper>().MapToOperator(selectorLambdaOperatorDescriptor);
-            Expression<Func<IQueryable<StudentModel>, IEnumerable<StudentModel>>> selector = (Expression<Func<IQueryable<StudentModel>, IEnumerable<StudentModel>>>)selectorLambdaOperator.Build();
+            Expression<Func<IQueryable<StudentModel>, IQueryable<StudentModel>>> selector = (Expression<Func<IQueryable<StudentModel>, IQueryable<StudentModel>>>)selectorLambdaOperator.Build();
 
             //assert
             AssertFilterStringIsCorrect
             (
                 selector,
-                "q => Convert(q.Where(f => (f.EnrollmentDateString.Contains(\"xxx\") OrElse (f.FirstName.Contains(\"xxx\") OrElse f.LastName.Contains(\"xxx\")))).OrderBy(s => s.FirstName).ThenBy(s => s.LastName).Skip(3).Take(2))"
+                "q => q.Where(f => (f.EnrollmentDateString.Contains(\"xxx\") OrElse (f.FirstName.Contains(\"xxx\") OrElse f.LastName.Contains(\"xxx\")))).OrderBy(s => s.FirstName).ThenBy(s => s.LastName).Skip(3).Take(2)"
             );
         }
 

@@ -18,8 +18,7 @@ namespace Contoso.XPlatform.Utils
                 ? CreatePagingSelector(sortDescriptor, modelType)
                 : GetSelector
                 (
-                    typeof(IQueryable<>).MakeGenericType(modelType).AssemblyQualifiedName,
-                    typeof(IEnumerable<>).MakeGenericType(modelType).AssemblyQualifiedName,
+                    modelType.GetIQueryableTypeString(),
                     sortDescriptor,
                     CreateWhereBody(filterGroupDescriptor, searchText)
                 );
@@ -27,13 +26,12 @@ namespace Contoso.XPlatform.Utils
         private static SelectorLambdaOperatorDescriptor CreatePagingSelector(SortCollectionDescriptor sortDescriptor, Type modelType)
             => GetSelector
             (
-                typeof(IQueryable<>).MakeGenericType(modelType).AssemblyQualifiedName,
-                typeof(IEnumerable<>).MakeGenericType(modelType).AssemblyQualifiedName,
+                modelType.GetIQueryableTypeString(),
                 sortDescriptor,
                 new ParameterOperatorDescriptor { ParameterName = queryParameterName }
             );
 
-        private static SelectorLambdaOperatorDescriptor GetSelector(string queryableType, string enumerableType, SortCollectionDescriptor sortDescriptor, OperatorDescriptorBase sourceOperand)
+        private static SelectorLambdaOperatorDescriptor GetSelector(string queryableType, SortCollectionDescriptor sortDescriptor, OperatorDescriptorBase sourceOperand)
                 => new SelectorLambdaOperatorDescriptor
                 {
                     Selector = CreatePagingDescriptor
@@ -46,7 +44,7 @@ namespace Contoso.XPlatform.Utils
                         )
                     ),
                     ParameterName = queryParameterName,
-                    BodyType = enumerableType,
+                    BodyType = queryableType,
                     SourceElementType = queryableType
                 };
 

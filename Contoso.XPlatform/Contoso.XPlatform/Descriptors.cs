@@ -11,9 +11,9 @@ using Contoso.Forms.Configuration.Validation;
 using Contoso.XPlatform.Flow.Cache;
 using Contoso.XPlatform.Flow.Settings;
 using Contoso.XPlatform.Flow.Settings.Screen;
+using Contoso.XPlatform.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Contoso.XPlatform
 {
@@ -226,17 +226,17 @@ namespace Contoso.XPlatform
                                 },
                                 SelectorParameterName = "s"
                             },
-                            SourceElementType = typeof(IQueryable<CourseModel>).AssemblyQualifiedName,
+                            SourceElementType = typeof(CourseModel).GetIQueryableTypeString(),
                             ParameterName = "$it",
-                            BodyType = typeof(IEnumerable<CourseAssignmentModel>).AssemblyQualifiedName
+                            BodyType = typeof(CourseAssignmentModel).GetIEnumerableTypeString()
                         },
                         RequestDetails = new RequestDetailsDescriptor
                         {
                             DataSourceUrl = "api/Dropdown/GetObjectDropdown",
                             ModelType = typeof(CourseModel).AssemblyQualifiedName,
                             DataType = typeof(Course).AssemblyQualifiedName,
-                            ModelReturnType = typeof(IEnumerable<CourseAssignmentModel>).AssemblyQualifiedName,
-                            DataReturnType = typeof(IEnumerable<CourseAssignment>).AssemblyQualifiedName
+                            ModelReturnType = typeof(CourseAssignmentModel).GetIEnumerableTypeString(),
+                            DataReturnType = typeof(CourseAssignment).GetIEnumerableTypeString()
                         }
                     }
                 }
@@ -465,17 +465,17 @@ namespace Contoso.XPlatform
                                 },
                                 SelectorParameterName = "s"
                             },
-                            SourceElementType = typeof(IQueryable<CourseModel>).AssemblyQualifiedName,
+                            SourceElementType = typeof(CourseModel).GetIQueryableTypeString(),
                             ParameterName = "$it",
-                            BodyType = typeof(IEnumerable<CourseAssignmentModel>).AssemblyQualifiedName
+                            BodyType = typeof(CourseAssignmentModel).GetIEnumerableTypeString()
                         },
                         RequestDetails = new RequestDetailsDescriptor
                         {
                             DataSourceUrl = "api/Dropdown/GetObjectDropdown",
                             ModelType = typeof(CourseModel).AssemblyQualifiedName,
                             DataType = typeof(Course).AssemblyQualifiedName,
-                            ModelReturnType = typeof(IEnumerable<CourseAssignmentModel>).AssemblyQualifiedName,
-                            DataReturnType = typeof(IEnumerable<CourseAssignment>).AssemblyQualifiedName
+                            ModelReturnType = typeof(CourseAssignmentModel).GetIEnumerableTypeString(),
+                            DataReturnType = typeof(CourseAssignment).GetIEnumerableTypeString()
                         }
                     }
                 }
@@ -634,17 +634,17 @@ namespace Contoso.XPlatform
                                 },
                                 SelectorParameterName = "s"
                             },
-                            SourceElementType = typeof(IQueryable<InstructorModel>).AssemblyQualifiedName,
+                            SourceElementType = typeof(InstructorModel).GetIQueryableTypeString(),
                             ParameterName = "$it",
-                            BodyType = typeof(IEnumerable<InstructorModel>).AssemblyQualifiedName
+                            BodyType = typeof(InstructorModel).GetIEnumerableTypeString()
                         },
                         RequestDetails = new RequestDetailsDescriptor
                         {
                             DataSourceUrl = "api/Dropdown/GetObjectDropdown",
                             ModelType = typeof(InstructorModel).AssemblyQualifiedName,
                             DataType = typeof(Instructor).AssemblyQualifiedName,
-                            ModelReturnType = typeof(IEnumerable<InstructorModel>).AssemblyQualifiedName,
-                            DataReturnType = typeof(IEnumerable<Instructor>).AssemblyQualifiedName
+                            ModelReturnType = typeof(InstructorModel).GetIEnumerableTypeString(),
+                            DataReturnType = typeof(Instructor).GetIEnumerableTypeString()
                         }
                     },
                     ValidationSetting = new FieldValidationSettingsDescriptor
@@ -867,17 +867,17 @@ namespace Contoso.XPlatform
                                 },
                                 SelectorParameterName = "s"
                             },
-                            SourceElementType = typeof(IQueryable<InstructorModel>).AssemblyQualifiedName,
+                            SourceElementType = typeof(InstructorModel).GetIQueryableTypeString(),
                             ParameterName = "$it",
-                            BodyType = typeof(IEnumerable<InstructorModel>).AssemblyQualifiedName
+                            BodyType = typeof(InstructorModel).GetIEnumerableTypeString()
                         },
                         RequestDetails = new RequestDetailsDescriptor
                         {
                             DataSourceUrl = "api/Dropdown/GetObjectDropdown",
                             ModelType = typeof(InstructorModel).AssemblyQualifiedName,
                             DataType = typeof(Instructor).AssemblyQualifiedName,
-                            ModelReturnType = typeof(IEnumerable<InstructorModel>).AssemblyQualifiedName,
-                            DataReturnType = typeof(IEnumerable<Instructor>).AssemblyQualifiedName
+                            ModelReturnType = typeof(InstructorModel).GetIEnumerableTypeString(),
+                            DataReturnType = typeof(Instructor).GetIEnumerableTypeString()
                         }
                     },
                     ValidationSetting = new FieldValidationSettingsDescriptor
@@ -1026,17 +1026,17 @@ namespace Contoso.XPlatform
                                 SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
                                 SelectorParameterName = "d"
                             },
-                            SourceElementType = typeof(IQueryable<CourseModel>).AssemblyQualifiedName,
+                            SourceElementType = typeof(CourseModel).GetIQueryableTypeString(),
                             ParameterName = "$it",
-                            BodyType = typeof(IEnumerable<CourseModel>).AssemblyQualifiedName
+                            BodyType = typeof(CourseModel).GetIEnumerableTypeString()
                         },
                         RequestDetails = new RequestDetailsDescriptor
                         {
                             DataSourceUrl = "api/List/GetList",
                             ModelType = typeof(CourseModel).AssemblyQualifiedName,
                             DataType = typeof(Course).AssemblyQualifiedName,
-                            ModelReturnType = typeof(IEnumerable<CourseModel>).AssemblyQualifiedName,
-                            DataReturnType = typeof(IEnumerable<Course>).AssemblyQualifiedName
+                            ModelReturnType = typeof(CourseModel).GetIEnumerableTypeString(),
+                            DataReturnType = typeof(Course).GetIEnumerableTypeString()
                         }
                     },
                     FieldSettings = new List<FormItemSettingsDescriptor>
@@ -1132,17 +1132,17 @@ namespace Contoso.XPlatform
                                         },
                                         SelectorParameterName = "s"
                                     },
-                                    SourceElementType = typeof(IQueryable<LookUpsModel>).AssemblyQualifiedName,
+                                    SourceElementType = typeof(LookUpsModel).GetIQueryableTypeString(),
                                     ParameterName = "$it",
-                                    BodyType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName
+                                    BodyType = typeof(LookUpsModel).GetIEnumerableTypeString()
                                 },
                                 RequestDetails = new RequestDetailsDescriptor
                                 {
                                     DataSourceUrl = "api/Dropdown/GetObjectDropdown",
                                     ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
                                     DataType = typeof(LookUps).AssemblyQualifiedName,
-                                    ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
-                                    DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                                    ModelReturnType = typeof(LookUpsModel).GetIEnumerableTypeString(),
+                                    DataReturnType = typeof(LookUps).GetIEnumerableTypeString()
                                 }
                             },
                             ValidationSetting = new FieldValidationSettingsDescriptor
@@ -1219,17 +1219,17 @@ namespace Contoso.XPlatform
                                         },
                                         SelectorParameterName = "d"
                                     },
-                                    SourceElementType = typeof(IQueryable<DepartmentModel>).AssemblyQualifiedName,
+                                    SourceElementType = typeof(DepartmentModel).GetIQueryableTypeString(),
                                     ParameterName = "$it",
-                                    BodyType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName
+                                    BodyType = typeof(DepartmentModel).GetIEnumerableTypeString()
                                 },
                                 RequestDetails = new RequestDetailsDescriptor
                                 {
                                     DataSourceUrl = "api/Dropdown/GetObjectDropdown",
                                     ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
                                     DataType = typeof(Department).AssemblyQualifiedName,
-                                    ModelReturnType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName,
-                                    DataReturnType = typeof(IEnumerable<Department>).AssemblyQualifiedName
+                                    ModelReturnType = typeof(DepartmentModel).GetIEnumerableTypeString(),
+                                    DataReturnType = typeof(Department).GetIEnumerableTypeString()
                                 }
                             },
                             ValidationSetting = new FieldValidationSettingsDescriptor
@@ -1432,17 +1432,17 @@ namespace Contoso.XPlatform
                                 },
                                 SelectorParameterName = "s"
                             },
-                            SourceElementType = typeof(IQueryable<LookUpsModel>).AssemblyQualifiedName,
+                            SourceElementType = typeof(LookUpsModel).GetIQueryableTypeString(),
                             ParameterName = "$it",
-                            BodyType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName
+                            BodyType = typeof(LookUpsModel).GetIEnumerableTypeString()
                         },
                         RequestDetails = new RequestDetailsDescriptor
                         {
                             DataSourceUrl = "api/Dropdown/GetObjectDropdown",
                             ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
                             DataType = typeof(LookUps).AssemblyQualifiedName,
-                            ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
-                            DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                            ModelReturnType = typeof(LookUpsModel).GetIEnumerableTypeString(),
+                            DataReturnType = typeof(LookUps).GetIEnumerableTypeString()
                         }
                     },
                     ValidationSetting = new FieldValidationSettingsDescriptor
@@ -1519,17 +1519,17 @@ namespace Contoso.XPlatform
                                 },
                                 SelectorParameterName = "d"
                             },
-                            SourceElementType = typeof(IQueryable<DepartmentModel>).AssemblyQualifiedName,
+                            SourceElementType = typeof(DepartmentModel).GetIQueryableTypeString(),
                             ParameterName = "$it",
-                            BodyType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName
+                            BodyType = typeof(DepartmentModel).GetIEnumerableTypeString()
                         },
                         RequestDetails = new RequestDetailsDescriptor
                         {
                             DataSourceUrl = "api/Dropdown/GetObjectDropdown",
                             ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
                             DataType = typeof(Department).AssemblyQualifiedName,
-                            ModelReturnType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName,
-                            DataReturnType = typeof(IEnumerable<Department>).AssemblyQualifiedName
+                            ModelReturnType = typeof(DepartmentModel).GetIEnumerableTypeString(),
+                            DataReturnType = typeof(Department).GetIEnumerableTypeString()
                         }
                     },
                     ValidationSetting = new FieldValidationSettingsDescriptor
@@ -1797,8 +1797,8 @@ namespace Contoso.XPlatform
                 DataSourceUrl = "api/List/GetList",
                 ModelType = typeof(StudentModel).AssemblyQualifiedName,
                 DataType = typeof(Student).AssemblyQualifiedName,
-                ModelReturnType = typeof(IEnumerable<StudentModel>).AssemblyQualifiedName,
-                DataReturnType = typeof(IEnumerable<Student>).AssemblyQualifiedName
+                ModelReturnType = typeof(StudentModel).GetIQueryableTypeString(),
+                DataReturnType = typeof(Student).GetIQueryableTypeString()
             }
         };
 
