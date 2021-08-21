@@ -268,7 +268,7 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
 
         private async void PullMoreItems()
         {
-            this.FormSettings.SortDescriptor.Skip = this.Items.Count;
+            this.FormSettings.SortDescriptor.Skip = (defaultSkip ?? 0) + this.Items.Count;
 
             IsRefreshing = true;
             GetListResponse getListResponse = await GetList();

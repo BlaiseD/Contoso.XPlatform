@@ -18,8 +18,8 @@ namespace Contoso.XPlatform.Views
             this.searchPageListViewModel = searchPageViewModel.SearchPageEntityViewModel;
             InitializeComponent();
             AddToolBarItems();
-            this.BindingContext = this.searchPageListViewModel;
             Title = this.searchPageListViewModel.FormSettings.Title;
+            this.BindingContext = this.searchPageListViewModel;
 
             void AddToolBarItems()
             {

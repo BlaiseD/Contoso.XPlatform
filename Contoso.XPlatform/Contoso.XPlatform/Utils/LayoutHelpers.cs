@@ -84,9 +84,7 @@ namespace Contoso.XPlatform.Utils
                 (
                     typeof(MainPageView).Assembly.GetType
                     (
-                        viewName == "SearchPage"
-                            ? $"Contoso.XPlatform.Views.{viewName}View" 
-                            : $"Contoso.XPlatform.Views.{viewName}ViewCS"
+                        $"Contoso.XPlatform.Views.{viewName}ViewCS"
                     ),
                     viewModel
                 );

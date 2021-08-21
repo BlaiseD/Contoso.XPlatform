@@ -1748,7 +1748,7 @@ namespace Contoso.XPlatform
                     new CollectionViewItemBindingDescriptor
                     {
                         Name = "Header",
-                        Property = "D",
+                        Property = "ID",
                         StringFormat = "ID {0}"
                     },
                     new CollectionViewItemBindingDescriptor

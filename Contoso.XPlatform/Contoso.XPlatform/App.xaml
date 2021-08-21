@@ -158,6 +158,23 @@
                 </Setter>
             </Style>
 
+            <Style TargetType="Grid" x:Key="SearchFormItemStyle">
+                <Setter Property="HeightRequest" Value="85" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                        Value="{DynamicResource PrimaryColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
             <Style TargetType="Grid" x:Key="PopupHeaderStyle">
                 <Setter Property="BackgroundColor" Value="{DynamicResource NavigationBarColor}"/>
                 <Setter Property="HeightRequest" Value="65"/>
