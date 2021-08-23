@@ -133,6 +133,70 @@ namespace Contoso.Bsl.Web.Tests
                 SelectorParameterName = "l"
             };
 
+        private SelectOperatorDescriptor GetAboutBody_StudentEnrollmentCountByEnrollmentDate()
+            => new SelectOperatorDescriptor
+            {
+                SourceOperand = new OrderByOperatorDescriptor
+                {
+                    SourceOperand = new GroupByOperatorDescriptor
+                    {
+                        SourceOperand = new ParameterOperatorDescriptor
+                        {
+                            ParameterName = "q"
+                        },
+                        SelectorBody = new MemberSelectorOperatorDescriptor
+                        {
+                            MemberFullName = "EnrollmentDate",
+                            SourceOperand = new ParameterOperatorDescriptor
+                            {
+                                ParameterName = "item"
+                            }
+                        },
+                        SelectorParameterName = "item"
+                    },
+                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Descending,
+                    SelectorBody = new MemberSelectorOperatorDescriptor
+                    {
+                        MemberFullName = "Key",
+                        SourceOperand = new ParameterOperatorDescriptor
+                        {
+                            ParameterName = "group"
+                        }
+                    },
+                    SelectorParameterName = "group"
+                },
+                SelectorBody = new MemberInitOperatorDescriptor
+                {
+                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                    {
+                        ["DateTimeValue"] = new MemberSelectorOperatorDescriptor
+                        {
+                            MemberFullName = "Key",
+                            SourceOperand = new ParameterOperatorDescriptor
+                            {
+                                ParameterName = "sel"
+                            }
+                        },
+                        ["NumericValue"] = new ConvertOperatorDescriptor
+                        {
+                            SourceOperand = new CountOperatorDescriptor
+                            {
+                                SourceOperand = new AsEnumerableOperatorDescriptor()
+                                {
+                                    SourceOperand = new ParameterOperatorDescriptor
+                                    {
+                                        ParameterName = "sel"
+                                    }
+                                }
+                            },
+                            Type = typeof(double?).FullName
+                        }
+                    },
+                    NewType = typeof(LookUpsModel).AssemblyQualifiedName
+                },
+                SelectorParameterName = "sel"
+            };
+
         private EqualsBinaryOperatorDescriptor GetDepartmentByIdFilterBody(int id)
             => new EqualsBinaryOperatorDescriptor
             {
@@ -312,6 +376,35 @@ namespace Contoso.Bsl.Web.Tests
 
             Assert.NotNull(result);
             Assert.NotNull(result.Entity);
+        }
+
+        [Fact]
+        public async void GetAboutListRequest_StudentEnrollmentCountByEnrollmentDate_As_LookUpsModel()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<StudentModel>, IEnumerable<LookUpsModel>>
+            (
+                GetAboutBody_StudentEnrollmentCountByEnrollmentDate(),
+                "q"
+            );
+
+            var result = await this.clientFactory.PostAsync<GetListResponse>
+            (
+                "api/List/GetList",
+                JsonSerializer.Serialize
+                (
+                    new Business.Requests.GetTypedListRequest
+                    {
+                        Selector = selectorLambdaOperatorDescriptor,
+                        ModelType = typeof(StudentModel).AssemblyQualifiedName,
+                        DataType = typeof(Student).AssemblyQualifiedName,
+                        ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
+                        DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                    }
+                )
+            );
+
+            Assert.NotNull(result);
         }
         #endregion Tests
     }

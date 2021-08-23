@@ -50,6 +50,7 @@ namespace Contoso.AutoMapperProfiles
 				)
 				.ForAllMembers(opt => opt.Ignore());
 
+			CreateMap<AsEnumerableOperatorDescriptor, AsEnumerableOperator>();
 			CreateMap<AsQueryableOperatorDescriptor, AsQueryableOperator>();
 			CreateMap<AverageOperatorDescriptor, AverageOperator>()
 				.ConstructUsing
@@ -409,6 +410,7 @@ namespace Contoso.AutoMapperProfiles
 				.Include<AllOperatorDescriptor, AllOperator>()
 				.Include<AndBinaryOperatorDescriptor, AndBinaryOperator>()
 				.Include<AnyOperatorDescriptor, AnyOperator>()
+				.Include<AsEnumerableOperatorDescriptor, AsEnumerableOperator>()
 				.Include<AsQueryableOperatorDescriptor, AsQueryableOperator>()
 				.Include<AverageOperatorDescriptor, AverageOperator>()
 				.Include<BinaryOperatorDescriptor, BinaryOperator>()

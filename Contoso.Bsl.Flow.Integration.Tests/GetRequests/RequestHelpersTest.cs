@@ -477,7 +477,118 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
             Assert.Equal(5, list.Count);
         }
 
+        [Fact]
+        public void Select_Group_Students_By_EnrollmentDate_Return_EnrollmentDate_With_Count()
+        {
+            //arrange
+            Expression<Func<IQueryable<StudentModel>, IEnumerable<LookUpsModel>>> expression1 =
+                q => q.GroupBy(item => item.EnrollmentDate)
+                .OrderBy(group => group.Key)
+                .Select
+                (
+                    sel => new LookUpsModel
+                    {
+                        DateTimeValue = sel.Key,
+                        NumericValue = sel.AsEnumerable().Count()
+                    }
+                );
+
+
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<StudentModel>, IEnumerable<LookUpsModel>>
+            (
+                GetAboutBody(),
+                "q"
+            );
+            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
+            ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
+
+            //act
+            var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
+            var list = RequestHelpers.GetList
+            (
+                new Business.Requests.GetTypedListRequest
+                {
+                    Selector = selectorLambdaOperatorDescriptor,
+                    ModelType = typeof(StudentModel).AssemblyQualifiedName,
+                    DataType = typeof(Student).AssemblyQualifiedName,
+                    ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
+                    DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                },
+                repository,
+                mapper
+            ).Result.List.ToList();
+
+            //assert
+            AssertFilterStringIsCorrect(expression, "q => Convert(q.GroupBy(item => item.EnrollmentDate).OrderByDescending(group => group.Key).Select(sel => new LookUpsModel() {DateTimeValue = sel.Key, NumericValue = Convert(sel.AsEnumerable().Count())}))");
+            Assert.Equal(6, list.Count);
+        }
+
         #region Helpers
+        private SelectOperatorDescriptor GetAboutBody() 
+            => new SelectOperatorDescriptor
+            {
+                SourceOperand = new OrderByOperatorDescriptor
+                {
+                    SourceOperand = new GroupByOperatorDescriptor
+                    {
+                        SourceOperand = new ParameterOperatorDescriptor
+                        {
+                            ParameterName = "q"
+                        },
+                        SelectorBody = new MemberSelectorOperatorDescriptor
+                        {
+                            MemberFullName = "EnrollmentDate",
+                            SourceOperand = new ParameterOperatorDescriptor
+                            {
+                                ParameterName = "item"
+                            }
+                        },
+                        SelectorParameterName = "item"
+                    },
+                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Descending,
+                    SelectorBody = new MemberSelectorOperatorDescriptor
+                    {
+                        MemberFullName = "Key",
+                        SourceOperand = new ParameterOperatorDescriptor
+                        {
+                            ParameterName = "group"
+                        }
+                    },
+                    SelectorParameterName = "group"
+                },
+                SelectorBody = new MemberInitOperatorDescriptor
+                {
+                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                    {
+                        ["DateTimeValue"] = new MemberSelectorOperatorDescriptor
+                        {
+                            MemberFullName = "Key",
+                            SourceOperand = new ParameterOperatorDescriptor
+                            {
+                                ParameterName = "sel"
+                            }
+                        },
+                        ["NumericValue"] = new ConvertOperatorDescriptor
+                        {
+                            SourceOperand = new CountOperatorDescriptor
+                            {
+                                SourceOperand = new AsEnumerableOperatorDescriptor()
+                                {
+                                    SourceOperand = new ParameterOperatorDescriptor
+                                    {
+                                        ParameterName = "sel"
+                                    }
+                                }
+                            },
+                            Type = typeof(double?).FullName
+                        }
+                    },
+                    NewType = typeof(LookUpsModel).AssemblyQualifiedName
+                },
+                SelectorParameterName = "sel"
+            };
+
         private SelectOperatorDescriptor GetInstructorsBody()
             => new SelectOperatorDescriptor
             {

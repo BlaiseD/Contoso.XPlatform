@@ -13,6 +13,7 @@ namespace Contoso.AutoMapperProfiles
 			CreateMap<AllOperatorParameter, AllOperatorDescriptor>();
 			CreateMap<AndBinaryOperatorParameter, AndBinaryOperatorDescriptor>();
 			CreateMap<AnyOperatorParameter, AnyOperatorDescriptor>();
+			CreateMap<AsEnumerableOperatorParameter, AsEnumerableOperatorDescriptor>();
 			CreateMap<AsQueryableOperatorParameter, AsQueryableOperatorDescriptor>();
 			CreateMap<AverageOperatorParameter, AverageOperatorDescriptor>();
 			CreateMap<BinaryOperatorParameter, BinaryOperatorDescriptor>();
@@ -115,6 +116,7 @@ namespace Contoso.AutoMapperProfiles
 				.Include<AllOperatorParameter, AllOperatorDescriptor>()
 				.Include<AndBinaryOperatorParameter, AndBinaryOperatorDescriptor>()
 				.Include<AnyOperatorParameter, AnyOperatorDescriptor>()
+				.Include<AsEnumerableOperatorParameter, AsEnumerableOperatorDescriptor>()
 				.Include<AsQueryableOperatorParameter, AsQueryableOperatorDescriptor>()
 				.Include<AverageOperatorParameter, AverageOperatorDescriptor>()
 				.Include<BinaryOperatorParameter, BinaryOperatorDescriptor>()
