@@ -481,7 +481,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
         public void Select_Group_Students_By_EnrollmentDate_Return_EnrollmentDate_With_Count()
         {
             //arrange
-            Expression<Func<IQueryable<StudentModel>, IEnumerable<LookUpsModel>>> expression1 =
+            Expression<Func<IQueryable<StudentModel>, IQueryable<LookUpsModel>>> expression1 =
                 q => q.GroupBy(item => item.EnrollmentDate)
                 .OrderBy(group => group.Key)
                 .Select
@@ -495,7 +495,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
 
 
             //arrange
-            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<StudentModel>, IEnumerable<LookUpsModel>>
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<StudentModel>, IQueryable<LookUpsModel>>
             (
                 GetAboutBody(),
                 "q"
@@ -512,15 +512,15 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                     Selector = selectorLambdaOperatorDescriptor,
                     ModelType = typeof(StudentModel).AssemblyQualifiedName,
                     DataType = typeof(Student).AssemblyQualifiedName,
-                    ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
-                    DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                    ModelReturnType = typeof(IQueryable<LookUpsModel>).AssemblyQualifiedName,
+                    DataReturnType = typeof(IQueryable<LookUps>).AssemblyQualifiedName
                 },
                 repository,
                 mapper
             ).Result.List.ToList();
 
             //assert
-            AssertFilterStringIsCorrect(expression, "q => Convert(q.GroupBy(item => item.EnrollmentDate).OrderByDescending(group => group.Key).Select(sel => new LookUpsModel() {DateTimeValue = sel.Key, NumericValue = Convert(sel.AsEnumerable().Count())}))");
+            AssertFilterStringIsCorrect(expression, "q => q.GroupBy(item => item.EnrollmentDate).OrderByDescending(group => group.Key).Select(sel => new LookUpsModel() {DateTimeValue = sel.Key, NumericValue = Convert(sel.AsEnumerable().Count())})");
             Assert.Equal(6, list.Count);
         }
 

@@ -141,8 +141,7 @@
                 </Setter>
             </Style>
 
-            <Style TargetType="Grid" x:Key="FormArrayItemStyle">
-                <Setter Property="HeightRequest" Value="85" />
+            <Style TargetType="Grid" x:Key="ListItemStyle">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
@@ -158,21 +157,12 @@
                 </Setter>
             </Style>
 
-            <Style TargetType="Grid" x:Key="SearchFormItemStyle">
+            <Style TargetType="Grid" x:Key="TextDetailListItemStyle" BasedOn="{StaticResource ListItemStyle}">
+                <Setter Property="HeightRequest" Value="65" />
+            </Style>
+
+            <Style TargetType="Grid" x:Key="HeaderTextDetailListItemStyle" BasedOn="{StaticResource ListItemStyle}">
                 <Setter Property="HeightRequest" Value="85" />
-                <Setter Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal" />
-                            <VisualState x:Name="Selected">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor"
-                                        Value="{DynamicResource PrimaryColor}" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
             </Style>
 
             <Style TargetType="Grid" x:Key="PopupHeaderStyle">
@@ -207,6 +197,10 @@
 
             <Style TargetType="CollectionView" x:Key="SearchFormCollectionViewStyle">
                 <Setter Property="SelectionMode" Value="Single"/>
+            </Style>
+
+            <Style TargetType="CollectionView" x:Key="ListFormCollectionViewStyle">
+                <Setter Property="SelectionMode" Value="None"/>
             </Style>
 
             <Style TargetType="CollectionView" x:Key="ChildFormPopupCollectionViewStyle">

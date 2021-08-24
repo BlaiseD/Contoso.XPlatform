@@ -5,6 +5,7 @@ using Contoso.Domain.Entities;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.Bindings;
 using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.ListForm;
 using Contoso.Forms.Configuration.Navigation;
 using Contoso.Forms.Configuration.SearchForm;
 using Contoso.Forms.Configuration.Validation;
@@ -1737,10 +1738,9 @@ namespace Contoso.XPlatform
         {
             Title = "Student",
             ModelType = typeof(StudentModel).AssemblyQualifiedName,
-            DataType = typeof(Student).AssemblyQualifiedName,
             LoadingIndicatorText = "Loading ...",
             FilterPlaceholder = "Filter",
-            ItemTemplateName = "HeaderTextDetailTemplate",
+            ItemTemplateName = "TextDetailTemplate",
             Bindings = new CollectionViewItemBindingsDictionary
             (
                 new List<CollectionViewItemBindingDescriptor>
@@ -1771,7 +1771,7 @@ namespace Contoso.XPlatform
                 {
                     new SortDescriptionDescriptor
                     {
-                        PropertyName = "FullName",
+                        PropertyName = "EnrollmentDate",
                         SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending
                     }
                 },
@@ -1781,7 +1781,7 @@ namespace Contoso.XPlatform
             {
                 Filters = new List<SearchFilterDescriptorBase>
                 {
-                    new SearchFilterDescriptor { Field = "FullName" },
+                    new SearchFilterDescriptor { Field = "EnrollmentDateString" },
                     new SearchFilterGroupDescriptor
                     {
                         Filters = new List<SearchFilterDescriptorBase>
@@ -1802,10 +1802,116 @@ namespace Contoso.XPlatform
             }
         };
 
+        internal static ListFormSettingsDescriptor AboutListForm = new ListFormSettingsDescriptor
+        {
+            Title = "About",
+            ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
+            LoadingIndicatorText = "Loading ...",
+            ItemTemplateName = "TextDetailTemplate",
+            Bindings = new CollectionViewItemBindingsDictionary
+            (
+                new List<CollectionViewItemBindingDescriptor>
+                {
+                    new CollectionViewItemBindingDescriptor
+                    {
+                        Name = "Text",
+                        Property = "DateTimeValue",
+                        StringFormat = "Enrollment Date: {0:MM/dd/yyyy}"
+                    },
+                    new CollectionViewItemBindingDescriptor
+                    {
+                        Name = "Detail",
+                        Property = "NumericValue",
+                        StringFormat = "Count: {0:f0}"
+                    }
+                }
+            ),
+            FieldsSelector = new SelectorLambdaOperatorDescriptor
+            {
+                Selector = new SelectOperatorDescriptor
+                {
+                    SourceOperand = new OrderByOperatorDescriptor
+                    {
+                        SourceOperand = new GroupByOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor
+                            {
+                                ParameterName = "$it"
+                            },
+                            SelectorBody = new MemberSelectorOperatorDescriptor
+                            {
+                                MemberFullName = "EnrollmentDate",
+                                SourceOperand = new ParameterOperatorDescriptor
+                                {
+                                    ParameterName = "item"
+                                }
+                            },
+                            SelectorParameterName = "item"
+                        },
+                        SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Descending,
+                        SelectorBody = new MemberSelectorOperatorDescriptor
+                        {
+                            MemberFullName = "Key",
+                            SourceOperand = new ParameterOperatorDescriptor
+                            {
+                                ParameterName = "group"
+                            }
+                        },
+                        SelectorParameterName = "group"
+                    },
+                    SelectorBody = new MemberInitOperatorDescriptor
+                    {
+                        MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                        {
+                            ["DateTimeValue"] = new MemberSelectorOperatorDescriptor
+                            {
+                                MemberFullName = "Key",
+                                SourceOperand = new ParameterOperatorDescriptor
+                                {
+                                    ParameterName = "sel"
+                                }
+                            },
+                            ["NumericValue"] = new ConvertOperatorDescriptor
+                            {
+                                SourceOperand = new CountOperatorDescriptor
+                                {
+                                    SourceOperand = new AsEnumerableOperatorDescriptor()
+                                    {
+                                        SourceOperand = new ParameterOperatorDescriptor
+                                        {
+                                            ParameterName = "sel"
+                                        }
+                                    }
+                                },
+                                Type = typeof(double?).FullName
+                            }
+                        },
+                        NewType = typeof(LookUpsModel).AssemblyQualifiedName
+                    },
+                    SelectorParameterName = "sel"
+                },
+                SourceElementType = typeof(StudentModel).GetIQueryableTypeString(),
+                ParameterName = "$it",
+                BodyType = typeof(LookUpsModel).GetIQueryableTypeString()
+            },
+            RequestDetails = new RequestDetailsDescriptor
+            {
+                DataSourceUrl = "api/List/GetList",
+                ModelType = typeof(StudentModel).AssemblyQualifiedName,
+                DataType = typeof(Student).AssemblyQualifiedName,
+                ModelReturnType = typeof(LookUpsModel).GetIQueryableTypeString(),
+                DataReturnType = typeof(LookUps).GetIQueryableTypeString()
+            }
+        };
+
         internal static IList<CommandButtonDescriptor> ButtonDescriptors = new List<CommandButtonDescriptor>
         {
             new CommandButtonDescriptor { Id = 1, LongString = "Save", ShortString = "S", Command = "SubmitCommand", ButtonIcon = "Save" },
             new CommandButtonDescriptor { Id = 2, LongString = "Home", ShortString = "H", Command = "NavigateCommand", ButtonIcon = "Home" }
+        };
+
+        internal static IList<CommandButtonDescriptor> ListFormButtonDescriptors = new List<CommandButtonDescriptor>
+        {
         };
 
         internal static IList<CommandButtonDescriptor> SearchFormButtonDescriptors = new List<CommandButtonDescriptor>
@@ -1818,8 +1924,11 @@ namespace Contoso.XPlatform
 
         internal static ScreenSettingsBase GetScreenSettings(string moduleName)
         {
+            if (moduleName == "about")
+                return new ScreenSettings<ListFormSettingsDescriptor>(AboutListForm, ListFormButtonDescriptors, ViewType.ListPage);
             if (moduleName == "students")
-                return new ScreenSettings<EditFormSettingsDescriptor>(StudentForm, ButtonDescriptors, ViewType.EditForm);
+                // return new ScreenSettings<EditFormSettingsDescriptor>(StudentForm, ButtonDescriptors, ViewType.EditForm);
+                return new ScreenSettings<SearchFormSettingsDescriptor>(StudentSearchForm, SearchFormButtonDescriptors, ViewType.SearchPage);
             else if (moduleName == "courses")
                 return new ScreenSettings<EditFormSettingsDescriptor>(CourseForm, ButtonDescriptors, ViewType.EditForm);
             else if (moduleName == "departments")
@@ -1828,8 +1937,8 @@ namespace Contoso.XPlatform
             else if (moduleName == "instructors")
                 //return new ScreenSettings<EditFormSettingsDescriptor>(InstructorForm, ButtonDescriptors, ViewType.EditForm);
                 return new ScreenSettings<EditFormSettingsDescriptor>(InstructorFormWithPopupOfficeAssignment, ButtonDescriptors, ViewType.EditForm);
-            else if (moduleName == "studentslist")
-                return new ScreenSettings<SearchFormSettingsDescriptor>(StudentSearchForm, SearchFormButtonDescriptors, ViewType.SearchPage);
+            //else if (moduleName == "studentslist")
+                //return new ScreenSettings<SearchFormSettingsDescriptor>(StudentSearchForm, SearchFormButtonDescriptors, ViewType.SearchPage);
             else
             {
                 DisplayInvalidPageMessage(moduleName);
@@ -1882,13 +1991,13 @@ namespace Contoso.XPlatform
                     InitialModule = "instructors",
                     Icon = "ChalkboardTeacher",
                     Text = "Instructors"
-                },
-                new NavigationMenuItemDescriptor
-                {
-                    InitialModule = "studentslist",
-                    Icon = "Users",
-                    Text = "studentslist"
-                }
+                }//,
+                //new NavigationMenuItemDescriptor
+                //{
+                //    InitialModule = "studentslist",
+                //    Icon = "Users",
+                //    Text = "studentslist"
+                //}
             }
         };
 

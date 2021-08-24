@@ -13,9 +13,9 @@ using Xamarin.Forms;
 
 namespace Contoso.XPlatform.ViewModels.SearchPage
 {
-    public class SearchPageListViewModel<TModel> : SearchPageListViewModelBase where TModel : Domain.ViewModelBase
+    public class SearchPageCollectionViewModel<TModel> : SearchPageCollectionViewModelBase where TModel : Domain.ViewModelBase
     {
-        public SearchPageListViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, ISearchSelectorBuilder searchSelectorBuilder)
+        public SearchPageCollectionViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, ISearchSelectorBuilder searchSelectorBuilder)
             : base(screenSettings)
         {
             this.uiNotificationService = uiNotificationService;

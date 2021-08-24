@@ -11,7 +11,7 @@ namespace Contoso.XPlatform.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchPageView : ContentPage
     {
-        public SearchPageListViewModelBase searchPageListViewModel { get; set; }
+        public SearchPageCollectionViewModelBase searchPageListViewModel { get; set; }
 
         public SearchPageView(SearchPageViewModel searchPageViewModel)
         {

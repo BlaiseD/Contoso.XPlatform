@@ -16,32 +16,8 @@ namespace Contoso.XPlatform.Views
         {
             this.editFormEntityViewModel = editFormViewModel.EditFormEntityViewModel;
             InitializeComponent();
-            AddToolBarItems();
+            LayoutHelpers.AddToolBarItems(this.ToolbarItems, this.editFormEntityViewModel.Buttons);
             Title = this.editFormEntityViewModel.FormSettings.Title;
-            void AddToolBarItems()
-            {
-                foreach (var button in this.editFormEntityViewModel.Buttons)
-                    this.ToolbarItems.Add(BuildToolbarItem(button));
-            }
-
-            ToolbarItem BuildToolbarItem(CommandButtonDescriptor button)
-                => new ToolbarItem
-                {
-                    AutomationId = button.ShortString,
-                    Text = button.LongString,
-                    //IconImageSource = new FontImageSource
-                    //{
-                    //    FontFamily = EditFormViewHelpers.GetFontAwesomeFontFamily(),
-                    //    Glyph = FontAwesomeIcons.Solid[button.ButtonIcon],
-                    //    Size = 20
-                    //},
-                    Order = ToolbarItemOrder.Primary,
-                    Priority = 0,
-                    CommandParameter = button
-                }
-                .AddBinding(MenuItem.CommandProperty, new Binding(button.Command))
-                .SetAutomationPropertiesName(button.ShortString);
-            this.BindingContext = this.editFormEntityViewModel;
         }
 
         public EditFormEntityViewModelBase editFormEntityViewModel { get; set; }

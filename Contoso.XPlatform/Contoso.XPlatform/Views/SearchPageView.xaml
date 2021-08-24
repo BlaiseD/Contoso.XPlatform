@@ -6,7 +6,7 @@
              Title="Page 4">
     <ContentPage.Resources>
         <DataTemplate x:Key="TextDetailTemplate">
-            <Grid Style="{StaticResource SearchFormItemStyle}">
+            <Grid Style="{StaticResource TextDetailListItemStyle}">
                 <StackLayout Margin="2" Padding="7" BackgroundColor="{DynamicResource ResultListBackgroundColor}">
                     <Label Text="{Binding FullName}" 
                        FontAttributes="Bold" />
@@ -16,7 +16,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="HeaderTextDetailTemplate">
-            <Grid Style="{StaticResource SearchFormItemStyle}">
+            <Grid Style="{StaticResource HeaderTextDetailListItemStyle}">
                 <StackLayout Margin="2" Padding="7" BackgroundColor="{DynamicResource ResultListBackgroundColor}">
                     <Label Text="{Binding ID, StringFormat='ID: {0}'}" 
                        FontAttributes="Bold" />

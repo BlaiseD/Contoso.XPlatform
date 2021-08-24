@@ -44,7 +44,11 @@ namespace Contoso.XPlatform.Views
                                 new CollectionView
                                 {
                                     Style = LayoutHelpers.GetStaticStyleResource("FormArrayPopupCollectionViewStyle"),
-                                    ItemTemplate = GetCollectionViewItemTemplate()
+                                    ItemTemplate = LayoutHelpers.GetCollectionViewItemTemplate
+                                    (
+                                        this.formsCollectionDisplayTemplateDescriptor.TemplateName,
+                                        this.formsCollectionDisplayTemplateDescriptor.Bindings
+                                    )
                                 }
                                 .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Value"))
                                 .AddBinding(SelectableItemsView.SelectionChangedCommandProperty, new Binding("SelectionChangedCommand"))
@@ -109,135 +113,5 @@ namespace Contoso.XPlatform.Views
 
         private IValidatable formArrayValidatable;
         private FormsCollectionDisplayTemplateDescriptor formsCollectionDisplayTemplateDescriptor;
-
-        private struct TemplateNames
-        {
-            public const string TextDetailTemplate = "TextDetailTemplate";
-            public const string HeaderTextDetailTemplate = "HeaderTextDetailTemplate";
-        }
-
-        private struct BindingNames
-        {
-            public const string Header = "Header";
-            public const string Text = "Text";
-            public const string Detail = "Detail";
-        }
-
-        private DataTemplate GetCollectionViewItemTemplate()
-        {
-            switch (formsCollectionDisplayTemplateDescriptor.TemplateName)
-            {
-                case TemplateNames.HeaderTextDetailTemplate:
-                    return new DataTemplate
-                    (
-                        () => new Grid
-                        {
-                            Style = LayoutHelpers.GetStaticStyleResource("FormArrayItemStyle"),
-                            Children = 
-                            { 
-                                new StackLayout
-                                {
-                                    Margin = new Thickness(2),
-                                    Padding = new Thickness(7),
-                                    Children =
-                                    {
-                                        new Label
-                                        {
-                                            FontAttributes = FontAttributes.Bold
-                                        }
-                                        .AddBinding
-                                        (
-                                            Label.TextProperty,
-                                            new Binding
-                                            (
-                                                formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Header].Property,
-                                                stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Header].StringFormat
-                                            )
-                                        ),
-                                        new Label
-                                        {
-                                        }
-                                        .AddBinding
-                                        (
-                                            Label.TextProperty,
-                                            new Binding
-                                            (
-                                                formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].Property,
-                                                stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].StringFormat
-                                            )
-                                        ),
-                                        new Label
-                                        {
-                                            FontAttributes = FontAttributes.Italic
-                                        }
-                                        .AddBinding
-                                        (
-                                            Label.TextProperty,
-                                            new Binding
-                                            (
-                                                formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].Property,
-                                                stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].StringFormat
-                                            )
-                                        )
-                                    }
-                                }
-                                .AssignDynamicResource(VisualElement.BackgroundColorProperty, "ResultListBackgroundColor")
-                            }
-                        }
-                    );
-                case TemplateNames.TextDetailTemplate:
-                    return new DataTemplate
-                    (
-                        () => new Grid
-                        {
-                            Style = LayoutHelpers.GetStaticStyleResource("FormArrayItemStyle"),
-                            Children = 
-                            { 
-                                new StackLayout
-                                {
-                                    Margin = new Thickness(2),
-                                    Padding = new Thickness(7),
-                                    Children =
-                                    {
-                                        new Label
-                                        {
-                                            FontAttributes = FontAttributes.Bold
-                                        }
-                                        .AddBinding
-                                        (
-                                            Label.TextProperty,
-                                            new Binding
-                                            (
-                                                formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].Property,
-                                                stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Text].StringFormat
-                                            )
-                                        ),
-                                        new Label
-                                        {
-                                            FontAttributes = FontAttributes.Italic,
-                                            VerticalOptions = LayoutOptions.Center
-                                        }
-                                        .AddBinding
-                                        (
-                                            Label.TextProperty,
-                                            new Binding
-                                            (
-                                                formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].Property,
-                                                stringFormat : formsCollectionDisplayTemplateDescriptor.Bindings[BindingNames.Detail].StringFormat
-                                            )
-                                        )
-                                    }
-                                }
-                                .AssignDynamicResource(VisualElement.BackgroundColorProperty, "ResultListBackgroundColor")
-                            }
-                        }
-                    );
-                default:
-                    throw new ArgumentException
-                    (
-                        $"{nameof(formsCollectionDisplayTemplateDescriptor.TemplateName)}: 02A779FF-7872-4BD3-B85C-19B79827D926"
-                    );
-            }
-        }
     }
 }

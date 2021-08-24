@@ -1,22 +1,21 @@
-﻿
-using Contoso.Forms.Configuration;
-using Contoso.XPlatform.Utils;
+﻿using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
-using Contoso.XPlatform.ViewModels.EditForm;
+using Contoso.XPlatform.ViewModels.ListPage;
+
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Views
 {
-    public class EditFormViewCS : ContentPage
+    public class ListPageViewCS : ContentPage
     {
-        public EditFormViewCS(EditFormViewModel editFormViewModel)
+        public ListPageViewCS(ListPageViewModel listPageViewModel)
         {
-            this.editFormEntityViewModel = editFormViewModel.EditFormEntityViewModel;
+            this.listPageCollectionViewModel = listPageViewModel.ListPageCollectionViewModel;
             AddContent();
-            BindingContext = this.editFormEntityViewModel;
+            BindingContext = this.listPageCollectionViewModel;
         }
 
-        private EditFormEntityViewModelBase editFormEntityViewModel;
+        public ListPageCollectionViewModelBase listPageCollectionViewModel { get; set; }
         private Grid transitionGrid;
         private StackLayout page;
 
@@ -29,8 +28,9 @@ namespace Contoso.XPlatform.Views
 
         private void AddContent()
         {
-            LayoutHelpers.AddToolBarItems(this.ToolbarItems, this.editFormEntityViewModel.Buttons);
-            Title = editFormEntityViewModel.FormSettings.Title;
+            LayoutHelpers.AddToolBarItems(this.ToolbarItems, this.listPageCollectionViewModel.Buttons);
+            Title = this.listPageCollectionViewModel.FormSettings.Title;
+
             Content = new Grid
             {
                 Children =
@@ -45,20 +45,24 @@ namespace Contoso.XPlatform.Views
                                 {
                                     Style = LayoutHelpers.GetStaticStyleResource("HeaderStyle")
                                 }
-                                .AddBinding(Label.TextProperty, new Binding("FormSettings.Title")),
+                                .AddBinding(Label.TextProperty, new Binding(nameof(ListPageCollectionViewModelBase.Title))),
                                 new CollectionView
                                 {
-                                    SelectionMode = SelectionMode.Single,
-                                    ItemTemplate = EditFormViewHelpers.QuestionTemplateSelector
+                                    Style = LayoutHelpers.GetStaticStyleResource("ListFormCollectionViewStyle"),
+                                    ItemTemplate = LayoutHelpers.GetCollectionViewItemTemplate
+                                    (
+                                        this.listPageCollectionViewModel.FormSettings.ItemTemplateName,
+                                        this.listPageCollectionViewModel.FormSettings.Bindings
+                                    )
                                 }
-                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Properties")),
+                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding(nameof(ListPageCollectionViewModel<Domain.ViewModelBase>.Items)))
                             }
                         }
                     ),
                     (
                         transitionGrid = new Grid().AssignDynamicResource
                         (
-                            VisualElement.BackgroundColorProperty, 
+                            VisualElement.BackgroundColorProperty,
                             "PageBackgroundColor"
                         )
                     )

@@ -25,13 +25,13 @@ namespace Contoso.XPlatform.ViewModels
             SearchPageEntityViewModel = CreateSearchPageListViewModel((ScreenSettings<SearchFormSettingsDescriptor>)screenSettings);
         }
 
-        public SearchPageListViewModelBase SearchPageEntityViewModel { get; set; }
+        public SearchPageCollectionViewModelBase SearchPageEntityViewModel { get; set; }
 
-        private SearchPageListViewModelBase CreateSearchPageListViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings)
+        private SearchPageCollectionViewModelBase CreateSearchPageListViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings)
         {
-            return (SearchPageListViewModelBase)Activator.CreateInstance
+            return (SearchPageCollectionViewModelBase)Activator.CreateInstance
             (
-                typeof(SearchPageListViewModel<>).MakeGenericType
+                typeof(SearchPageCollectionViewModel<>).MakeGenericType
                 (
                     Type.GetType
                     (

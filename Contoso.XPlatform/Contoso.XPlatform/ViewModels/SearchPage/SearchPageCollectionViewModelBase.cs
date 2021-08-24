@@ -6,9 +6,9 @@ using System.Collections.ObjectModel;
 
 namespace Contoso.XPlatform.ViewModels.SearchPage
 {
-    public class SearchPageListViewModelBase : ViewModelBase, IDisposable
+    public class SearchPageCollectionViewModelBase : ViewModelBase, IDisposable
     {
-        protected SearchPageListViewModelBase(ScreenSettings<SearchFormSettingsDescriptor> screenSettings)
+        protected SearchPageCollectionViewModelBase(ScreenSettings<SearchFormSettingsDescriptor> screenSettings)
         {
             FormSettings = screenSettings.Settings;
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);

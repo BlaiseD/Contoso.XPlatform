@@ -4,7 +4,7 @@
              x:Class="Contoso.XPlatform.Views.ChildFormArrayPage">
     <ContentPage.Resources>
         <DataTemplate x:Key="TextDetailTemplate">
-            <Grid Style="{StaticResource FormArrayItemStyle}">
+            <Grid Style="{StaticResource TextDetailListItemStyle}">
                 <StackLayout Padding="10">
                     <Label Text="{Binding DepartmentName}" 
                        FontAttributes="Bold" />
@@ -14,7 +14,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="HeaderTextDetailTemplate">
-            <Grid Style="{StaticResource FormArrayItemStyle}">
+            <Grid Style="{StaticResource HeaderTextDetailListItemStyle}">
                 <StackLayout Padding="10">
                     <Label Text="{Binding DepartmentName}" 
                        FontAttributes="Bold" />

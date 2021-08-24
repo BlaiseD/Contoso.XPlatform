@@ -2,7 +2,6 @@
 using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Forms.Configuration.SearchForm;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Contoso.XPlatform.Utils
