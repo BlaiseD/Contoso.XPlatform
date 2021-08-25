@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Contoso.XPlatform.Themes.DarkTheme">
     <Color x:Key="PageBackgroundColor">Black</Color>
+    <Color x:Key="HyperLinkColor">#109CF0</Color>
     <Color x:Key="NavigationBarColor">#109CF0</Color>
     <Color x:Key="PrimaryColor">#109CF0</Color>
     <Color x:Key="PressedPrimaryColor">#B2109CF0</Color>

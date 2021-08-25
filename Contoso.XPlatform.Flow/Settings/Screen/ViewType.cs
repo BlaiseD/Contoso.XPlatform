@@ -4,6 +4,7 @@
     {
         EditForm,
         ListPage,
-        SearchPage
+        SearchPage,
+        TextPage
     }
 }
