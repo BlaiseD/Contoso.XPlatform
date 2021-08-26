@@ -2,14 +2,14 @@
 
 namespace Contoso.Forms.Configuration.Validation
 {
-    public class ValidationMethodDictionary : Dictionary<string, string>
+    public class ValidationMethodDictionaryDescriptor : Dictionary<string, string>
     {
         private List<ValidationMethodDescriptor> validationMethodDescriptors;
 
-        public ValidationMethodDictionary(List<ValidationMethodDescriptor> validationMethodDescriptors) 
+        public ValidationMethodDictionaryDescriptor(List<ValidationMethodDescriptor> validationMethodDescriptors) 
             => this.ValidationMethodDescriptors = validationMethodDescriptors;
 
-        public ValidationMethodDictionary()
+        public ValidationMethodDictionaryDescriptor()
         {
         }
 

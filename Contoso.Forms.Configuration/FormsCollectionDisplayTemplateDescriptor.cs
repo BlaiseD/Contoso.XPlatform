@@ -9,7 +9,7 @@ namespace Contoso.Forms.Configuration
         public string PlaceHolderText { get; set; }
         public string ModelType { get; set; }
         public string LoadingIndicatorText { get; set; }
-        public CollectionViewItemBindingsDictionary Bindings { get; set; }
+        public CollectionViewItemBindingsDictionaryDescriptor Bindings { get; set; }
         public SelectorLambdaOperatorDescriptor CollectionSelector { get; set; }
         public RequestDetailsDescriptor RequestDetails { get; set; }
     }

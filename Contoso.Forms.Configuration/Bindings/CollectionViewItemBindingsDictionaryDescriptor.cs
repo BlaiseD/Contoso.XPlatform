@@ -2,14 +2,14 @@
 
 namespace Contoso.Forms.Configuration.Bindings
 {
-    public class CollectionViewItemBindingsDictionary : Dictionary<string, CollectionViewItemBindingDescriptor>
+    public class CollectionViewItemBindingsDictionaryDescriptor : Dictionary<string, CollectionViewItemBindingDescriptor>
     {
         private List<CollectionViewItemBindingDescriptor> collectionViewItemBindingDescriptors;
 
-        public CollectionViewItemBindingsDictionary(List<CollectionViewItemBindingDescriptor> collectionViewItemBindingDescriptors)
+        public CollectionViewItemBindingsDictionaryDescriptor(List<CollectionViewItemBindingDescriptor> collectionViewItemBindingDescriptors)
             => this.CollectionViewItemBindingDescriptors = collectionViewItemBindingDescriptors;
 
-        public CollectionViewItemBindingsDictionary()
+        public CollectionViewItemBindingsDictionaryDescriptor()
         {
         }
 

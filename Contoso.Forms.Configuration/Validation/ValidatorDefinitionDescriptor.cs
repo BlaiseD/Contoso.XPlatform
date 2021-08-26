@@ -4,6 +4,6 @@
     {
         public string ClassName { get; set; }
         public string FunctionName { get; set; }
-        public ValidatorArgumentDictionary Arguments { get; set; }
+        public ValidatorArgumentDictionaryDescriptor Arguments { get; set; }
     }
 }

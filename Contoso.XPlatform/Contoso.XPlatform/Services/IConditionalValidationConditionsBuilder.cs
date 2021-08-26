@@ -7,6 +7,6 @@ namespace Contoso.XPlatform.Services
 {
     public interface IConditionalValidationConditionsBuilder
     {
-        List<ValidateIf<TModel>> GetConditions<TModel>(VariableDirectivesDictionary conditionalDirectives, IEnumerable<IValidatable> properties);
+        List<ValidateIf<TModel>> GetConditions<TModel>(VariableDirectivesDictionaryDescriptor conditionalDirectives, IEnumerable<IValidatable> properties);
     }
 }

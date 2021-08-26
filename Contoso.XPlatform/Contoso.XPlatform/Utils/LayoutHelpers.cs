@@ -94,7 +94,7 @@ namespace Contoso.XPlatform.Utils
             }
         }
 
-        internal static DataTemplate GetCollectionViewItemTemplate(string templateName, CollectionViewItemBindingsDictionary bindings)
+        internal static DataTemplate GetCollectionViewItemTemplate(string templateName, CollectionViewItemBindingsDictionaryDescriptor bindings)
         {
             switch (templateName)
             {

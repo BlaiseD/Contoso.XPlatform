@@ -10,9 +10,9 @@ namespace Contoso.Forms.Configuration.EditForm
         public string DisplayField { get; set; }
         public FormGroupTemplateDescriptor FormGroupTemplate { get; set; }
         public EditFormRequestDetailsDescriptor RequestDetails { get; set; }
-        public ValidationMessageDictionary ValidationMessages { get; set; }
+        public ValidationMessageDictionaryDescriptor ValidationMessages { get; set; }
         public List<FormItemSettingsDescriptor> FieldSettings { get; set; }
-        public VariableDirectivesDictionary ConditionalDirectives { get; set; }
+        public VariableDirectivesDictionaryDescriptor ConditionalDirectives { get; set; }
         public string ModelType { get; set; }
         public string ValidFormControlText { get; set; }
         public string InvalidFormControlText { get; set; }

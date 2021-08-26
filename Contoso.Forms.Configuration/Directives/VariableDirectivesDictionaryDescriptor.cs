@@ -2,14 +2,14 @@
 
 namespace Contoso.Forms.Configuration.Directives
 {
-    public class VariableDirectivesDictionary : Dictionary<string, List<DirectiveDescriptor>>
+    public class VariableDirectivesDictionaryDescriptor : Dictionary<string, List<DirectiveDescriptor>>
     {
         private List<VariableDirectivesDescriptor> variableDirectivesDescriptors;
 
-        public VariableDirectivesDictionary(List<VariableDirectivesDescriptor> variableDirectivesDescriptors) 
+        public VariableDirectivesDictionaryDescriptor(List<VariableDirectivesDescriptor> variableDirectivesDescriptors) 
             => this.VariableDirectivesDescriptors = variableDirectivesDescriptors;
 
-        public VariableDirectivesDictionary()
+        public VariableDirectivesDictionaryDescriptor()
         {
         }
 

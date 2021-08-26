@@ -4,6 +4,6 @@
     {
         public string ClassName { get; set; }
         public string FunctionName { get; set; }
-        public DirectiveArgumentDictionary Arguments { get; set; }
+        public DirectiveArgumentDictionaryDescriptor Arguments { get; set; }
     }
 }

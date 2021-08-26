@@ -22,7 +22,7 @@ namespace Contoso.XPlatform.Tests
             {
                 GetUrl = "/Instructor/GetSingle"
             },
-            ValidationMessages = new ValidationMessageDictionary
+            ValidationMessages = new ValidationMessageDictionaryDescriptor
             (
                 new List<ValidationMessageDescriptor>
                 {
@@ -228,7 +228,7 @@ namespace Contoso.XPlatform.Tests
             {
                 GetUrl = "/Instructor/GetSingle"
             },
-            ValidationMessages = new ValidationMessageDictionary
+            ValidationMessages = new ValidationMessageDictionaryDescriptor
             (
                 new List<ValidationMessageDescriptor>
                 {
@@ -434,7 +434,7 @@ namespace Contoso.XPlatform.Tests
             {
                 GetUrl = "/Department/GetSingle"
             },
-            ValidationMessages = new ValidationMessageDictionary
+            ValidationMessages = new ValidationMessageDictionaryDescriptor
             (
                 new List<ValidationMessageDescriptor>
                 {
@@ -647,7 +647,7 @@ namespace Contoso.XPlatform.Tests
                     {
                         TemplateName = "FormGroupArrayTemplate"
                     },
-                    ValidationMessages= new ValidationMessageDictionary
+                    ValidationMessages= new ValidationMessageDictionaryDescriptor
                     (
                         new List<ValidationMessageDescriptor>
                         {
@@ -693,7 +693,7 @@ namespace Contoso.XPlatform.Tests
                         PlaceHolderText = "(Courses)",
                         LoadingIndicatorText = "Loading ...",
                         ModelType = typeof(CourseModel).AssemblyQualifiedName,
-                        Bindings = new CollectionViewItemBindingsDictionary
+                        Bindings = new CollectionViewItemBindingsDictionaryDescriptor
                         (
                             new List<CollectionViewItemBindingDescriptor>
                             {
@@ -857,7 +857,7 @@ namespace Contoso.XPlatform.Tests
                                     {
                                         ClassName = "RangeRule",
                                         FunctionName = "Check",
-                                        Arguments = new ValidatorArgumentDictionary
+                                        Arguments = new ValidatorArgumentDictionaryDescriptor
                                         (
                                             new List<ValidatorArgumentDescriptor>
                                             {
@@ -980,7 +980,7 @@ namespace Contoso.XPlatform.Tests
             {
                 GetUrl = "/Course/GetSingle"
             },
-            ValidationMessages = new ValidationMessageDictionary
+            ValidationMessages = new ValidationMessageDictionaryDescriptor
             (
                 new List<ValidationMessageDescriptor>
                 {
@@ -1140,7 +1140,7 @@ namespace Contoso.XPlatform.Tests
                             {
                                 ClassName = "RangeRule",
                                 FunctionName = "Check",
-                                Arguments = new ValidatorArgumentDictionary
+                                Arguments = new ValidatorArgumentDictionaryDescriptor
                                 (
                                     new List<ValidatorArgumentDescriptor>
                                     {
@@ -1259,7 +1259,7 @@ namespace Contoso.XPlatform.Tests
             {
                 GetUrl = "/Student/GetSingle"
             },
-            ValidationMessages = new ValidationMessageDictionary
+            ValidationMessages = new ValidationMessageDictionaryDescriptor
             (
                 new List<ValidationMessageDescriptor>
                 {
@@ -1355,7 +1355,7 @@ namespace Contoso.XPlatform.Tests
                     }
                 }
             },
-            ConditionalDirectives = new Forms.Configuration.Directives.VariableDirectivesDictionary
+            ConditionalDirectives = new Forms.Configuration.Directives.VariableDirectivesDictionaryDescriptor
             (
                 new List<Forms.Configuration.Directives.VariableDirectivesDescriptor>
                 {

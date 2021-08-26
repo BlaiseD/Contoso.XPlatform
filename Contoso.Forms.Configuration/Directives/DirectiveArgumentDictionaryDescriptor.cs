@@ -2,14 +2,14 @@
 
 namespace Contoso.Forms.Configuration.Directives
 {
-    public class DirectiveArgumentDictionary : Dictionary<string, DirectiveArgumentDescriptor>
+    public class DirectiveArgumentDictionaryDescriptor : Dictionary<string, DirectiveArgumentDescriptor>
     {
         private List<DirectiveArgumentDescriptor> directiveArgumentDescriptors;
 
-        public DirectiveArgumentDictionary(List<DirectiveArgumentDescriptor> directiveArgumentDescriptors) 
+        public DirectiveArgumentDictionaryDescriptor(List<DirectiveArgumentDescriptor> directiveArgumentDescriptors) 
             => this.DirectiveArgumentDescriptors = directiveArgumentDescriptors;
 
-        public DirectiveArgumentDictionary()
+        public DirectiveArgumentDictionaryDescriptor()
         {
         }
 

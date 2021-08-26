@@ -60,7 +60,7 @@ namespace Contoso.XPlatform
                     }
                 }
             },
-            ValidationMessages = new ValidationMessageDictionary
+            ValidationMessages = new ValidationMessageDictionaryDescriptor
             (
                 new List<ValidationMessageDescriptor>
                 {
@@ -285,7 +285,7 @@ namespace Contoso.XPlatform
                     }
                 }
             },
-            ValidationMessages = new ValidationMessageDictionary
+            ValidationMessages = new ValidationMessageDictionaryDescriptor
             (
                 new List<ValidationMessageDescriptor>
                 {
@@ -510,7 +510,7 @@ namespace Contoso.XPlatform
                     ParameterName = "f"
                 }
             },
-            ValidationMessages = new ValidationMessageDictionary
+            ValidationMessages = new ValidationMessageDictionaryDescriptor
             (
                 new List<ValidationMessageDescriptor>
                 {
@@ -743,7 +743,7 @@ namespace Contoso.XPlatform
                     }
                 }
             },
-            ValidationMessages = new ValidationMessageDictionary
+            ValidationMessages = new ValidationMessageDictionaryDescriptor
             (
                 new List<ValidationMessageDescriptor>
                 {
@@ -945,7 +945,7 @@ namespace Contoso.XPlatform
                     {
                         TemplateName = "FormGroupArrayTemplate"
                     },
-                    ValidationMessages= new ValidationMessageDictionary
+                    ValidationMessages= new ValidationMessageDictionaryDescriptor
                     (
                         new List<ValidationMessageDescriptor>
                         {
@@ -991,7 +991,7 @@ namespace Contoso.XPlatform
                         PlaceHolderText = "(Courses)",
                         LoadingIndicatorText = "Loading ...",
                         ModelType = typeof(CourseModel).AssemblyQualifiedName,
-                        Bindings = new CollectionViewItemBindingsDictionary
+                        Bindings = new CollectionViewItemBindingsDictionaryDescriptor
                         (
                             new List<CollectionViewItemBindingDescriptor>
                             {
@@ -1161,7 +1161,7 @@ namespace Contoso.XPlatform
                                     {
                                         ClassName = "RangeRule",
                                         FunctionName = "Check",
-                                        Arguments = new ValidatorArgumentDictionary
+                                        Arguments = new ValidatorArgumentDictionaryDescriptor
                                         (
                                             new List<ValidatorArgumentDescriptor>
                                             {
@@ -1301,7 +1301,7 @@ namespace Contoso.XPlatform
                     ParameterName = "f"
                 }
             },
-            ValidationMessages = new ValidationMessageDictionary
+            ValidationMessages = new ValidationMessageDictionaryDescriptor
             (
                 new List<ValidationMessageDescriptor>
                 {
@@ -1461,7 +1461,7 @@ namespace Contoso.XPlatform
                             {
                                 ClassName = "RangeRule",
                                 FunctionName = "Check",
-                                Arguments = new ValidatorArgumentDictionary
+                                Arguments = new ValidatorArgumentDictionaryDescriptor
                                 (
                                     new List<ValidatorArgumentDescriptor>
                                     {
@@ -1597,7 +1597,7 @@ namespace Contoso.XPlatform
                     ParameterName = "f"
                 }
             },
-            ValidationMessages = new ValidationMessageDictionary
+            ValidationMessages = new ValidationMessageDictionaryDescriptor
             (
                 new List<ValidationMessageDescriptor> 
                 { 
@@ -1693,7 +1693,7 @@ namespace Contoso.XPlatform
                     }
                 }
             },
-            ConditionalDirectives = new Forms.Configuration.Directives.VariableDirectivesDictionary
+            ConditionalDirectives = new Forms.Configuration.Directives.VariableDirectivesDictionaryDescriptor
             (
                 new List<Forms.Configuration.Directives.VariableDirectivesDescriptor>
                 {
@@ -1742,7 +1742,7 @@ namespace Contoso.XPlatform
             LoadingIndicatorText = "Loading ...",
             FilterPlaceholder = "Filter",
             ItemTemplateName = "TextDetailTemplate",
-            Bindings = new CollectionViewItemBindingsDictionary
+            Bindings = new CollectionViewItemBindingsDictionaryDescriptor
             (
                 new List<CollectionViewItemBindingDescriptor>
                 {
@@ -1809,7 +1809,7 @@ namespace Contoso.XPlatform
             ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
             LoadingIndicatorText = "Loading ...",
             ItemTemplateName = "TextDetailTemplate",
-            Bindings = new CollectionViewItemBindingsDictionary
+            Bindings = new CollectionViewItemBindingsDictionaryDescriptor
             (
                 new List<CollectionViewItemBindingDescriptor>
                 {
