@@ -8,4 +8,8 @@
     <PackageReference Include="LogicBuilder.Attributes" Version="1.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Contoso.Parameters\Contoso.Parameters.csproj" />
+  </ItemGroup>
+
 </Project>
