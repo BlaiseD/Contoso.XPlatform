@@ -1766,7 +1766,7 @@ namespace Contoso.XPlatform
                     }
                 }
             ),
-            SortDescriptor = new SortCollectionDescriptor
+            SortCollection = new SortCollectionDescriptor
             {
                 SortDescriptions = new List<SortDescriptionDescriptor>
                 {
@@ -1778,7 +1778,7 @@ namespace Contoso.XPlatform
                 },
                 Take = 2
             },
-            SearchDescriptor = new SearchFilterGroupDescriptor
+            SearchFilterGroup = new SearchFilterGroupDescriptor
             {
                 Filters = new List<SearchFilterDescriptorBase>
                 {

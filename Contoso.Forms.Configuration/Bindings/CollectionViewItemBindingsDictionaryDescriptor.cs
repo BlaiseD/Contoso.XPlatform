@@ -4,23 +4,23 @@ namespace Contoso.Forms.Configuration.Bindings
 {
     public class CollectionViewItemBindingsDictionaryDescriptor : Dictionary<string, CollectionViewItemBindingDescriptor>
     {
-        private List<CollectionViewItemBindingDescriptor> collectionViewItemBindingDescriptors;
+        private List<CollectionViewItemBindingDescriptor> collectionViewItemBindings;
 
         public CollectionViewItemBindingsDictionaryDescriptor(List<CollectionViewItemBindingDescriptor> collectionViewItemBindingDescriptors)
-            => this.CollectionViewItemBindingDescriptors = collectionViewItemBindingDescriptors;
+            => this.CollectionViewItemBindings = collectionViewItemBindingDescriptors;
 
         public CollectionViewItemBindingsDictionaryDescriptor()
         {
         }
 
-        public List<CollectionViewItemBindingDescriptor> CollectionViewItemBindingDescriptors
+        public List<CollectionViewItemBindingDescriptor> CollectionViewItemBindings
         {
-            get => collectionViewItemBindingDescriptors;
+            get => collectionViewItemBindings;
             set
             {
-                collectionViewItemBindingDescriptors = value;
+                collectionViewItemBindings = value;
                 this.Clear();
-                collectionViewItemBindingDescriptors.ForEach(ibd => this.Add(ibd.Name, ibd));
+                collectionViewItemBindings.ForEach(ibd => this.Add(ibd.Name, ibd));
             }
         }
     }

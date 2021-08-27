@@ -4,23 +4,23 @@ namespace Contoso.Forms.Configuration.Directives
 {
     public class VariableDirectivesDictionaryDescriptor : Dictionary<string, List<DirectiveDescriptor>>
     {
-        private List<VariableDirectivesDescriptor> variableDirectivesDescriptors;
+        private List<VariableDirectivesDescriptor> variableDirectives;
 
         public VariableDirectivesDictionaryDescriptor(List<VariableDirectivesDescriptor> variableDirectivesDescriptors) 
-            => this.VariableDirectivesDescriptors = variableDirectivesDescriptors;
+            => this.VariableDirectives = variableDirectivesDescriptors;
 
         public VariableDirectivesDictionaryDescriptor()
         {
         }
 
-        public List<VariableDirectivesDescriptor> VariableDirectivesDescriptors
+        public List<VariableDirectivesDescriptor> VariableDirectives
         {
-            get => variableDirectivesDescriptors; 
+            get => variableDirectives; 
             set
             {
-                variableDirectivesDescriptors = value;
+                variableDirectives = value;
                 this.Clear();
-                variableDirectivesDescriptors.ForEach(vdd => this.Add(vdd.Field, vdd.ConditionalDirectives));
+                variableDirectives.ForEach(vdd => this.Add(vdd.Field, vdd.ConditionalDirectives));
             }
         }
     }

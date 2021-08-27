@@ -4,23 +4,23 @@ namespace Contoso.Forms.Configuration.Validation
 {
     public class ValidatorArgumentDictionaryDescriptor : Dictionary<string, ValidatorArgumentDescriptor>
     {
-        private List<ValidatorArgumentDescriptor> validatorArgumentDescriptors;
+        private List<ValidatorArgumentDescriptor> validatorArguments;
 
         public ValidatorArgumentDictionaryDescriptor(List<ValidatorArgumentDescriptor> validatorArgumentDescriptors)
-            => this.ValidatorArgumentDescriptors = validatorArgumentDescriptors;
+            => this.ValidatorArguments = validatorArgumentDescriptors;
 
         public ValidatorArgumentDictionaryDescriptor()
         {
         }
 
-        public List<ValidatorArgumentDescriptor> ValidatorArgumentDescriptors
+        public List<ValidatorArgumentDescriptor> ValidatorArguments
         {
-            get => validatorArgumentDescriptors;
+            get => validatorArguments;
             set
             {
-                validatorArgumentDescriptors = value;
+                validatorArguments = value;
                 this.Clear();
-                validatorArgumentDescriptors.ForEach(vad => this.Add(vad.Name, vad));
+                validatorArguments.ForEach(vad => this.Add(vad.Name, vad));
             }
         }
     }

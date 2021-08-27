@@ -21,7 +21,7 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
             this.uiNotificationService = uiNotificationService;
             this.httpService = httpService;
             this.searchSelectorBuilder = searchSelectorBuilder;
-            defaultSkip = FormSettings.SortDescriptor.Skip;
+            defaultSkip = FormSettings.SortCollection.Skip;
             GetItems();
         }
 
@@ -223,7 +223,7 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
 
         private void Filter()
         {
-            this.FormSettings.SortDescriptor.Skip = defaultSkip;
+            this.FormSettings.SortCollection.Skip = defaultSkip;
             GetItems();
         }
 
@@ -243,9 +243,9 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
                     {
                         Selector = this.searchSelectorBuilder.CreatePagingSelector
                         (
-                            this.FormSettings.SortDescriptor,
+                            this.FormSettings.SortCollection,
                             typeof(TModel),
-                            this.FormSettings.SearchDescriptor,
+                            this.FormSettings.SearchFilterGroup,
                             SearchText
                         ),
                         ModelType = this.FormSettings.RequestDetails.ModelType,
@@ -268,7 +268,7 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
 
         private async void PullMoreItems()
         {
-            this.FormSettings.SortDescriptor.Skip = (defaultSkip ?? 0) + this.Items.Count;
+            this.FormSettings.SortCollection.Skip = (defaultSkip ?? 0) + this.Items.Count;
 
             IsRefreshing = true;
             GetListResponse getListResponse = await GetList();

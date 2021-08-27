@@ -41,11 +41,11 @@ namespace CreateFormsParametersFromFormsDescriptors
         const string NAMESPACES = "#NameSpaces#";
         const string CONSTRUCTORS = "#Constructors#";
         const string DESCRIPTOR = "Descriptor";
-        const string PARAMETER = "Parameter";
+        const string PARAMETERS = "Parameters";
 
         private static void WriteCommonClass(Type type, CSharpCodeProvider compiler)
         {
-            string name = type.Name.Replace(DESCRIPTOR, PARAMETER);
+            string name = type.Name.Replace(DESCRIPTOR, PARAMETERS);
             string subFolder = GetSubfolder();
 
             List<string> propertiesList = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite)
@@ -53,7 +53,7 @@ namespace CreateFormsParametersFromFormsDescriptors
                 {
                     if (p.GetMethod.IsAbstract)
                         list.Add(string.Format("\t\tabstract public {0} {1} {{ get; set; }}", p.PropertyType.GetNewPropertyClassName(compiler, replaceCommonTypeName), p.Name));
-                    else if (p.GetMethod.IsVirtual && p.GetMethod.GetBaseDefinition() == p.GetMethod)
+                    else if (p.GetMethod.IsVirtual && !p.GetMethod.IsFinal && p.GetMethod.GetBaseDefinition() == p.GetMethod)
                         list.Add(string.Format("\t\tvirtual public {0} {1} {{ get; set; }}", p.PropertyType.GetNewPropertyClassName(compiler, replaceCommonTypeName), p.Name));
                     else if (p.GetMethod.GetBaseDefinition() != p.GetMethod)
                         list.Add(string.Format("\t\tpublic override {0} {1} {{ get; set; }}", p.PropertyType.GetNewPropertyClassName(compiler, replaceCommonTypeName), p.Name));
@@ -71,28 +71,36 @@ namespace CreateFormsParametersFromFormsDescriptors
                     return list;
                 });
 
-            HashSet<string> nameSpaces = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite)
-                .Select(p => p.PropertyType)
-                .Aggregate(new HashSet<string>(), (list, next) =>
-                {
-                    if (next == typeof(object)
-                        || next == typeof(string)
-                        || (next.IsLiteralType() && !typeof(Enum).IsAssignableFrom(next) && !(next.IsGenericType && next.GetGenericTypeDefinition() == typeof(Nullable<>))))
-                        return list;
+            //HashSet<string> nameSpaces = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite)
+            //    .Select(p => p.PropertyType)
+            //    .Aggregate(new HashSet<string>(), (list, next) =>
+            //    {
+            //        if (next == typeof(object)
+            //            || next == typeof(string)
+            //            || (next.IsLiteralType() && !typeof(Enum).IsAssignableFrom(next) && !(next.IsGenericType && next.GetGenericTypeDefinition() == typeof(Nullable<>))))
+            //            return list;
 
-                    if (!next.Namespace.Equals("Contoso.Forms.Configuration") 
-                    && !next.Namespace.Equals($"Contoso.Forms.Configuration.{subFolder}")
-                    && next.Namespace.StartsWith("Contoso.Forms.Configuration"))
-                        list.Add($"using {next.Namespace.Replace("Contoso.Forms.Configuration", "Contoso.Forms.Parameters")};");
-                    else if (next.Namespace.StartsWith("Contoso.Common.Configuration.ExpressionDescriptors"))
-                        list.Add($"using {next.Namespace.Replace("Contoso.Common.Configuration.ExpressionDescriptors", "Contoso.Parameters.Expressions")};");
-                    else if (next.Namespace.StartsWith("Contoso.Common.Configuration.ExpansionDescriptors"))
-                        list.Add($"using {next.Namespace.Replace("Contoso.Common.Configuration.ExpansionDescriptors", "Contoso.Parameters.Expansions")};");
-                    else if (!next.Namespace.StartsWith("Contoso.Forms.Configuration"))
-                        list.Add($"using {next.Namespace};");
+            //        if (!next.Namespace.Equals("Contoso.Forms.Configuration") 
+            //        && !next.Namespace.Equals($"Contoso.Forms.Configuration.{subFolder}")
+            //        && next.Namespace.StartsWith("Contoso.Forms.Configuration"))
+            //            list.Add($"using {next.Namespace.Replace("Contoso.Forms.Configuration", "Contoso.Forms.Parameters")};");
+            //        else if (next.Namespace.StartsWith("Contoso.Common.Configuration.ExpressionDescriptors"))
+            //            list.Add($"using {next.Namespace.Replace("Contoso.Common.Configuration.ExpressionDescriptors", "Contoso.Parameters.Expressions")};");
+            //        else if (next.Namespace.StartsWith("Contoso.Common.Configuration.ExpansionDescriptors"))
+            //            list.Add($"using {next.Namespace.Replace("Contoso.Common.Configuration.ExpansionDescriptors", "Contoso.Parameters.Expansions")};");
+            //        else if (!next.Namespace.StartsWith("Contoso.Forms.Configuration"))
+            //            list.Add($"using {next.Namespace};");
 
-                    return list;
-                });
+            //        return list;
+            //    });
+
+            HashSet<string> nameSpaces = new HashSet<string>();// GetNamespaces(new HashSet<string>(), type);
+            Type currentType = type;
+            while (currentType != typeof(object))// && !(baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(Dictionary<,>)))
+            {
+                nameSpaces = GetNamespaces(nameSpaces);
+                currentType = currentType.BaseType;
+            }
 
             string constructorString = GetConstructor(type, compiler, propertyNameList);
 
@@ -111,7 +119,7 @@ namespace CreateFormsParametersFromFormsDescriptors
                 .Replace(PROPERTIES, propertiestring)
                 .Replace(NAMESPACES, nameSpacesString)
                 .Replace(CONSTRUCTORS, constructorString)
-                .Replace("#Base#", baseClassString.Replace(DESCRIPTOR, PARAMETER));
+                .Replace("#Base#", baseClassString.Replace(DESCRIPTOR, PARAMETERS));
 
             text = text.Replace("#Modifier#", type.IsAbstract ? "abstract " : "");
 
@@ -134,66 +142,82 @@ namespace CreateFormsParametersFromFormsDescriptors
 
                 return type.Namespace.Replace("Contoso.Forms.Configuration.", "");
             }
+
+            HashSet<string> GetNamespaces(HashSet<string> namesapces)
+            {
+                return currentType.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite)
+                .Select(p => p.PropertyType)
+                .Aggregate(namesapces, (list, next) =>
+                {
+                    if (next == typeof(object)
+                        || next == typeof(string)
+                        || (next.IsLiteralType() && !typeof(Enum).IsAssignableFrom(next) && !(next.IsGenericType && next.GetGenericTypeDefinition() == typeof(Nullable<>))))
+                        return list;
+
+                    if (!next.Namespace.Equals("Contoso.Forms.Configuration")
+                    && !next.Namespace.Equals($"Contoso.Forms.Configuration.{subFolder}")
+                    && next.Namespace.StartsWith("Contoso.Forms.Configuration"))
+                        list.Add($"using {next.Namespace.Replace("Contoso.Forms.Configuration", "Contoso.Forms.Parameters")};");
+                    else if (next.Namespace.StartsWith("Contoso.Common.Configuration.ExpressionDescriptors"))
+                        list.Add($"using {next.Namespace.Replace("Contoso.Common.Configuration.ExpressionDescriptors", "Contoso.Parameters.Expressions")};");
+                    else if (next.Namespace.StartsWith("Contoso.Common.Configuration.ExpansionDescriptors"))
+                        list.Add($"using {next.Namespace.Replace("Contoso.Common.Configuration.ExpansionDescriptors", "Contoso.Parameters.Expansions")};");
+                    else if (!next.Namespace.StartsWith("Contoso.Forms.Configuration"))
+                        list.Add($"using {next.Namespace};");
+
+                    return list;
+                });
+            }
         }
-
-        //private static string GetConstructors(Type type, CSharpCodeProvider compiler, List<string> propertiesList)
-        //{
-        //    StringBuilder sb = new StringBuilder();
-
-        //    sb.Append
-        //    (
-        //        GetConstructor(type, compiler, propertiesList)
-        //    );
-
-        //    return sb.ToString();
-        //}
 
         private static string GetConstructor(Type type, CSharpCodeProvider compiler, List<string> propertiesList)
         {
-            PropertyInfo[] properties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite).ToArray();
+            PropertyInfo[] properties = type.GetProperties().Where(p => p.CanRead && p.CanWrite && !(p.DeclaringType.IsGenericType && p.DeclaringType.GetGenericTypeDefinition() == typeof(Dictionary<,>))).ToArray();
             if (!properties.Any())
                 return "";
 
             StringBuilder sb = new StringBuilder();
-            sb.Append($"\t\tpublic {type.Name.Replace(DESCRIPTOR, PARAMETER)}(");
+            sb.Append($"\t\tpublic {type.Name.Replace(DESCRIPTOR, PARAMETERS)}(");
             IEnumerable<string> parameterStrings = properties.Select(p => GetParameterString(p, compiler));
 
-            sb.Append(string.Join(", ", properties.Select(p => GetParameterString(p, compiler))));
-            sb.Append(")");
-            //if (type.BaseType == typeof(object))
-            //{
-            //    sb.Append(string.Join(", ", properties.Select(p => GetParameterString(p, compiler))));
-            //    sb.Append(")");
-            //}
-            //else
-            //{
-            //    sb.Append(string.Join(", ", parameters.Select(p => GetParameterString(p, compiler))));
-            //    sb.Append(")");
+            if (type.BaseType == typeof(object))
+            {
+                sb.Append(string.Join(", ", properties.Select(p => GetParameterString(p, compiler))));
+                sb.Append(")");
+            }
+            else
+            {
+                sb.Append(string.Join(", ", properties.Select(p => GetParameterString(p, compiler))));
+                sb.Append(")");
 
-            //    IEnumerable<ParameterInfo> baseConstructorParameters = parameters.Where(p => !propertiesList.Contains(FirstCharToUpper(p.Name)));
-            //    sb.Append($" : base({string.Join(", ", baseConstructorParameters.Select(p => p.Name))})");
-            //}
+                IEnumerable<PropertyInfo> baseConstructorParameters = properties.Where
+                (
+                    p => !propertiesList.Contains(FirstCharToUpper(p.Name))
+                );
+
+                if (baseConstructorParameters.Any())
+                    sb.Append($" : base({string.Join(", ", baseConstructorParameters.Select(p => FirstCharToLower(p.Name)))})");
+            }
 
             sb.Append($"{Environment.NewLine}\t\t{{");
-            foreach (PropertyInfo property in properties)
-                sb.Append($"{Environment.NewLine}\t\t\t{property.Name} = {FirstCharToLower(property.Name)};");
-            //if (type.BaseType == typeof(object))
-            //{
-            //    foreach (ParameterInfo parameter in parameters)
-            //        sb.Append($"{Environment.NewLine}\t\t\t{FirstCharToUpper(parameter.Name)} = {parameter.Name};");
-            //}
-            //else
-            //{
-            //    IEnumerable<ParameterInfo> declaringClassConstructorParameters = parameters.Where(p => propertiesList.Contains(FirstCharToUpper(p.Name)));
-            //    foreach (ParameterInfo parameter in declaringClassConstructorParameters)
-            //        sb.Append($"{Environment.NewLine}\t\t\t{FirstCharToUpper(parameter.Name)} = {parameter.Name};");
-            //}
+            
+            if (type.BaseType == typeof(object))
+            {
+                foreach (PropertyInfo property in properties)
+                    sb.Append($"{Environment.NewLine}\t\t\t{property.Name} = {FirstCharToLower(property.Name)};");
+            }
+            else
+            {
+                IEnumerable<PropertyInfo> declaringClassConstructorParameters = properties.Where(p => propertiesList.Contains(FirstCharToUpper(p.Name)));
+                foreach (PropertyInfo property in declaringClassConstructorParameters)
+                    sb.Append($"{Environment.NewLine}\t\t\t{FirstCharToUpper(property.Name)} = {FirstCharToLower(property.Name)};");
+            }
 
             sb.Append($"{Environment.NewLine}\t\t}}");
             return sb.ToString();
 
-            //string FirstCharToUpper(string parameterName)
-            //    => $"{parameterName[0].ToString().ToUpperInvariant()}{parameterName.Substring(1)}";
+            string FirstCharToUpper(string parameterName)
+                => $"{parameterName[0].ToString().ToUpperInvariant()}{parameterName.Substring(1)}";
         }
 
         private static string GetParameterString(PropertyInfo property, CSharpCodeProvider compiler)
@@ -206,8 +230,8 @@ namespace CreateFormsParametersFromFormsDescriptors
 
         static readonly Func<string, string> replaceCommonTypeName = oldName =>
         {
-            string result = Regex.Replace(oldName, "Descriptor$", PARAMETER);
-            result = Regex.Replace(result, "DescriptorBase$", "ParameterBase");
+            string result = Regex.Replace(oldName, "Descriptor$", PARAMETERS);
+            result = Regex.Replace(result, "DescriptorBase$", "ParametersBase");
             result = Regex.Replace(result, "Contoso.Forms.Configuration\\.([\\w]+)$", "$1");
             result = Regex.Replace(result, "Contoso.Forms.Configuration\\.[\\w]+.([\\w]+)$", "$1");
             return result.Replace("System.", "");

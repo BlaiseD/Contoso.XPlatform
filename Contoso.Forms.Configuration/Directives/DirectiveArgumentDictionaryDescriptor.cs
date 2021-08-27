@@ -4,23 +4,23 @@ namespace Contoso.Forms.Configuration.Directives
 {
     public class DirectiveArgumentDictionaryDescriptor : Dictionary<string, DirectiveArgumentDescriptor>
     {
-        private List<DirectiveArgumentDescriptor> directiveArgumentDescriptors;
+        private List<DirectiveArgumentDescriptor> directiveArguments;
 
-        public DirectiveArgumentDictionaryDescriptor(List<DirectiveArgumentDescriptor> directiveArgumentDescriptors) 
-            => this.DirectiveArgumentDescriptors = directiveArgumentDescriptors;
+        public DirectiveArgumentDictionaryDescriptor(List<DirectiveArgumentDescriptor> directiveArguments) 
+            => this.DirectiveArguments = directiveArguments;
 
         public DirectiveArgumentDictionaryDescriptor()
         {
         }
 
-        public List<DirectiveArgumentDescriptor> DirectiveArgumentDescriptors
+        public List<DirectiveArgumentDescriptor> DirectiveArguments
         {
-            get => directiveArgumentDescriptors; 
+            get => directiveArguments; 
             set
             {
-                directiveArgumentDescriptors = value;
+                directiveArguments = value;
                 this.Clear();
-                directiveArgumentDescriptors.ForEach(dad => this.Add(dad.Name, dad));
+                directiveArguments.ForEach(dad => this.Add(dad.Name, dad));
             }
         }
     }

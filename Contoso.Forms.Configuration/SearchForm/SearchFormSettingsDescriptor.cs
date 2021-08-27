@@ -11,8 +11,8 @@ namespace Contoso.Forms.Configuration.SearchForm
         public string ItemTemplateName { get; set; }
         public string FilterPlaceholder { get; set; }
         public CollectionViewItemBindingsDictionaryDescriptor Bindings { get; set; }
-        public SortCollectionDescriptor SortDescriptor { get; set; }
-        public SearchFilterGroupDescriptor SearchDescriptor { get; set; }
+        public SortCollectionDescriptor SortCollection { get; set; }
+        public SearchFilterGroupDescriptor SearchFilterGroup { get; set; }
         public RequestDetailsDescriptor RequestDetails { get; set; }
     }
 }

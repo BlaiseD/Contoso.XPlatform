@@ -4,23 +4,23 @@ namespace Contoso.Forms.Configuration.Validation
 {
     public class ValidationMessageDictionaryDescriptor : Dictionary<string, ValidationMethodDictionaryDescriptor>
     {
-        private List<ValidationMessageDescriptor> validationMessageDescriptors;
+        private List<ValidationMessageDescriptor> validationMessages;
 
         public ValidationMessageDictionaryDescriptor(List<ValidationMessageDescriptor> validationMessageDescriptors) 
-            => this.ValidationMessageDescriptors = validationMessageDescriptors;
+            => this.ValidationMessages = validationMessageDescriptors;
 
         public ValidationMessageDictionaryDescriptor()
         {
         }
 
-        public List<ValidationMessageDescriptor> ValidationMessageDescriptors
+        public List<ValidationMessageDescriptor> ValidationMessages
         {
-            get => validationMessageDescriptors; 
+            get => validationMessages; 
             set
             {
-                validationMessageDescriptors = value;
+                validationMessages = value;
                 this.Clear();
-                validationMessageDescriptors.ForEach
+                validationMessages.ForEach
                 (
                     vmd => this.Add
                     (
