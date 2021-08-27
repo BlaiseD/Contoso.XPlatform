@@ -1,8 +1,10 @@
-﻿namespace Contoso.Forms.Parameters.Directives
+﻿using System;
+
+namespace Contoso.Forms.Parameters.Directives
 {
     public class DirectiveArgumentParameters
     {
-		public DirectiveArgumentParameters(string name, object value, string type)
+		public DirectiveArgumentParameters(string name, object value, Type type)
 		{
 			Name = name;
 			Value = value;
@@ -11,6 +13,6 @@
 
 		public string Name { get; set; }
 		public object Value { get; set; }
-		public string Type { get; set; }
+		public Type Type { get; set; }
     }
 }

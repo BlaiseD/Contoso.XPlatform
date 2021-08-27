@@ -1,11 +1,12 @@
 ﻿using Contoso.Forms.Parameters.Bindings;
 using Contoso.Parameters.Expansions;
+using System;
 
 namespace Contoso.Forms.Parameters.SearchForm
 {
     public class SearchFormSettingsParameters
     {
-		public SearchFormSettingsParameters(string title, string modelType, string loadingIndicatorText, string itemTemplateName, string filterPlaceholder, CollectionViewItemBindingsDictionaryParameters bindings, SortCollectionParameters sortCollection, SearchFilterGroupParameters searchFilterGroup, RequestDetailsParameters requestDetails)
+		public SearchFormSettingsParameters(string title, Type modelType, string loadingIndicatorText, string itemTemplateName, string filterPlaceholder, CollectionViewItemBindingsDictionaryParameters bindings, SortCollectionParameters sortCollection, SearchFilterGroupParameters searchFilterGroup, RequestDetailsParameters requestDetails)
 		{
 			Title = title;
 			ModelType = modelType;
@@ -19,7 +20,7 @@ namespace Contoso.Forms.Parameters.SearchForm
 		}
 
 		public string Title { get; set; }
-		public string ModelType { get; set; }
+		public Type ModelType { get; set; }
 		public string LoadingIndicatorText { get; set; }
 		public string ItemTemplateName { get; set; }
 		public string FilterPlaceholder { get; set; }

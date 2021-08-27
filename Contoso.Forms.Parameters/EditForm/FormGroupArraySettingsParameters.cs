@@ -1,12 +1,13 @@
 ﻿using Contoso.Forms.Parameters.Directives;
 using Contoso.Forms.Parameters.Validation;
+using System;
 using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.EditForm
 {
     public class FormGroupArraySettingsParameters : FormItemSettingsParameters
     {
-		public FormGroupArraySettingsParameters(string title, string placeholder, bool showTitle, string modelType, string type, string validFormControlText, string invalidFormControlText, List<string> keyFields, FormsCollectionDisplayTemplateParameters formsCollectionDisplayTemplate, FormGroupTemplateParameters formGroupTemplate, List<FormItemSettingsParameters> fieldSettings, ValidationMessageDictionaryParameters validationMessages, VariableDirectivesDictionaryParameters conditionalDirectives, string field) : base(field)
+		public FormGroupArraySettingsParameters(string title, string placeholder, bool showTitle, Type modelType, Type type, string validFormControlText, string invalidFormControlText, List<string> keyFields, FormsCollectionDisplayTemplateParameters formsCollectionDisplayTemplate, FormGroupTemplateParameters formGroupTemplate, List<FormItemSettingsParameters> fieldSettings, ValidationMessageDictionaryParameters validationMessages, VariableDirectivesDictionaryParameters conditionalDirectives, string field) : base(field)
 		{
 			Title = title;
 			Placeholder = placeholder;
@@ -26,8 +27,8 @@ namespace Contoso.Forms.Parameters.EditForm
 		public string Title { get; set; }
 		public string Placeholder { get; set; }
 		public bool ShowTitle { get; set; }
-		public string ModelType { get; set; }
-		public string Type { get; set; }
+		public Type ModelType { get; set; }
+		public Type Type { get; set; }
 		public string ValidFormControlText { get; set; }
 		public string InvalidFormControlText { get; set; }
 		public List<string> KeyFields { get; set; }

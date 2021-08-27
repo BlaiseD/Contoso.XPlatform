@@ -1,11 +1,12 @@
 ﻿using Contoso.Forms.Parameters.Bindings;
 using Contoso.Parameters.Expressions;
+using System;
 
 namespace Contoso.Forms.Parameters.ListForm
 {
     public class ListFormSettingsParameters
     {
-		public ListFormSettingsParameters(string title, string modelType, string loadingIndicatorText, string itemTemplateName, CollectionViewItemBindingsDictionaryParameters bindings, SelectorLambdaOperatorParameters fieldsSelector, RequestDetailsParameters requestDetails)
+		public ListFormSettingsParameters(string title, Type modelType, string loadingIndicatorText, string itemTemplateName, CollectionViewItemBindingsDictionaryParameters bindings, SelectorLambdaOperatorParameters fieldsSelector, RequestDetailsParameters requestDetails)
 		{
 			Title = title;
 			ModelType = modelType;
@@ -17,7 +18,7 @@ namespace Contoso.Forms.Parameters.ListForm
 		}
 
 		public string Title { get; set; }
-		public string ModelType { get; set; }
+		public Type ModelType { get; set; }
 		public string LoadingIndicatorText { get; set; }
 		public string ItemTemplateName { get; set; }
 		public CollectionViewItemBindingsDictionaryParameters Bindings { get; set; }

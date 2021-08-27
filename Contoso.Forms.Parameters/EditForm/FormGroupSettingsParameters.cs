@@ -1,12 +1,13 @@
 ﻿using Contoso.Forms.Parameters.Directives;
 using Contoso.Forms.Parameters.Validation;
+using System;
 using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.EditForm
 {
     public class FormGroupSettingsParameters : FormItemSettingsParameters
     {
-		public FormGroupSettingsParameters(string title, string validFormControlText, string invalidFormControlText, bool showTitle, string modelType, FormGroupTemplateParameters formGroupTemplate, List<FormItemSettingsParameters> fieldSettings, ValidationMessageDictionaryParameters validationMessages, VariableDirectivesDictionaryParameters conditionalDirectives, string field) : base(field)
+		public FormGroupSettingsParameters(string title, string validFormControlText, string invalidFormControlText, bool showTitle, Type modelType, FormGroupTemplateParameters formGroupTemplate, List<FormItemSettingsParameters> fieldSettings, ValidationMessageDictionaryParameters validationMessages, VariableDirectivesDictionaryParameters conditionalDirectives, string field) : base(field)
 		{
 			Title = title;
 			ValidFormControlText = validFormControlText;
@@ -23,7 +24,7 @@ namespace Contoso.Forms.Parameters.EditForm
 		public string ValidFormControlText { get; set; }
 		public string InvalidFormControlText { get; set; }
 		public bool ShowTitle { get; set; }
-		public string ModelType { get; set; }
+		public Type ModelType { get; set; }
 		public FormGroupTemplateParameters FormGroupTemplate { get; set; }
 		public List<FormItemSettingsParameters> FieldSettings { get; set; }
 		public ValidationMessageDictionaryParameters ValidationMessages { get; set; }

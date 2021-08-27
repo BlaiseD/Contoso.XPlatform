@@ -1,10 +1,11 @@
 ﻿using Contoso.Parameters.Expressions;
+using System;
 
 namespace Contoso.Forms.Parameters
 {
     public class MultiSelectTemplateParameters
     {
-		public MultiSelectTemplateParameters(string templateName, string placeHolderText, string textField, string valueField, string modelType, string loadingIndicatorText, SelectorLambdaOperatorParameters textAndValueSelector, RequestDetailsParameters requestDetails)
+		public MultiSelectTemplateParameters(string templateName, string placeHolderText, string textField, string valueField, Type modelType, string loadingIndicatorText, SelectorLambdaOperatorParameters textAndValueSelector, RequestDetailsParameters requestDetails)
 		{
 			TemplateName = templateName;
 			PlaceHolderText = placeHolderText;
@@ -20,7 +21,7 @@ namespace Contoso.Forms.Parameters
 		public string PlaceHolderText { get; set; }
 		public string TextField { get; set; }
 		public string ValueField { get; set; }
-		public string ModelType { get; set; }
+		public Type ModelType { get; set; }
 		public string LoadingIndicatorText { get; set; }
 		public SelectorLambdaOperatorParameters TextAndValueSelector { get; set; }
 		public RequestDetailsParameters RequestDetails { get; set; }

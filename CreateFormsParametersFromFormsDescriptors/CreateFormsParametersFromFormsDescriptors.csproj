@@ -12,10 +12,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Contoso.Forms.Configuration\Contoso.Forms.Configuration.csproj" />
+    <ProjectReference Include="..\Contoso.Forms.Parameters\Contoso.Forms.Parameters.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="EnumTemplate.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="FormsParameterToFormsDescriptorMappingProfileTemplate.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="ParameterClassTemplate.txt">
