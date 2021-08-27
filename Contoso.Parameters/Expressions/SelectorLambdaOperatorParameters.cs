@@ -13,8 +13,8 @@ namespace Contoso.Parameters.Expressions
 		{
 			Selector = selector;
 			SourceElementType = sourceElementType;
-			BodyType = bodyType;
 			ParameterName = parameterName;
+			BodyType = bodyType;
 		}
 
 		public IExpressionParameter Selector { get; set; }

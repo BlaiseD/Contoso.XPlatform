@@ -8,7 +8,7 @@ namespace Contoso.Parameters.Expressions
 		{
 		}
 
-		public ConstantOperatorParameters(object constantValue = null, Type type = null)
+		public ConstantOperatorParameters(object constantValue, Type type = null)
 		{
 			ConstantValue = constantValue;
 			Type = type;

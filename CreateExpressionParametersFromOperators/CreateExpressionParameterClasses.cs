@@ -41,12 +41,12 @@ namespace CreateExpressionParametersFromOperators
         const string PARAMETER_NAMESPACE_DOT = "LogicBuilder.Expressions.Utils.ExpressionBuilder.";
         static readonly string DESCRIPTOR_SAVE_PATH = $@"{Constants.BASEPATH}\Expressions";
         const string OPERATOR = "Operator";
-        const string OPERATORPARAMETER = "OperatorParameter";
+        const string OPERATORPARAMETERS = "OperatorParameters";
         const string VIEW_CLASS_SUFFIX = "View";
 
         private static void WriteCommonClass(Type type, CSharpCodeProvider compiler)
         {
-            string name = type.Name.Replace(OPERATOR, OPERATORPARAMETER );
+            string name = type.Name.Replace(OPERATOR, OPERATORPARAMETERS );
 
             List<string> propertiesList = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
                 .Aggregate(new List<string>(), (list, p) =>
@@ -116,7 +116,7 @@ namespace CreateExpressionParametersFromOperators
                 .Replace(PROPERTIES, propertiestring)
                 .Replace(NAMESPACES, nameSpacesString)
                 .Replace(CONSTRUCTORS, constructorString)
-                .Replace("#Base#", baseClassString.Replace(OPERATOR, OPERATORPARAMETER ));
+                .Replace("#Base#", baseClassString.Replace(OPERATOR, OPERATORPARAMETERS ));
 
             text = text.Replace("#Modifier#", type.IsAbstract ? "abstract " : "");
 
@@ -130,18 +130,7 @@ namespace CreateExpressionParametersFromOperators
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(GetParameterlessConstructor(type));
-
-            sb.Append
-            (
-                string.Join
-                (
-                    "",
-                    type.GetConstructors().Select
-                    (
-                        c => GetConstructor(c, compiler, propertiesList)
-                    )
-                )
-            );
+            sb.Append(GetConstructor(type, compiler, propertiesList));
 
             return sb.ToString();
         }
@@ -149,31 +138,42 @@ namespace CreateExpressionParametersFromOperators
         private static string GetParameterlessConstructor(Type type)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"\t\tpublic {type.Name.Replace(OPERATOR, OPERATORPARAMETER )}()");
+            sb.Append($"\t\tpublic {type.Name.Replace(OPERATOR, OPERATORPARAMETERS )}()");
             sb.Append($"{Environment.NewLine}\t\t{{");
             sb.Append($"{Environment.NewLine}\t\t}}");
             return sb.ToString();
         }
 
-        private static string GetConstructor(ConstructorInfo constructor, CSharpCodeProvider compiler, List<string> propertiesList)
+        private static string GetConstructor(Type type, CSharpCodeProvider compiler, List<string> propertiesList)
         {
-            ParameterInfo[] parameters = constructor.GetParameters().Where(p => p.Name != "parameters").ToArray();
+            Dictionary<ConstructorInfo, ParameterInfo[]> constructors = type.GetConstructors().ToDictionary
+            (
+                c => c,
+                c => c.GetParameters()
+            );
+
+            ConstructorInfo constructor = constructors.OrderByDescending(c => c.Value.Length).First().Key;
+            Dictionary<ConstructorInfo, HashSet<string>> constructorsWithFewerParameters = constructors
+                .Where(c => c.Key != constructor)
+                .ToDictionary(i => i.Key, i => new HashSet<string>(i.Value.Select(p => p.Name)));
+
+            ParameterInfo[] parameters = constructor.GetParameters().Where(p => p.Name != "parameters").OrderBy(p => (p.IsOptional || ConsiderOptional(p))).ToArray();
             if (!parameters.Any())
                 return "";
 
             StringBuilder sb = new StringBuilder();
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
-            sb.Append($"\t\tpublic {constructor.DeclaringType.Name.Replace(OPERATOR, OPERATORPARAMETER )}(");
-            IEnumerable<string> parameterStrings = parameters.Select(p => GetParameterString(p, compiler));
+            sb.Append($"\t\tpublic {constructor.DeclaringType.Name.Replace(OPERATOR, OPERATORPARAMETERS )}(");
+            IEnumerable<string> parameterStrings = parameters.Select(p => GetParameterString(p));
             if (constructor.DeclaringType.BaseType == typeof(object))
             {
-                sb.Append(string.Join(", ", parameters.Select(p => GetParameterString(p, compiler))));
+                sb.Append(string.Join(", ", parameters.Select(p => GetParameterString(p))));
                 sb.Append(")");
             }
             else
             {
-                sb.Append(string.Join(", ", parameters.Select(p => GetParameterString(p, compiler))));
+                sb.Append(string.Join(", ", parameters.Select(p => GetParameterString(p))));
                 sb.Append(")");
 
                 IEnumerable<ParameterInfo> baseConstructorParameters = parameters.Where(p => !propertiesList.Contains(FirstCharToUpper(p.Name)));
@@ -198,36 +198,70 @@ namespace CreateExpressionParametersFromOperators
 
             string FirstCharToUpper(string parameterName)
                 => $"{parameterName[0].ToString().ToUpperInvariant()}{parameterName.Substring(1)}";
+
+            bool ConsiderOptional(ParameterInfo parameter)
+            {
+                foreach(var kvp in constructorsWithFewerParameters)
+                {
+                    if (!kvp.Value.Contains(parameter.Name))
+                        return true;
+                }
+
+                return false;
+            }
+
+            string GetParameterString(ParameterInfo parameter)
+            {
+                string paramsString = Attribute.GetCustomAttribute(parameter, typeof(ParamArrayAttribute)) != null
+                    ? "params "
+                    : "";
+
+                return $"{paramsString}{parameter.ParameterType.GetNewPropertyClassName(compiler, replaceCommonTypeName)} {parameter.Name}{GetDefaultValue(parameter)}";
+            }
+
+            string GetDefaultValue(ParameterInfo parameter)
+            {
+                if (!parameter.IsOptional && !ConsiderOptional(parameter))
+                    return "";
+
+                if (parameter.ParameterType == typeof(string))
+                    return " = null";
+                //return $" = {parameter.DefaultValue?.ToString() ?? "null"}";
+                else if (parameter.ParameterType.IsValueType)
+                    return $" = {parameter.DefaultValue.ToString() ?? Activator.CreateInstance(parameter.ParameterType).ToString()}";
+                else
+                    return " = null";
+            }
         }
 
-        private static string GetDefaultValue(ParameterInfo parameter)
-        {
-            if (!parameter.IsOptional)
-                return "";
+        //private static string GetDefaultValue(ParameterInfo parameter)
+        //{
+        //    if (!parameter.IsOptional)
+        //        return "";
 
-            if (parameter.ParameterType == typeof(string))
-                return $" = {parameter.DefaultValue?.ToString() ?? "null"}";
-            else if (parameter.ParameterType.IsValueType)
-                return $" = {parameter.DefaultValue.ToString() ?? Activator.CreateInstance(parameter.ParameterType).ToString()}";
-            else
-                return " =  null";
-        }
+        //    if (parameter.ParameterType == typeof(string))
+        //        return $" = {parameter.DefaultValue?.ToString() ?? "null"}";
+        //    else if (parameter.ParameterType.IsValueType)
+        //        return $" = {parameter.DefaultValue.ToString() ?? Activator.CreateInstance(parameter.ParameterType).ToString()}";
+        //    else
+        //        return " =  null";
+        //}
 
-        private static string GetParameterString(ParameterInfo parameter, CSharpCodeProvider compiler)
-        {
+        //private static string GetParameterString(ParameterInfo parameter, CSharpCodeProvider compiler)
+        //{
 
-            string paramsString = Attribute.GetCustomAttribute(parameter, typeof(ParamArrayAttribute)) != null
-                ? "params "
-                : "";
+        //    string paramsString = Attribute.GetCustomAttribute(parameter, typeof(ParamArrayAttribute)) != null
+        //        ? "params "
+        //        : "";
 
-            return $"{paramsString}{parameter.ParameterType.GetNewPropertyClassName(compiler, replaceCommonTypeName)} {parameter.Name}{GetDefaultValue(parameter)}";
-        }
+        //    return $"{paramsString}{parameter.ParameterType.GetNewPropertyClassName(compiler, replaceCommonTypeName)} {parameter.Name}{GetDefaultValue(parameter)}";
+        //}
 
         //list.Add(string.Format("\t\tvirtual public {0} {1} {{ get; set; }}", p.PropertyType.GetNewPropertyClassName(compiler, replaceCommonTypeName), p.Name));
 
         static readonly Func<string, string> replaceCommonTypeName = oldName =>
         {
-            return Regex.Replace(oldName, "Operator$", OPERATORPARAMETER )
+            return Regex.Replace(oldName, "Operator$", OPERATORPARAMETERS )
                 .Replace("IExpressionPart", "IExpressionParameter")
                 .Replace(PARAMETER_NAMESPACE_DOT, "")
                 .Replace("LogicBuilder.Expressions.Utils.Strutures.", "")
