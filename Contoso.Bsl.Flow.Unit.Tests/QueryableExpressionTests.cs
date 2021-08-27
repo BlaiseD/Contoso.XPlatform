@@ -34,39 +34,39 @@ namespace Contoso.Bsl.Flow.Unit.Tests
         public void BuildWhere_OrderBy_ThenBy_Skip_Take_Average()
         {
             //act: body = q.Where(s => ((s.ID > 1) AndAlso (s.FirstName.Compare(s.LastName) > 0))).OrderBy(v => v.LastName).ThenByDescending(v => v.FirstName).Skip(2).Take(3).Average(j => j.ID)
-            var bodyParameter = new AverageOperatorParameter
+            var bodyParameter = new AverageOperatorParameters
             (
-                new TakeOperatorParameter
+                new TakeOperatorParameters
                 (
-                    new SkipOperatorParameter
+                    new SkipOperatorParameters
                     (
-                        new ThenByOperatorParameter
+                        new ThenByOperatorParameters
                         (
-                            new OrderByOperatorParameter
+                            new OrderByOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (//q.Where(s => ((s.ID > 1) AndAlso (Compare(s.FirstName, s.LastName) > 0)))
-                                    new ParameterOperatorParameter("q"),//q. the source operand
-                                    new AndBinaryOperatorParameter//((s.ID > 1) AndAlso (Compare(s.FirstName, s.LastName) > 0)
+                                    new ParameterOperatorParameters("q"),//q. the source operand
+                                    new AndBinaryOperatorParameters//((s.ID > 1) AndAlso (Compare(s.FirstName, s.LastName) > 0)
                                     (
-                                        new GreaterThanBinaryOperatorParameter
+                                        new GreaterThanBinaryOperatorParameters
                                         (
-                                            new MemberSelectorOperatorParameter("Id", new ParameterOperatorParameter("s")),
-                                            new ConstantOperatorParameter(1, typeof(int))
+                                            new MemberSelectorOperatorParameters("Id", new ParameterOperatorParameters("s")),
+                                            new ConstantOperatorParameters(1, typeof(int))
                                         ),
-                                        new GreaterThanBinaryOperatorParameter
+                                        new GreaterThanBinaryOperatorParameters
                                         (
-                                            new MemberSelectorOperatorParameter("FirstName", new ParameterOperatorParameter("s")),
-                                            new MemberSelectorOperatorParameter("LastName", new ParameterOperatorParameter("s"))
+                                            new MemberSelectorOperatorParameters("FirstName", new ParameterOperatorParameters("s")),
+                                            new MemberSelectorOperatorParameters("LastName", new ParameterOperatorParameters("s"))
                                         )
                                     ),
                                     "s"//s => (created in Where operator.  The parameter type is based on the source operand underlying type in this case Student.)
                                 ),
-                                new MemberSelectorOperatorParameter("LastName", new ParameterOperatorParameter("v")),
+                                new MemberSelectorOperatorParameters("LastName", new ParameterOperatorParameters("v")),
                                 ListSortDirection.Ascending,
                                 "v"
                             ),
-                            new MemberSelectorOperatorParameter("FirstName", new ParameterOperatorParameter("v")),
+                            new MemberSelectorOperatorParameters("FirstName", new ParameterOperatorParameters("v")),
                             ListSortDirection.Descending,
                             "v"
                         ),
@@ -74,12 +74,12 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                     ),
                     3
                 ),
-                new MemberSelectorOperatorParameter("Id", new ParameterOperatorParameter("j")),
+                new MemberSelectorOperatorParameters("Id", new ParameterOperatorParameters("j")),
                 "j"
             );
 
             //lambdaExpression q => q.Where...
-            SelectorLambdaOperatorParameter expressionParameter = GetExpressionParameter<IQueryable<Student>, double>(bodyParameter, "q");
+            SelectorLambdaOperatorParameters expressionParameter = GetExpressionParameter<IQueryable<Student>, double>(bodyParameter, "q");
 
             Expression<Func<IQueryable<Student>, double>> expression = GetExpression<IQueryable<Student>, double>(expressionParameter);
 
@@ -108,40 +108,40 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                     );
 
             //act
-            var bodyParameter = new SelectOperatorParameter
+            var bodyParameter = new SelectOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new GroupByOperatorParameter
+                    new GroupByOperatorParameters
                     (
-                        new ParameterOperatorParameter("q"),
-                        new ConstantOperatorParameter(1, typeof(int)),
+                        new ParameterOperatorParameters("q"),
+                        new ConstantOperatorParameters(1, typeof(int)),
                         "a"
                     ),
-                    new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("b")),
+                    new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("b")),
                     ListSortDirection.Ascending,
                     "b"
                 ),
-                new MemberInitOperatorParameter
+                new MemberInitOperatorParameters
                 (
                     new Dictionary<string, IExpressionParameter>
                     {
-                        ["Sum_budget"] = new ToListOperatorParameter
+                        ["Sum_budget"] = new ToListOperatorParameters
                         (
-                            new WhereOperatorParameter
+                            new WhereOperatorParameters
                             (
-                                new ParameterOperatorParameter("q"),
-                                new AndBinaryOperatorParameter
+                                new ParameterOperatorParameters("q"),
+                                new AndBinaryOperatorParameters
                                 (
-                                    new EqualsBinaryOperatorParameter
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("d")),
-                                        new CountOperatorParameter(new ParameterOperatorParameter("q"))
+                                        new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("d")),
+                                        new CountOperatorParameters(new ParameterOperatorParameters("q"))
                                     ),
-                                    new EqualsBinaryOperatorParameter
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("d")),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("c"))
+                                        new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("d")),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("c"))
                                     )
                                 ),
                                 "d"
@@ -184,108 +184,108 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 .FirstOrDefault();
 
             //act
-            var bodyParameter = new FirstOrDefaultOperatorParameter
+            var bodyParameter = new FirstOrDefaultOperatorParameters
             (
-                new SelectOperatorParameter
+                new SelectOperatorParameters
                 (
-                    new OrderByOperatorParameter
+                    new OrderByOperatorParameters
                     (
-                        new AsQueryableOperatorParameter
+                        new AsQueryableOperatorParameters
                         (
-                            new GroupByOperatorParameter
+                            new GroupByOperatorParameters
                             (
-                                new ParameterOperatorParameter("q"),
-                                new ConstantOperatorParameter(1, typeof(int)),
+                                new ParameterOperatorParameters("q"),
+                                new ConstantOperatorParameters(1, typeof(int)),
                                 "item"
                             )
                         ),
-                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("group")),
+                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("group")),
                         ListSortDirection.Ascending,
                         "group"
                     ),
-                    new MemberInitOperatorParameter
+                    new MemberInitOperatorParameters
                     (
                         new Dictionary<string, IExpressionParameter>
                         {
-                            ["Min_administratorName"] = new MinOperatorParameter
+                            ["Min_administratorName"] = new MinOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (
-                                    new ParameterOperatorParameter("q"),
-                                    new EqualsBinaryOperatorParameter
+                                    new ParameterOperatorParameters("q"),
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new ConstantOperatorParameter(1, typeof(int)),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("sel"))
+                                        new ConstantOperatorParameters(1, typeof(int)),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
                                     ),
                                     "d"
                                 ),
-                                new ConcatOperatorParameter
+                                new ConcatOperatorParameters
                                 (
-                                    new ConcatOperatorParameter
+                                    new ConcatOperatorParameters
                                     (
-                                        new MemberSelectorOperatorParameter("Administrator.LastName", new ParameterOperatorParameter("item")),
-                                        new ConstantOperatorParameter(" ", typeof(string))
+                                        new MemberSelectorOperatorParameters("Administrator.LastName", new ParameterOperatorParameters("item")),
+                                        new ConstantOperatorParameters(" ", typeof(string))
                                     ),
-                                    new MemberSelectorOperatorParameter("Administrator.FirstName", new ParameterOperatorParameter("item"))
+                                    new MemberSelectorOperatorParameters("Administrator.FirstName", new ParameterOperatorParameters("item"))
                                 ),
                                 "item"
                             ),
-                            ["Count_name"] = new CountOperatorParameter
+                            ["Count_name"] = new CountOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (
-                                    new ParameterOperatorParameter("q"),
-                                    new EqualsBinaryOperatorParameter
+                                    new ParameterOperatorParameters("q"),
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new ConstantOperatorParameter(1, typeof(int)),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("sel"))
+                                        new ConstantOperatorParameters(1, typeof(int)),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
                                     ),
                                     "d"
                                 )
                             ),
-                            ["Sum_budget"] = new SumOperatorParameter
+                            ["Sum_budget"] = new SumOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (
-                                    new ParameterOperatorParameter("q"),
-                                    new EqualsBinaryOperatorParameter
+                                    new ParameterOperatorParameters("q"),
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new ConstantOperatorParameter(1, typeof(int)),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("sel"))
+                                        new ConstantOperatorParameters(1, typeof(int)),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
                                     ),
                                     "d"
                                 ),
-                                new MemberSelectorOperatorParameter("Budget", new ParameterOperatorParameter("item")),
+                                new MemberSelectorOperatorParameters("Budget", new ParameterOperatorParameters("item")),
                                 "item"
                             ),
-                            ["Min_budget"] = new MinOperatorParameter
+                            ["Min_budget"] = new MinOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (
-                                    new ParameterOperatorParameter("q"),
-                                    new EqualsBinaryOperatorParameter
+                                    new ParameterOperatorParameters("q"),
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new ConstantOperatorParameter(1, typeof(int)),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("sel"))
+                                        new ConstantOperatorParameters(1, typeof(int)),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
                                     ),
                                     "d"
                                 ),
-                                new MemberSelectorOperatorParameter("Budget", new ParameterOperatorParameter("item")),
+                                new MemberSelectorOperatorParameters("Budget", new ParameterOperatorParameters("item")),
                                 "item"
                             ),
-                            ["Min_startDate"] = new MinOperatorParameter
+                            ["Min_startDate"] = new MinOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (
-                                    new ParameterOperatorParameter("q"),
-                                    new EqualsBinaryOperatorParameter
+                                    new ParameterOperatorParameters("q"),
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new ConstantOperatorParameter(1, typeof(int)),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("sel"))
+                                        new ConstantOperatorParameters(1, typeof(int)),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
                                     ),
                                     "d"
                                 ),
-                                new MemberSelectorOperatorParameter("StartDate", new ParameterOperatorParameter("item")),
+                                new MemberSelectorOperatorParameters("StartDate", new ParameterOperatorParameters("item")),
                                 "item"
                             )
                         }
@@ -320,20 +320,20 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new AllOperatorParameter
+                        new AllOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new OrBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new OrBinaryOperatorParameters
                             (
-                                new EqualsBinaryOperatorParameter
+                                new EqualsBinaryOperatorParameters
                                 (
-                                    new MemberSelectorOperatorParameter("CategoryName", new ParameterOperatorParameter("a")),
-                                    new ConstantOperatorParameter("CategoryOne")
+                                    new MemberSelectorOperatorParameters("CategoryName", new ParameterOperatorParameters("a")),
+                                    new ConstantOperatorParameters("CategoryOne")
                                 ),
-                                new EqualsBinaryOperatorParameter
+                                new EqualsBinaryOperatorParameters
                                 (
-                                    new MemberSelectorOperatorParameter("CategoryName", new ParameterOperatorParameter("a")),
-                                    new ConstantOperatorParameter("CategoryTwo")
+                                    new MemberSelectorOperatorParameters("CategoryName", new ParameterOperatorParameters("a")),
+                                    new ConstantOperatorParameters("CategoryTwo")
                                 )
                             ),
                             "a"
@@ -359,13 +359,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new AnyOperatorParameter
+                        new AnyOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryName", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter("CategoryOne")
+                                new MemberSelectorOperatorParameters("CategoryName", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters("CategoryOne")
                             ),
                             "a"
                         ),
@@ -390,9 +390,9 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new AnyOperatorParameter
+                        new AnyOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName)
+                            new ParameterOperatorParameters(parameterName)
                         ),
                         parameterName
                     )
@@ -415,9 +415,9 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new AsQueryableOperatorParameter
+                        new AsQueryableOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName)
+                            new ParameterOperatorParameters(parameterName)
                         ),
                         parameterName
                     )
@@ -440,10 +440,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new AverageOperatorParameter
+                        new AverageOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                            new ParameterOperatorParameters(parameterName),
+                            new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                             "a"
                         ),
                         parameterName
@@ -467,12 +467,12 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new AverageOperatorParameter
+                        new AverageOperatorParameters
                         (
-                            new SelectOperatorParameter
+                            new SelectOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                                new ParameterOperatorParameters(parameterName),
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                                 "a"
                             )
                         ),
@@ -497,13 +497,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new CountOperatorParameter
+                        new CountOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(1)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(1)
                             ),
                             "a"
                         ),
@@ -528,9 +528,9 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new CountOperatorParameter
+                        new CountOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName)
+                            new ParameterOperatorParameters(parameterName)
                         ),
                         parameterName
                     )
@@ -553,9 +553,9 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new DistinctOperatorParameter
+                        new DistinctOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName)
+                            new ParameterOperatorParameters(parameterName)
                         ),
                         parameterName
                     )
@@ -577,13 +577,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new FirstOperatorParameter
+                        new FirstOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(-1)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(-1)
                             ),
                             "a"
                         ),
@@ -608,13 +608,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new FirstOperatorParameter
+                        new FirstOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(1)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(1)
                             ),
                             "a"
                         ),
@@ -639,9 +639,9 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new FirstOperatorParameter
+                        new FirstOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName)
+                            new ParameterOperatorParameters(parameterName)
                         ),
                         parameterName
                     )
@@ -664,13 +664,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new FirstOrDefaultOperatorParameter
+                        new FirstOrDefaultOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(-1)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(-1)
                             ),
                             "a"
                         ),
@@ -695,13 +695,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new FirstOrDefaultOperatorParameter
+                        new FirstOrDefaultOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(1)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(1)
                             ),
                             "a"
                         ),
@@ -726,9 +726,9 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new FirstOrDefaultOperatorParameter
+                        new FirstOrDefaultOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName)
+                            new ParameterOperatorParameters(parameterName)
                         ),
                         parameterName
                     )
@@ -753,10 +753,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new GroupByOperatorParameter
+                        new GroupByOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new MemberSelectorOperatorParameter("SupplierID", new ParameterOperatorParameter("a")),
+                            new ParameterOperatorParameters(parameterName),
+                            new MemberSelectorOperatorParameters("SupplierID", new ParameterOperatorParameters("a")),
                             "a"
                         ),
                         parameterName
@@ -779,13 +779,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new LastOperatorParameter
+                        new LastOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(-1)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(-1)
                             ),
                             "a"
                         ),
@@ -810,13 +810,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new LastOperatorParameter
+                        new LastOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(2)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(2)
                             ),
                             "a"
                         ),
@@ -841,9 +841,9 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new LastOperatorParameter
+                        new LastOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName)
+                            new ParameterOperatorParameters(parameterName)
                         ),
                         parameterName
                     )
@@ -866,13 +866,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new LastOrDefaultOperatorParameter
+                        new LastOrDefaultOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(-1)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(-1)
                             ),
                             "a"
                         ),
@@ -897,13 +897,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new LastOrDefaultOperatorParameter
+                        new LastOrDefaultOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(2)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(2)
                             ),
                             "a"
                         ),
@@ -928,9 +928,9 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new LastOrDefaultOperatorParameter
+                        new LastOrDefaultOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName)
+                            new ParameterOperatorParameters(parameterName)
                         ),
                         parameterName
                     )
@@ -953,10 +953,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new MaxOperatorParameter
+                        new MaxOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                            new ParameterOperatorParameters(parameterName),
+                            new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                             "a"
                         ),
                         parameterName
@@ -980,12 +980,12 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new MaxOperatorParameter
+                        new MaxOperatorParameters
                         (
-                            new SelectOperatorParameter
+                            new SelectOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                                new ParameterOperatorParameters(parameterName),
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                                 "a"
                             )
                         ),
@@ -1010,10 +1010,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new MinOperatorParameter
+                        new MinOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                            new ParameterOperatorParameters(parameterName),
+                            new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                             "a"
                         ),
                         parameterName
@@ -1037,12 +1037,12 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new MinOperatorParameter
+                        new MinOperatorParameters
                         (
-                            new SelectOperatorParameter
+                            new SelectOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                                new ParameterOperatorParameters(parameterName),
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                                 "a"
                             )
                         ),
@@ -1067,10 +1067,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new OrderByOperatorParameter
+                        new OrderByOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                            new ParameterOperatorParameters(parameterName),
+                            new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                             ListSortDirection.Ascending,
                             "a"
                         ),
@@ -1095,10 +1095,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new OrderByOperatorParameter
+                        new OrderByOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                            new ParameterOperatorParameters(parameterName),
+                            new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                             ListSortDirection.Descending,
                             "a"
                         ),
@@ -1123,16 +1123,16 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new ThenByOperatorParameter
+                        new ThenByOperatorParameters
                         (
-                            new OrderByOperatorParameter
+                            new OrderByOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
-                                new MemberSelectorOperatorParameter("SupplierID", new ParameterOperatorParameter("a")),
+                                new ParameterOperatorParameters(parameterName),
+                                new MemberSelectorOperatorParameters("SupplierID", new ParameterOperatorParameters("a")),
                                 ListSortDirection.Ascending,
                                 "a"
                             ),
-                            new MemberSelectorOperatorParameter("ProductID", new ParameterOperatorParameter("a")),
+                            new MemberSelectorOperatorParameters("ProductID", new ParameterOperatorParameters("a")),
                             ListSortDirection.Ascending,
                             "a"
                         ),
@@ -1157,16 +1157,16 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new ThenByOperatorParameter
+                        new ThenByOperatorParameters
                         (
-                            new OrderByOperatorParameter
+                            new OrderByOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
-                                new MemberSelectorOperatorParameter("SupplierID", new ParameterOperatorParameter("a")),
+                                new ParameterOperatorParameters(parameterName),
+                                new MemberSelectorOperatorParameters("SupplierID", new ParameterOperatorParameters("a")),
                                 ListSortDirection.Ascending,
                                 "a"
                             ),
-                            new MemberSelectorOperatorParameter("ProductID", new ParameterOperatorParameter("a")),
+                            new MemberSelectorOperatorParameters("ProductID", new ParameterOperatorParameters("a")),
                             ListSortDirection.Descending,
                             "a"
                         ),
@@ -1196,25 +1196,25 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new TakeOperatorParameter
+                        new TakeOperatorParameters
                         (
-                            new SkipOperatorParameter
+                            new SkipOperatorParameters
                             (
-                                new ThenByOperatorParameter
+                                new ThenByOperatorParameters
                                 (
-                                    new OrderByOperatorParameter
+                                    new OrderByOperatorParameters
                                     (
-                                        new SelectManyOperatorParameter
+                                        new SelectManyOperatorParameters
                                         (
-                                            new ParameterOperatorParameter(parameterName),
-                                            new MemberSelectorOperatorParameter("AlternateAddresses", new ParameterOperatorParameter("a")),
+                                            new ParameterOperatorParameters(parameterName),
+                                            new MemberSelectorOperatorParameters("AlternateAddresses", new ParameterOperatorParameters("a")),
                                             "a"
                                         ),
-                                        new MemberSelectorOperatorParameter("State", new ParameterOperatorParameter("a")),
+                                        new MemberSelectorOperatorParameters("State", new ParameterOperatorParameters("a")),
                                         ListSortDirection.Ascending,
                                         "a"
                                     ),
-                                    new MemberSelectorOperatorParameter("AddressID", new ParameterOperatorParameter("a")),
+                                    new MemberSelectorOperatorParameters("AddressID", new ParameterOperatorParameters("a")),
                                     ListSortDirection.Ascending,
                                     "a"
                                 ),
@@ -1240,22 +1240,22 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new SelectOperatorParameter
+                        new SelectOperatorParameters
                         (
-                            new OrderByOperatorParameter
+                            new OrderByOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                                new ParameterOperatorParameters(parameterName),
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                                 ListSortDirection.Descending,
                                 "a"
                             ),
-                            new MemberInitOperatorParameter
+                            new MemberInitOperatorParameters
                             (
                                 new Dictionary<string, IExpressionParameter>
                                 {
-                                    ["CategoryID"] = new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                    ["CategoryName"] = new MemberSelectorOperatorParameter("CategoryName", new ParameterOperatorParameter("a")),
-                                    ["Products"] = new MemberSelectorOperatorParameter("Products", new ParameterOperatorParameter("a"))
+                                    ["CategoryID"] = new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                    ["CategoryName"] = new MemberSelectorOperatorParameters("CategoryName", new ParameterOperatorParameters("a")),
+                                    ["Products"] = new MemberSelectorOperatorParameters("Products", new ParameterOperatorParameters("a"))
                                 }
                             ),
                             "a"
@@ -1281,10 +1281,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new SelectManyOperatorParameter
+                        new SelectManyOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new MemberSelectorOperatorParameter("Products", new ParameterOperatorParameter("a")),
+                            new ParameterOperatorParameters(parameterName),
+                            new MemberSelectorOperatorParameters("Products", new ParameterOperatorParameters("a")),
                             "a"
                         ),
                         parameterName
@@ -1307,13 +1307,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new SingleOperatorParameter
+                        new SingleOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(-1)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(-1)
                             ),
                             "a"
                         ),
@@ -1338,13 +1338,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new SingleOperatorParameter
+                        new SingleOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(1)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(1)
                             ),
                             "a"
                         ),
@@ -1368,9 +1368,9 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new SingleOperatorParameter
+                        new SingleOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName)
+                            new ParameterOperatorParameters(parameterName)
                         ),
                         parameterName
                     )
@@ -1393,10 +1393,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new SumOperatorParameter
+                        new SumOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                            new ParameterOperatorParameters(parameterName),
+                            new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                             "a"
                         ),
                         parameterName
@@ -1420,12 +1420,12 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new SumOperatorParameter
+                        new SumOperatorParameters
                         (
-                            new SelectOperatorParameter
+                            new SelectOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                                new ParameterOperatorParameters(parameterName),
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                                 "a"
                             )
                         ),
@@ -1447,9 +1447,9 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new ToListOperatorParameter
+                        new ToListOperatorParameters
                         (
-                           new ParameterOperatorParameter(parameterName)
+                           new ParameterOperatorParameters(parameterName)
                         ),
                         parameterName
                     )
@@ -1469,19 +1469,19 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new WhereOperatorParameter
+                        new WhereOperatorParameters
                         (
-                            new OrderByOperatorParameter
+                            new OrderByOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
+                                new ParameterOperatorParameters(parameterName),
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
                                 ListSortDirection.Descending,
                                 "a"
                             ),
-                            new NotEqualsBinaryOperatorParameter
+                            new NotEqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(1)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(1)
                             ),
                             "a"
                         ),
@@ -1503,13 +1503,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 (
                     GetExpressionParameter<T, TReturn>
                     (
-                        new WhereOperatorParameter
+                        new WhereOperatorParameters
                         (
-                            new ParameterOperatorParameter(parameterName),
-                            new EqualsBinaryOperatorParameter
+                            new ParameterOperatorParameters(parameterName),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter("a")),
-                                new ConstantOperatorParameter(-1)
+                                new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
+                                new ConstantOperatorParameters(-1)
                             ),
                             "a"
                         ),
@@ -1528,8 +1528,8 @@ namespace Contoso.Bsl.Flow.Unit.Tests
         /// <param name="selectorBody"></param>
         /// <param name="parameterName"></param>
         /// <returns></returns>
-        private SelectorLambdaOperatorParameter GetExpressionParameter<T, TResult>(IExpressionParameter selectorBody, string parameterName = "$it")
-            => new SelectorLambdaOperatorParameter
+        private SelectorLambdaOperatorParameters GetExpressionParameter<T, TResult>(IExpressionParameter selectorBody, string parameterName = "$it")
+            => new SelectorLambdaOperatorParameters
             (
                 selectorBody,
                 typeof(T),

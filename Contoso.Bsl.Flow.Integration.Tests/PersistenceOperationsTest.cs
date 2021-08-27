@@ -38,10 +38,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Add_A_Single_Entity()
         {
             //arrange
-            var bodyParameter = new EqualsBinaryOperatorParameter
+            var bodyParameter = new EqualsBinaryOperatorParameters
             (
-                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
-                new ConstantOperatorParameter("Roger Milla")
+                new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters(parameterName)),
+                new ConstantOperatorParameters("Roger Milla")
             );
 
             //act
@@ -90,10 +90,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Add_An_Object_Graph()
         {
             //arrange
-            var bodyParameter = new EqualsBinaryOperatorParameter
+            var bodyParameter = new EqualsBinaryOperatorParameters
             (
-                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
-                new ConstantOperatorParameter("Roger Milla")
+                new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters(parameterName)),
+                new ConstantOperatorParameters("Roger Milla")
             );
 
             //act
@@ -142,10 +142,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Delete_A_Single_Entity_Using_Save()
         {
             //arrange
-            var bodyParameter = new EqualsBinaryOperatorParameter
+            var bodyParameter = new EqualsBinaryOperatorParameters
             (
-                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
-                new ConstantOperatorParameter("Carson Alexander")
+                new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters(parameterName)),
+                new ConstantOperatorParameters("Carson Alexander")
             );
 
             //act
@@ -172,10 +172,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Delete_A_Single_Entity_Using_Delete()
         {
             //arrange
-            var bodyParameter = new EqualsBinaryOperatorParameter
+            var bodyParameter = new EqualsBinaryOperatorParameters
             (
-                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
-                new ConstantOperatorParameter("Carson Alexander")
+                new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters(parameterName)),
+                new ConstantOperatorParameters("Carson Alexander")
             );
 
             //act
@@ -207,10 +207,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Update_A_Single_Entity()
         {
             //arrange
-            var bodyParameter = new EqualsBinaryOperatorParameter
+            var bodyParameter = new EqualsBinaryOperatorParameters
             (
-                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
-                new ConstantOperatorParameter("Carson Alexander")
+                new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters(parameterName)),
+                new ConstantOperatorParameters("Carson Alexander")
             );
 
             //act
@@ -238,10 +238,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Add_An_Entry_To_A_Child_Collection()
         {
             //arrange
-            var bodyParameter = new EqualsBinaryOperatorParameter
+            var bodyParameter = new EqualsBinaryOperatorParameters
             (
-                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
-                new ConstantOperatorParameter("Carson Alexander")
+                new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters(parameterName)),
+                new ConstantOperatorParameters("Carson Alexander")
             );
 
             //act
@@ -288,10 +288,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Update_An_Entry_In_A_Child_Collection()
         {
             //arrange
-            var bodyParameter = new EqualsBinaryOperatorParameter
+            var bodyParameter = new EqualsBinaryOperatorParameters
             (
-                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
-                new ConstantOperatorParameter("Carson Alexander")
+                new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters(parameterName)),
+                new ConstantOperatorParameters("Carson Alexander")
             );
 
             //act
@@ -332,10 +332,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Delete_An_Entry_From_A_Child_Collection()
         {
             //arrange
-            var bodyParameter = new EqualsBinaryOperatorParameter
+            var bodyParameter = new EqualsBinaryOperatorParameters
             (
-                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter(parameterName)),
-                new ConstantOperatorParameter("Carson Alexander")
+                new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters(parameterName)),
+                new ConstantOperatorParameters("Carson Alexander")
             );
 
             //act
@@ -375,7 +375,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
 
         #region Helpers
         private IExpressionParameter GetFilterParameter<T>(IExpressionParameter selectorBody, string parameterName = "$it")
-            => new FilterLambdaOperatorParameter
+            => new FilterLambdaOperatorParameters
             (
                 selectorBody,
                 typeof(T),

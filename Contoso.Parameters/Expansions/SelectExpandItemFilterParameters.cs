@@ -8,11 +8,11 @@ namespace Contoso.Parameters.Expansions
         {
         }
 
-        public SelectExpandItemFilterParameters(FilterLambdaOperatorParameter filterLambdaOperator)
+        public SelectExpandItemFilterParameters(FilterLambdaOperatorParameters filterLambdaOperator)
         {
             FilterLambdaOperator = filterLambdaOperator;
         }
 
-        public FilterLambdaOperatorParameter FilterLambdaOperator { get; set; }
+        public FilterLambdaOperatorParameters FilterLambdaOperator { get; set; }
     }
 }

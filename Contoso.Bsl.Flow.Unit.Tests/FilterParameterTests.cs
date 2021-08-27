@@ -48,10 +48,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(null)
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(null)
                     )
                 );
         }
@@ -73,10 +73,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter("Doritos", typeof(string))
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters("Doritos", typeof(string))
                     )
                 );
         }
@@ -98,10 +98,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter("Doritos", typeof(string))
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters("Doritos", typeof(string))
                     )
                 );
         }
@@ -123,10 +123,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(5.00m, typeof(decimal))
+                        new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(5.00m, typeof(decimal))
                     )
                 );
         }
@@ -148,10 +148,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new GreaterThanOrEqualsBinaryOperatorParameter
+                    new GreaterThanOrEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(5.00m, typeof(decimal))
+                        new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(5.00m, typeof(decimal))
                     )
                 );
         }
@@ -173,10 +173,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new LessThanBinaryOperatorParameter
+                    new LessThanBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(5.00m, typeof(decimal))
+                        new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(5.00m, typeof(decimal))
                     )
                 );
         }
@@ -198,10 +198,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new LessThanOrEqualsBinaryOperatorParameter
+                    new LessThanOrEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(5.00m, typeof(decimal))
+                        new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(5.00m, typeof(decimal))
                     )
                 );
         }
@@ -220,10 +220,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new LessThanOrEqualsBinaryOperatorParameter
+                    new LessThanOrEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(-5.00m, typeof(decimal))
+                        new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(-5.00m, typeof(decimal))
                     )
                 );
         }
@@ -233,37 +233,37 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DateTimeOffsetProp", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("DateTimeOffsetProp", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("DateTimeOffsetProp", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("DateTimeOffsetProp", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => ($it.DateTimeOffsetProp == $it.DateTimeOffsetProp)"
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DateTimeOffsetProp", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("DateTimeOffsetProp", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("DateTimeOffsetProp", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("DateTimeOffsetProp", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => ($it.DateTimeOffsetProp != $it.DateTimeOffsetProp)"
                 },
                 new object[]
                 {
-                    new GreaterThanOrEqualsBinaryOperatorParameter
+                    new GreaterThanOrEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DateTimeOffsetProp", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("DateTimeOffsetProp", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("DateTimeOffsetProp", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("DateTimeOffsetProp", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => ($it.DateTimeOffsetProp >= $it.DateTimeOffsetProp)"
                 },
                 new object[]
                 {
-                    new LessThanOrEqualsBinaryOperatorParameter
+                    new LessThanOrEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DateTimeOffsetProp", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("DateTimeOffsetProp", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("DateTimeOffsetProp", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("DateTimeOffsetProp", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => ($it.DateTimeOffsetProp <= $it.DateTimeOffsetProp)"
                 }
@@ -293,37 +293,37 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DateTimeProp", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("DateTimeProp", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("DateTimeProp", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("DateTimeProp", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => ($it.DateTimeProp == $it.DateTimeProp)"
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DateTimeProp", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("DateTimeProp", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("DateTimeProp", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("DateTimeProp", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => ($it.DateTimeProp != $it.DateTimeProp)"
                 },
                 new object[]
                 {
-                    new GreaterThanOrEqualsBinaryOperatorParameter
+                    new GreaterThanOrEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DateTimeProp", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("DateTimeProp", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("DateTimeProp", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("DateTimeProp", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => ($it.DateTimeProp >= $it.DateTimeProp)"
                 },
                 new object[]
                 {
-                    new LessThanOrEqualsBinaryOperatorParameter
+                    new LessThanOrEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DateTimeProp", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("DateTimeProp", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("DateTimeProp", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("DateTimeProp", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => ($it.DateTimeProp <= $it.DateTimeProp)"
                 }
@@ -362,17 +362,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new OrBinaryOperatorParameter
+                    new OrBinaryOperatorParameters
                     (
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(5.00m, typeof(decimal))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(5.00m, typeof(decimal))
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("CategoryID", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(0, typeof(int))
+                            new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(0, typeof(int))
                         )
                     )
                 );
@@ -390,10 +390,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("Discontinued", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(true, typeof(bool))
+                        new MemberSelectorOperatorParameters("Discontinued", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(true, typeof(bool))
                     )
                 );
         }
@@ -410,10 +410,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("Discontinued", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("Discontinued", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("Discontinued", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("Discontinued", new ParameterOperatorParameters(parameterName))
                     )
                 );
         }
@@ -435,17 +435,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new OrBinaryOperatorParameter
+                    new OrBinaryOperatorParameters
                     (
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(5.00m, typeof(decimal))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(5.00m, typeof(decimal))
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)), typeof(int?)),
-                            new ConstantOperatorParameter(0, typeof(int))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)), typeof(int?)),
+                            new ConstantOperatorParameters(0, typeof(int))
                         )
                     )
                 );
@@ -468,17 +468,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AndBinaryOperatorParameter
+                    new AndBinaryOperatorParameters
                     (
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(5.00m, typeof(decimal))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(5.00m, typeof(decimal))
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)), typeof(decimal?)),
-                            new ConstantOperatorParameter(10.00m, typeof(decimal))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)), typeof(decimal?)),
+                            new ConstantOperatorParameters(10.00m, typeof(decimal))
                         )
                     )
                 );
@@ -501,12 +501,12 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new NotOperatorParameter
+                    new NotOperatorParameters
                     (
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(5.00m, typeof(decimal))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(5.00m, typeof(decimal))
                         )
                     )
                 );
@@ -528,9 +528,9 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new NotOperatorParameter
+                    new NotOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("Discontinued", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("Discontinued", new ParameterOperatorParameters(parameterName))
                     )
                 );
         }
@@ -547,13 +547,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new NotOperatorParameter
+                    new NotOperatorParameters
                     (
-                        new NotOperatorParameter
+                        new NotOperatorParameters
                         (
-                            new NotOperatorParameter
+                            new NotOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("Discontinued", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("Discontinued", new ParameterOperatorParameters(parameterName))
                             )
                         )
                     )
@@ -579,14 +579,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new LessThanBinaryOperatorParameter
+                    new LessThanBinaryOperatorParameters
                     (
-                        new SubtractBinaryOperatorParameter
+                        new SubtractBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(1.00m, typeof(decimal))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(1.00m, typeof(decimal))
                         ),
-                        new ConstantOperatorParameter(5.00m, typeof(decimal))
+                        new ConstantOperatorParameters(5.00m, typeof(decimal))
                     )
                 );
         }
@@ -603,14 +603,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new LessThanBinaryOperatorParameter
+                    new LessThanBinaryOperatorParameters
                     (
-                        new AddBinaryOperatorParameter
+                        new AddBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(1.00m, typeof(decimal))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(1.00m, typeof(decimal))
                         ),
-                        new ConstantOperatorParameter(5.00m, typeof(decimal))
+                        new ConstantOperatorParameters(5.00m, typeof(decimal))
                     )
                 );
         }
@@ -627,14 +627,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new LessThanBinaryOperatorParameter
+                    new LessThanBinaryOperatorParameters
                     (
-                        new MultiplyBinaryOperatorParameter
+                        new MultiplyBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(1.00m, typeof(decimal))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(1.00m, typeof(decimal))
                         ),
-                        new ConstantOperatorParameter(5.00m, typeof(decimal))
+                        new ConstantOperatorParameters(5.00m, typeof(decimal))
                     )
                 );
         }
@@ -651,14 +651,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new LessThanBinaryOperatorParameter
+                    new LessThanBinaryOperatorParameters
                     (
-                        new DivideBinaryOperatorParameter
+                        new DivideBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(1.00m, typeof(decimal))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(1.00m, typeof(decimal))
                         ),
-                        new ConstantOperatorParameter(5.00m, typeof(decimal))
+                        new ConstantOperatorParameters(5.00m, typeof(decimal))
                     )
                 );
         }
@@ -675,14 +675,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new LessThanBinaryOperatorParameter
+                    new LessThanBinaryOperatorParameters
                     (
-                        new ModuloBinaryOperatorParameter
+                        new ModuloBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(1.00m, typeof(decimal))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(1.00m, typeof(decimal))
                         ),
-                        new ConstantOperatorParameter(5.00m, typeof(decimal))
+                        new ConstantOperatorParameters(5.00m, typeof(decimal))
                     )
                 );
         }
@@ -694,10 +694,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                     ),
                     null,
                     null,
@@ -705,10 +705,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                     ),
                     null,
                     null,
@@ -716,10 +716,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                     ),
                     null,
                     null,
@@ -727,10 +727,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new GreaterThanOrEqualsBinaryOperatorParameter
+                    new GreaterThanOrEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                     ),
                     null,
                     null,
@@ -738,10 +738,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new LessThanBinaryOperatorParameter
+                    new LessThanBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                     ),
                     null,
                     null,
@@ -749,10 +749,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new LessThanOrEqualsBinaryOperatorParameter
+                    new LessThanOrEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                     ),
                     null,
                     null,
@@ -760,14 +760,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new AddBinaryOperatorParameter
+                        new AddBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                            new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                            new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                         ),
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName))
                     ),
                     null,
                     null,
@@ -775,15 +775,15 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SubtractBinaryOperatorParameter
+                        new SubtractBinaryOperatorParameters
 
                         (
-                            new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                            new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                            new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                         ),
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName))
                     ),
                     null,
                     null,
@@ -791,15 +791,15 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MultiplyBinaryOperatorParameter
+                        new MultiplyBinaryOperatorParameters
 
                         (
-                            new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                            new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                            new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                         ),
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName))
                     ),
                     null,
                     null,
@@ -807,14 +807,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new DivideBinaryOperatorParameter
+                        new DivideBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                            new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                            new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                         ),
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName))
                     ),
                     null,
                     null,
@@ -822,14 +822,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ModuloBinaryOperatorParameter
+                        new ModuloBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                            new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                            new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                         ),
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName))
                     ),
                     null,
                     null,
@@ -837,10 +837,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                     ),
                     1,
                     null,
@@ -848,10 +848,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("UnitsOnOrder", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("UnitsOnOrder", new ParameterOperatorParameters(parameterName))
                     ),
                     1,
                     1,
@@ -882,20 +882,20 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(null)
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(null)
                     ),
                     null,
                     true
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("UnitsInStock", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(null)
+                        new MemberSelectorOperatorParameters("UnitsInStock", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(null)
                     ),
                     null,
                     false
@@ -927,97 +927,97 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new IndexOfOperatorParameter
+                        new IndexOfOperatorParameters
                         (
-                            new ConstantOperatorParameter("hello"),
-                            new MemberSelectorOperatorParameter("StringProp", new ParameterOperatorParameter(parameterName))
+                            new ConstantOperatorParameters("hello"),
+                            new MemberSelectorOperatorParameters("StringProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
 
                         (
-                            new MemberSelectorOperatorParameter("UIntProp", new ParameterOperatorParameter(parameterName)),
+                            new MemberSelectorOperatorParameters("UIntProp", new ParameterOperatorParameters(parameterName)),
                             typeof(int?)
                         )
                     )
                 },
                 new object[]
                 {
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new IndexOfOperatorParameter
+                        new IndexOfOperatorParameters
                         (
-                            new ConstantOperatorParameter("hello"),
-                            new MemberSelectorOperatorParameter("StringProp", new ParameterOperatorParameter(parameterName))
+                            new ConstantOperatorParameters("hello"),
+                            new MemberSelectorOperatorParameters("StringProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ULongProp", new ParameterOperatorParameter(parameterName)),
+                            new MemberSelectorOperatorParameters("ULongProp", new ParameterOperatorParameters(parameterName)),
                             typeof(int?)
                         )
                     )
                 },
                 new object[]
                 {
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new IndexOfOperatorParameter
+                        new IndexOfOperatorParameters
                         (
-                            new ConstantOperatorParameter("hello"),
-                            new MemberSelectorOperatorParameter("StringProp", new ParameterOperatorParameter(parameterName))
+                            new ConstantOperatorParameters("hello"),
+                            new MemberSelectorOperatorParameters("StringProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UShortProp", new ParameterOperatorParameter(parameterName)),
+                            new MemberSelectorOperatorParameters("UShortProp", new ParameterOperatorParameters(parameterName)),
                             typeof(int?)
                         )
                     )
                 },
                 new object[]
                 {
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new IndexOfOperatorParameter
+                        new IndexOfOperatorParameters
                         (
-                            new ConstantOperatorParameter("hello"),
-                            new MemberSelectorOperatorParameter("StringProp", new ParameterOperatorParameter(parameterName))
+                            new ConstantOperatorParameters("hello"),
+                            new MemberSelectorOperatorParameters("StringProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableUShortProp", new ParameterOperatorParameter(parameterName)),
+                            new MemberSelectorOperatorParameters("NullableUShortProp", new ParameterOperatorParameters(parameterName)),
                             typeof(int?)
                         )
                     )
                 },
                 new object[]
                 {
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new IndexOfOperatorParameter
+                        new IndexOfOperatorParameters
                         (
-                            new ConstantOperatorParameter("hello"),
-                            new MemberSelectorOperatorParameter("StringProp", new ParameterOperatorParameter(parameterName))
+                            new ConstantOperatorParameters("hello"),
+                            new MemberSelectorOperatorParameters("StringProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableUIntProp", new ParameterOperatorParameter(parameterName)),
+                            new MemberSelectorOperatorParameters("NullableUIntProp", new ParameterOperatorParameters(parameterName)),
                             typeof(int?)
                         )
                     )
                 },
                 new object[]
                 {
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new IndexOfOperatorParameter
+                        new IndexOfOperatorParameters
                         (
-                            new ConstantOperatorParameter("hello"),
-                            new MemberSelectorOperatorParameter("StringProp", new ParameterOperatorParameter(parameterName))
+                            new ConstantOperatorParameters("hello"),
+                            new MemberSelectorOperatorParameters("StringProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableULongProp", new ParameterOperatorParameter(parameterName)),
+                            new MemberSelectorOperatorParameters("NullableULongProp", new ParameterOperatorParameters(parameterName)),
                             typeof(int?)
                         )
                     )
@@ -1058,17 +1058,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new OrBinaryOperatorParameter
+                    new OrBinaryOperatorParameters
                     (
-                        new NotEqualsBinaryOperatorParameter
+                        new NotEqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter("Doritos")
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters("Doritos")
                         ),
-                        new LessThanBinaryOperatorParameter
+                        new LessThanBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(5.00m, typeof(decimal))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(5.00m, typeof(decimal))
                         )
                     )
                 );
@@ -1089,14 +1089,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "CategoryName",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("Snacks")
+                        new ConstantOperatorParameters("Snacks")
                     )
                 );
         }
@@ -1114,23 +1114,23 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "CategoryName",
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "Category",
-                                new MemberSelectorOperatorParameter
+                                new MemberSelectorOperatorParameters
 
                                 (
                                     "Product",
-                                    new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                                    new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                                 )
                             )
                         ),
-                        new ConstantOperatorParameter("Snacks")
+                        new ConstantOperatorParameters("Snacks")
                     )
                 );
         }
@@ -1150,14 +1150,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "City",
-                            new MemberSelectorOperatorParameter("SupplierAddress", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("SupplierAddress", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("Redmond")
+                        new ConstantOperatorParameters("Redmond")
                     )
                 );
         }
@@ -1209,17 +1209,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "EnumerableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("P")),
-                            new ConstantOperatorParameter("Snacks")
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("P")),
+                            new ConstantOperatorParameters("Snacks")
                         ),
                         "P"
                     )
@@ -1271,17 +1271,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "QueryableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("P")),
-                            new ConstantOperatorParameter("Snacks")
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("P")),
+                            new ConstantOperatorParameters("Snacks")
                         ),
                         "P"
                     )
@@ -1293,17 +1293,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "QueryableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductID", new ParameterOperatorParameter("P")),
-                            new CollectionConstantOperatorParameter
+                            new MemberSelectorOperatorParameters("ProductID", new ParameterOperatorParameters("P")),
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ 1 },
                                 typeof(int)
@@ -1315,17 +1315,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "EnumerableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductID", new ParameterOperatorParameter("P")),
-                            new CollectionConstantOperatorParameter
+                            new MemberSelectorOperatorParameters("ProductID", new ParameterOperatorParameters("P")),
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ 1 },
                                 typeof(int)
@@ -1337,17 +1337,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "QueryableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("GuidProperty", new ParameterOperatorParameter("P")),
-                            new CollectionConstantOperatorParameter
+                            new MemberSelectorOperatorParameters("GuidProperty", new ParameterOperatorParameters("P")),
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ new Guid("dc75698b-581d-488b-9638-3e28dd51d8f7") },
                                 typeof(Guid)
@@ -1359,17 +1359,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "EnumerableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("GuidProperty", new ParameterOperatorParameter("P")),
-                            new CollectionConstantOperatorParameter
+                            new MemberSelectorOperatorParameters("GuidProperty", new ParameterOperatorParameters("P")),
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ new Guid("dc75698b-581d-488b-9638-3e28dd51d8f7") },
                                 typeof(Guid)
@@ -1381,17 +1381,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "QueryableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableGuidProperty", new ParameterOperatorParameter("P")),
-                            new CollectionConstantOperatorParameter
+                            new MemberSelectorOperatorParameters("NullableGuidProperty", new ParameterOperatorParameters("P")),
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ new Guid("dc75698b-581d-488b-9638-3e28dd51d8f7") },
                                 typeof(Guid?)
@@ -1403,17 +1403,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "EnumerableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableGuidProperty", new ParameterOperatorParameter("P")),
-                            new CollectionConstantOperatorParameter
+                            new MemberSelectorOperatorParameters("NullableGuidProperty", new ParameterOperatorParameters("P")),
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ new Guid("dc75698b-581d-488b-9638-3e28dd51d8f7") },
                                 typeof(Guid?)
@@ -1425,17 +1425,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "QueryableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Discontinued", new ParameterOperatorParameter("P")),
-                            new CollectionConstantOperatorParameter
+                            new MemberSelectorOperatorParameters("Discontinued", new ParameterOperatorParameters("P")),
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ false, null },
                                 typeof(bool?)
@@ -1447,17 +1447,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "EnumerableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Discontinued", new ParameterOperatorParameter("P")),
-                            new CollectionConstantOperatorParameter
+                            new MemberSelectorOperatorParameters("Discontinued", new ParameterOperatorParameters("P")),
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ false, null },
                                 typeof(bool?)
@@ -1491,34 +1491,34 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "QueryableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(false),
+                        new ConstantOperatorParameters(false),
                         "P"
                     ),
                     "$it => $it.Category.QueryableProducts.Any(P => False)"
                 },
                 new object[]
                 {
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "QueryableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new AndBinaryOperatorParameter
+                        new AndBinaryOperatorParameters
                         (
-                            new ConstantOperatorParameter(false),
-                            new EqualsBinaryOperatorParameter
+                            new ConstantOperatorParameters(false),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("P")),
-                                new ConstantOperatorParameter("Snacks")
+                                new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("P")),
+                                new ConstantOperatorParameters("Snacks")
                             )
                         ),
                         "P"
@@ -1527,12 +1527,12 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 },
                 new object[]
                 {
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "QueryableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         )
                     ),
                     "$it => $it.Category.QueryableProducts.Any()"
@@ -1584,17 +1584,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "EnumerableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("P")),
-                            new ConstantOperatorParameter("Snacks")
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("P")),
+                            new ConstantOperatorParameters("Snacks")
                         ),
                         "P"
                     )
@@ -1630,17 +1630,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AllOperatorParameter
+                    new AllOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "EnumerableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("P")),
-                            new ConstantOperatorParameter("Snacks")
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("P")),
+                            new ConstantOperatorParameters("Snacks")
                         ),
                         "P"
                     )
@@ -1659,25 +1659,25 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AndBinaryOperatorParameter
+                    new AndBinaryOperatorParameters
                     (
-                        new AnyOperatorParameter
+                        new AnyOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("AlternateIDs", new ParameterOperatorParameter(parameterName)),
-                            new EqualsBinaryOperatorParameter
+                            new MemberSelectorOperatorParameters("AlternateIDs", new ParameterOperatorParameters(parameterName)),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new ParameterOperatorParameter("n"),
-                                new ConstantOperatorParameter(42)
+                                new ParameterOperatorParameters("n"),
+                                new ConstantOperatorParameters(42)
                             ),
                             "n"
                         ),
-                        new AnyOperatorParameter
+                        new AnyOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("AlternateAddresses", new ParameterOperatorParameter(parameterName)),
-                            new EqualsBinaryOperatorParameter
+                            new MemberSelectorOperatorParameters("AlternateAddresses", new ParameterOperatorParameters(parameterName)),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("City", new ParameterOperatorParameter("n")),
-                                new ConstantOperatorParameter("Redmond")
+                                new MemberSelectorOperatorParameters("City", new ParameterOperatorParameters("n")),
+                                new ConstantOperatorParameters("Redmond")
                             ),
                             "n"
                         )
@@ -1696,25 +1696,25 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AndBinaryOperatorParameter
+                    new AndBinaryOperatorParameters
                     (
-                        new AllOperatorParameter
+                        new AllOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("AlternateIDs", new ParameterOperatorParameter(parameterName)),
-                            new EqualsBinaryOperatorParameter
+                            new MemberSelectorOperatorParameters("AlternateIDs", new ParameterOperatorParameters(parameterName)),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new ParameterOperatorParameter("n"),
-                                new ConstantOperatorParameter(42)
+                                new ParameterOperatorParameters("n"),
+                                new ConstantOperatorParameters(42)
                             ),
                             "n"
                         ),
-                        new AllOperatorParameter
+                        new AllOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("AlternateAddresses", new ParameterOperatorParameter(parameterName)),
-                            new EqualsBinaryOperatorParameter
+                            new MemberSelectorOperatorParameters("AlternateAddresses", new ParameterOperatorParameters(parameterName)),
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("City", new ParameterOperatorParameter("n")),
-                                new ConstantOperatorParameter("Redmond")
+                                new MemberSelectorOperatorParameters("City", new ParameterOperatorParameters("n")),
+                                new ConstantOperatorParameters("Redmond")
                             ),
                             "n"
                         )
@@ -1734,12 +1734,12 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "EnumerableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         )
                     )
                 );
@@ -1757,12 +1757,12 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "QueryableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         )
                     )
                 );
@@ -1780,17 +1780,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AllOperatorParameter
+                    new AllOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "EnumerableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("P")),
-                            new ConstantOperatorParameter("Snacks")
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("P")),
+                            new ConstantOperatorParameters("Snacks")
                         ),
                         "P"
                     )
@@ -1809,17 +1809,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AllOperatorParameter
+                    new AllOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "QueryableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("P")),
-                            new ConstantOperatorParameter("Snacks")
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("P")),
+                            new ConstantOperatorParameters("Snacks")
                         ),
                         "P"
                     )
@@ -1838,33 +1838,33 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new OrBinaryOperatorParameter
+                    new OrBinaryOperatorParameters
                     (
-                        new AnyOperatorParameter
+                        new AnyOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "QueryableProducts",
-                                new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                             ),
-                            new EqualsBinaryOperatorParameter
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("P")),
-                                new ConstantOperatorParameter("Snacks")
+                                new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("P")),
+                                new ConstantOperatorParameters("Snacks")
                             ),
                             "P"
                         ),
-                        new AnyOperatorParameter
+                        new AnyOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "QueryableProducts",
-                                new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                             ),
-                            new EqualsBinaryOperatorParameter
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("P2")),
-                                new ConstantOperatorParameter("Snacks")
+                                new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("P2")),
+                                new ConstantOperatorParameters("Snacks")
                             ),
                             "P2"
                         )
@@ -1884,33 +1884,33 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new OrBinaryOperatorParameter
+                    new OrBinaryOperatorParameters
                     (
-                        new AllOperatorParameter
+                        new AllOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "QueryableProducts",
-                                new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                             ),
-                            new EqualsBinaryOperatorParameter
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("P")),
-                                new ConstantOperatorParameter("Snacks")
+                                new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("P")),
+                                new ConstantOperatorParameters("Snacks")
                             ),
                             "P"
                         ),
-                        new AllOperatorParameter
+                        new AllOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "QueryableProducts",
-                                new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                             ),
-                            new EqualsBinaryOperatorParameter
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("P2")),
-                                new ConstantOperatorParameter("Snacks")
+                                new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("P2")),
+                                new ConstantOperatorParameters("Snacks")
                             ),
                             "P2"
                         )
@@ -1944,13 +1944,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("AlternateIDs", new ParameterOperatorParameter(parameterName)),
-                        new EqualsBinaryOperatorParameter
+                        new MemberSelectorOperatorParameters("AlternateIDs", new ParameterOperatorParameters(parameterName)),
+                        new EqualsBinaryOperatorParameters
                         (
-                            new ParameterOperatorParameter("id"),
-                            new ConstantOperatorParameter(42)
+                            new ParameterOperatorParameters("id"),
+                            new ConstantOperatorParameters(42)
                         ),
                         "id"
                     )
@@ -1969,13 +1969,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AllOperatorParameter
+                    new AllOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("AlternateIDs", new ParameterOperatorParameter(parameterName)),
-                        new EqualsBinaryOperatorParameter
+                        new MemberSelectorOperatorParameters("AlternateIDs", new ParameterOperatorParameters(parameterName)),
+                        new EqualsBinaryOperatorParameters
                         (
-                            new ParameterOperatorParameter("id"),
-                            new ConstantOperatorParameter(42)
+                            new ParameterOperatorParameters("id"),
+                            new ConstantOperatorParameters(42)
                         ),
                         "id"
                     )
@@ -2002,13 +2002,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("AlternateAddresses", new ParameterOperatorParameter(parameterName)),
-                        new EqualsBinaryOperatorParameter
+                        new MemberSelectorOperatorParameters("AlternateAddresses", new ParameterOperatorParameters(parameterName)),
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("City", new ParameterOperatorParameter("address")),
-                            new ConstantOperatorParameter("Redmond")
+                            new MemberSelectorOperatorParameters("City", new ParameterOperatorParameters("address")),
+                            new ConstantOperatorParameters("Redmond")
                         ),
                         "address"
                     )
@@ -2027,13 +2027,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AllOperatorParameter
+                    new AllOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("AlternateAddresses", new ParameterOperatorParameter(parameterName)),
-                        new EqualsBinaryOperatorParameter
+                        new MemberSelectorOperatorParameters("AlternateAddresses", new ParameterOperatorParameters(parameterName)),
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("City", new ParameterOperatorParameter("address")),
-                            new ConstantOperatorParameter("Redmond")
+                            new MemberSelectorOperatorParameters("City", new ParameterOperatorParameters("address")),
+                            new ConstantOperatorParameters("Redmond")
                         ),
                         "address"
                     )
@@ -2052,24 +2052,24 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AllOperatorParameter
+                    new AllOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "QueryableProducts",
-                            new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                         ),
-                        new AnyOperatorParameter
+                        new AnyOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "EnumerableProducts",
-                                new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter("P"))
+                                new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters("P"))
                             ),
-                            new EqualsBinaryOperatorParameter
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("PP")),
-                                new ConstantOperatorParameter("Snacks")
+                                new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("PP")),
+                                new ConstantOperatorParameters("Snacks")
                             ),
                             "PP"
                         ),
@@ -2101,14 +2101,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SubstringOperatorParameter
+                        new SubstringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(startIndex)
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(startIndex)
                         ),
-                        new ConstantOperatorParameter(compareString)
+                        new ConstantOperatorParameters(compareString)
                     )
                 );
         }
@@ -2127,14 +2127,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SubstringOperatorParameter
+                        new SubstringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(startIndex)
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(startIndex)
                         ),
-                        new ConstantOperatorParameter(compareString)
+                        new ConstantOperatorParameters(compareString)
                     )
                 );
         }
@@ -2162,15 +2162,15 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SubstringOperatorParameter
+                        new SubstringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(startIndex),
-                            new ConstantOperatorParameter(length)
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(startIndex),
+                            new ConstantOperatorParameters(length)
                         ),
-                        new ConstantOperatorParameter(compareString)
+                        new ConstantOperatorParameters(compareString)
                     )
                 );
         }
@@ -2194,15 +2194,15 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SubstringOperatorParameter
+                        new SubstringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(startIndex),
-                            new ConstantOperatorParameter(length)
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(startIndex),
+                            new ConstantOperatorParameters(length)
                         ),
-                        new ConstantOperatorParameter(compareString)
+                        new ConstantOperatorParameters(compareString)
                     )
                 );
         }
@@ -2223,10 +2223,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new ContainsOperatorParameter
+                    new ContainsOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter("Abc")
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters("Abc")
                     )
                 );
         }
@@ -2244,10 +2244,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new ContainsOperatorParameter
+                    new ContainsOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter("Abc")
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters("Abc")
                     )
                 );
         }
@@ -2268,10 +2268,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new StartsWithOperatorParameter
+                    new StartsWithOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter("Abc")
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters("Abc")
                     )
                 );
         }
@@ -2289,10 +2289,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new StartsWithOperatorParameter
+                    new StartsWithOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter("Abc")
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters("Abc")
                     )
                 );
         }
@@ -2313,10 +2313,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EndsWithOperatorParameter
+                    new EndsWithOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter("Abc")
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters("Abc")
                     )
                 );
         }
@@ -2334,10 +2334,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EndsWithOperatorParameter
+                    new EndsWithOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter("Abc")
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters("Abc")
                     )
                 );
         }
@@ -2358,13 +2358,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new LengthOperatorParameter
+                        new LengthOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(0)
+                        new ConstantOperatorParameters(0)
                     )
                 );
         }
@@ -2382,13 +2382,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new LengthOperatorParameter
+                        new LengthOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(0)
+                        new ConstantOperatorParameters(0)
                     )
                 );
         }
@@ -2409,14 +2409,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new IndexOfOperatorParameter
+                        new IndexOfOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter("Abc")
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters("Abc")
                         ),
-                        new ConstantOperatorParameter(5)
+                        new ConstantOperatorParameters(5)
                     )
                 );
         }
@@ -2434,14 +2434,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new IndexOfOperatorParameter
+                        new IndexOfOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter("Abc")
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters("Abc")
                         ),
-                        new ConstantOperatorParameter(5)
+                        new ConstantOperatorParameters(5)
                     )
                 );
         }
@@ -2464,29 +2464,29 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter1<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SubstringOperatorParameter
+                        new SubstringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(3)
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(3)
                         ),
-                        new ConstantOperatorParameter("uctName")
+                        new ConstantOperatorParameters("uctName")
                     )
                 );
 
             Expression<Func<T, bool>> CreateFilter2<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SubstringOperatorParameter
+                        new SubstringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(3),
-                            new ConstantOperatorParameter(4)
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(3),
+                            new ConstantOperatorParameters(4)
                         ),
-                        new ConstantOperatorParameter("uctN")
+                        new ConstantOperatorParameters("uctN")
                     )
                 );
         }
@@ -2506,29 +2506,29 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter1<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SubstringOperatorParameter
+                        new SubstringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(3)
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(3)
                         ),
-                        new ConstantOperatorParameter("uctName")
+                        new ConstantOperatorParameters("uctName")
                     )
                 );
 
             Expression<Func<T, bool>> CreateFilter2<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SubstringOperatorParameter
+                        new SubstringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(3),
-                            new ConstantOperatorParameter(4)
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(3),
+                            new ConstantOperatorParameters(4)
                         ),
-                        new ConstantOperatorParameter("uctN")
+                        new ConstantOperatorParameters("uctN")
                     )
                 );
         }
@@ -2549,13 +2549,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ToLowerOperatorParameter
+                        new ToLowerOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("tasty treats")
+                        new ConstantOperatorParameters("tasty treats")
                     )
                 );
         }
@@ -2573,13 +2573,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ToLowerOperatorParameter
+                        new ToLowerOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("tasty treats")
+                        new ConstantOperatorParameters("tasty treats")
                     )
                 );
         }
@@ -2600,13 +2600,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ToUpperOperatorParameter
+                        new ToUpperOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("TASTY TREATS")
+                        new ConstantOperatorParameters("TASTY TREATS")
                     )
                 );
         }
@@ -2624,13 +2624,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ToUpperOperatorParameter
+                        new ToUpperOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("TASTY TREATS")
+                        new ConstantOperatorParameters("TASTY TREATS")
                     )
                 );
         }
@@ -2651,13 +2651,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new TrimOperatorParameter
+                        new TrimOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("Tasty Treats")
+                        new ConstantOperatorParameters("Tasty Treats")
                     )
                 );
         }
@@ -2675,13 +2675,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new TrimOperatorParameter
+                        new TrimOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("Tasty Treats")
+                        new ConstantOperatorParameters("Tasty Treats")
                     )
                 );
         }
@@ -2700,14 +2700,14 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConcatOperatorParameter
+                        new ConcatOperatorParameters
                         (
-                            new ConstantOperatorParameter("Food"),
-                            new ConstantOperatorParameter("Bar")
+                            new ConstantOperatorParameters("Food"),
+                            new ConstantOperatorParameters("Bar")
                         ),
-                        new ConstantOperatorParameter("FoodBar")
+                        new ConstantOperatorParameters("FoodBar")
                     )
                 );
         }
@@ -2729,13 +2729,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new DayOperatorParameter
+                        new DayOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(8)
+                        new ConstantOperatorParameters(8)
                     )
                 );
         }
@@ -2752,13 +2752,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new DayOperatorParameter
+                        new DayOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NonNullableDiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NonNullableDiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(8)
+                        new ConstantOperatorParameters(8)
                     )
                 );
         }
@@ -2775,13 +2775,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MonthOperatorParameter
+                        new MonthOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(8)
+                        new ConstantOperatorParameters(8)
                     )
                 );
         }
@@ -2798,13 +2798,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new YearOperatorParameter
+                        new YearOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(1974)
+                        new ConstantOperatorParameters(1974)
                     )
                 );
         }
@@ -2821,13 +2821,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new HourOperatorParameter
+                        new HourOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(8)
+                        new ConstantOperatorParameters(8)
                     )
                 );
         }
@@ -2844,13 +2844,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MinuteOperatorParameter
+                        new MinuteOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(12)
+                        new ConstantOperatorParameters(12)
                     )
                 );
         }
@@ -2867,13 +2867,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SecondOperatorParameter
+                        new SecondOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(33)
+                        new ConstantOperatorParameters(33)
                     )
                 );
         }
@@ -2883,82 +2883,82 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new YearOperatorParameter
+                        new YearOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedOffset", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedOffset", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ($it.DiscontinuedOffset.Year == 100)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MonthOperatorParameter
+                        new MonthOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedOffset", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedOffset", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ($it.DiscontinuedOffset.Month == 100)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new DayOperatorParameter
+                        new DayOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedOffset", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedOffset", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ($it.DiscontinuedOffset.Day == 100)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new HourOperatorParameter
+                        new HourOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedOffset", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedOffset", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ($it.DiscontinuedOffset.Hour == 100)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MinuteOperatorParameter
+                        new MinuteOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedOffset", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedOffset", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ($it.DiscontinuedOffset.Minute == 100)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SecondOperatorParameter
+                        new SecondOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedOffset", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedOffset", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ($it.DiscontinuedOffset.Second == 100)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new NowDateTimeOperatorParameter(),
-                        new ConstantOperatorParameter(new DateTimeOffset(new DateTime(2016, 11, 8), new TimeSpan(0)))
+                        new NowDateTimeOperatorParameters(),
+                        new ConstantOperatorParameters(new DateTimeOffset(new DateTime(2016, 11, 8), new TimeSpan(0)))
                     ),
                     "$it => (DateTimeOffset.UtcNow == 11/08/2016 00:00:00 +00:00)"
                 },
@@ -2986,73 +2986,73 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new YearOperatorParameter
+                        new YearOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Birthday", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Birthday", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ({0}.Year == 100)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MonthOperatorParameter
+                        new MonthOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Birthday", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Birthday", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ({0}.Month == 100)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new DayOperatorParameter
+                        new DayOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Birthday", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Birthday", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ({0}.Day == 100)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new HourOperatorParameter
+                        new HourOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Birthday", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Birthday", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ({0}.Hour == 100)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MinuteOperatorParameter
+                        new MinuteOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Birthday", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Birthday", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ({0}.Minute == 100)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SecondOperatorParameter
+                        new SecondOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Birthday", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Birthday", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(100)
+                        new ConstantOperatorParameters(100)
                     ),
                     "$it => ({0}.Second == 100)"
                 },
@@ -3080,37 +3080,37 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new YearOperatorParameter
+                        new YearOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableDateProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableDateProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(2015)
+                        new ConstantOperatorParameters(2015)
                     ),
                     "$it => ($it.NullableDateProperty.Value.Year == 2015)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MonthOperatorParameter
+                        new MonthOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableDateProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableDateProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(12)
+                        new ConstantOperatorParameters(12)
                     ),
                     "$it => ($it.NullableDateProperty.Value.Month == 12)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new DayOperatorParameter
+                        new DayOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableDateProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableDateProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(23)
+                        new ConstantOperatorParameters(23)
                     ),
                     "$it => ($it.NullableDateProperty.Value.Day == 23)"
                 },
@@ -3138,37 +3138,37 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new YearOperatorParameter
+                        new YearOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DateProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DateProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(2015)
+                        new ConstantOperatorParameters(2015)
                     ),
                     "$it => ($it.DateProperty.Year == 2015)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MonthOperatorParameter
+                        new MonthOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DateProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DateProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(12)
+                        new ConstantOperatorParameters(12)
                     ),
                     "$it => ($it.DateProperty.Month == 12)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new DayOperatorParameter
+                        new DayOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DateProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DateProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(23)
+                        new ConstantOperatorParameters(23)
                     ),
                     "$it => ($it.DateProperty.Day == 23)"
                 },
@@ -3196,37 +3196,37 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new HourOperatorParameter
+                        new HourOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableTimeOfDayProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableTimeOfDayProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(10)
+                        new ConstantOperatorParameters(10)
                     ),
                     "$it => ($it.NullableTimeOfDayProperty.Value.Hours == 10)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MinuteOperatorParameter
+                        new MinuteOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableTimeOfDayProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableTimeOfDayProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(20)
+                        new ConstantOperatorParameters(20)
                     ),
                     "$it => ($it.NullableTimeOfDayProperty.Value.Minutes == 20)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SecondOperatorParameter
+                        new SecondOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableTimeOfDayProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableTimeOfDayProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(30)
+                        new ConstantOperatorParameters(30)
                     ),
                     "$it => ($it.NullableTimeOfDayProperty.Value.Seconds == 30)"
                 },
@@ -3254,37 +3254,37 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new HourOperatorParameter
+                        new HourOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("TimeOfDayProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("TimeOfDayProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(10)
+                        new ConstantOperatorParameters(10)
                     ),
                     "$it => ($it.TimeOfDayProperty.Hours == 10)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MinuteOperatorParameter
+                        new MinuteOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("TimeOfDayProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("TimeOfDayProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(20)
+                        new ConstantOperatorParameters(20)
                     ),
                     "$it => ($it.TimeOfDayProperty.Minutes == 20)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new SecondOperatorParameter
+                        new SecondOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("TimeOfDayProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("TimeOfDayProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(30)
+                        new ConstantOperatorParameters(30)
                     ),
                     "$it => ($it.TimeOfDayProperty.Seconds == 30)"
                 },
@@ -3312,25 +3312,25 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FractionalSecondsOperatorParameter
+                        new FractionalSecondsOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(0.2m)
+                        new ConstantOperatorParameters(0.2m)
                     ),
                     "$it => ((Convert($it.DiscontinuedDate.Value.Millisecond) / 1000) == 0.2)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FractionalSecondsOperatorParameter
+                        new FractionalSecondsOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableTimeOfDayProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableTimeOfDayProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(0.2m)
+                        new ConstantOperatorParameters(0.2m)
                     ),
                     "$it => ((Convert($it.NullableTimeOfDayProperty.Value.Milliseconds) / 1000) == 0.2)"
                 },
@@ -3358,25 +3358,25 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FractionalSecondsOperatorParameter
+                        new FractionalSecondsOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NonNullableDiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NonNullableDiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(0.2m)
+                        new ConstantOperatorParameters(0.2m)
                     ),
                     "$it => ((Convert($it.NonNullableDiscontinuedDate.Millisecond) / 1000) == 0.2)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FractionalSecondsOperatorParameter
+                        new FractionalSecondsOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("TimeOfDayProperty", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("TimeOfDayProperty", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(0.2m)
+                        new ConstantOperatorParameters(0.2m)
                     ),
                     "$it => ((Convert($it.TimeOfDayProperty.Milliseconds) / 1000) == 0.2)"
                 },
@@ -3404,64 +3404,64 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new ConstantOperatorParameter(new Date(2015, 2, 26))
+                            new ConstantOperatorParameters(new Date(2015, 2, 26))
                         )
                     ),
                     "$it => (((($it.DiscontinuedDate.Value.Year * 10000) + ($it.DiscontinuedDate.Value.Month * 100)) + $it.DiscontinuedDate.Value.Day) == (((2015-02-26.Year * 10000) + (2015-02-26.Month * 100)) + 2015-02-26.Day))"
                 },
                 new object[]
                 {
-                    new LessThanBinaryOperatorParameter
+                    new LessThanBinaryOperatorParameters
                     (
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new ConstantOperatorParameter(new Date(2016, 2, 26))
+                            new ConstantOperatorParameters(new Date(2016, 2, 26))
                         )
                     ),
                     "$it => (((($it.DiscontinuedDate.Value.Year * 10000) + ($it.DiscontinuedDate.Value.Month * 100)) + $it.DiscontinuedDate.Value.Day) < (((2016-02-26.Year * 10000) + (2016-02-26.Month * 100)) + 2016-02-26.Day))"
                 },
                 new object[]
                 {
-                    new GreaterThanOrEqualsBinaryOperatorParameter
+                    new GreaterThanOrEqualsBinaryOperatorParameters
                     (
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new ConstantOperatorParameter(new Date(2015, 2, 26))
+                            new ConstantOperatorParameters(new Date(2015, 2, 26))
                         ),
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         )
                     ),
                     "$it => ((((2015-02-26.Year * 10000) + (2015-02-26.Month * 100)) + 2015-02-26.Day) >= ((($it.DiscontinuedDate.Value.Year * 10000) + ($it.DiscontinuedDate.Value.Month * 100)) + $it.DiscontinuedDate.Value.Day))"
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                        new ConstantOperatorParameters(null),
+                        new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => (null != $it.DiscontinuedDate)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(null)
+                        new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(null)
                     ),
                     "$it => ($it.DiscontinuedDate == null)"
                 },
@@ -3489,45 +3489,45 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NonNullableDiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NonNullableDiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new ConstantOperatorParameter(new Date(2015, 2, 26))
+                            new ConstantOperatorParameters(new Date(2015, 2, 26))
                         )
                     ),
                     "$it => (((($it.NonNullableDiscontinuedDate.Year * 10000) + ($it.NonNullableDiscontinuedDate.Month * 100)) + $it.NonNullableDiscontinuedDate.Day) == (((2015-02-26.Year * 10000) + (2015-02-26.Month * 100)) + 2015-02-26.Day))"
                 },
                 new object[]
                 {
-                    new LessThanBinaryOperatorParameter
+                    new LessThanBinaryOperatorParameters
                     (
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NonNullableDiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NonNullableDiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new ConstantOperatorParameter(new Date(2016, 2, 26))
+                            new ConstantOperatorParameters(new Date(2016, 2, 26))
                         )
                     ),
                     "$it => (((($it.NonNullableDiscontinuedDate.Year * 10000) + ($it.NonNullableDiscontinuedDate.Month * 100)) + $it.NonNullableDiscontinuedDate.Day) < (((2016-02-26.Year * 10000) + (2016-02-26.Month * 100)) + 2016-02-26.Day))"
                 },
                 new object[]
                 {
-                    new GreaterThanOrEqualsBinaryOperatorParameter
+                    new GreaterThanOrEqualsBinaryOperatorParameters
                     (
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new ConstantOperatorParameter(new Date(2015, 2, 26))
+                            new ConstantOperatorParameters(new Date(2015, 2, 26))
                         ),
-                        new ConvertToNumericDateOperatorParameter
+                        new ConvertToNumericDateOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NonNullableDiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NonNullableDiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         )
                     ),
                     "$it => ((((2015-02-26.Year * 10000) + (2015-02-26.Month * 100)) + 2015-02-26.Day) >= ((($it.NonNullableDiscontinuedDate.Year * 10000) + ($it.NonNullableDiscontinuedDate.Month * 100)) + $it.NonNullableDiscontinuedDate.Day))"
@@ -3556,64 +3556,64 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new ConstantOperatorParameter(new TimeOfDay(1, 2, 3, 4))
+                            new ConstantOperatorParameters(new TimeOfDay(1, 2, 3, 4))
                         )
                     ),
                     "$it => (((Convert($it.DiscontinuedDate.Value.Hour) * 36000000000) + ((Convert($it.DiscontinuedDate.Value.Minute) * 600000000) + ((Convert($it.DiscontinuedDate.Value.Second) * 10000000) + Convert($it.DiscontinuedDate.Value.Millisecond)))) == ((Convert(01:02:03.0040000.Hours) * 36000000000) + ((Convert(01:02:03.0040000.Minutes) * 600000000) + ((Convert(01:02:03.0040000.Seconds) * 10000000) + Convert(01:02:03.0040000.Milliseconds)))))"
                 },
                 new object[]
                 {
-                    new GreaterThanOrEqualsBinaryOperatorParameter
+                    new GreaterThanOrEqualsBinaryOperatorParameters
                     (
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new ConstantOperatorParameter(new TimeOfDay(1, 2, 3, 4))
+                            new ConstantOperatorParameters(new TimeOfDay(1, 2, 3, 4))
                         )
                     ),
                     "$it => (((Convert($it.DiscontinuedDate.Value.Hour) * 36000000000) + ((Convert($it.DiscontinuedDate.Value.Minute) * 600000000) + ((Convert($it.DiscontinuedDate.Value.Second) * 10000000) + Convert($it.DiscontinuedDate.Value.Millisecond)))) >= ((Convert(01:02:03.0040000.Hours) * 36000000000) + ((Convert(01:02:03.0040000.Minutes) * 600000000) + ((Convert(01:02:03.0040000.Seconds) * 10000000) + Convert(01:02:03.0040000.Milliseconds)))))"
                 },
                 new object[]
                 {
-                    new LessThanOrEqualsBinaryOperatorParameter
+                    new LessThanOrEqualsBinaryOperatorParameters
                     (
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new ConstantOperatorParameter(new TimeOfDay(1, 2, 3, 4))
+                            new ConstantOperatorParameters(new TimeOfDay(1, 2, 3, 4))
                         ),
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         )
                     ),
                     "$it => (((Convert(01:02:03.0040000.Hours) * 36000000000) + ((Convert(01:02:03.0040000.Minutes) * 600000000) + ((Convert(01:02:03.0040000.Seconds) * 10000000) + Convert(01:02:03.0040000.Milliseconds)))) <= ((Convert($it.DiscontinuedDate.Value.Hour) * 36000000000) + ((Convert($it.DiscontinuedDate.Value.Minute) * 600000000) + ((Convert($it.DiscontinuedDate.Value.Second) * 10000000) + Convert($it.DiscontinuedDate.Value.Millisecond)))))"
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                        new ConstantOperatorParameters(null),
+                        new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => (null != $it.DiscontinuedDate)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DiscontinuedDate", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(null)
+                        new MemberSelectorOperatorParameters("DiscontinuedDate", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(null)
                     ),
                     "$it => ($it.DiscontinuedDate == null)"
                 }
@@ -3641,45 +3641,45 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NonNullableDiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NonNullableDiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new ConstantOperatorParameter(new TimeOfDay(1, 2, 3, 4))
+                            new ConstantOperatorParameters(new TimeOfDay(1, 2, 3, 4))
                         )
                     ),
                     "$it => (((Convert($it.NonNullableDiscontinuedDate.Hour) * 36000000000) + ((Convert($it.NonNullableDiscontinuedDate.Minute) * 600000000) + ((Convert($it.NonNullableDiscontinuedDate.Second) * 10000000) + Convert($it.NonNullableDiscontinuedDate.Millisecond)))) == ((Convert(01:02:03.0040000.Hours) * 36000000000) + ((Convert(01:02:03.0040000.Minutes) * 600000000) + ((Convert(01:02:03.0040000.Seconds) * 10000000) + Convert(01:02:03.0040000.Milliseconds)))))"
                 },
                 new object[]
                 {
-                    new GreaterThanOrEqualsBinaryOperatorParameter
+                    new GreaterThanOrEqualsBinaryOperatorParameters
                     (
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NonNullableDiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NonNullableDiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new ConstantOperatorParameter(new TimeOfDay(1, 2, 3, 4))
+                            new ConstantOperatorParameters(new TimeOfDay(1, 2, 3, 4))
                         )
                     ),
                     "$it => (((Convert($it.NonNullableDiscontinuedDate.Hour) * 36000000000) + ((Convert($it.NonNullableDiscontinuedDate.Minute) * 600000000) + ((Convert($it.NonNullableDiscontinuedDate.Second) * 10000000) + Convert($it.NonNullableDiscontinuedDate.Millisecond)))) >= ((Convert(01:02:03.0040000.Hours) * 36000000000) + ((Convert(01:02:03.0040000.Minutes) * 600000000) + ((Convert(01:02:03.0040000.Seconds) * 10000000) + Convert(01:02:03.0040000.Milliseconds)))))"
                 },
                 new object[]
                 {
-                    new LessThanOrEqualsBinaryOperatorParameter
+                    new LessThanOrEqualsBinaryOperatorParameters
                     (
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new ConstantOperatorParameter(new TimeOfDay(1, 2, 3, 4))
+                            new ConstantOperatorParameters(new TimeOfDay(1, 2, 3, 4))
                         ),
-                        new ConvertToNumericTimeOperatorParameter
+                        new ConvertToNumericTimeOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NonNullableDiscontinuedDate", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NonNullableDiscontinuedDate", new ParameterOperatorParameters(parameterName))
                         )
                     ),
                     "$it => (((Convert(01:02:03.0040000.Hours) * 36000000000) + ((Convert(01:02:03.0040000.Minutes) * 600000000) + ((Convert(01:02:03.0040000.Seconds) * 10000000) + Convert(01:02:03.0040000.Milliseconds)))) <= ((Convert($it.NonNullableDiscontinuedDate.Hour) * 36000000000) + ((Convert($it.NonNullableDiscontinuedDate.Minute) * 600000000) + ((Convert($it.NonNullableDiscontinuedDate.Second) * 10000000) + Convert($it.NonNullableDiscontinuedDate.Millisecond)))))"
@@ -3719,16 +3719,16 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new FloorOperatorParameter
+                            new FloorOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName))
                             )
                         ),
-                        new ConstantOperatorParameter(123m)
+                        new ConstantOperatorParameters(123m)
                     )
                 );
         }
@@ -3746,16 +3746,16 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new FloorOperatorParameter
+                            new FloorOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName))
                             )
                         ),
-                        new ConstantOperatorParameter(123m)
+                        new ConstantOperatorParameters(123m)
                     )
                 );
         }
@@ -3773,13 +3773,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5.00m)
+                        new ConstantOperatorParameters(5.00m)
                     )
                 );
         }
@@ -3805,13 +3805,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5.00m)
+                        new ConstantOperatorParameters(5.00m)
                     )
                 );
         }
@@ -3829,13 +3829,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Weight", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Weight", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -3856,13 +3856,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Weight", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Weight", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -3880,13 +3880,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("Width", new ParameterOperatorParameter(parameterName)), typeof(double?))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("Width", new ParameterOperatorParameters(parameterName)), typeof(double?))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -3907,13 +3907,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("Width", new ParameterOperatorParameter(parameterName)), typeof(double?))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("Width", new ParameterOperatorParameters(parameterName)), typeof(double?))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -3931,13 +3931,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5m)
+                        new ConstantOperatorParameters(5m)
                     )
                 );
         }
@@ -3963,13 +3963,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5m)
+                        new ConstantOperatorParameters(5m)
                     )
                 );
         }
@@ -3987,13 +3987,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Weight", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Weight", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -4014,13 +4014,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Weight", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Weight", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -4038,13 +4038,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("Width", new ParameterOperatorParameter(parameterName)), typeof(double?))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("Width", new ParameterOperatorParameters(parameterName)), typeof(double?))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -4065,13 +4065,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("Width", new ParameterOperatorParameter(parameterName)), typeof(double?))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("Width", new ParameterOperatorParameters(parameterName)), typeof(double?))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -4089,13 +4089,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5m)
+                        new ConstantOperatorParameters(5m)
                     )
                 );
         }
@@ -4121,13 +4121,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("UnitPrice", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("UnitPrice", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5m)
+                        new ConstantOperatorParameters(5m)
                     )
                 );
         }
@@ -4145,13 +4145,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Weight", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Weight", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -4172,13 +4172,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Weight", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("Weight", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -4196,13 +4196,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("Width", new ParameterOperatorParameter(parameterName)), typeof(double?))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("Width", new ParameterOperatorParameters(parameterName)), typeof(double?))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -4223,13 +4223,13 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("Width", new ParameterOperatorParameter(parameterName)), typeof(double?))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("Width", new ParameterOperatorParameters(parameterName)), typeof(double?))
                         ),
-                        new ConstantOperatorParameter(5d)
+                        new ConstantOperatorParameters(5d)
                     )
                 );
         }
@@ -4239,127 +4239,127 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("FloatProp", new ParameterOperatorParameter(parameterName)), typeof(double))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("FloatProp", new ParameterOperatorParameters(parameterName)), typeof(double))
                         ),
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("FloatProp", new ParameterOperatorParameter(parameterName)), typeof(double))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("FloatProp", new ParameterOperatorParameters(parameterName)), typeof(double))
                         )
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("FloatProp", new ParameterOperatorParameter(parameterName)), typeof(double))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("FloatProp", new ParameterOperatorParameters(parameterName)), typeof(double))
                         ),
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("FloatProp", new ParameterOperatorParameter(parameterName)), typeof(double))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("FloatProp", new ParameterOperatorParameters(parameterName)), typeof(double))
                         )
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("FloatProp", new ParameterOperatorParameter(parameterName)), typeof(double))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("FloatProp", new ParameterOperatorParameters(parameterName)), typeof(double))
                         ),
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new ConvertOperatorParameter(new MemberSelectorOperatorParameter("FloatProp", new ParameterOperatorParameter(parameterName)), typeof(double))
+                            new ConvertOperatorParameters(new MemberSelectorOperatorParameters("FloatProp", new ParameterOperatorParameters(parameterName)), typeof(double))
                         )
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DoubleProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DoubleProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DoubleProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DoubleProp", new ParameterOperatorParameters(parameterName))
                         )
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DoubleProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DoubleProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DoubleProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DoubleProp", new ParameterOperatorParameters(parameterName))
                         )
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DoubleProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DoubleProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DoubleProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DoubleProp", new ParameterOperatorParameters(parameterName))
                         )
                     )
                 },
                     new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DecimalProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DecimalProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new FloorOperatorParameter
+                        new FloorOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DecimalProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DecimalProp", new ParameterOperatorParameters(parameterName))
                         )
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DecimalProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DecimalProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new RoundOperatorParameter
+                        new RoundOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DecimalProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DecimalProp", new ParameterOperatorParameters(parameterName))
                         )
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DecimalProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DecimalProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new CeilingOperatorParameter
+                        new CeilingOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DecimalProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DecimalProp", new ParameterOperatorParameters(parameterName))
                         )
                     )
                 },
@@ -4403,18 +4403,18 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CustomMethodOperatorParameter
+                        new CustomMethodOperatorParameters
                         (
                             typeof(string).GetMethod("PadRight", new Type[] { typeof(int) }),
                             new IExpressionParameter[]
                             {
-                                new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                                new ConstantOperatorParameter(totalWidth)
+                                new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                                new ConstantOperatorParameters(totalWidth)
                             }
                         ),
-                        new ConstantOperatorParameter(expectedProductName)
+                        new ConstantOperatorParameters(expectedProductName)
                     )
                 );
         }
@@ -4437,18 +4437,18 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CustomMethodOperatorParameter
+                        new CustomMethodOperatorParameters
                         (
                             typeof(StringExtender).GetMethod("PadRightExStatic", BindingFlags.Public | BindingFlags.Static),
                             new IExpressionParameter[]
                             {
-                                new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                                new ConstantOperatorParameter(totalWidth)
+                                new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                                new ConstantOperatorParameters(totalWidth)
                             }
                         ),
-                        new ConstantOperatorParameter(expectedProductName)
+                        new ConstantOperatorParameters(expectedProductName)
                     )
                 );
         }
@@ -4471,18 +4471,18 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new CustomMethodOperatorParameter
+                        new CustomMethodOperatorParameters
                         (
                             typeof(FilterParameterTests).GetMethod("PadRightStatic", BindingFlags.NonPublic | BindingFlags.Static),
                             new IExpressionParameter[]
                             {
-                                new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                                new ConstantOperatorParameter(totalWidth)
+                                new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                                new ConstantOperatorParameters(totalWidth)
                             }
                         ),
-                        new ConstantOperatorParameter(expectedProductName)
+                        new ConstantOperatorParameters(expectedProductName)
                     )
                 );
         }
@@ -4503,20 +4503,20 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter1<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("GuidProp", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(new Guid("0EFDAECF-A9F0-42F3-A384-1295917AF95E"))
+                        new MemberSelectorOperatorParameters("GuidProp", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(new Guid("0EFDAECF-A9F0-42F3-A384-1295917AF95E"))
                     )
                 );
 
             Expression<Func<T, bool>> CreateFilter2<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("GuidProp", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(new Guid("0efdaecf-a9f0-42f3-a384-1295917af95e"))
+                        new MemberSelectorOperatorParameters("GuidProp", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(new Guid("0efdaecf-a9f0-42f3-a384-1295917af95e"))
                     )
                 );
         }
@@ -4526,19 +4526,19 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DateTimeProp", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(new DateTimeOffset(new DateTime(2000, 12, 12, 12, 0, 0), TimeSpan.Zero))
+                        new MemberSelectorOperatorParameters("DateTimeProp", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(new DateTimeOffset(new DateTime(2000, 12, 12, 12, 0, 0), TimeSpan.Zero))
                     ),
                     "$it => ($it.DateTimeProp == {0})"
                 },
                 new object[]
                 {
-                    new LessThanBinaryOperatorParameter
+                    new LessThanBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("DateTimeProp", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(new DateTimeOffset(new DateTime(2000, 12, 12, 12, 0, 0), TimeSpan.Zero))
+                        new MemberSelectorOperatorParameters("DateTimeProp", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(new DateTimeOffset(new DateTime(2000, 12, 12, 12, 0, 0), TimeSpan.Zero))
                     ),
                     "$it => ($it.DateTimeProp < {0})"
                 }
@@ -4578,17 +4578,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter1<T>()
                 => GetFilter<T>
                 (
-                    new AndBinaryOperatorParameter
+                    new AndBinaryOperatorParameters
                     (
-                        new LessThanBinaryOperatorParameter
+                        new LessThanBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("LongProp", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter((long)987654321, typeof(long))
+                            new MemberSelectorOperatorParameters("LongProp", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters((long)987654321, typeof(long))
                         ),
-                        new GreaterThanBinaryOperatorParameter
+                        new GreaterThanBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("LongProp", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter((long)123456789, typeof(long))
+                            new MemberSelectorOperatorParameters("LongProp", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters((long)123456789, typeof(long))
                         )
                     )
                 );
@@ -4596,17 +4596,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter2<T>()
                 => GetFilter<T>
                 (
-                    new AndBinaryOperatorParameter
+                    new AndBinaryOperatorParameters
                     (
-                        new LessThanBinaryOperatorParameter
+                        new LessThanBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("LongProp", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter((long)-987654321, typeof(long))
+                            new MemberSelectorOperatorParameters("LongProp", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters((long)-987654321, typeof(long))
                         ),
-                        new GreaterThanBinaryOperatorParameter
+                        new GreaterThanBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("LongProp", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter((long)-123456789, typeof(long))
+                            new MemberSelectorOperatorParameters("LongProp", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters((long)-123456789, typeof(long))
                         )
                     )
                 );
@@ -4627,10 +4627,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new InOperatorParameter
+                    new InOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("SimpleEnumProp", new ParameterOperatorParameter(parameterName)),
-                        new CollectionConstantOperatorParameter(new List<object> { SimpleEnum.First, SimpleEnum.Second }, typeof(SimpleEnum))
+                        new MemberSelectorOperatorParameters("SimpleEnumProp", new ParameterOperatorParameters(parameterName)),
+                        new CollectionConstantOperatorParameters(new List<object> { SimpleEnum.First, SimpleEnum.Second }, typeof(SimpleEnum))
                     )
                 );
         }
@@ -4650,10 +4650,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new InOperatorParameter
+                    new InOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("NullableSimpleEnumProp", new ParameterOperatorParameter(parameterName)),
-                        new CollectionConstantOperatorParameter(new List<object> { SimpleEnum.First, SimpleEnum.Second }, typeof(SimpleEnum?))
+                        new MemberSelectorOperatorParameters("NullableSimpleEnumProp", new ParameterOperatorParameters(parameterName)),
+                        new CollectionConstantOperatorParameters(new List<object> { SimpleEnum.First, SimpleEnum.Second }, typeof(SimpleEnum?))
                     )
                 );
         }
@@ -4673,10 +4673,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new InOperatorParameter
+                    new InOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("NullableSimpleEnumProp", new ParameterOperatorParameter(parameterName)),
-                        new CollectionConstantOperatorParameter(new List<object> { SimpleEnum.First, null }, typeof(SimpleEnum?))
+                        new MemberSelectorOperatorParameters("NullableSimpleEnumProp", new ParameterOperatorParameters(parameterName)),
+                        new CollectionConstantOperatorParameters(new List<object> { SimpleEnum.First, null }, typeof(SimpleEnum?))
                     )
                 );
         }
@@ -4695,17 +4695,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter1<T>()
                 => GetFilter<T>
                 (
-                    new AndBinaryOperatorParameter
+                    new AndBinaryOperatorParameters
                     (
-                        new LessThanBinaryOperatorParameter
+                        new LessThanBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("FloatProp", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(4321.56F)
+                            new MemberSelectorOperatorParameters("FloatProp", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(4321.56F)
                         ),
-                        new GreaterThanBinaryOperatorParameter
+                        new GreaterThanBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("FloatProp", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(1234.56f)
+                            new MemberSelectorOperatorParameters("FloatProp", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(1234.56f)
                         )
                     )
                 );
@@ -4713,17 +4713,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter2<T>()
                 => GetFilter<T>
                 (
-                    new AndBinaryOperatorParameter
+                    new AndBinaryOperatorParameters
                     (
-                        new LessThanBinaryOperatorParameter
+                        new LessThanBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DecimalProp", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(4321.56M)
+                            new MemberSelectorOperatorParameters("DecimalProp", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(4321.56M)
                         ),
-                        new GreaterThanBinaryOperatorParameter
+                        new GreaterThanBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DecimalProp", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter(1234.56m)
+                            new MemberSelectorOperatorParameters("DecimalProp", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters(1234.56m)
                         )
                     )
                 );
@@ -4753,10 +4753,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(literal)
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(literal)
                     )
                 );
         }
@@ -4799,10 +4799,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(c.ToString())
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(c.ToString())
                     )
                 );
         }
@@ -4821,21 +4821,21 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new CollectionCastOperatorParameter
+                        new CollectionCastOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "EnumerableProducts",
-                                new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                             ),
                             typeof(DerivedProduct)
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                             new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("p")),
-                             new ConstantOperatorParameter("ProductName")
+                             new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("p")),
+                             new ConstantOperatorParameters("ProductName")
                         ),
                         "p"
                     )
@@ -4854,21 +4854,21 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new CollectionCastOperatorParameter
+                        new CollectionCastOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "QueryableProducts",
-                                new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                             ),
                             typeof(DerivedProduct)
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                             new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter("p")),
-                             new ConstantOperatorParameter("ProductName")
+                             new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters("p")),
+                             new ConstantOperatorParameters("ProductName")
                         ),
                         "p"
                     )
@@ -4890,21 +4890,21 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new AnyOperatorParameter
+                    new AnyOperatorParameters
                     (
-                        new CollectionCastOperatorParameter
+                        new CollectionCastOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "Products",
-                                new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                             ),
                             typeof(DerivedProduct)
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                             new MemberSelectorOperatorParameter("DerivedProductName", new ParameterOperatorParameter("p")),
-                             new ConstantOperatorParameter("DerivedProductName")
+                             new MemberSelectorOperatorParameters("DerivedProductName", new ParameterOperatorParameters("p")),
+                             new ConstantOperatorParameters("DerivedProductName")
                         ),
                         "p"
                     )
@@ -4923,18 +4923,18 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "ProductName",
-                            new CastOperatorParameter
+                            new CastOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
+                                new ParameterOperatorParameters(parameterName),
                                 typeof(Product)
                             )
                         ),
-                        new ConstantOperatorParameter("ProductName")
+                        new ConstantOperatorParameters("ProductName")
                     )
                 );
         }
@@ -4944,78 +4944,78 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "ProductName",
-                            new CastOperatorParameter
+                            new CastOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
+                                new ParameterOperatorParameters(parameterName),
                                 typeof(Product)
                             )
                         ),
-                        new ConstantOperatorParameter("ProductName")
+                        new ConstantOperatorParameters("ProductName")
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "DerivedProductName",
-                            new CastOperatorParameter
+                            new CastOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
+                                new ParameterOperatorParameters(parameterName),
                                 typeof(DerivedProduct)
                             )
                         ),
-                        new ConstantOperatorParameter("DerivedProductName")
+                        new ConstantOperatorParameters("DerivedProductName")
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "CategoryID",
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "Category",
-                                new CastOperatorParameter
+                                new CastOperatorParameters
                                 (
-                                    new ParameterOperatorParameter(parameterName),
+                                    new ParameterOperatorParameters(parameterName),
                                     typeof(DerivedProduct)
                                 )
                             )
                         ),
-                        new ConstantOperatorParameter(123)
+                        new ConstantOperatorParameters(123)
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "CategoryID",
-                            new CastOperatorParameter
+                            new CastOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter
+                                new MemberSelectorOperatorParameters
                                 (
                                     "Category",
-                                    new CastOperatorParameter
+                                    new CastOperatorParameters
                                     (
-                                        new ParameterOperatorParameter(parameterName),
+                                        new ParameterOperatorParameters(parameterName),
                                         typeof(DerivedProduct)
                                     )
                                 ),
                                 typeof(DerivedCategory)
                             )
                         ),
-                        new ConstantOperatorParameter(123)
+                        new ConstantOperatorParameters(123)
                     )
                 },
             };
@@ -5043,62 +5043,62 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "DerivedProductName",
-                            new CastOperatorParameter
+                            new CastOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
+                                new ParameterOperatorParameters(parameterName),
                                 typeof(DerivedProduct)
                             )
                         ),
-                        new ConstantOperatorParameter("DerivedProductName")
+                        new ConstantOperatorParameters("DerivedProductName")
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "CategoryID",
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "Category",
-                                new CastOperatorParameter
+                                new CastOperatorParameters
                                 (
-                                    new ParameterOperatorParameter(parameterName),
+                                    new ParameterOperatorParameters(parameterName),
                                     typeof(DerivedProduct)
                                 )
                             )
                         ),
-                        new ConstantOperatorParameter(123)
+                        new ConstantOperatorParameters(123)
                     )
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter
+                        new MemberSelectorOperatorParameters
                         (
                             "CategoryID",
-                            new CastOperatorParameter
+                            new CastOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter
+                                new MemberSelectorOperatorParameters
                                 (
                                     "Category",
-                                    new CastOperatorParameter
+                                    new CastOperatorParameters
                                     (
-                                        new ParameterOperatorParameter(parameterName),
+                                        new ParameterOperatorParameters(parameterName),
                                         typeof(DerivedProduct)
                                     )
                                 ),
                                 typeof(DerivedCategory)
                             )
                         ),
-                        new ConstantOperatorParameter(123)
+                        new ConstantOperatorParameters(123)
                     )
                 },
             };
@@ -5125,463 +5125,463 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new ConstantOperatorParameter(null)
+                        new ConstantOperatorParameters(null),
+                        new ConstantOperatorParameters(null)
                     ),
                     "$it => (null == null)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new ConstantOperatorParameter(123)
+                        new ConstantOperatorParameters(null),
+                        new ConstantOperatorParameters(123)
                     ),
                     "$it => (null == Convert(123))"
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new ConstantOperatorParameter(123)
+                        new ConstantOperatorParameters(null),
+                        new ConstantOperatorParameters(123)
                     ),
                     "$it => (null != Convert(123))"
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new ConstantOperatorParameter(true)
+                        new ConstantOperatorParameters(null),
+                        new ConstantOperatorParameters(true)
                     ),
                     "$it => (null != Convert(True))"
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new ConstantOperatorParameter(1)
+                        new ConstantOperatorParameters(null),
+                        new ConstantOperatorParameters(1)
                     ),
                     "$it => (null != Convert(1))"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new ConstantOperatorParameter(new Guid())
+                        new ConstantOperatorParameters(null),
+                        new ConstantOperatorParameters(new Guid())
                     ),
                     "$it => (null == Convert(00000000-0000-0000-0000-000000000000))"
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters(null),
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (null != \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new ConstantOperatorParameter(new DateTimeOffset(new DateTime(2001, 1, 1, 12, 0, 0), new TimeSpan(8, 0, 0)))
+                        new ConstantOperatorParameters(null),
+                        new ConstantOperatorParameters(new DateTimeOffset(new DateTime(2001, 1, 1, 12, 0, 0), new TimeSpan(8, 0, 0)))
                     ),
                     "$it => (null == Convert(01/01/2001 12:00:00 +08:00))"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new ConstantOperatorParameter(new TimeSpan(7775999999000))
+                        new ConstantOperatorParameters(null),
+                        new ConstantOperatorParameters(new TimeSpan(7775999999000))
                     ),
                     "$it => (null == Convert(8.23:59:59.9999000))"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("IntProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("IntProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => ($it.IntProp.ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("LongProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("LongProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => ($it.LongProp.ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("SingleProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("SingleProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => ($it.SingleProp.ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DoubleProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DoubleProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => ($it.DoubleProp.ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DecimalProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DecimalProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => ($it.DecimalProp.ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("BoolProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("BoolProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => ($it.BoolProp.ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ByteProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("ByteProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => ($it.ByteProp.ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("GuidProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("GuidProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => ($it.GuidProp.ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("StringProp", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter("123")
+                        new MemberSelectorOperatorParameters("StringProp", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => ($it.StringProp == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("DateTimeOffsetProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("DateTimeOffsetProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => ($it.DateTimeOffsetProp.ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("TimeSpanProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("TimeSpanProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => ($it.TimeSpanProp.ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("SimpleEnumProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("SimpleEnumProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (Convert($it.SimpleEnumProp).ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("FlagsEnumProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("FlagsEnumProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (Convert($it.FlagsEnumProp).ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("LongEnumProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("LongEnumProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (Convert($it.LongEnumProp).ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableIntProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableIntProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (IIF($it.NullableIntProp.HasValue, $it.NullableIntProp.Value.ToString(), null) == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableLongProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableLongProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (IIF($it.NullableLongProp.HasValue, $it.NullableLongProp.Value.ToString(), null) == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableSingleProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableSingleProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (IIF($it.NullableSingleProp.HasValue, $it.NullableSingleProp.Value.ToString(), null) == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableDoubleProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableDoubleProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (IIF($it.NullableDoubleProp.HasValue, $it.NullableDoubleProp.Value.ToString(), null) == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableDecimalProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableDecimalProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (IIF($it.NullableDecimalProp.HasValue, $it.NullableDecimalProp.Value.ToString(), null) == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableBoolProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableBoolProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (IIF($it.NullableBoolProp.HasValue, $it.NullableBoolProp.Value.ToString(), null) == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableByteProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableByteProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (IIF($it.NullableByteProp.HasValue, $it.NullableByteProp.Value.ToString(), null) == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableGuidProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableGuidProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (IIF($it.NullableGuidProp.HasValue, $it.NullableGuidProp.Value.ToString(), null) == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableDateTimeOffsetProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableDateTimeOffsetProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (IIF($it.NullableDateTimeOffsetProp.HasValue, $it.NullableDateTimeOffsetProp.Value.ToString(), null) == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableTimeSpanProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableTimeSpanProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (IIF($it.NullableTimeSpanProp.HasValue, $it.NullableTimeSpanProp.Value.ToString(), null) == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableSimpleEnumProp", new ParameterOperatorParameter(parameterName))
+                            new MemberSelectorOperatorParameters("NullableSimpleEnumProp", new ParameterOperatorParameters(parameterName))
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (IIF($it.NullableSimpleEnumProp.HasValue, Convert($it.NullableSimpleEnumProp.Value).ToString(), null) == \"123\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("IntProp", new ParameterOperatorParameter(parameterName)),
+                            new MemberSelectorOperatorParameters("IntProp", new ParameterOperatorParameters(parameterName)),
                             typeof(long)
                         ),
-                        new ConstantOperatorParameter((long)123)
+                        new ConstantOperatorParameters((long)123)
                     ),
                     "$it => (Convert($it.IntProp) == 123)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("NullableLongProp", new ParameterOperatorParameter(parameterName)),
+                            new MemberSelectorOperatorParameters("NullableLongProp", new ParameterOperatorParameters(parameterName)),
                             typeof(double)
                         ),
-                        new ConstantOperatorParameter(1.23d)
+                        new ConstantOperatorParameters(1.23d)
                     ),
                     "$it => (Convert($it.NullableLongProp) == 1.23)"
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
                         (
-                            new ConstantOperatorParameter(2147483647),
+                            new ConstantOperatorParameters(2147483647),
                             typeof(short)
                         ),
-                        new ConstantOperatorParameter(null)
+                        new ConstantOperatorParameters(null)
                     ),
                     "$it => (Convert(Convert(2147483647)) != null)"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new ConstantOperatorParameter(SimpleEnum.Second, typeof(SimpleEnum))
+                            new ConstantOperatorParameters(SimpleEnum.Second, typeof(SimpleEnum))
                         ),
-                        new ConstantOperatorParameter("1")
+                        new ConstantOperatorParameters("1")
                     ),
                     "$it => (Convert(Second).ToString() == \"1\")"
                 },
                 new object[]
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new ConvertOperatorParameter
+                            new ConvertOperatorParameters
                             (
-                                new ConvertOperatorParameter
+                                new ConvertOperatorParameters
                                 (
-                                    new MemberSelectorOperatorParameter("IntProp", new ParameterOperatorParameter(parameterName)),
+                                    new MemberSelectorOperatorParameters("IntProp", new ParameterOperatorParameters(parameterName)),
                                     typeof(long)
                                 ),
                                 typeof(short)
                             )
                         ),
-                        new ConstantOperatorParameter("123")
+                        new ConstantOperatorParameters("123")
                     ),
                     "$it => (Convert(Convert($it.IntProp)).ToString() == \"123\")"
                 },
                 new object[]
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new ConvertToEnumOperatorParameter
+                        new ConvertToEnumOperatorParameters
                         (
                             "123",
                             typeof(SimpleEnum)
                         ),
-                        new ConstantOperatorParameter(null)
+                        new ConstantOperatorParameters(null)
                     ),
                     "$it => (Convert(123) != null)"
                 }
@@ -5611,54 +5611,54 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(short)
                     ),
                     "$it => IIF(($it Is System.Int16), True, False)"
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(Product)
                     ),
                     "$it => IIF(($it Is Contoso.Bsl.Flow.Unit.Tests.Data.Product), True, False)"
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
                         typeof(string)
                     ),
                     "$it => IIF(($it.ProductName Is System.String), True, False)"
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName)),
+                        new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName)),
                         typeof(Category)
                     ),
                     "$it => IIF(($it.Category Is Contoso.Bsl.Flow.Unit.Tests.Data.Category), True, False)"
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName)),
+                        new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName)),
                         typeof(DerivedCategory)
                     ),
                     "$it => IIF(($it.Category Is Contoso.Bsl.Flow.Unit.Tests.Data.DerivedCategory), True, False)"
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("Ranking", new ParameterOperatorParameter(parameterName)),
+                        new MemberSelectorOperatorParameters("Ranking", new ParameterOperatorParameters(parameterName)),
                         typeof(SimpleEnum)
                     ),
                     "$it => IIF(($it.Ranking Is Contoso.Bsl.Flow.Unit.Tests.Data.SimpleEnum), True, False)"
@@ -5687,465 +5687,465 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(byte[])
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(bool)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(byte)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(DateTimeOffset)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(Decimal)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(double)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(TimeSpan)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(Guid)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(Int16)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(Int32)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(Int64)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(sbyte)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(Single)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(System.IO.Stream)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(string)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(SimpleEnum)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(FlagsEnum)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ByteArrayProp", new ParameterOperatorParameter(parameterName)),
+                        new MemberSelectorOperatorParameters("ByteArrayProp", new ParameterOperatorParameters(parameterName)),
                         typeof(byte[])
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("IntProp", new ParameterOperatorParameter(parameterName)),
+                        new MemberSelectorOperatorParameters("IntProp", new ParameterOperatorParameters(parameterName)),
                         typeof(SimpleEnum)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("NullableShortProp", new ParameterOperatorParameter(parameterName)),
+                        new MemberSelectorOperatorParameters("NullableShortProp", new ParameterOperatorParameters(parameterName)),
                         typeof(short)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(byte[])
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(bool)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(byte)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(DateTimeOffset)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(Decimal)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(double)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(TimeSpan)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(Guid)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(Int16)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(Int32)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(Int64)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(sbyte)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(Single)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(System.IO.Stream)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(string)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(SimpleEnum)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(FlagsEnum)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(23),
+                        new ConstantOperatorParameters(23),
                         typeof(byte)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(23),
+                        new ConstantOperatorParameters(23),
                         typeof(decimal)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(23),
+                        new ConstantOperatorParameters(23),
                         typeof(double)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(23),
+                        new ConstantOperatorParameters(23),
                         typeof(short)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(23),
+                        new ConstantOperatorParameters(23),
                         typeof(long)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(23),
+                        new ConstantOperatorParameters(23),
                         typeof(sbyte)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(23),
+                        new ConstantOperatorParameters(23),
                         typeof(float)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter("hello"),
+                        new ConstantOperatorParameters("hello"),
                         typeof(Stream)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(0),
+                        new ConstantOperatorParameters(0),
                         typeof(FlagsEnum)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(0),
+                        new ConstantOperatorParameters(0),
                         typeof(SimpleEnum)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter("2001-01-01T12:00:00.000+08:00"),
+                        new ConstantOperatorParameters("2001-01-01T12:00:00.000+08:00"),
                         typeof(DateTimeOffset)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter("00000000-0000-0000-0000-000000000000"),
+                        new ConstantOperatorParameters("00000000-0000-0000-0000-000000000000"),
                         typeof(Guid)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter("23"),
+                        new ConstantOperatorParameters("23"),
                         typeof(byte)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter("23"),
+                        new ConstantOperatorParameters("23"),
                         typeof(short)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter("23"),
+                        new ConstantOperatorParameters("23"),
                         typeof(int)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter("false"),
+                        new ConstantOperatorParameters("false"),
                         typeof(bool)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter("OData"),
+                        new ConstantOperatorParameters("OData"),
                         typeof(byte[])
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter("PT12H'"),
+                        new ConstantOperatorParameters("PT12H'"),
                         typeof(TimeSpan)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(23),
+                        new ConstantOperatorParameters(23),
                         typeof(string)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter("0"),
+                        new ConstantOperatorParameters("0"),
                         typeof(FlagsEnum)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter("0"),
+                        new ConstantOperatorParameters("0"),
                         typeof(SimpleEnum)
                     )
                 }
@@ -6177,25 +6177,25 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
+                        new ParameterOperatorParameters(parameterName),
                         typeof(DerivedProduct)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("SupplierAddress", new ParameterOperatorParameter(parameterName)),
+                        new MemberSelectorOperatorParameters("SupplierAddress", new ParameterOperatorParameters(parameterName)),
                         typeof(Address)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName)),
+                        new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName)),
                         typeof(DerivedCategory)
                     )
                 }
@@ -6231,17 +6231,17 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(Address)
                     )
                 },
                 new object []
                 {
-                    new IsOfOperatorParameter
+                    new IsOfOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
+                        new ConstantOperatorParameters(null),
                         typeof(DerivedCategory)
                     )
                 }
@@ -6279,100 +6279,100 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object []
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ByteArrayProp", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(Convert.FromBase64String("I6v/"))
+                        new MemberSelectorOperatorParameters("ByteArrayProp", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(Convert.FromBase64String("I6v/"))
                     ),
                     "$it => ($it.ByteArrayProp == System.Byte[])",
                     true
                 },
                 new object []
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ByteArrayProp", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(Convert.FromBase64String("I6v/"))
+                        new MemberSelectorOperatorParameters("ByteArrayProp", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(Convert.FromBase64String("I6v/"))
                     ),
                     "$it => ($it.ByteArrayProp != System.Byte[])",
                     false
                 },
                 new object []
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(Convert.FromBase64String("I6v/")),
-                        new ConstantOperatorParameter(Convert.FromBase64String("I6v/"))
+                        new ConstantOperatorParameters(Convert.FromBase64String("I6v/")),
+                        new ConstantOperatorParameters(Convert.FromBase64String("I6v/"))
                     ),
                     "$it => (System.Byte[] == System.Byte[])",
                     true
                 },
                 new object []
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(Convert.FromBase64String("I6v/")),
-                        new ConstantOperatorParameter(Convert.FromBase64String("I6v/"))
+                        new ConstantOperatorParameters(Convert.FromBase64String("I6v/")),
+                        new ConstantOperatorParameters(Convert.FromBase64String("I6v/"))
                     ),
                     "$it => (System.Byte[] != System.Byte[])",
                     false
                 },
                 new object []
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ByteArrayPropWithNullValue", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(Convert.FromBase64String("I6v/"))
+                        new MemberSelectorOperatorParameters("ByteArrayPropWithNullValue", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(Convert.FromBase64String("I6v/"))
                     ),
                     "$it => ($it.ByteArrayPropWithNullValue != System.Byte[])",
                     true
                 },
                 new object []
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ByteArrayPropWithNullValue", new ParameterOperatorParameter(parameterName)),
-                        new MemberSelectorOperatorParameter("ByteArrayPropWithNullValue", new ParameterOperatorParameter(parameterName))
+                        new MemberSelectorOperatorParameters("ByteArrayPropWithNullValue", new ParameterOperatorParameters(parameterName)),
+                        new MemberSelectorOperatorParameters("ByteArrayPropWithNullValue", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => ($it.ByteArrayPropWithNullValue != $it.ByteArrayPropWithNullValue)",
                     false
                 },
                 new object []
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ByteArrayPropWithNullValue", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(null)
+                        new MemberSelectorOperatorParameters("ByteArrayPropWithNullValue", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(null)
                     ),
                     "$it => ($it.ByteArrayPropWithNullValue != null)",
                     false
                 },
                 new object []
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ByteArrayPropWithNullValue", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter(null)
+                        new MemberSelectorOperatorParameters("ByteArrayPropWithNullValue", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters(null)
                     ),
                     "$it => ($it.ByteArrayPropWithNullValue == null)",
                     true
                 },
                 new object []
                 {
-                    new NotEqualsBinaryOperatorParameter
+                    new NotEqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new MemberSelectorOperatorParameter("ByteArrayPropWithNullValue", new ParameterOperatorParameter(parameterName))
+                        new ConstantOperatorParameters(null),
+                        new MemberSelectorOperatorParameters("ByteArrayPropWithNullValue", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => (null != $it.ByteArrayPropWithNullValue)",
                     false
                 },
                 new object []
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(null),
-                        new MemberSelectorOperatorParameter("ByteArrayPropWithNullValue", new ParameterOperatorParameter(parameterName))
+                        new ConstantOperatorParameters(null),
+                        new MemberSelectorOperatorParameters("ByteArrayPropWithNullValue", new ParameterOperatorParameters(parameterName))
                     ),
                     "$it => (null == $it.ByteArrayPropWithNullValue)",
                     true
@@ -6410,34 +6410,34 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object []
                 {
-                    new GreaterThanOrEqualsBinaryOperatorParameter
+                    new GreaterThanOrEqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(Convert.FromBase64String("AP8Q")),
-                        new ConstantOperatorParameter(Convert.FromBase64String("AP8Q"))
+                        new ConstantOperatorParameters(Convert.FromBase64String("AP8Q")),
+                        new ConstantOperatorParameters(Convert.FromBase64String("AP8Q"))
                     )
                 },
                 new object []
                 {
-                    new LessThanOrEqualsBinaryOperatorParameter
+                    new LessThanOrEqualsBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(Convert.FromBase64String("AP8Q")),
-                        new ConstantOperatorParameter(Convert.FromBase64String("AP8Q"))
+                        new ConstantOperatorParameters(Convert.FromBase64String("AP8Q")),
+                        new ConstantOperatorParameters(Convert.FromBase64String("AP8Q"))
                     )
                 },
                 new object []
                 {
-                    new LessThanBinaryOperatorParameter
+                    new LessThanBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(Convert.FromBase64String("AP8Q")),
-                        new ConstantOperatorParameter(Convert.FromBase64String("AP8Q"))
+                        new ConstantOperatorParameters(Convert.FromBase64String("AP8Q")),
+                        new ConstantOperatorParameters(Convert.FromBase64String("AP8Q"))
                     )
                 },
                 new object []
                 {
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new ConstantOperatorParameter(Convert.FromBase64String("AP8Q")),
-                        new ConstantOperatorParameter(Convert.FromBase64String("AP8Q"))
+                        new ConstantOperatorParameters(Convert.FromBase64String("AP8Q")),
+                        new ConstantOperatorParameters(Convert.FromBase64String("AP8Q"))
                     )
                 },
             };
@@ -6460,64 +6460,64 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             {
                 new object []
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
                         (
-                            new ConvertToNullableUnderlyingValueOperatorParameter
+                            new ConvertToNullableUnderlyingValueOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("NullableUShortProp", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("NullableUShortProp", new ParameterOperatorParameters(parameterName))
                             ),
                             typeof(int?)
                         ),
-                        new ConstantOperatorParameter(12)
+                        new ConstantOperatorParameters(12)
                     ),
                     "$it => (Convert($it.NullableUShortProp.Value) == Convert(12))"
                 },
                 new object []
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
                         (
-                            new ConvertToNullableUnderlyingValueOperatorParameter
+                            new ConvertToNullableUnderlyingValueOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("NullableULongProp", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("NullableULongProp", new ParameterOperatorParameters(parameterName))
                             ),
                             typeof(long?)
                         ),
-                        new ConstantOperatorParameter(12L)
+                        new ConstantOperatorParameters(12L)
                     ),
                     "$it => (Convert($it.NullableULongProp.Value) == Convert(12))"
                 },
                 new object []
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertOperatorParameter
+                        new ConvertOperatorParameters
                         (
-                            new ConvertToNullableUnderlyingValueOperatorParameter
+                            new ConvertToNullableUnderlyingValueOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("NullableUIntProp", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("NullableUIntProp", new ParameterOperatorParameters(parameterName))
                             ),
                             typeof(int?)
                         ),
-                        new ConstantOperatorParameter(12)
+                        new ConstantOperatorParameters(12)
                     ),
                     "$it => (Convert($it.NullableUIntProp.Value) == Convert(12))"
                 },
                 new object []
                 {
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new ConvertToStringOperatorParameter
+                        new ConvertToStringOperatorParameters
                         (
-                            new ConvertToNullableUnderlyingValueOperatorParameter
+                            new ConvertToNullableUnderlyingValueOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("NullableCharProp", new ParameterOperatorParameter(parameterName))
+                                new MemberSelectorOperatorParameters("NullableCharProp", new ParameterOperatorParameters(parameterName))
                             )
                         ),
-                        new ConstantOperatorParameter("a")
+                        new ConstantOperatorParameters("a")
                     ),
                     "$it => ($it.NullableCharProp.Value.ToString() == \"a\")"
                 },
@@ -6546,18 +6546,18 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 {
                     new object []
                     {
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "ProductID",
-                                new MemberSelectorOperatorParameter
+                                new MemberSelectorOperatorParameters
                                 (
                                     "Product",
-                                    new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                                    new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                                 )
                             ),
-                            new CollectionConstantOperatorParameter
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ 1 },
                                 typeof(int)
@@ -6567,10 +6567,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                     },
                     new object []
                     {
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Category.Product.ProductID", new ParameterOperatorParameter(parameterName)),
-                            new CollectionConstantOperatorParameter
+                            new MemberSelectorOperatorParameters("Category.Product.ProductID", new ParameterOperatorParameters(parameterName)),
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ 1 },
                                 typeof(int)
@@ -6580,18 +6580,18 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                     },
                     new object []
                     {
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "GuidProperty",
-                                new MemberSelectorOperatorParameter
+                                new MemberSelectorOperatorParameters
                                 (
                                     "Product",
-                                    new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                                    new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                                 )
                             ),
-                            new CollectionConstantOperatorParameter
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ new Guid("dc75698b-581d-488b-9638-3e28dd51d8f7") },
                                 typeof(Guid)
@@ -6601,18 +6601,18 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                     },
                     new object []
                     {
-                        new InOperatorParameter
+                        new InOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter
+                            new MemberSelectorOperatorParameters
                             (
                                 "NullableGuidProperty",
-                                new MemberSelectorOperatorParameter
+                                new MemberSelectorOperatorParameters
                                 (
                                     "Product",
-                                    new MemberSelectorOperatorParameter("Category", new ParameterOperatorParameter(parameterName))
+                                    new MemberSelectorOperatorParameters("Category", new ParameterOperatorParameters(parameterName))
                                 )
                             ),
-                            new CollectionConstantOperatorParameter
+                            new CollectionConstantOperatorParameters
                             (
                                 new List<object>{ new Guid("dc75698b-581d-488b-9638-3e28dd51d8f7") },
                                 typeof(Guid?)
@@ -6651,33 +6651,33 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new OrBinaryOperatorParameter
+                    new OrBinaryOperatorParameters
                     (
-                        new OrBinaryOperatorParameter
+                        new OrBinaryOperatorParameters
                         (
-                            new OrBinaryOperatorParameter
+                            new OrBinaryOperatorParameters
                             (
-                                new EqualsBinaryOperatorParameter
+                                new EqualsBinaryOperatorParameters
                                 (
-                                    new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                                    new ConstantOperatorParameter("1")
+                                    new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                                    new ConstantOperatorParameters("1")
                                 ),
-                                new EqualsBinaryOperatorParameter
+                                new EqualsBinaryOperatorParameters
                                 (
-                                    new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                                    new ConstantOperatorParameter("2")
+                                    new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                                    new ConstantOperatorParameters("2")
                                 )
                             ),
-                            new EqualsBinaryOperatorParameter
+                            new EqualsBinaryOperatorParameters
                             (
-                                new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                                new ConstantOperatorParameter("3")
+                                new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                                new ConstantOperatorParameters("3")
                             )
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                            new ConstantOperatorParameter("4")
+                            new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                            new ConstantOperatorParameters("4")
                         )
                     )
                 );
@@ -6695,10 +6695,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new ConstantOperatorParameter("1")
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new ConstantOperatorParameters("1")
                     )
                 );
         }
@@ -6715,10 +6715,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new InOperatorParameter
+                    new InOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("ProductName", new ParameterOperatorParameter(parameterName)),
-                        new CollectionConstantOperatorParameter
+                        new MemberSelectorOperatorParameters("ProductName", new ParameterOperatorParameters(parameterName)),
+                        new CollectionConstantOperatorParameters
                         (
                             new List<object> { "Prod1", "Prod2" },
                             typeof(string)
@@ -6739,10 +6739,10 @@ namespace Contoso.Bsl.Flow.Unit.Tests
             Expression<Func<T, bool>> CreateFilter<T>()
                 => GetFilter<T>
                 (
-                    new InOperatorParameter
+                    new InOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("SimpleEnumProp", new ParameterOperatorParameter(parameterName)),
-                        new CollectionConstantOperatorParameter
+                        new MemberSelectorOperatorParameters("SimpleEnumProp", new ParameterOperatorParameters(parameterName)),
+                        new CollectionConstantOperatorParameters
                         (
                             new List<object> { SimpleEnum.First, SimpleEnum.Second },
                             typeof(SimpleEnum)
@@ -6767,7 +6767,7 @@ namespace Contoso.Bsl.Flow.Unit.Tests
         /// <param name="parameterName"></param>
         /// <returns></returns>
         private IExpressionParameter GetExpressionParameter<T>(IExpressionParameter filterBody, string parameterName = "$it")
-            => new FilterLambdaOperatorParameter
+            => new FilterLambdaOperatorParameters
             (
                 filterBody,
                 typeof(T),

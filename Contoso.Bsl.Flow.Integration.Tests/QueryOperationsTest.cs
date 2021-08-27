@@ -36,36 +36,36 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         [Fact]
         public void SelectNewCourseAssignment()
         {
-            var bodyParameter = new SelectOperatorParameter
+            var bodyParameter = new SelectOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new ParameterOperatorParameter("q"),
-                    new MemberSelectorOperatorParameter
+                    new ParameterOperatorParameters("q"),
+                    new MemberSelectorOperatorParameters
                     (
                         "Title",
-                        new ParameterOperatorParameter("s")
+                        new ParameterOperatorParameters("s")
                     ),
                     ListSortDirection.Ascending,
                     "s"
                 ),
-                new MemberInitOperatorParameter
+                new MemberInitOperatorParameters
                 (
                     new Dictionary<string, IExpressionParameter>
                     {
-                        ["CourseID"] = new MemberSelectorOperatorParameter("CourseID", new ParameterOperatorParameter("a")),
-                        ["CourseTitle"] = new MemberSelectorOperatorParameter("Title", new ParameterOperatorParameter("a")),
-                        ["CourseNumberAndTitle"] = new ConcatOperatorParameter
+                        ["CourseID"] = new MemberSelectorOperatorParameters("CourseID", new ParameterOperatorParameters("a")),
+                        ["CourseTitle"] = new MemberSelectorOperatorParameters("Title", new ParameterOperatorParameters("a")),
+                        ["CourseNumberAndTitle"] = new ConcatOperatorParameters
                         (
-                            new ConcatOperatorParameter
+                            new ConcatOperatorParameters
                             (
-                                new ConvertToStringOperatorParameter
+                                new ConvertToStringOperatorParameters
                                 (
-                                    new MemberSelectorOperatorParameter("CourseID", new ParameterOperatorParameter("a"))
+                                    new MemberSelectorOperatorParameters("CourseID", new ParameterOperatorParameters("a"))
                                 ),
-                                new ConstantOperatorParameter(" ", typeof(string))
+                                new ConstantOperatorParameters(" ", typeof(string))
                             ),
-                            new MemberSelectorOperatorParameter("Title", new ParameterOperatorParameter("a"))
+                            new MemberSelectorOperatorParameters("Title", new ParameterOperatorParameters("a"))
                         )
                     },
                     typeof(CourseAssignmentModel)
@@ -89,20 +89,20 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         [Fact]
         public void SelectInstructorFullNames()
         {
-            var bodyParameter = new SelectOperatorParameter
+            var bodyParameter = new SelectOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new ParameterOperatorParameter("q"),
-                    new MemberSelectorOperatorParameter
+                    new ParameterOperatorParameters("q"),
+                    new MemberSelectorOperatorParameters
                     (
                         "FullName", 
-                        new ParameterOperatorParameter("s")
+                        new ParameterOperatorParameters("s")
                     ),
                     ListSortDirection.Ascending,
                     "s"
                 ),
-                new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter("a")),
+                new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters("a")),
                 "a"
             );
 
@@ -119,27 +119,27 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         [Fact]
         public void SelectNewInstructor()
         {
-            var bodyParameter = new SelectOperatorParameter
+            var bodyParameter = new SelectOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new ParameterOperatorParameter("q"),
-                    new MemberSelectorOperatorParameter
+                    new ParameterOperatorParameters("q"),
+                    new MemberSelectorOperatorParameters
                     (
                         "FullName",
-                        new ParameterOperatorParameter("s")
+                        new ParameterOperatorParameters("s")
                     ),
                     ListSortDirection.Ascending,
                     "s"
                 ),
-                new MemberInitOperatorParameter
+                new MemberInitOperatorParameters
                 (
                     new Dictionary<string, IExpressionParameter>
                     {
-                        ["ID"] = new MemberSelectorOperatorParameter("ID", new ParameterOperatorParameter("a")),
-                        ["FirstName"] = new MemberSelectorOperatorParameter("FirstName", new ParameterOperatorParameter("a")),
-                        ["LastName"] = new MemberSelectorOperatorParameter("LastName", new ParameterOperatorParameter("a")),
-                        ["FullName"] = new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter("a"))
+                        ["ID"] = new MemberSelectorOperatorParameters("ID", new ParameterOperatorParameters("a")),
+                        ["FirstName"] = new MemberSelectorOperatorParameters("FirstName", new ParameterOperatorParameters("a")),
+                        ["LastName"] = new MemberSelectorOperatorParameters("LastName", new ParameterOperatorParameters("a")),
+                        ["FullName"] = new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters("a"))
                     },
                     typeof(InstructorModel)
                 ),
@@ -159,24 +159,24 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         [Fact]
         public void SelectNewInstructor_FullNameOnly()
         {
-            var bodyParameter = new SelectOperatorParameter
+            var bodyParameter = new SelectOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new ParameterOperatorParameter("q"),
-                    new MemberSelectorOperatorParameter
+                    new ParameterOperatorParameters("q"),
+                    new MemberSelectorOperatorParameters
                     (
                         "FullName",
-                        new ParameterOperatorParameter("s")
+                        new ParameterOperatorParameters("s")
                     ),
                     ListSortDirection.Ascending,
                     "s"
                 ),
-                new MemberInitOperatorParameter
+                new MemberInitOperatorParameters
                 (
                     new Dictionary<string, IExpressionParameter>
                     {
-                        ["FullName"] = new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter("a"))
+                        ["FullName"] = new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters("a"))
                     },
                     typeof(InstructorModel)
                 ),
@@ -198,24 +198,24 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         [Fact]
         public void SelectNewInstructor_FirstNameOnly()
         {
-            var bodyParameter = new SelectOperatorParameter
+            var bodyParameter = new SelectOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new ParameterOperatorParameter("q"),
-                    new MemberSelectorOperatorParameter
+                    new ParameterOperatorParameters("q"),
+                    new MemberSelectorOperatorParameters
                     (
                         "FullName",
-                        new ParameterOperatorParameter("s")
+                        new ParameterOperatorParameters("s")
                     ),
                     ListSortDirection.Ascending,
                     "s"
                 ),
-                new MemberInitOperatorParameter
+                new MemberInitOperatorParameters
                 (
                     new Dictionary<string, IExpressionParameter>
                     {
-                        ["FirstName"] = new MemberSelectorOperatorParameter("FirstName", new ParameterOperatorParameter("a"))
+                        ["FirstName"] = new MemberSelectorOperatorParameters("FirstName", new ParameterOperatorParameters("a"))
                     },
                     typeof(InstructorModel)
                 ),
@@ -235,24 +235,24 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         [Fact]
         public void SelectNewAnonymousType_FullNameOnly()
         {
-            var bodyParameter = new SelectOperatorParameter
+            var bodyParameter = new SelectOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new ParameterOperatorParameter("q"),
-                    new MemberSelectorOperatorParameter
+                    new ParameterOperatorParameters("q"),
+                    new MemberSelectorOperatorParameters
                     (
                         "FullName",
-                        new ParameterOperatorParameter("s")
+                        new ParameterOperatorParameters("s")
                     ),
                     ListSortDirection.Ascending,
                     "s"
                 ),
-                new MemberInitOperatorParameter
+                new MemberInitOperatorParameters
                 (
                     new Dictionary<string, IExpressionParameter>
                     {
-                        ["FullName"] = new MemberSelectorOperatorParameter("FullName", new ParameterOperatorParameter("a"))
+                        ["FullName"] = new MemberSelectorOperatorParameters("FullName", new ParameterOperatorParameters("a"))
                     }
                 ),
                 "a"
@@ -272,39 +272,39 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void BuildWhere_OrderBy_ThenBy_Skip_Take_Average()
         {
             //arrange
-            var bodyParameter = new AverageOperatorParameter
+            var bodyParameter = new AverageOperatorParameters
             (
-                new TakeOperatorParameter
+                new TakeOperatorParameters
                 (
-                    new SkipOperatorParameter
+                    new SkipOperatorParameters
                     (
-                        new ThenByOperatorParameter
+                        new ThenByOperatorParameters
                         (
-                            new OrderByOperatorParameter
+                            new OrderByOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (//q.Where(s => ((s.ID > 1) AndAlso (Compare(s.FirstName, s.LastName) > 0)))
-                                    new ParameterOperatorParameter("q"),//q. the source operand
-                                    new AndBinaryOperatorParameter//((s.ID > 1) AndAlso (Compare(s.FirstName, s.LastName) > 0)
+                                    new ParameterOperatorParameters("q"),//q. the source operand
+                                    new AndBinaryOperatorParameters//((s.ID > 1) AndAlso (Compare(s.FirstName, s.LastName) > 0)
                                     (
-                                        new GreaterThanBinaryOperatorParameter
+                                        new GreaterThanBinaryOperatorParameters
                                         (
-                                            new MemberSelectorOperatorParameter("Id", new ParameterOperatorParameter("s")),
-                                            new ConstantOperatorParameter(1, typeof(int))
+                                            new MemberSelectorOperatorParameters("Id", new ParameterOperatorParameters("s")),
+                                            new ConstantOperatorParameters(1, typeof(int))
                                         ),
-                                        new GreaterThanBinaryOperatorParameter
+                                        new GreaterThanBinaryOperatorParameters
                                         (
-                                            new MemberSelectorOperatorParameter("FirstName", new ParameterOperatorParameter("s")),
-                                            new MemberSelectorOperatorParameter("LastName", new ParameterOperatorParameter("s"))
+                                            new MemberSelectorOperatorParameters("FirstName", new ParameterOperatorParameters("s")),
+                                            new MemberSelectorOperatorParameters("LastName", new ParameterOperatorParameters("s"))
                                         )
                                     ),
                                     "s"//s => (created in Where operator.  The parameter type is based on the source operand underlying type in this case Student.)
                                 ),
-                                new MemberSelectorOperatorParameter("LastName", new ParameterOperatorParameter("v")),
+                                new MemberSelectorOperatorParameters("LastName", new ParameterOperatorParameters("v")),
                                 ListSortDirection.Ascending,
                                 "v"
                             ),
-                            new MemberSelectorOperatorParameter("FirstName", new ParameterOperatorParameter("v")),
+                            new MemberSelectorOperatorParameters("FirstName", new ParameterOperatorParameters("v")),
                             ListSortDirection.Descending,
                             "v"
                         ),
@@ -312,7 +312,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                     ),
                     3
                 ),
-                new MemberSelectorOperatorParameter("Id", new ParameterOperatorParameter("j")),
+                new MemberSelectorOperatorParameters("Id", new ParameterOperatorParameters("j")),
                 "j"
             );
 
@@ -330,45 +330,45 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void BuildGroupBy_OrderBy_ThenBy_Skip_Take_Average()
         {
             //arrange
-            var bodyParameter = new SelectOperatorParameter
+            var bodyParameter = new SelectOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new GroupByOperatorParameter
+                    new GroupByOperatorParameters
                     (
-                        new ParameterOperatorParameter("q"),
-                        new ConstantOperatorParameter(1, typeof(int)),
+                        new ParameterOperatorParameters("q"),
+                        new ConstantOperatorParameters(1, typeof(int)),
                         "a"
                     ),
-                    new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("b")),
+                    new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("b")),
                     ListSortDirection.Ascending,
                     "b"
                 ),
-                new MemberInitOperatorParameter
+                new MemberInitOperatorParameters
                 (
                     new Dictionary<string, IExpressionParameter>
                     {
-                        ["Sum_budget"] = new SumOperatorParameter
+                        ["Sum_budget"] = new SumOperatorParameters
                         (
-                            new WhereOperatorParameter
+                            new WhereOperatorParameters
                             (
-                                new ParameterOperatorParameter("q"),
-                                new AndBinaryOperatorParameter
+                                new ParameterOperatorParameters("q"),
+                                new AndBinaryOperatorParameters
                                 (
-                                    new NotEqualsBinaryOperatorParameter
+                                    new NotEqualsBinaryOperatorParameters
                                     (
-                                        new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("d")),
-                                        new CountOperatorParameter(new ParameterOperatorParameter("q"))
+                                        new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("d")),
+                                        new CountOperatorParameters(new ParameterOperatorParameters("q"))
                                     ),
-                                    new EqualsBinaryOperatorParameter
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("d")),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("c"))
+                                        new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("d")),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("c"))
                                     )
                                 ),
                                 "d"
                             ),
-                            new MemberSelectorOperatorParameter("Budget", new ParameterOperatorParameter("item")),
+                            new MemberSelectorOperatorParameters("Budget", new ParameterOperatorParameters("item")),
                             "item"
                         )
                     }
@@ -390,100 +390,100 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void BuildGroupBy_AsQueryable_OrderBy_Select_FirstOrDefault()
         {
             //arrange
-            var bodyParameter = new FirstOrDefaultOperatorParameter
+            var bodyParameter = new FirstOrDefaultOperatorParameters
             (
-                new SelectOperatorParameter
+                new SelectOperatorParameters
                 (
-                    new OrderByOperatorParameter
+                    new OrderByOperatorParameters
                     (
-                        new AsQueryableOperatorParameter
+                        new AsQueryableOperatorParameters
                         (
-                            new GroupByOperatorParameter
+                            new GroupByOperatorParameters
                             (
-                                new ParameterOperatorParameter("q"),
-                                new ConstantOperatorParameter(1, typeof(int)),
+                                new ParameterOperatorParameters("q"),
+                                new ConstantOperatorParameters(1, typeof(int)),
                                 "item"
                             )
                         ),
-                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("group")),
+                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("group")),
                         ListSortDirection.Ascending,
                         "group"
                     ),
-                    new MemberInitOperatorParameter
+                    new MemberInitOperatorParameters
                     (
                         new Dictionary<string, IExpressionParameter>
                         {
-                            ["Min_administratorName"] = new MinOperatorParameter
+                            ["Min_administratorName"] = new MinOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (
-                                    new ParameterOperatorParameter("q"),
-                                    new EqualsBinaryOperatorParameter
+                                    new ParameterOperatorParameters("q"),
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new ConstantOperatorParameter(1, typeof(int)),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("sel"))
+                                        new ConstantOperatorParameters(1, typeof(int)),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
                                     ),
                                     "d"
                                 ),
-                                new MemberSelectorOperatorParameter("AdministratorName", new ParameterOperatorParameter("item")),
+                                new MemberSelectorOperatorParameters("AdministratorName", new ParameterOperatorParameters("item")),
                                 "item"
                             ),
-                            ["Count"] = new CountOperatorParameter
+                            ["Count"] = new CountOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (
-                                    new ParameterOperatorParameter("q"),
-                                    new EqualsBinaryOperatorParameter
+                                    new ParameterOperatorParameters("q"),
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new ConstantOperatorParameter(1, typeof(int)),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("sel"))
+                                        new ConstantOperatorParameters(1, typeof(int)),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
                                     ),
                                     "d"
                                 )
                             ),
-                            ["Sum_budget"] = new SumOperatorParameter
+                            ["Sum_budget"] = new SumOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (
-                                    new ParameterOperatorParameter("q"),
-                                    new EqualsBinaryOperatorParameter
+                                    new ParameterOperatorParameters("q"),
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new ConstantOperatorParameter(1, typeof(int)),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("sel"))
+                                        new ConstantOperatorParameters(1, typeof(int)),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
                                     ),
                                     "d"
                                 ),
-                                new MemberSelectorOperatorParameter("Budget", new ParameterOperatorParameter("item")),
+                                new MemberSelectorOperatorParameters("Budget", new ParameterOperatorParameters("item")),
                                 "item"
                             ),
-                            ["Min_budget"] = new MinOperatorParameter
+                            ["Min_budget"] = new MinOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (
-                                    new ParameterOperatorParameter("q"),
-                                    new EqualsBinaryOperatorParameter
+                                    new ParameterOperatorParameters("q"),
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new ConstantOperatorParameter(1, typeof(int)),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("sel"))
+                                        new ConstantOperatorParameters(1, typeof(int)),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
                                     ),
                                     "d"
                                 ),
-                                new MemberSelectorOperatorParameter("Budget", new ParameterOperatorParameter("item")),
+                                new MemberSelectorOperatorParameters("Budget", new ParameterOperatorParameters("item")),
                                 "item"
                             ),
-                            ["Min_startDate"] = new MinOperatorParameter
+                            ["Min_startDate"] = new MinOperatorParameters
                             (
-                                new WhereOperatorParameter
+                                new WhereOperatorParameters
                                 (
-                                    new ParameterOperatorParameter("q"),
-                                    new EqualsBinaryOperatorParameter
+                                    new ParameterOperatorParameters("q"),
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new ConstantOperatorParameter(1, typeof(int)),
-                                        new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("sel"))
+                                        new ConstantOperatorParameters(1, typeof(int)),
+                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
                                     ),
                                     "d"
                                 ),
-                                new MemberSelectorOperatorParameter("StartDate", new ParameterOperatorParameter("item")),
+                                new MemberSelectorOperatorParameters("StartDate", new ParameterOperatorParameters("item")),
                                 "item"
                             )
                         }
@@ -513,20 +513,20 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void All_Filter()
         {
             //arrange
-            var bodyParameter = new AllOperatorParameter
+            var bodyParameter = new AllOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new OrBinaryOperatorParameter
+                new ParameterOperatorParameters(parameterName),
+                new OrBinaryOperatorParameters
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("AdministratorName", new ParameterOperatorParameter("a")),
-                        new ConstantOperatorParameter("Kim Abercrombie")
+                        new MemberSelectorOperatorParameters("AdministratorName", new ParameterOperatorParameters("a")),
+                        new ConstantOperatorParameters("Kim Abercrombie")
                     ),
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("AdministratorName", new ParameterOperatorParameter("a")),
-                        new ConstantOperatorParameter("Fadi Fakhouri")
+                        new MemberSelectorOperatorParameters("AdministratorName", new ParameterOperatorParameters("a")),
+                        new ConstantOperatorParameters("Fadi Fakhouri")
                     )
                 ),
                 "a"
@@ -546,13 +546,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Any_Filter()
         {
             //arrange
-            var bodyParameter = new AnyOperatorParameter
+            var bodyParameter = new AnyOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new EqualsBinaryOperatorParameter
+                new ParameterOperatorParameters(parameterName),
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("AdministratorName", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter("Kim Abercrombie")
+                    new MemberSelectorOperatorParameters("AdministratorName", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters("Kim Abercrombie")
                 ),
                 "a"
             );
@@ -571,9 +571,9 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Any()
         {
             //arrange
-            var bodyParameter = new AnyOperatorParameter
+            var bodyParameter = new AnyOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName)
+                new ParameterOperatorParameters(parameterName)
             );
 
             //act
@@ -590,9 +590,9 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void AsQueryable()
         {
             //arrange
-            var bodyParameter = new AsQueryableOperatorParameter
+            var bodyParameter = new AsQueryableOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName)
+                new ParameterOperatorParameters(parameterName)
             );
 
             //act
@@ -612,10 +612,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Average_Selector()
         {
             //arrange
-            var bodyParameter = new AverageOperatorParameter
+            var bodyParameter = new AverageOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                new ParameterOperatorParameters(parameterName),
+                new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                 "a"
             );
 
@@ -633,12 +633,12 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Average()
         {
             //arrange
-            var bodyParameter = new AverageOperatorParameter
+            var bodyParameter = new AverageOperatorParameters
             (
-                new SelectOperatorParameter
+                new SelectOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName),
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new ParameterOperatorParameters(parameterName),
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                     "a"
                 )
             );
@@ -657,13 +657,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Count_Filter()
         {
             //arrange
-            var bodyParameter = new CountOperatorParameter
+            var bodyParameter = new CountOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new EqualsBinaryOperatorParameter
+                new ParameterOperatorParameters(parameterName),
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(1)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(1)
                 ),
                 "a"
             );
@@ -682,9 +682,9 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Count()
         {
             //arrange
-            var bodyParameter = new CountOperatorParameter
+            var bodyParameter = new CountOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName)
+                new ParameterOperatorParameters(parameterName)
             );
 
             //act
@@ -701,11 +701,11 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Distinct()
         {
             //arrange
-            var bodyParameter = new ToListOperatorParameter
+            var bodyParameter = new ToListOperatorParameters
             (
-                new DistinctOperatorParameter
+                new DistinctOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName)
+                    new ParameterOperatorParameters(parameterName)
                 )
             );
 
@@ -723,13 +723,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void First_Filter_Throws_Exception()
         {
             //arrange
-            var bodyParameter = new FirstOperatorParameter
+            var bodyParameter = new FirstOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new EqualsBinaryOperatorParameter
+                new ParameterOperatorParameters(parameterName),
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(-1)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(-1)
                 ),
                 "a"
             );
@@ -751,13 +751,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void First_Filter_Returns_match()
         {
             //arrange
-            var bodyParameter = new FirstOperatorParameter
+            var bodyParameter = new FirstOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new EqualsBinaryOperatorParameter
+                new ParameterOperatorParameters(parameterName),
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(1)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(1)
                 ),
                 "a"
             );
@@ -776,9 +776,9 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void First()
         {
             //arrange
-            var bodyParameter = new FirstOperatorParameter
+            var bodyParameter = new FirstOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName)
+                new ParameterOperatorParameters(parameterName)
             );
 
             //act
@@ -795,13 +795,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void FirstOrDefault_Filter_Returns_null()
         {
             //arrange
-            var bodyParameter = new FirstOrDefaultOperatorParameter
+            var bodyParameter = new FirstOrDefaultOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new EqualsBinaryOperatorParameter
+                new ParameterOperatorParameters(parameterName),
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(-1)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(-1)
                 ),
                 "a"
             );
@@ -820,13 +820,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void FirstOrDefault_Filter_Returns_match()
         {
             //arrange
-            var bodyParameter = new FirstOrDefaultOperatorParameter
+            var bodyParameter = new FirstOrDefaultOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new EqualsBinaryOperatorParameter
+                new ParameterOperatorParameters(parameterName),
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(1)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(1)
                 ),
                 "a"
             );
@@ -845,9 +845,9 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void FirstOrDefault()
         {
             //arrange
-            var bodyParameter = new FirstOrDefaultOperatorParameter
+            var bodyParameter = new FirstOrDefaultOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName)
+                new ParameterOperatorParameters(parameterName)
             );
 
             //act
@@ -864,10 +864,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void GroupBy()
         {
             //arrange
-            var bodyParameter = new GroupByOperatorParameter
+            var bodyParameter = new GroupByOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                new ParameterOperatorParameters(parameterName),
+                new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                 "a"
             );
 
@@ -888,15 +888,15 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void GroupBy_Select()
         {
             //arrange
-            var bodyParameter = new SelectOperatorParameter
+            var bodyParameter = new SelectOperatorParameters
             (
-                new GroupByOperatorParameter
+                new GroupByOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName),
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new ParameterOperatorParameters(parameterName),
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                     "a"
                 ),
-                new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("b")),
+                new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("b")),
                 "b"
             );
 
@@ -917,17 +917,17 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void GroupBy_SelectCount()
         {
             //arrange
-            var bodyParameter = new CountOperatorParameter
+            var bodyParameter = new CountOperatorParameters
             (
-                new SelectOperatorParameter
+                new SelectOperatorParameters
                 (
-                    new GroupByOperatorParameter
+                    new GroupByOperatorParameters
                     (
-                        new ParameterOperatorParameter(parameterName),
-                        new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                        new ParameterOperatorParameters(parameterName),
+                        new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                         "a"
                     ),
-                    new MemberSelectorOperatorParameter("Key", new ParameterOperatorParameter("b")),
+                    new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("b")),
                     "b"
                 )
             );
@@ -949,13 +949,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Last_Filter_Throws_Exception()
         {
             //arrange
-            var bodyParameter = new LastOperatorParameter
+            var bodyParameter = new LastOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new EqualsBinaryOperatorParameter
+                new ParameterOperatorParameters(parameterName),
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(-1)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(-1)
                 ),
                 "a"
             );
@@ -977,16 +977,16 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Last_Filter_Returns_match()
         {
             //arrange
-            var bodyParameter = new LastOperatorParameter
+            var bodyParameter = new LastOperatorParameters
             (
-                new ToListOperatorParameter
+                new ToListOperatorParameters
                 ( 
-                    new ParameterOperatorParameter(parameterName)
+                    new ParameterOperatorParameters(parameterName)
                 ),
-                new EqualsBinaryOperatorParameter
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(2)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(2)
                 ),
                 "a"
             );
@@ -1005,11 +1005,11 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Last()
         {
             //arrange
-            var bodyParameter = new LastOperatorParameter
+            var bodyParameter = new LastOperatorParameters
             (
-                new ToListOperatorParameter
+                new ToListOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName)
+                    new ParameterOperatorParameters(parameterName)
                 )
             );
 
@@ -1027,16 +1027,16 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void LastOrDefault_Filter_Returns_null()
         {
             //arrange
-            var bodyParameter = new LastOrDefaultOperatorParameter
+            var bodyParameter = new LastOrDefaultOperatorParameters
             (
-                new ToListOperatorParameter
+                new ToListOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName)
+                    new ParameterOperatorParameters(parameterName)
                 ),
-                new EqualsBinaryOperatorParameter
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(-1)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(-1)
                 ),
                 "a"
             );
@@ -1055,16 +1055,16 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void LastOrDefault_Filter_Returns_match()
         {
             //arrange
-            var bodyParameter = new LastOrDefaultOperatorParameter
+            var bodyParameter = new LastOrDefaultOperatorParameters
             (
-                new ToListOperatorParameter
+                new ToListOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName)
+                    new ParameterOperatorParameters(parameterName)
                 ),
-                new EqualsBinaryOperatorParameter
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(2)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(2)
                 ),
                 "a"
             );
@@ -1083,11 +1083,11 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void LastOrDefault()
         {
             //arrange
-            var bodyParameter = new LastOrDefaultOperatorParameter
+            var bodyParameter = new LastOrDefaultOperatorParameters
             (
-                new ToListOperatorParameter
+                new ToListOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName)
+                    new ParameterOperatorParameters(parameterName)
                 )
             );
 
@@ -1105,10 +1105,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Max_Selector()
         {
             //arrange
-            var bodyParameter = new MaxOperatorParameter
+            var bodyParameter = new MaxOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                new ParameterOperatorParameters(parameterName),
+                new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                 "a"
             );
 
@@ -1125,12 +1125,12 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         [Fact]
         public void Max()
         {
-            var bodyParameter = new MaxOperatorParameter
+            var bodyParameter = new MaxOperatorParameters
             (
-                new SelectOperatorParameter
+                new SelectOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName),
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new ParameterOperatorParameters(parameterName),
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                     "a"
                 )
             );
@@ -1149,10 +1149,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Min_Selector()
         {
             //arrange
-            var bodyParameter = new MinOperatorParameter
+            var bodyParameter = new MinOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                new ParameterOperatorParameters(parameterName),
+                new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                 "a"
             );
 
@@ -1170,12 +1170,12 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Min()
         {
             //arrange
-            var bodyParameter = new MinOperatorParameter
+            var bodyParameter = new MinOperatorParameters
             (
-                new SelectOperatorParameter
+                new SelectOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName),
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new ParameterOperatorParameters(parameterName),
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                     "a"
                 )
             );
@@ -1194,10 +1194,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void OrderBy()
         {
             //arrange
-            var bodyParameter = new OrderByOperatorParameter
+            var bodyParameter = new OrderByOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                new ParameterOperatorParameters(parameterName),
+                new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                 ListSortDirection.Ascending,
                 "a"
             );
@@ -1216,10 +1216,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void OrderByDescending()
         {
             //arrange
-            var bodyParameter = new OrderByOperatorParameter
+            var bodyParameter = new OrderByOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                new ParameterOperatorParameters(parameterName),
+                new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                 ListSortDirection.Descending,
                 "a"
             );
@@ -1238,16 +1238,16 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void OrderByThenBy()
         {
             //arrange
-            var bodyParameter = new ThenByOperatorParameter
+            var bodyParameter = new ThenByOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName),
-                    new MemberSelectorOperatorParameter("Credits", new ParameterOperatorParameter("a")),
+                    new ParameterOperatorParameters(parameterName),
+                    new MemberSelectorOperatorParameters("Credits", new ParameterOperatorParameters("a")),
                     ListSortDirection.Ascending,
                     "a"
                 ),
-                new MemberSelectorOperatorParameter("CourseID", new ParameterOperatorParameter("a")),
+                new MemberSelectorOperatorParameters("CourseID", new ParameterOperatorParameters("a")),
                 ListSortDirection.Ascending,
                 "a"
             );
@@ -1266,16 +1266,16 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void OrderByThenByDescending()
         {
             //arrange
-            var bodyParameter = new ThenByOperatorParameter
+            var bodyParameter = new ThenByOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName),
-                    new MemberSelectorOperatorParameter("Credits", new ParameterOperatorParameter("a")),
+                    new ParameterOperatorParameters(parameterName),
+                    new MemberSelectorOperatorParameters("Credits", new ParameterOperatorParameters("a")),
                     ListSortDirection.Ascending,
                     "a"
                 ),
-                new MemberSelectorOperatorParameter("CourseID", new ParameterOperatorParameter("a")),
+                new MemberSelectorOperatorParameters("CourseID", new ParameterOperatorParameters("a")),
                 ListSortDirection.Descending,
                 "a"
             );
@@ -1294,25 +1294,25 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Paging()
         {
             //arrange
-            var bodyParameter = new TakeOperatorParameter
+            var bodyParameter = new TakeOperatorParameters
             (
-                new SkipOperatorParameter
+                new SkipOperatorParameters
                 (
-                    new ThenByOperatorParameter
+                    new ThenByOperatorParameters
                     (
-                        new OrderByOperatorParameter
+                        new OrderByOperatorParameters
                         (
-                            new SelectManyOperatorParameter
+                            new SelectManyOperatorParameters
                             (
-                                new ParameterOperatorParameter(parameterName),
-                                new MemberSelectorOperatorParameter("Assignments", new ParameterOperatorParameter("a")),
+                                new ParameterOperatorParameters(parameterName),
+                                new MemberSelectorOperatorParameters("Assignments", new ParameterOperatorParameters("a")),
                                 "a"
                             ),
-                            new MemberSelectorOperatorParameter("CourseTitle", new ParameterOperatorParameter("a")),
+                            new MemberSelectorOperatorParameters("CourseTitle", new ParameterOperatorParameters("a")),
                             ListSortDirection.Ascending,
                             "a"
                         ),
-                        new MemberSelectorOperatorParameter("InstructorID", new ParameterOperatorParameter("a")),
+                        new MemberSelectorOperatorParameters("InstructorID", new ParameterOperatorParameters("a")),
                         ListSortDirection.Ascending,
                         "a"
                     ),
@@ -1339,22 +1339,22 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Select_New()
         {
             //arrange
-            var bodyParameter = new SelectOperatorParameter
+            var bodyParameter = new SelectOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName),
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new ParameterOperatorParameters(parameterName),
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                     ListSortDirection.Descending,
                     "a"
                 ),
-                new MemberInitOperatorParameter
+                new MemberInitOperatorParameters
                 (
                     new Dictionary<string, IExpressionParameter>
                     {
-                        ["ID"] = new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                        ["DepartmentName"] = new MemberSelectorOperatorParameter("Name", new ParameterOperatorParameter("a")),
-                        ["Courses"] = new MemberSelectorOperatorParameter("Courses", new ParameterOperatorParameter("a"))
+                        ["ID"] = new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                        ["DepartmentName"] = new MemberSelectorOperatorParameters("Name", new ParameterOperatorParameters("a")),
+                        ["Courses"] = new MemberSelectorOperatorParameters("Courses", new ParameterOperatorParameters("a"))
                     }
                 ),
                 "a"
@@ -1374,10 +1374,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void SelectMany()
         {
             //arrange
-            var bodyParameter = new SelectManyOperatorParameter
+            var bodyParameter = new SelectManyOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new MemberSelectorOperatorParameter("Assignments", new ParameterOperatorParameter("a")),
+                new ParameterOperatorParameters(parameterName),
+                new MemberSelectorOperatorParameters("Assignments", new ParameterOperatorParameters("a")),
                 "a"
             );
 
@@ -1398,13 +1398,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Single_Filter_Throws_Exception()
         {
             //arrange
-            var bodyParameter = new SingleOperatorParameter
+            var bodyParameter = new SingleOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new EqualsBinaryOperatorParameter
+                new ParameterOperatorParameters(parameterName),
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(-1)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(-1)
                 ),
                 "a"
             );
@@ -1426,13 +1426,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Single_Filter_Returns_match()
         {
             //arrange
-            var bodyParameter = new SingleOperatorParameter
+            var bodyParameter = new SingleOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new EqualsBinaryOperatorParameter
+                new ParameterOperatorParameters(parameterName),
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(1)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(1)
                 ),
                 "a"
             );
@@ -1451,9 +1451,9 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Single_with_multiple_matches_Throws_Exception()
         {
             //arrange
-            var bodyParameter = new SingleOperatorParameter
+            var bodyParameter = new SingleOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName)
+                new ParameterOperatorParameters(parameterName)
             );
 
             //act
@@ -1473,10 +1473,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Sum_Selector()
         {
             //arrange
-            var bodyParameter = new SumOperatorParameter
+            var bodyParameter = new SumOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                new ParameterOperatorParameters(parameterName),
+                new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                 "a"
             );
 
@@ -1494,12 +1494,12 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Sum()
         {
             //arrange
-            var bodyParameter = new SumOperatorParameter
+            var bodyParameter = new SumOperatorParameters
             (
-                new SelectOperatorParameter
+                new SelectOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName),
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new ParameterOperatorParameters(parameterName),
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                     "a"
                 )
             );
@@ -1518,9 +1518,9 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void ToList()
         {
             //arrange
-            var bodyParameter = new ToListOperatorParameter
+            var bodyParameter = new ToListOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName)
+                new ParameterOperatorParameters(parameterName)
             );
 
             //act
@@ -1537,19 +1537,19 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Where_with_matches()
         {
             //arrange
-            var bodyParameter = new WhereOperatorParameter
+            var bodyParameter = new WhereOperatorParameters
             (
-                new OrderByOperatorParameter
+                new OrderByOperatorParameters
                 (
-                    new ParameterOperatorParameter(parameterName),
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
+                    new ParameterOperatorParameters(parameterName),
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
                     ListSortDirection.Descending,
                     "a"
                 ),
-                new NotEqualsBinaryOperatorParameter
+                new NotEqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(1)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(1)
                 ),
                 "a"
             );
@@ -1568,13 +1568,13 @@ namespace Contoso.Bsl.Flow.Integration.Tests
         public void Where_without_matches()
         {
             //arrange
-            var bodyParameter = new WhereOperatorParameter
+            var bodyParameter = new WhereOperatorParameters
             (
-                new ParameterOperatorParameter(parameterName),
-                new EqualsBinaryOperatorParameter
+                new ParameterOperatorParameters(parameterName),
+                new EqualsBinaryOperatorParameters
                 (
-                    new MemberSelectorOperatorParameter("DepartmentID", new ParameterOperatorParameter("a")),
-                    new ConstantOperatorParameter(-1)
+                    new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("a")),
+                    new ConstantOperatorParameters(-1)
                 ),
                 "a"
             );
@@ -1633,7 +1633,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests
 
         #region Helpers
         private IExpressionParameter GetExpressionParameter<T, TResult>(IExpressionParameter selectorBody, string parameterName = "$it")
-            => new SelectorLambdaOperatorParameter
+            => new SelectorLambdaOperatorParameters
             (
                 selectorBody,
                 typeof(T),

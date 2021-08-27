@@ -38,15 +38,15 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             (
                 serviceProvider.GetRequiredService<ISchoolRepository>(),
                 serviceProvider.GetRequiredService<IMapper>(),
-                new FilterLambdaOperatorParameter
+                new FilterLambdaOperatorParameters
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new CountOperatorParameter
+                        new CountOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Enrollments", new ParameterOperatorParameter("f"))
+                            new MemberSelectorOperatorParameters("Enrollments", new ParameterOperatorParameters("f"))
                         ),
-                        new ConstantOperatorParameter(0)
+                        new ConstantOperatorParameters(0)
                     ),
                     typeof(StudentModel),
                     "f"
@@ -75,15 +75,15 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             (
                 serviceProvider.GetRequiredService<ISchoolRepository>(),
                 serviceProvider.GetRequiredService<IMapper>(),
-                new FilterLambdaOperatorParameter
+                new FilterLambdaOperatorParameters
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new CountOperatorParameter
+                        new CountOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Enrollments", new ParameterOperatorParameter("f"))
+                            new MemberSelectorOperatorParameters("Enrollments", new ParameterOperatorParameters("f"))
                         ),
-                        new ConstantOperatorParameter(0)
+                        new ConstantOperatorParameters(0)
                     ),
                     typeof(StudentModel),
                     "f"
@@ -102,15 +102,15 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             (
                 serviceProvider.GetRequiredService<ISchoolRepository>(),
                 serviceProvider.GetRequiredService<IMapper>(),
-                new FilterLambdaOperatorParameter
+                new FilterLambdaOperatorParameters
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new CountOperatorParameter
+                        new CountOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Enrollments", new ParameterOperatorParameter("f"))
+                            new MemberSelectorOperatorParameters("Enrollments", new ParameterOperatorParameters("f"))
                         ),
-                        new ConstantOperatorParameter(0)
+                        new ConstantOperatorParameters(0)
                     ),
                     typeof(StudentModel),
                     "f"
@@ -126,12 +126,12 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                             "enrollments",
                             new SelectExpandItemFilterParameters
                             (
-                                new FilterLambdaOperatorParameter
+                                new FilterLambdaOperatorParameters
                                 (
-                                    new EqualsBinaryOperatorParameter
+                                    new EqualsBinaryOperatorParameters
                                     (
-                                        new MemberSelectorOperatorParameter("enrollmentID", new ParameterOperatorParameter("a")),
-                                        new ConstantOperatorParameter(-1)
+                                        new MemberSelectorOperatorParameters("enrollmentID", new ParameterOperatorParameters("a")),
+                                        new ConstantOperatorParameters(-1)
                                     ),
                                     typeof(EnrollmentModel),
                                     "a"
@@ -155,15 +155,15 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             (
                 serviceProvider.GetRequiredService<ISchoolRepository>(),
                 serviceProvider.GetRequiredService<IMapper>(),
-                new FilterLambdaOperatorParameter
+                new FilterLambdaOperatorParameters
                 (
-                    new GreaterThanBinaryOperatorParameter
+                    new GreaterThanBinaryOperatorParameters
                     (
-                        new CountOperatorParameter
+                        new CountOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("Enrollments", new ParameterOperatorParameter("f"))
+                            new MemberSelectorOperatorParameters("Enrollments", new ParameterOperatorParameters("f"))
                         ),
-                        new ConstantOperatorParameter(0)
+                        new ConstantOperatorParameters(0)
                     ),
                     typeof(StudentModel),
                     "f"
@@ -179,12 +179,12 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                             "enrollments",
                             new SelectExpandItemFilterParameters
                             (
-                                new FilterLambdaOperatorParameter
+                                new FilterLambdaOperatorParameters
                                 (
-                                    new GreaterThanBinaryOperatorParameter
+                                    new GreaterThanBinaryOperatorParameters
                                     (
-                                        new MemberSelectorOperatorParameter("enrollmentID", new ParameterOperatorParameter("a")),
-                                        new ConstantOperatorParameter(0)
+                                        new MemberSelectorOperatorParameters("enrollmentID", new ParameterOperatorParameters("a")),
+                                        new ConstantOperatorParameters(0)
                                     ),
                                     typeof(EnrollmentModel),
                                     "a"
@@ -227,19 +227,19 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             (
                 serviceProvider.GetRequiredService<ISchoolRepository>(),
                 serviceProvider.GetRequiredService<IMapper>(),
-                new FilterLambdaOperatorParameter
+                new FilterLambdaOperatorParameters
                 (
-                    new AndBinaryOperatorParameter
+                    new AndBinaryOperatorParameters
                     (
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("FirstName", new ParameterOperatorParameter("f")),
-                            new ConstantOperatorParameter("Carson")
+                            new MemberSelectorOperatorParameters("FirstName", new ParameterOperatorParameters("f")),
+                            new ConstantOperatorParameters("Carson")
                         ),
-                        new EqualsBinaryOperatorParameter
+                        new EqualsBinaryOperatorParameters
                         (
-                            new MemberSelectorOperatorParameter("LastName", new ParameterOperatorParameter("f")),
-                            new ConstantOperatorParameter("Alexander")
+                            new MemberSelectorOperatorParameters("LastName", new ParameterOperatorParameters("f")),
+                            new ConstantOperatorParameters("Alexander")
                         )
                     ),
                     typeof(StudentModel),
@@ -256,12 +256,12 @@ namespace Contoso.Bsl.Flow.Integration.Tests
                             "enrollments",
                             new SelectExpandItemFilterParameters
                             (
-                                new FilterLambdaOperatorParameter
+                                new FilterLambdaOperatorParameters
                                 (
-                                    new GreaterThanBinaryOperatorParameter
+                                    new GreaterThanBinaryOperatorParameters
                                     (
-                                        new MemberSelectorOperatorParameter("enrollmentID", new ParameterOperatorParameter("a")),
-                                        new ConstantOperatorParameter(0)
+                                        new MemberSelectorOperatorParameters("enrollmentID", new ParameterOperatorParameters("a")),
+                                        new ConstantOperatorParameters(0)
                                     ),
                                     typeof(EnrollmentModel),
                                     "a"
@@ -298,12 +298,12 @@ namespace Contoso.Bsl.Flow.Integration.Tests
             (
                 serviceProvider.GetRequiredService<ISchoolRepository>(),
                 serviceProvider.GetRequiredService<IMapper>(),
-                new FilterLambdaOperatorParameter
+                new FilterLambdaOperatorParameters
                 (
-                    new EqualsBinaryOperatorParameter
+                    new EqualsBinaryOperatorParameters
                     (
-                        new MemberSelectorOperatorParameter("GradeLetter", new ParameterOperatorParameter("f")),
-                        new ConstantOperatorParameter("A")
+                        new MemberSelectorOperatorParameters("GradeLetter", new ParameterOperatorParameters("f")),
+                        new ConstantOperatorParameters("A")
                     ),
                     typeof(EnrollmentModel),
                     "f"
