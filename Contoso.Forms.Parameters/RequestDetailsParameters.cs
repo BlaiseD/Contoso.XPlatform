@@ -1,10 +1,39 @@
-﻿using System;
+﻿using LogicBuilder.Attributes;
+using System;
 
 namespace Contoso.Forms.Parameters
 {
     public class RequestDetailsParameters
     {
-		public RequestDetailsParameters(Type modelType, Type dataType, Type modelReturnType, Type dataReturnType, string dataSourceUrl, string getUrl, string addUrl, string updateUrl, string deleteUrl)
+		public RequestDetailsParameters
+		(
+			[Comments("")]
+			Type modelType,
+
+			[Comments("")]
+			Type dataType,
+
+			[Comments("")]
+			Type modelReturnType,
+
+			[Comments("")]
+			Type dataReturnType,
+
+			[Comments("")]
+			string dataSourceUrl,
+
+			[Comments("")]
+			string getUrl,
+
+			[Comments("")]
+			string addUrl,
+
+			[Comments("")]
+			string updateUrl,
+
+			[Comments("")]
+			string deleteUrl
+		)
 		{
 			ModelType = modelType;
 			DataType = dataType;

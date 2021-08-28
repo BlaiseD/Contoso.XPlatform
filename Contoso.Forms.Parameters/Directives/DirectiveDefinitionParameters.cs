@@ -1,8 +1,20 @@
-﻿namespace Contoso.Forms.Parameters.Directives
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters.Directives
 {
     public class DirectiveDefinitionParameters
     {
-		public DirectiveDefinitionParameters(string className, string functionName, DirectiveArgumentDictionaryParameters arguments)
+		public DirectiveDefinitionParameters
+		(
+			[Comments("")]
+			string className,
+
+			[Comments("")]
+			string functionName,
+
+			[Comments("")]
+			DirectiveArgumentDictionaryParameters arguments
+		)
 		{
 			ClassName = className;
 			FunctionName = functionName;

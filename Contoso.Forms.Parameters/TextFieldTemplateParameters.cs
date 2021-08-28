@@ -1,8 +1,14 @@
-﻿namespace Contoso.Forms.Parameters
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters
 {
     public class TextFieldTemplateParameters
     {
-		public TextFieldTemplateParameters(string templateName)
+		public TextFieldTemplateParameters
+		(
+			[Comments("")]
+			string templateName
+		)
 		{
 			TemplateName = templateName;
 		}

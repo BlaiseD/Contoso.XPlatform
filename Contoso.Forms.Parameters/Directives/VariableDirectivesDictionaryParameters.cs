@@ -1,15 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using LogicBuilder.Attributes;
+using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.Directives
 {
     public class VariableDirectivesDictionaryParameters : Dictionary<string, List<DirectiveParameters>>
     {
-        private List<VariableDirectivesParameters> variableDirectives;
+		private List<VariableDirectivesParameters> variableDirectives;
 
-        public VariableDirectivesDictionaryParameters(List<VariableDirectivesParameters> variableDirectives)
-        {
-            VariableDirectives = variableDirectives;
-        }
+		public VariableDirectivesDictionaryParameters
+		(
+			[Comments("")]
+			List<VariableDirectivesParameters> variableDirectives
+		)
+		{
+			VariableDirectives = variableDirectives;
+		}
 
         public List<VariableDirectivesParameters> VariableDirectives
         {

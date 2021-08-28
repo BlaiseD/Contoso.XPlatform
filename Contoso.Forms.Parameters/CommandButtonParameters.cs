@@ -1,8 +1,26 @@
-﻿namespace Contoso.Forms.Parameters
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters
 {
     public class CommandButtonParameters
     {
-		public CommandButtonParameters(int id, string shortString, string longString, string command, string buttonIcon)
+		public CommandButtonParameters
+		(
+			[Comments("")]
+			int id,
+
+			[Comments("")]
+			string shortString,
+
+			[Comments("")]
+			string longString,
+
+			[Comments("")]
+			string command,
+
+			[Comments("")]
+			string buttonIcon
+		)
 		{
 			Id = id;
 			ShortString = shortString;

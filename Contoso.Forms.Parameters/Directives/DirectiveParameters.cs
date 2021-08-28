@@ -1,10 +1,18 @@
 ﻿using Contoso.Parameters.Expressions;
+using LogicBuilder.Attributes;
 
 namespace Contoso.Forms.Parameters.Directives
 {
     public class DirectiveParameters
     {
-		public DirectiveParameters(DirectiveDefinitionParameters definition, FilterLambdaOperatorParameters condition)
+		public DirectiveParameters
+		(
+			[Comments("")]
+			DirectiveDefinitionParameters definition,
+
+			[Comments("")]
+			FilterLambdaOperatorParameters condition
+		)
 		{
 			Definition = definition;
 			Condition = condition;

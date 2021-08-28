@@ -18,15 +18,42 @@ namespace Contoso.XPlatform.Views
         }
 
         public TextPageScreenViewModel textPageScreenViewModel { get; set; }
+        private Grid transitionGrid;
+        private StackLayout page;
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (transitionGrid.IsVisible)
+                await page.EntranceTransition(transitionGrid, 150);
+        }
 
         private void AddContent()
         {
-            Content = GetContent();
+            Content = new Grid
+            {
+                Children =
+                {
+                    GetContent(),
+                    GetTransitionGrid()
+                }
+            };
+        }
+
+        private Grid GetTransitionGrid()
+        {
+            transitionGrid = new Grid().AssignDynamicResource
+            (
+                VisualElement.BackgroundColorProperty,
+                "PageBackgroundColor"
+            );
+
+            return transitionGrid;
         }
 
         private StackLayout GetContent()
         {
-            StackLayout stackLayout = new StackLayout
+            page = new StackLayout
             {
                 Padding = new Thickness(30),
                 Children =
@@ -41,19 +68,19 @@ namespace Contoso.XPlatform.Views
 
             foreach (var group in textPageScreenViewModel.FormSettings.TextGroups)
             {
-                stackLayout.Children.Add(GetGroupHeader(group));
+                page.Children.Add(GetGroupHeader(group));
                 foreach (LabelItemDescriptorBase item in group.Labels)
                 {
                     switch (item)
                     {
                         case LabelItemDescriptor labelItemDescriptor:
-                            stackLayout.Children.Add(GetLabelItem(labelItemDescriptor));
+                            page.Children.Add(GetLabelItem(labelItemDescriptor));
                             break;
                         case HyperLinkLabelItemDescriptor hyperLinkLabelItemDescriptor:
-                            stackLayout.Children.Add(GetHyperLinkLabelItem(hyperLinkLabelItemDescriptor));
+                            page.Children.Add(GetHyperLinkLabelItem(hyperLinkLabelItemDescriptor));
                             break;
                         case FormattedLabelItemDescriptor formattedItemDescriptor:
-                            stackLayout.Children.Add(GetFornattedLabelItem(formattedItemDescriptor));
+                            page.Children.Add(GetFornattedLabelItem(formattedItemDescriptor));
                             break;
                         default:
                             throw new ArgumentException($"{nameof(item)}: 615C881A-3EA5-4681-AD72-482E055E728E");
@@ -61,7 +88,7 @@ namespace Contoso.XPlatform.Views
                 }
             }
 
-            return stackLayout;
+            return page;
 
             Label GetFornattedLabelItem(FormattedLabelItemDescriptor formattedItemDescriptor)
             {

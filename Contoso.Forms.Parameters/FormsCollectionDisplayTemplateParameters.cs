@@ -1,12 +1,35 @@
 ﻿using Contoso.Forms.Parameters.Bindings;
 using Contoso.Parameters.Expressions;
+using LogicBuilder.Attributes;
 using System;
 
 namespace Contoso.Forms.Parameters
 {
     public class FormsCollectionDisplayTemplateParameters
     {
-		public FormsCollectionDisplayTemplateParameters(string templateName, string placeHolderText, Type modelType, string loadingIndicatorText, CollectionViewItemBindingsDictionaryParameters bindings, SelectorLambdaOperatorParameters collectionSelector, RequestDetailsParameters requestDetails)
+		public FormsCollectionDisplayTemplateParameters
+		(
+			[Comments("")]
+			string templateName,
+
+			[Comments("")]
+			string placeHolderText,
+
+			[Comments("")]
+			Type modelType,
+
+			[Comments("")]
+			string loadingIndicatorText,
+
+			[Comments("")]
+			CollectionViewItemBindingsDictionaryParameters bindings,
+
+			[Comments("")]
+			SelectorLambdaOperatorParameters collectionSelector,
+
+			[Comments("")]
+			RequestDetailsParameters requestDetails
+		)
 		{
 			TemplateName = templateName;
 			PlaceHolderText = placeHolderText;

@@ -1,15 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using LogicBuilder.Attributes;
+using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.Validation
 {
     public class ValidatorArgumentDictionaryParameters : Dictionary<string, ValidatorArgumentParameters>
     {
-        private List<ValidatorArgumentParameters> validatorArguments;
+		private List<ValidatorArgumentParameters> validatorArguments;
 
-        public ValidatorArgumentDictionaryParameters(List<ValidatorArgumentParameters> validatorArguments)
-        {
-            ValidatorArguments = validatorArguments;
-        }
+		public ValidatorArgumentDictionaryParameters
+		(
+			[Comments("")]
+			List<ValidatorArgumentParameters> validatorArguments
+		)
+		{
+			ValidatorArguments = validatorArguments;
+		}
 
         public List<ValidatorArgumentParameters> ValidatorArguments
         {

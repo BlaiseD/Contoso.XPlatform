@@ -1,10 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using LogicBuilder.Attributes;
+using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.Validation
 {
     public class FieldValidationSettingsParameters
     {
-		public FieldValidationSettingsParameters(object defaultValue, List<ValidatorDefinitionParameters> validators)
+		public FieldValidationSettingsParameters
+		(
+			[Comments("")]
+			object defaultValue,
+
+			[Comments("")]
+			List<ValidatorDefinitionParameters> validators
+		)
 		{
 			DefaultValue = defaultValue;
 			Validators = validators;

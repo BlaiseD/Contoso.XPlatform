@@ -1,8 +1,14 @@
-﻿namespace Contoso.Forms.Parameters.EditForm
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters.EditForm
 {
     abstract public class FormItemSettingsParameters
     {
-		public FormItemSettingsParameters(string field)
+		public FormItemSettingsParameters
+		(
+			[Comments("")]
+			string field
+		)
 		{
 			Field = field;
 		}

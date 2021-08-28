@@ -1,8 +1,14 @@
-﻿namespace Contoso.Forms.Parameters.EditForm
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters.EditForm
 {
     public class FormGroupTemplateParameters
     {
-		public FormGroupTemplateParameters(string templateName)
+		public FormGroupTemplateParameters
+		(
+			[Comments("")]
+			string templateName
+		)
 		{
 			TemplateName = templateName;
 		}

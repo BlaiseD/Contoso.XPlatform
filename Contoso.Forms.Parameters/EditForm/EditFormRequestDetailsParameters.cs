@@ -1,12 +1,41 @@
 ﻿using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
+using LogicBuilder.Attributes;
 using System;
 
 namespace Contoso.Forms.Parameters.EditForm
 {
     public class EditFormRequestDetailsParameters
     {
-		public EditFormRequestDetailsParameters(string getUrl, string addUrl, string updateUrl, string deleteUrl, Type modelType, Type dataType, EditType editType, FilterLambdaOperatorParameters filter, SelectExpandDefinitionParameters selectExpandDefinition)
+		public EditFormRequestDetailsParameters
+		(
+			[Comments("")]
+			string getUrl,
+
+			[Comments("")]
+			string addUrl,
+
+			[Comments("")]
+			string updateUrl,
+
+			[Comments("")]
+			string deleteUrl,
+
+			[Comments("")]
+			Type modelType,
+
+			[Comments("")]
+			Type dataType,
+
+			[Comments("")]
+			EditType editType,
+
+			[Comments("")]
+			FilterLambdaOperatorParameters filter,
+
+			[Comments("")]
+			SelectExpandDefinitionParameters selectExpandDefinition
+		)
 		{
 			GetUrl = getUrl;
 			AddUrl = addUrl;

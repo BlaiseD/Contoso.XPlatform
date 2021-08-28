@@ -1,8 +1,20 @@
-﻿namespace Contoso.Forms.Parameters.Bindings
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters.Bindings
 {
     public class CollectionViewItemBindingParameters
     {
-		public CollectionViewItemBindingParameters(string name, string property, string stringFormat)
+		public CollectionViewItemBindingParameters
+		(
+			[Comments("")]
+			string name,
+
+			[Comments("")]
+			string property,
+
+			[Comments("")]
+			string stringFormat
+		)
 		{
 			Name = name;
 			Property = property;

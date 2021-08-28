@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using LogicBuilder.Attributes;
+using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.TextForm
 {
     public class FormattedLabelItemParameters : LabelItemParametersBase
     {
-		public FormattedLabelItemParameters(List<SpanItemParametersBase> items)
+		public FormattedLabelItemParameters
+		(
+			[Comments("")]
+			List<SpanItemParametersBase> items
+		)
 		{
 			Items = items;
 		}

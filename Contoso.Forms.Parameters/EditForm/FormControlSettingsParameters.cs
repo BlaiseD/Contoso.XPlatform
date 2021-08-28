@@ -1,11 +1,40 @@
 ﻿using Contoso.Forms.Parameters.Validation;
+using LogicBuilder.Attributes;
 using System;
 
 namespace Contoso.Forms.Parameters.EditForm
 {
     public class FormControlSettingsParameters : FormItemSettingsParameters
     {
-		public FormControlSettingsParameters(string domElementId, string title, string placeholder, string stringFormat, Type type, FieldValidationSettingsParameters validationSetting, TextFieldTemplateParameters textTemplate, DropDownTemplateParameters dropDownTemplate, string field) : base(field)
+		public FormControlSettingsParameters
+		(
+			[Comments("")]
+			string domElementId,
+
+			[Comments("")]
+			string title,
+
+			[Comments("")]
+			string placeholder,
+
+			[Comments("")]
+			string stringFormat,
+
+			[Comments("")]
+			Type type,
+
+			[Comments("")]
+			FieldValidationSettingsParameters validationSetting,
+
+			[Comments("")]
+			TextFieldTemplateParameters textTemplate,
+
+			[Comments("")]
+			DropDownTemplateParameters dropDownTemplate,
+
+			[Comments("")]
+			string field
+		) : base(field)
 		{
 			DomElementId = domElementId;
 			Title = title;

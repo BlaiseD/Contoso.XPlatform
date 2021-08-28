@@ -1,15 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using LogicBuilder.Attributes;
+using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.Bindings
 {
     public class CollectionViewItemBindingsDictionaryParameters : Dictionary<string, CollectionViewItemBindingParameters>
     {
-        private List<CollectionViewItemBindingParameters> collectionViewItemBindings;
+		private List<CollectionViewItemBindingParameters> collectionViewItemBindings;
 
-        public CollectionViewItemBindingsDictionaryParameters(List<CollectionViewItemBindingParameters> collectionViewItemBindings)
-        {
-            CollectionViewItemBindings = collectionViewItemBindings;
-        }
+		public CollectionViewItemBindingsDictionaryParameters
+		(
+			[Comments("")]
+			List<CollectionViewItemBindingParameters> collectionViewItemBindings
+		)
+		{
+			CollectionViewItemBindings = collectionViewItemBindings;
+		}
 
         public List<CollectionViewItemBindingParameters> CollectionViewItemBindings
         {

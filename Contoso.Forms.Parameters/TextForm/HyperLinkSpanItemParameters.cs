@@ -1,8 +1,17 @@
-﻿namespace Contoso.Forms.Parameters.TextForm
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters.TextForm
 {
     public class HyperLinkSpanItemParameters : SpanItemParametersBase
     {
-		public HyperLinkSpanItemParameters(string text, string url)
+		public HyperLinkSpanItemParameters
+		(
+			[Comments("")]
+			string text,
+
+			[Comments("")]
+			string url
+		)
 		{
 			Text = text;
 			Url = url;

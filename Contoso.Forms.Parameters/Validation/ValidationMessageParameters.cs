@@ -1,10 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using LogicBuilder.Attributes;
+using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.Validation
 {
     public class ValidationMessageParameters
     {
-		public ValidationMessageParameters(string field, List<ValidationMethodParameters> methods)
+		public ValidationMessageParameters
+		(
+			[Comments("")]
+			string field,
+
+			[Comments("")]
+			List<ValidationMethodParameters> methods
+		)
 		{
 			Field = field;
 			Methods = methods;

@@ -1,12 +1,35 @@
 ﻿using Contoso.Forms.Parameters.Bindings;
 using Contoso.Parameters.Expressions;
+using LogicBuilder.Attributes;
 using System;
 
 namespace Contoso.Forms.Parameters.ListForm
 {
     public class ListFormSettingsParameters
     {
-		public ListFormSettingsParameters(string title, Type modelType, string loadingIndicatorText, string itemTemplateName, CollectionViewItemBindingsDictionaryParameters bindings, SelectorLambdaOperatorParameters fieldsSelector, RequestDetailsParameters requestDetails)
+		public ListFormSettingsParameters
+		(
+			[Comments("")]
+			string title,
+
+			[Comments("")]
+			Type modelType,
+
+			[Comments("")]
+			string loadingIndicatorText,
+
+			[Comments("")]
+			string itemTemplateName,
+
+			[Comments("")]
+			CollectionViewItemBindingsDictionaryParameters bindings,
+
+			[Comments("")]
+			SelectorLambdaOperatorParameters fieldsSelector,
+
+			[Comments("")]
+			RequestDetailsParameters requestDetails
+		)
 		{
 			Title = title;
 			ModelType = modelType;

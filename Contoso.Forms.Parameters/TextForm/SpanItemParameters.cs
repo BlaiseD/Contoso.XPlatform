@@ -1,8 +1,14 @@
-﻿namespace Contoso.Forms.Parameters.TextForm
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters.TextForm
 {
     public class SpanItemParameters : SpanItemParametersBase
     {
-		public SpanItemParameters(string text)
+		public SpanItemParameters
+		(
+			[Comments("")]
+			string text
+		)
 		{
 			Text = text;
 		}

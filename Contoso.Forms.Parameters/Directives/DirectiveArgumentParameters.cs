@@ -1,10 +1,21 @@
-﻿using System;
+﻿using LogicBuilder.Attributes;
+using System;
 
 namespace Contoso.Forms.Parameters.Directives
 {
     public class DirectiveArgumentParameters
     {
-		public DirectiveArgumentParameters(string name, object value, Type type)
+		public DirectiveArgumentParameters
+		(
+			[Comments("")]
+			string name,
+
+			[Comments("")]
+			object value,
+
+			[Comments("")]
+			Type type
+		)
 		{
 			Name = name;
 			Value = value;

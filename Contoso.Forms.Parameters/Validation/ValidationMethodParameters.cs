@@ -1,8 +1,17 @@
-﻿namespace Contoso.Forms.Parameters.Validation
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters.Validation
 {
     public class ValidationMethodParameters
     {
-		public ValidationMethodParameters(string className, string message)
+		public ValidationMethodParameters
+		(
+			[Comments("")]
+			string className,
+
+			[Comments("")]
+			string message
+		)
 		{
 			ClassName = className;
 			Message = message;

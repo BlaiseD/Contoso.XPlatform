@@ -1,5 +1,6 @@
 ﻿using Contoso.Forms.Parameters.Directives;
 using Contoso.Forms.Parameters.Validation;
+using LogicBuilder.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +8,38 @@ namespace Contoso.Forms.Parameters.EditForm
 {
     public class EditFormSettingsParameters
     {
-		public EditFormSettingsParameters(string title, string displayField, FormGroupTemplateParameters formGroupTemplate, EditFormRequestDetailsParameters requestDetails, ValidationMessageDictionaryParameters validationMessages, List<FormItemSettingsParameters> fieldSettings, VariableDirectivesDictionaryParameters conditionalDirectives, Type modelType, string validFormControlText, string invalidFormControlText)
+		public EditFormSettingsParameters
+		(
+			[Comments("")]
+			string title,
+
+			[Comments("")]
+			string displayField,
+
+			[Comments("")]
+			FormGroupTemplateParameters formGroupTemplate,
+
+			[Comments("")]
+			EditFormRequestDetailsParameters requestDetails,
+
+			[Comments("")]
+			ValidationMessageDictionaryParameters validationMessages,
+
+			[Comments("")]
+			List<FormItemSettingsParameters> fieldSettings,
+
+			[Comments("")]
+			VariableDirectivesDictionaryParameters conditionalDirectives,
+
+			[Comments("")]
+			Type modelType,
+
+			[Comments("")]
+			string validFormControlText,
+
+			[Comments("")]
+			string invalidFormControlText
+		)
 		{
 			Title = title;
 			DisplayField = displayField;

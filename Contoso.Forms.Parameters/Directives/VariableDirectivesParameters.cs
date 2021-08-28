@@ -1,10 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using LogicBuilder.Attributes;
+using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.Directives
 {
     public class VariableDirectivesParameters
     {
-		public VariableDirectivesParameters(string field, List<DirectiveParameters> conditionalDirectives)
+		public VariableDirectivesParameters
+		(
+			[Comments("")]
+			string field,
+
+			[Comments("")]
+			List<DirectiveParameters> conditionalDirectives
+		)
 		{
 			Field = field;
 			ConditionalDirectives = conditionalDirectives;

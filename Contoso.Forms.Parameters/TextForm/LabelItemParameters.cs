@@ -1,8 +1,14 @@
-﻿namespace Contoso.Forms.Parameters.TextForm
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters.TextForm
 {
     public class LabelItemParameters : LabelItemParametersBase
     {
-		public LabelItemParameters(string text)
+		public LabelItemParameters
+		(
+			[Comments("")]
+			string text
+		)
 		{
 			Text = text;
 		}

@@ -1,8 +1,20 @@
-﻿namespace Contoso.Forms.Parameters.Validation
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters.Validation
 {
     public class ValidatorDefinitionParameters
     {
-		public ValidatorDefinitionParameters(string className, string functionName, ValidatorArgumentDictionaryParameters arguments)
+		public ValidatorDefinitionParameters
+		(
+			[Comments("")]
+			string className,
+
+			[Comments("")]
+			string functionName,
+
+			[Comments("")]
+			ValidatorArgumentDictionaryParameters arguments
+		)
 		{
 			ClassName = className;
 			FunctionName = functionName;

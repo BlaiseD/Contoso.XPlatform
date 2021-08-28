@@ -7,8 +7,8 @@ namespace CreateFormsParametersFromFormsDescriptors
         static void Main(string[] args)
         {
             //CreateFormsParameterClasses.Write();/*Has manual changes post creation*/
-            //WriterForEnums.Write();
-            CreateFormsParameterToFormsDescriptorMappingProfile.Write();
+            //WriterForEnums.Write();/*perfect match with source control.*/
+            CreateFormsParameterToFormsDescriptorMappingProfile.Write();/*perfect match with source control.*/
         }
     }
 }

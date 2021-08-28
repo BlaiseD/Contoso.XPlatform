@@ -1,12 +1,41 @@
 ﻿using Contoso.Forms.Parameters.Bindings;
 using Contoso.Parameters.Expansions;
+using LogicBuilder.Attributes;
 using System;
 
 namespace Contoso.Forms.Parameters.SearchForm
 {
     public class SearchFormSettingsParameters
     {
-		public SearchFormSettingsParameters(string title, Type modelType, string loadingIndicatorText, string itemTemplateName, string filterPlaceholder, CollectionViewItemBindingsDictionaryParameters bindings, SortCollectionParameters sortCollection, SearchFilterGroupParameters searchFilterGroup, RequestDetailsParameters requestDetails)
+		public SearchFormSettingsParameters
+		(
+			[Comments("")]
+			string title,
+
+			[Comments("")]
+			Type modelType,
+
+			[Comments("")]
+			string loadingIndicatorText,
+
+			[Comments("")]
+			string itemTemplateName,
+
+			[Comments("")]
+			string filterPlaceholder,
+
+			[Comments("")]
+			CollectionViewItemBindingsDictionaryParameters bindings,
+
+			[Comments("")]
+			SortCollectionParameters sortCollection,
+
+			[Comments("")]
+			SearchFilterGroupParameters searchFilterGroup,
+
+			[Comments("")]
+			RequestDetailsParameters requestDetails
+		)
 		{
 			Title = title;
 			ModelType = modelType;

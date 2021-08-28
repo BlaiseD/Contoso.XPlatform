@@ -1,10 +1,33 @@
 ﻿using Contoso.Parameters.Expressions;
+using LogicBuilder.Attributes;
 
 namespace Contoso.Forms.Parameters
 {
     public class DropDownTemplateParameters
     {
-		public DropDownTemplateParameters(string templateName, string placeHolderText, string textField, string valueField, string loadingIndicatorText, SelectorLambdaOperatorParameters textAndValueSelector, RequestDetailsParameters requestDetails)
+		public DropDownTemplateParameters
+		(
+			[Comments("")]
+			string templateName,
+
+			[Comments("")]
+			string placeHolderText,
+
+			[Comments("")]
+			string textField,
+
+			[Comments("")]
+			string valueField,
+
+			[Comments("")]
+			string loadingIndicatorText,
+
+			[Comments("")]
+			SelectorLambdaOperatorParameters textAndValueSelector,
+
+			[Comments("")]
+			RequestDetailsParameters requestDetails
+		)
 		{
 			TemplateName = templateName;
 			PlaceHolderText = placeHolderText;

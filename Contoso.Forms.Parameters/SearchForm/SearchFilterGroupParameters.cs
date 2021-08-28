@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using LogicBuilder.Attributes;
+using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.SearchForm
 {
     public class SearchFilterGroupParameters : SearchFilterParametersBase
     {
-		public SearchFilterGroupParameters(ICollection<SearchFilterParametersBase> filters)
+		public SearchFilterGroupParameters
+		(
+			[Comments("")]
+			ICollection<SearchFilterParametersBase> filters
+		)
 		{
 			Filters = filters;
 		}

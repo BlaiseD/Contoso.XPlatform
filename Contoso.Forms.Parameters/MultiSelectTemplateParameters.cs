@@ -1,11 +1,37 @@
 ﻿using Contoso.Parameters.Expressions;
+using LogicBuilder.Attributes;
 using System;
 
 namespace Contoso.Forms.Parameters
 {
     public class MultiSelectTemplateParameters
     {
-		public MultiSelectTemplateParameters(string templateName, string placeHolderText, string textField, string valueField, Type modelType, string loadingIndicatorText, SelectorLambdaOperatorParameters textAndValueSelector, RequestDetailsParameters requestDetails)
+		public MultiSelectTemplateParameters
+		(
+			[Comments("")]
+			string templateName,
+
+			[Comments("")]
+			string placeHolderText,
+
+			[Comments("")]
+			string textField,
+
+			[Comments("")]
+			string valueField,
+
+			[Comments("")]
+			Type modelType,
+
+			[Comments("")]
+			string loadingIndicatorText,
+
+			[Comments("")]
+			SelectorLambdaOperatorParameters textAndValueSelector,
+
+			[Comments("")]
+			RequestDetailsParameters requestDetails
+		)
 		{
 			TemplateName = templateName;
 			PlaceHolderText = placeHolderText;

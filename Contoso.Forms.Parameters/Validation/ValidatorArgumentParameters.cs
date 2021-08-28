@@ -1,10 +1,21 @@
-﻿using System;
+﻿using LogicBuilder.Attributes;
+using System;
 
 namespace Contoso.Forms.Parameters.Validation
 {
     public class ValidatorArgumentParameters
     {
-		public ValidatorArgumentParameters(string name, object value, Type type)
+		public ValidatorArgumentParameters
+		(
+			[Comments("")]
+			string name,
+
+			[Comments("")]
+			object value,
+
+			[Comments("")]
+			Type type
+		)
 		{
 			Name = name;
 			Value = value;

@@ -1,5 +1,6 @@
 ﻿using Contoso.Forms.Parameters.Directives;
 using Contoso.Forms.Parameters.Validation;
+using LogicBuilder.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +8,50 @@ namespace Contoso.Forms.Parameters.EditForm
 {
     public class FormGroupArraySettingsParameters : FormItemSettingsParameters
     {
-		public FormGroupArraySettingsParameters(string title, string placeholder, bool showTitle, Type modelType, Type type, string validFormControlText, string invalidFormControlText, List<string> keyFields, FormsCollectionDisplayTemplateParameters formsCollectionDisplayTemplate, FormGroupTemplateParameters formGroupTemplate, List<FormItemSettingsParameters> fieldSettings, ValidationMessageDictionaryParameters validationMessages, VariableDirectivesDictionaryParameters conditionalDirectives, string field) : base(field)
+		public FormGroupArraySettingsParameters
+		(
+			[Comments("")]
+			string title,
+
+			[Comments("")]
+			string placeholder,
+
+			[Comments("")]
+			bool showTitle,
+
+			[Comments("")]
+			Type modelType,
+
+			[Comments("")]
+			Type type,
+
+			[Comments("")]
+			string validFormControlText,
+
+			[Comments("")]
+			string invalidFormControlText,
+
+			[Comments("")]
+			List<string> keyFields,
+
+			[Comments("")]
+			FormsCollectionDisplayTemplateParameters formsCollectionDisplayTemplate,
+
+			[Comments("")]
+			FormGroupTemplateParameters formGroupTemplate,
+
+			[Comments("")]
+			List<FormItemSettingsParameters> fieldSettings,
+
+			[Comments("")]
+			ValidationMessageDictionaryParameters validationMessages,
+
+			[Comments("")]
+			VariableDirectivesDictionaryParameters conditionalDirectives,
+
+			[Comments("")]
+			string field
+		) : base(field)
 		{
 			Title = title;
 			Placeholder = placeholder;

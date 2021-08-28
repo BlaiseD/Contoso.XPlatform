@@ -1,8 +1,14 @@
-﻿namespace Contoso.Forms.Parameters.SearchForm
+﻿using LogicBuilder.Attributes;
+
+namespace Contoso.Forms.Parameters.SearchForm
 {
     public class SearchFilterParameters : SearchFilterParametersBase
     {
-		public SearchFilterParameters(string field)
+		public SearchFilterParameters
+		(
+			[Comments("")]
+			string field
+		)
 		{
 			Field = field;
 		}

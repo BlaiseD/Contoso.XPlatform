@@ -1,10 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using LogicBuilder.Attributes;
+using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.TextForm
 {
     public class TextGroupParameters
     {
-		public TextGroupParameters(string title, List<LabelItemParametersBase> labels)
+		public TextGroupParameters
+		(
+			[Comments("")]
+			string title,
+
+			[Comments("")]
+			List<LabelItemParametersBase> labels
+		)
 		{
 			Title = title;
 			Labels = labels;
