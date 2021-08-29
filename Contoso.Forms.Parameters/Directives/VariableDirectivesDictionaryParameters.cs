@@ -9,7 +9,7 @@ namespace Contoso.Forms.Parameters.Directives
 
 		public VariableDirectivesDictionaryParameters
 		(
-			[Comments("")]
+			[Comments("A list of fields - each with its list of directives (DisableIf,HideIf,ValidateIf)")]
 			List<VariableDirectivesParameters> variableDirectives
 		)
 		{

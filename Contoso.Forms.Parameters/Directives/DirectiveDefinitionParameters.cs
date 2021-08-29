@@ -6,14 +6,18 @@ namespace Contoso.Forms.Parameters.Directives
     {
 		public DirectiveDefinitionParameters
 		(
-			[Comments("")]
+			[Comments("Class name for the directive.")]
+			[Domain("DisableIf,HideIf,ValidateIf")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "HideIf")]
 			string className,
 
-			[Comments("")]
+			[Comments("Function name.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Check")]
+			[Domain("Check")]
 			string functionName,
 
-			[Comments("")]
-			DirectiveArgumentDictionaryParameters arguments
+			[Comments("Where applicable, add arguments for the directive evaluation function.")]
+			DirectiveArgumentDictionaryParameters arguments = null
 		)
 		{
 			ClassName = className;

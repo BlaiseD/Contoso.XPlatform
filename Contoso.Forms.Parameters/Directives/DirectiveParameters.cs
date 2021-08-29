@@ -7,10 +7,10 @@ namespace Contoso.Forms.Parameters.Directives
     {
 		public DirectiveParameters
 		(
-			[Comments("")]
+			[Comments("Details about the directive's function and its arguments.")]
 			DirectiveDefinitionParameters definition,
 
-			[Comments("")]
+			[Comments("Lambda expression which dynamically activates and desctivates the dependent function.")]
 			FilterLambdaOperatorParameters condition
 		)
 		{

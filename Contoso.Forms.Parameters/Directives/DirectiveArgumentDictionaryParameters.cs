@@ -9,7 +9,7 @@ namespace Contoso.Forms.Parameters.Directives
 
         public DirectiveArgumentDictionaryParameters
         (
-            [Comments("")]
+            [Comments("List of arguments used by the directive. Directive examples: ValidateIf, HideIf")]
             List<DirectiveArgumentParameters> directiveArguments
         )
         {

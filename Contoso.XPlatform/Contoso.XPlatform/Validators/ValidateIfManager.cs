@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Contoso.XPlatform.Validators
 {
@@ -20,7 +21,28 @@ namespace Contoso.XPlatform.Validators
 
         private void PropertyChanged(string fieldName)
         {
-            Check();
+            Type thisClassType = this.GetType();
+            conditions.ForEach
+            (
+                condition => thisClassType.GetMethod(condition.DirectiveDefinition.FunctionName)
+                    .Invoke(this, GetArguments(condition))
+            );
+
+            object[] GetArguments(ValidateIf<TModel> condition)
+            {
+                if (condition.DirectiveDefinition.Arguments?.Any() != true)
+                    return new object[] { condition };
+
+                return condition.DirectiveDefinition.Arguments.Values.Aggregate
+                (
+                    new List<object> { condition }, 
+                    (list, next) =>
+                    {
+                        list.Add(next);
+                        return list;
+                    }
+                ).ToArray();
+            }
         }
 
         private readonly IMapper mapper;
@@ -32,35 +54,31 @@ namespace Contoso.XPlatform.Validators
         private IDictionary<string, IValidatable> CurrentPropertiesDictionary
             => CurrentProperties.ToDictionary(p => p.Name);
 
-        public void Check()
+        public void Check(ValidateIf<TModel> condition)
         {
-            TModel entity = mapper.Map<TModel>(CurrentProperties.ToDictionary(p => p.Name, p => p.Value));
+            DoCheck(CurrentPropertiesDictionary[condition.Field]);
 
-            conditions.ForEach(condition =>
+            void DoCheck(IValidatable currentValidatable)
             {
-                DoCheck(CurrentPropertiesDictionary[condition.Field]);
-
-                void DoCheck(IValidatable currentValidatable)
+                HashSet<IValidationRule> existingRules = currentValidatable.Validations.ToHashSet();
+                TModel entity = mapper.Map<TModel>(CurrentProperties.ToDictionary(p => p.Name, p => p.Value));
+                if (CanValidate(entity, condition.Evaluator))
                 {
-                    HashSet<IValidationRule> existingRules = currentValidatable.Validations.ToHashSet();
-                    if (CanValidate(entity, condition.Evaluator))
+                    if (!existingRules.Contains(condition.Validator))
                     {
-                        if (!existingRules.Contains(condition.Validator))
-                        {
-                            currentValidatable.Validations.Add(condition.Validator);
-                            currentValidatable.Validate();
-                        }
-                    }
-                    else
-                    {
-                        if (existingRules.Contains(condition.Validator))
-                        {
-                            currentValidatable.Validations.Remove(condition.Validator);
-                            currentValidatable.Validate();
-                        }
+                        currentValidatable.Validations.Add(condition.Validator);
+                        currentValidatable.Validate();
                     }
                 }
-            });
+                else
+                {
+                    if (existingRules.Contains(condition.Validator))
+                    {
+                        currentValidatable.Validations.Remove(condition.Validator);
+                        currentValidatable.Validate();
+                    }
+                }
+            }
         }
 
         bool CanValidate(TModel entity, Expression<Func<TModel, bool>> evaluator) 

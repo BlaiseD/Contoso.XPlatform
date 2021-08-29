@@ -7,13 +7,14 @@ namespace Contoso.Forms.Parameters.Directives
     {
 		public DirectiveArgumentParameters
 		(
-			[Comments("")]
+			[Comments("Name of the argument for the directive method.")]
 			string name,
 
-			[Comments("")]
+			[Comments("Value of the argument for the directive method.")]
 			object value,
 
-			[Comments("")]
+			[Comments("Assembly qualified type name for the argument.  The full name (e.g. System.Int32) is sufficient for literals.")]
+			[ParameterEditorControl(ParameterControlType.TypeAutoComplete)]
 			Type type
 		)
 		{

@@ -6,14 +6,25 @@ namespace Contoso.Forms.Parameters.Bindings
     {
 		public CollectionViewItemBindingParameters
 		(
-			[Comments("")]
+			[Comments("The section of the item template we're binding the property to.")]
+			[Domain("Header,Text,Detail")]
+			[NameValue(AttributeNames.USEFOREQUALITY, "true")]
+			[NameValue(AttributeNames.USEFORHASHCODE, "true")]
 			string name,
 
-			[Comments("")]
+			[Comments("Update modelType first. The property to bind to the name section.")]
+			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
+			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "modelType")]
 			string property,
 
-			[Comments("")]
-			string stringFormat
+			[Comments("Specify a format for the binding e.g. 'Value: {0:F2}'")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "{0}")]
+			string stringFormat,
+
+			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Contoso.Domain.Entities")]
+			[Comments("Fully qualified class name for the model type.")]
+			string modelType = null
 		)
 		{
 			Name = name;

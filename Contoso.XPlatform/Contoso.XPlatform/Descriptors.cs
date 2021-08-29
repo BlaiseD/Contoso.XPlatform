@@ -1999,8 +1999,8 @@ namespace Contoso.XPlatform
             else if (moduleName == "home")
                 return new ScreenSettings<TextFormSettingsDescriptor>(HomeTextForm, TextFormButtonDescriptors, ViewType.TextPage);
             else if (moduleName == "students")
-                // return new ScreenSettings<EditFormSettingsDescriptor>(StudentForm, ButtonDescriptors, ViewType.EditForm);
-                return new ScreenSettings<SearchFormSettingsDescriptor>(StudentSearchForm, SearchFormButtonDescriptors, ViewType.SearchPage);
+                return new ScreenSettings<EditFormSettingsDescriptor>(StudentForm, ButtonDescriptors, ViewType.EditForm);
+                //return new ScreenSettings<SearchFormSettingsDescriptor>(StudentSearchForm, SearchFormButtonDescriptors, ViewType.SearchPage);
             else if (moduleName == "courses")
                 return new ScreenSettings<EditFormSettingsDescriptor>(CourseForm, ButtonDescriptors, ViewType.EditForm);
             else if (moduleName == "departments")

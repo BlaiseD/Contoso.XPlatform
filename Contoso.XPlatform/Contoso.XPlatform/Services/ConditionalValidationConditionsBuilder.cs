@@ -52,7 +52,8 @@ namespace Contoso.XPlatform.Services
                                             (
                                                 descriptor.Condition,
                                                 opts => opts.Items[PARAMETERS_KEY] = GetParameters()
-                                            ).Build()
+                                            ).Build(),
+                                            DirectiveDefinition = descriptor.Definition
                                         }
                                     );
                                 }

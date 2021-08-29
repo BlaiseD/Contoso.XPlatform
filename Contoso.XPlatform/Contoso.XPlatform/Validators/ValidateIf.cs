@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Contoso.Forms.Configuration.Directives;
+using System;
 using System.Linq.Expressions;
 
 namespace Contoso.XPlatform.Validators
@@ -10,6 +11,7 @@ namespace Contoso.XPlatform.Validators
     public class ValidateIf<T>
     {
         public Expression<Func<T, bool>> Evaluator { get; set; }
+        public DirectiveDefinitionDescriptor DirectiveDefinition { get; set; }
         public IValidationRule Validator { get; set; }
         public string Field { get; set; }
     }

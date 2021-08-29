@@ -9,7 +9,7 @@ namespace Contoso.Forms.Parameters.Bindings
 
 		public CollectionViewItemBindingsDictionaryParameters
 		(
-			[Comments("")]
+			[Comments("List of bindings for a collection view item item template.")]
 			List<CollectionViewItemBindingParameters> collectionViewItemBindings
 		)
 		{
