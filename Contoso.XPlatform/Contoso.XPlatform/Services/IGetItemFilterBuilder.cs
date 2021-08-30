@@ -1,11 +1,11 @@
-﻿using Contoso.Common.Configuration.ExpressionDescriptors;
-using Contoso.Forms.Configuration.ItemFilter;
+﻿using Contoso.Forms.Configuration.ItemFilter;
+using Contoso.Parameters.Expressions;
 using System;
 
 namespace Contoso.XPlatform.Services
 {
     public interface IGetItemFilterBuilder
     {
-        FilterLambdaOperatorDescriptor CreateFilter(ItemFilterGroupDescriptor descriptor, Type modelType, object entity);
+        FilterLambdaOperatorParameters CreateFilter(ItemFilterGroupDescriptor descriptor, Type modelType, object entity);
     }
 }

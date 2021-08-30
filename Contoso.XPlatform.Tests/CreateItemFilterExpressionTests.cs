@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
 using Contoso.Bsl.Utils;
-using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Domain.Entities;
 using Contoso.Forms.Configuration.ItemFilter;
+using Contoso.Parameters.Expressions;
 using Contoso.XPlatform.Services;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder.Lambda;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,7 +44,7 @@ namespace Contoso.XPlatform.Tests
             };
 
             //act
-            FilterLambdaOperatorDescriptor filterLambdaOperatorDescriptor = serviceProvider.GetRequiredService<IGetItemFilterBuilder>().CreateFilter
+            FilterLambdaOperatorParameters filterLambdaOperatorDescriptor = serviceProvider.GetRequiredService<IGetItemFilterBuilder>().CreateFilter
             (
                 itemFilterGroupDescriptor,
                 typeof(InstructorModel),
@@ -95,7 +95,7 @@ namespace Contoso.XPlatform.Tests
             };
 
             //act
-            FilterLambdaOperatorDescriptor filterLambdaOperatorDescriptor = serviceProvider.GetRequiredService<IGetItemFilterBuilder>().CreateFilter
+            FilterLambdaOperatorParameters filterLambdaOperatorDescriptor = serviceProvider.GetRequiredService<IGetItemFilterBuilder>().CreateFilter
             (
                 itemFilterGroupDescriptor,
                 typeof(InstructorModel),
@@ -154,7 +154,7 @@ namespace Contoso.XPlatform.Tests
             };
 
             //act
-            FilterLambdaOperatorDescriptor filterLambdaOperatorDescriptor = serviceProvider.GetRequiredService<IGetItemFilterBuilder>().CreateFilter
+            FilterLambdaOperatorParameters filterLambdaOperatorDescriptor = serviceProvider.GetRequiredService<IGetItemFilterBuilder>().CreateFilter
             (
                 itemFilterGroupDescriptor,
                 typeof(InstructorModel),
@@ -200,6 +200,7 @@ namespace Contoso.XPlatform.Tests
                 MapperConfiguration = new MapperConfiguration(cfg =>
                 {
                     cfg.AddProfile<DescriptorToOperatorMappingProfile>();
+                    cfg.AddProfile<ParameterToDescriptorMappingProfile>();
                 });
             }
             MapperConfiguration.AssertConfigurationIsValid();

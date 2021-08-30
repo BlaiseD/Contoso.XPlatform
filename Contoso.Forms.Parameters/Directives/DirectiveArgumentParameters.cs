@@ -13,8 +13,7 @@ namespace Contoso.Forms.Parameters.Directives
 			[Comments("Value of the argument for the directive method.")]
 			object value,
 
-			[Comments("Assembly qualified type name for the argument.  The full name (e.g. System.Int32) is sufficient for literals.")]
-			[ParameterEditorControl(ParameterControlType.TypeAutoComplete)]
+			[Comments("The argument type. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument (For literals, the full name (e.g. System.Int32) is sufficient.)")]
 			Type type
 		)
 		{

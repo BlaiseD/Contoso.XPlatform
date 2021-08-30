@@ -9,38 +9,37 @@ namespace Contoso.Forms.Parameters.EditForm
     {
 		public EditFormRequestDetailsParameters
 		(
-			[Comments("")]
+			[Comments("API end point to get the entity.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "api/Entity/GetEntity")]
 			string getUrl,
 
-			[Comments("")]
+			[Comments("API end point to add the entity.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "api/Student/Save")]
 			string addUrl,
 
-			[Comments("")]
+			[Comments("API end point to update the entity.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "api/Student/Save")]
 			string updateUrl,
 
-			[Comments("")]
-			string deleteUrl,
-
-			[Comments("")]
+			[Comments("The model type. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument (For literals, the full name (e.g. System.Int32) is sufficient.)")]
 			Type modelType,
 
-			[Comments("")]
+			[Comments("The data type. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument (For literals, the full name (e.g. System.Int32) is sufficient.)")]
 			Type dataType,
 
-			[Comments("")]
+			[Comments("Select Add or Update.  Click the variable button to select the configured Add or Update edit type.")]
 			EditType editType,
 
-			[Comments("")]
+			[Comments("Defines the filter for the single object being edited - only applicable when the edit type is update.")]
 			FilterLambdaOperatorParameters filter,
 
-			[Comments("")]
+			[Comments("Defines and navigation properties to include in the edit model")]
 			SelectExpandDefinitionParameters selectExpandDefinition
 		)
 		{
 			GetUrl = getUrl;
 			AddUrl = addUrl;
 			UpdateUrl = updateUrl;
-			DeleteUrl = deleteUrl;
 			ModelType = modelType;
 			DataType = dataType;
 			EditType = editType;
@@ -51,7 +50,6 @@ namespace Contoso.Forms.Parameters.EditForm
 		public string GetUrl { get; set; }
 		public string AddUrl { get; set; }
 		public string UpdateUrl { get; set; }
-		public string DeleteUrl { get; set; }
 		public Type ModelType { get; set; }
 		public Type DataType { get; set; }
 		public EditType EditType { get; set; }

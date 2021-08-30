@@ -1,5 +1,6 @@
 ﻿using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Forms.Configuration.ItemFilter;
+using Contoso.Parameters.Expressions;
 using System;
 using System.Linq;
 
@@ -9,15 +10,15 @@ namespace Contoso.XPlatform.Utils
     {
         private static readonly string parameterName = "f";
 
-        public static FilterLambdaOperatorDescriptor CreateFilter(ItemFilterGroupDescriptor descriptor, Type modelType, object entity)
-            => new FilterLambdaOperatorDescriptor
-            {
-                FilterBody = CreateFilterGroupBody(descriptor, entity),
-                ParameterName = parameterName,
-                SourceElementType = modelType.AssemblyQualifiedName
-            };
+        public static FilterLambdaOperatorParameters CreateFilter(ItemFilterGroupDescriptor descriptor, Type modelType, object entity)
+            => new FilterLambdaOperatorParameters
+            (
+                CreateFilterGroupBody(descriptor, entity), 
+                modelType, 
+                parameterName
+            );
 
-        private static OperatorDescriptorBase CreateFilterGroupBody(ItemFilterGroupDescriptor descriptor, object entity)
+        private static IExpressionParameter CreateFilterGroupBody(ItemFilterGroupDescriptor descriptor, object entity)
         {
             if (descriptor?.Filters?.Any() != true)
                 throw new ArgumentException($"{nameof(descriptor.Filters)}: 165BB6D3-1D2F-4EEB-B546-102825505ED2");
@@ -33,7 +34,7 @@ namespace Contoso.XPlatform.Utils
                 GetLogicBinaryOperatorDescriptor(descriptor.Logic)
             );
 
-            BinaryOperatorDescriptor SetMembers(BinaryOperatorDescriptor binaryOperator)
+            IExpressionParameter SetMembers(BinaryOperatorParameters binaryOperator)
             {
                 binaryOperator.Left = CreateBody(descriptor.Filters.First());
                 binaryOperator.Right = CreateBody(descriptor.Filters.Last());
@@ -41,7 +42,7 @@ namespace Contoso.XPlatform.Utils
                 return binaryOperator;
             }
 
-            OperatorDescriptorBase CreateBody(ItemFilterDescriptorBase filterDescriptorBase)
+            IExpressionParameter CreateBody(ItemFilterDescriptorBase filterDescriptorBase)
             {
                 return filterDescriptorBase switch
                 {
@@ -53,73 +54,67 @@ namespace Contoso.XPlatform.Utils
             }
         }
 
-        private static OperatorDescriptorBase CreateValueFilterBody(ValueSourceFilterDescriptor descriptor)
+        private static IExpressionParameter CreateValueFilterBody(ValueSourceFilterDescriptor descriptor)
         {
             return SetMembers
             (
                 GetOperatorBinaryOperatorDescriptor(descriptor.Operator)
             );
 
-            BinaryOperatorDescriptor SetMembers(BinaryOperatorDescriptor binaryOperator)
+            BinaryOperatorParameters SetMembers(BinaryOperatorParameters binaryOperator)
             {
-                binaryOperator.Left = new MemberSelectorOperatorDescriptor
-                {
-                    SourceOperand = new ParameterOperatorDescriptor
-                    {
-                        ParameterName = parameterName
-                    },
-                    MemberFullName = descriptor.Field
-                };
-                binaryOperator.Right = new ConstantOperatorDescriptor
-                {
-                    ConstantValue = descriptor.Value,
-                    Type = descriptor.Type
-                };
+                binaryOperator.Left = new MemberSelectorOperatorParameters
+                (
+                    descriptor.Field,
+                    new ParameterOperatorParameters(parameterName)
+                );
+                binaryOperator.Right = new ConstantOperatorParameters
+                (
+                    descriptor.Value,
+                    Type.GetType(descriptor.Type)
+                );
 
                 return binaryOperator;
             }
         }
 
-        private static OperatorDescriptorBase CreateMemberSourceFilterBody(MemberSourceFilterDescriptor descriptor, object entity)
+        private static IExpressionParameter CreateMemberSourceFilterBody(MemberSourceFilterDescriptor descriptor, object entity)
         {
             return SetMembers
             (
                 GetOperatorBinaryOperatorDescriptor(descriptor.Operator)
             );
 
-            BinaryOperatorDescriptor SetMembers(BinaryOperatorDescriptor binaryOperator)
+            BinaryOperatorParameters SetMembers(BinaryOperatorParameters binaryOperator)
             {
-                binaryOperator.Left = new MemberSelectorOperatorDescriptor
-                {
-                    SourceOperand = new ParameterOperatorDescriptor
-                    {
-                        ParameterName = parameterName
-                    },
-                    MemberFullName = descriptor.Field
-                };
-                binaryOperator.Right = new ConstantOperatorDescriptor
-                {
-                    ConstantValue = entity.GetPropertyValue(descriptor.MemberSource),
-                    Type = descriptor.Type
-                };
+                binaryOperator.Left = new MemberSelectorOperatorParameters
+                (
+                    descriptor.Field, 
+                    new ParameterOperatorParameters(parameterName)
+                );
+                binaryOperator.Right = new ConstantOperatorParameters
+                (
+                    entity.GetPropertyValue(descriptor.MemberSource), 
+                    Type.GetType(descriptor.Type)
+                );
 
                 return binaryOperator;
             }
         }
 
-        private static BinaryOperatorDescriptor GetOperatorBinaryOperatorDescriptor(string oper) 
+        private static BinaryOperatorParameters GetOperatorBinaryOperatorDescriptor(string oper) 
             => oper.ToLowerInvariant() switch
             {
-                Operators.eq => new EqualsBinaryOperatorDescriptor(),
-                Operators.neq => new NotEqualsBinaryOperatorDescriptor(),
+                Operators.eq => new EqualsBinaryOperatorParameters(),
+                Operators.neq => new NotEqualsBinaryOperatorParameters(),
                 _ => throw new ArgumentException($"{nameof(oper)}: 85953974-7864-4D0A-9B60-1C1D746FD8D1"),
             };
 
-        private static BinaryOperatorDescriptor GetLogicBinaryOperatorDescriptor(string logic) 
+        private static BinaryOperatorParameters GetLogicBinaryOperatorDescriptor(string logic) 
             => logic.ToLowerInvariant() switch
             {
-                Logic.and => new AndBinaryOperatorDescriptor(),
-                Logic.or => new OrBinaryOperatorDescriptor(),
+                Logic.and => new AndBinaryOperatorParameters(),
+                Logic.or => new OrBinaryOperatorParameters(),
                 _ => throw new ArgumentException($"{nameof(logic)}: F937E0EC-734C-406C-90B6-2C6D8DEC4541"),
             };
 
