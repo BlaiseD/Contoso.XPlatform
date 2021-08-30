@@ -10,10 +10,13 @@ namespace Contoso.Forms.Parameters.EditForm
     {
 		public EditFormSettingsParameters
 		(
-			[Comments("")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Title")]
+			[Comments("Header field on the form")]
 			string title,
 
-			[Comments("")]
+			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
+			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "modelType")]
+			[Comments("Update displayFieldTypeSource first. This field may be displayed next to the title - empty on Add.")]
 			string displayField,
 
 			[Comments("")]
@@ -26,16 +29,20 @@ namespace Contoso.Forms.Parameters.EditForm
 			List<FormItemSettingsParameters> fieldSettings,
 
 			[Comments("")]
-			VariableDirectivesDictionaryParameters conditionalDirectives,
-
-			[Comments("")]
 			Type modelType,
 
 			[Comments("")]
 			string validFormControlText,
 
 			[Comments("")]
-			string invalidFormControlText
+			string invalidFormControlText,
+
+			[Comments("")]
+			VariableDirectivesDictionaryParameters conditionalDirectives = null,
+
+			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
+			[Comments("Fully qualified class name for the model type.")]
+			string displayFieldTypeSource = "Contoso.Domain.Entities"
 		)
 		{
 			Title = title;
@@ -43,10 +50,10 @@ namespace Contoso.Forms.Parameters.EditForm
 			RequestDetails = requestDetails;
 			ValidationMessages = validationMessages;
 			FieldSettings = fieldSettings;
-			ConditionalDirectives = conditionalDirectives;
 			ModelType = modelType;
 			ValidFormControlText = validFormControlText;
 			InvalidFormControlText = invalidFormControlText;
+			ConditionalDirectives = conditionalDirectives;
 		}
 
 		public string Title { get; set; }
@@ -54,9 +61,9 @@ namespace Contoso.Forms.Parameters.EditForm
 		public EditFormRequestDetailsParameters RequestDetails { get; set; }
 		public ValidationMessageDictionaryParameters ValidationMessages { get; set; }
 		public List<FormItemSettingsParameters> FieldSettings { get; set; }
-		public VariableDirectivesDictionaryParameters ConditionalDirectives { get; set; }
 		public Type ModelType { get; set; }
 		public string ValidFormControlText { get; set; }
 		public string InvalidFormControlText { get; set; }
+		public VariableDirectivesDictionaryParameters ConditionalDirectives { get; set; }
     }
 }
