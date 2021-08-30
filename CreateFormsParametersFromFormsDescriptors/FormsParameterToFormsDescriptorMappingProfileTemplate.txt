@@ -3,6 +3,7 @@ using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.Bindings;
 using Contoso.Forms.Configuration.Directives;
 using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.ItemFilter;
 using Contoso.Forms.Configuration.ListForm;
 using Contoso.Forms.Configuration.Navigation;
 using Contoso.Forms.Configuration.SearchForm;
@@ -12,6 +13,7 @@ using Contoso.Forms.Parameters;
 using Contoso.Forms.Parameters.Bindings;
 using Contoso.Forms.Parameters.Directives;
 using Contoso.Forms.Parameters.EditForm;
+using Contoso.Forms.Parameters.ItemFilter;
 using Contoso.Forms.Parameters.ListForm;
 using Contoso.Forms.Parameters.Navigation;
 using Contoso.Forms.Parameters.SearchForm;
@@ -31,6 +33,9 @@ namespace Contoso.AutoMapperProfiles
 
             CreateMap<SearchFilterParametersBase, SearchFilterDescriptorBase>()
 #SearchFilterParametersBaseIncludes#
+
+            CreateMap<ItemFilterParametersBase, ItemFilterDescriptorBase>()
+#ItemFilterDescriptorBaseIncludes#
 
             CreateMap<LabelItemParametersBase, LabelItemDescriptorBase>()
 #LabelItemParametersBaseIncludes#

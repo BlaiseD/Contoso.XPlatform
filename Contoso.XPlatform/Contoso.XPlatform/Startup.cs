@@ -36,6 +36,7 @@ namespace Contoso.XPlatform
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpService>()
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
+                .AddSingleton<IGetItemFilterBuilder, GetItemFilterBuilder>()
                 .AddTransient<IMapper>
                 (
                     sp => new Mapper

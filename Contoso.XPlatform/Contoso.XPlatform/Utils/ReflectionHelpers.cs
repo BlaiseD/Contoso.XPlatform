@@ -25,6 +25,25 @@ namespace Contoso.XPlatform.Utils
             )
             .SetValue(item, propertyValue);
 
+        public static object GetPropertyValue(this object item, string propertyName)
+        {
+            try
+            {
+                return item.GetType().GetProperty
+                (
+                    propertyName,
+                    BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance
+                )
+                .GetValue(item);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"{ ex.GetType().Name + " : " + ex.Message}");
+                throw;
+            }
+        }
+
+
         public static T GetPropertyValue<T>(this object item, string propertyName)
         {
             try
