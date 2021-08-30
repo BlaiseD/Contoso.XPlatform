@@ -28,7 +28,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         private readonly IMapper mapper;
         private readonly IFieldsCollectionBuilder fieldsCollectionBuilder;
         private readonly FormsCollectionDisplayTemplateDescriptor formsCollectionDisplayTemplateDescriptor;
-        public IFormGroupSettings FormSettings { get; set; }
+        public IChildFormGroupSettings FormSettings { get; set; }
         public FormsCollectionDisplayTemplateDescriptor FormsCollectionDisplayTemplate => formsCollectionDisplayTemplateDescriptor;
 
         public string DisplayText => string.Empty;

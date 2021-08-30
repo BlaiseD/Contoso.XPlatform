@@ -8,7 +8,6 @@ namespace Contoso.Forms.Configuration.EditForm
     {
         public string Title { get; set; }
         public string DisplayField { get; set; }
-        public FormGroupTemplateDescriptor FormGroupTemplate { get; set; }
         public EditFormRequestDetailsDescriptor RequestDetails { get; set; }
         public ValidationMessageDictionaryDescriptor ValidationMessages { get; set; }
         public List<FormItemSettingsDescriptor> FieldSettings { get; set; }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Contoso.Forms.Configuration.EditForm
 {
-    public class FormGroupArraySettingsDescriptor : FormItemSettingsDescriptor, IFormGroupSettings
+    public class FormGroupArraySettingsDescriptor : FormItemSettingsDescriptor, IChildFormGroupSettings
     {
         public override AbstractControlEnumDescriptor AbstractControlType => AbstractControlEnumDescriptor.FormGroupArray;
         public string Title { get; set; }

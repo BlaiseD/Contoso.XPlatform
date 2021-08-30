@@ -17,9 +17,6 @@ namespace Contoso.Forms.Parameters.EditForm
 			string displayField,
 
 			[Comments("")]
-			FormGroupTemplateParameters formGroupTemplate,
-
-			[Comments("")]
 			EditFormRequestDetailsParameters requestDetails,
 
 			[Comments("")]
@@ -43,7 +40,6 @@ namespace Contoso.Forms.Parameters.EditForm
 		{
 			Title = title;
 			DisplayField = displayField;
-			FormGroupTemplate = formGroupTemplate;
 			RequestDetails = requestDetails;
 			ValidationMessages = validationMessages;
 			FieldSettings = fieldSettings;
@@ -55,7 +51,6 @@ namespace Contoso.Forms.Parameters.EditForm
 
 		public string Title { get; set; }
 		public string DisplayField { get; set; }
-		public FormGroupTemplateParameters FormGroupTemplate { get; set; }
 		public EditFormRequestDetailsParameters RequestDetails { get; set; }
 		public ValidationMessageDictionaryParameters ValidationMessages { get; set; }
 		public List<FormItemSettingsParameters> FieldSettings { get; set; }

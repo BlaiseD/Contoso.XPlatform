@@ -10,7 +10,6 @@ namespace Contoso.Forms.Configuration.EditForm
         string Title { get; }
         string ValidFormControlText { get; }
         string InvalidFormControlText { get; }
-        FormGroupTemplateDescriptor FormGroupTemplate { get;}
         VariableDirectivesDictionaryDescriptor ConditionalDirectives { get; }
         List<FormItemSettingsDescriptor> FieldSettings { get; }
         ValidationMessageDictionaryDescriptor ValidationMessages { get; }
