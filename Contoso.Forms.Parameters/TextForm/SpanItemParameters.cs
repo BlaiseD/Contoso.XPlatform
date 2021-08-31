@@ -6,7 +6,7 @@ namespace Contoso.Forms.Parameters.TextForm
     {
 		public SpanItemParameters
 		(
-			[Comments("")]
+			[Comments("Span text.")]
 			string text
 		)
 		{

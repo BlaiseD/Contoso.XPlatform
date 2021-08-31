@@ -7,7 +7,7 @@ namespace Contoso.Forms.Parameters.TextForm
     {
 		public FormattedLabelItemParameters
 		(
-			[Comments("")]
+			[Comments("List of text and hyperlink items which combine to form the formatted label.")]
 			List<SpanItemParametersBase> items
 		)
 		{

@@ -6,7 +6,7 @@ namespace Contoso.Forms.Parameters.TextForm
     {
 		public LabelItemParameters
 		(
-			[Comments("")]
+			[Comments("Label text.")]
 			string text
 		)
 		{

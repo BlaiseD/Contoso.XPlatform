@@ -6,10 +6,10 @@ namespace Contoso.Forms.Parameters.TextForm
     {
 		public HyperLinkLabelItemParameters
 		(
-			[Comments("")]
+			[Comments("Text section of hyperlink label.")]
 			string text,
 
-			[Comments("")]
+			[Comments("URL section of hyperlink label.")]
 			string url
 		)
 		{

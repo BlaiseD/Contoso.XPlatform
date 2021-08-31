@@ -6,10 +6,10 @@ namespace Contoso.Forms.Parameters.TextForm
     {
 		public HyperLinkSpanItemParameters
 		(
-			[Comments("")]
+			[Comments("Text section of hyperlink span.")]
 			string text,
 
-			[Comments("")]
+			[Comments("URL section of hyperlink span.")]
 			string url
 		)
 		{

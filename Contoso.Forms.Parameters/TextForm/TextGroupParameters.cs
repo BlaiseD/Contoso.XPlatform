@@ -7,10 +7,11 @@ namespace Contoso.Forms.Parameters.TextForm
     {
 		public TextGroupParameters
 		(
-			[Comments("")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Title")]
+			[Comments("Group header text for a group on the form")]
 			string title,
 
-			[Comments("")]
+			[Comments("Collection of spans, links, labels or formatted labels for this group.")]
 			List<LabelItemParametersBase> labels
 		)
 		{

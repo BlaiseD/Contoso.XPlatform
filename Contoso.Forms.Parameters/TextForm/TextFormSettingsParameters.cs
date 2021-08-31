@@ -7,10 +7,11 @@ namespace Contoso.Forms.Parameters.TextForm
     {
 		public TextFormSettingsParameters
 		(
-			[Comments("")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Title")]
+			[Comments("Header field on the form")]
 			string title,
 
-			[Comments("")]
+			[Comments("List of sections on the form.  Each section includes a header and a collection of spans, links, labels or formatted labels.")]
 			List<TextGroupParameters> textGroups
 		)
 		{
