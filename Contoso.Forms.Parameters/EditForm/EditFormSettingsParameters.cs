@@ -29,6 +29,9 @@ namespace Contoso.Forms.Parameters.EditForm
 			List<FormItemSettingsParameters> fieldSettings,
 
 			[Comments("")]
+			EditType editType,
+
+			[Comments("")]
 			Type modelType,
 
 			[Comments("")]
@@ -50,6 +53,7 @@ namespace Contoso.Forms.Parameters.EditForm
 			RequestDetails = requestDetails;
 			ValidationMessages = validationMessages;
 			FieldSettings = fieldSettings;
+			EditType = editType;
 			ModelType = modelType;
 			ValidFormControlText = validFormControlText;
 			InvalidFormControlText = invalidFormControlText;
@@ -61,6 +65,7 @@ namespace Contoso.Forms.Parameters.EditForm
 		public EditFormRequestDetailsParameters RequestDetails { get; set; }
 		public ValidationMessageDictionaryParameters ValidationMessages { get; set; }
 		public List<FormItemSettingsParameters> FieldSettings { get; set; }
+		public EditType EditType { get; set; }
 		public Type ModelType { get; set; }
 		public string ValidFormControlText { get; set; }
 		public string InvalidFormControlText { get; set; }

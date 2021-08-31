@@ -28,7 +28,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                 this.UiNotificationService
             );
 
-            if (this.FormSettings.RequestDetails.EditType == EditType.Update)
+            if (this.FormSettings.EditType == EditType.Update)
                 GetEntity();
         }
 

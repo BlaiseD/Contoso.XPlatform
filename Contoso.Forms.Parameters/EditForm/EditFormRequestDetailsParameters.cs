@@ -27,9 +27,6 @@ namespace Contoso.Forms.Parameters.EditForm
 			[Comments("The data type. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument (For literals, the full name (e.g. System.Int32) is sufficient.)")]
 			Type dataType,
 
-			[Comments("Select Add or Update.  Click the variable button to select the configured Add or Update edit type.")]
-			EditType editType,
-
 			[Comments("Defines the filter for the single object being edited - only applicable when the edit type is update.")]
 			FilterLambdaOperatorParameters filter,
 
@@ -42,7 +39,6 @@ namespace Contoso.Forms.Parameters.EditForm
 			UpdateUrl = updateUrl;
 			ModelType = modelType;
 			DataType = dataType;
-			EditType = editType;
 			Filter = filter;
 			SelectExpandDefinition = selectExpandDefinition;
 		}
@@ -52,7 +48,6 @@ namespace Contoso.Forms.Parameters.EditForm
 		public string UpdateUrl { get; set; }
 		public Type ModelType { get; set; }
 		public Type DataType { get; set; }
-		public EditType EditType { get; set; }
 		public FilterLambdaOperatorParameters Filter { get; set; }
 		public SelectExpandDefinitionParameters SelectExpandDefinition { get; set; }
     }

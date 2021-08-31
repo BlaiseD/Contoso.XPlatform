@@ -11,6 +11,7 @@ namespace Contoso.Forms.Configuration.EditForm
         public EditFormRequestDetailsDescriptor RequestDetails { get; set; }
         public ValidationMessageDictionaryDescriptor ValidationMessages { get; set; }
         public List<FormItemSettingsDescriptor> FieldSettings { get; set; }
+        public EditType EditType { get; set; }
         public string ModelType { get; set; }
         public string ValidFormControlText { get; set; }
         public string InvalidFormControlText { get; set; }
