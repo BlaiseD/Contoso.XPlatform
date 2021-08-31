@@ -7,19 +7,26 @@ namespace Contoso.Forms.Parameters.ItemFilter
     {
 		public MemberSourceFilterParameters
 		(
-			[Comments("")]
+			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
+			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
+			[Comments("Update fieldTypeSource first. This property being compared and LHS of the operation.")]
 			string field,
 
 			[Comments("The filter operator (comparison).")]
 			[Domain("eq, neq")]
 			[ParameterEditorControl(ParameterControlType.DropDown)]
+			[NameValue(AttributeNames.DEFAULTVALUE, "eq")]
 			string oper,
 
-			[Comments("")]
+			[Comments("The source field to get the RHS from an existing object which will then be compared with the LHS of the operation.")]
 			string memberSource,
 
-			[Comments("")]
-			Type type
+			[Comments("The element type for the memberSource field. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
+			Type type,
+
+			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
+			[Comments("Fully qualified class name for the model type.")]
+			string fieldTypeSource = "Contoso.Domain.Entities"
 		)
 		{
 			Field = field;

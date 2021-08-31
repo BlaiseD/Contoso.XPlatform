@@ -9,25 +9,29 @@ namespace Contoso.Forms.Parameters.ListForm
     {
 		public ListFormSettingsParameters
 		(
-			[Comments("")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Title")]
+			[Comments("Header field on the form")]
 			string title,
 
-			[Comments("")]
+			[Comments("The element type for a list item. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type modelType,
 
-			[Comments("")]
+			[Comments("Loading text may be useful.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Lodding ...")]
 			string loadingIndicatorText,
 
-			[Comments("")]
+			[Comments("XAML template name for the collection view item template.")]
+			[Domain("HeaderTextDetailTemplate, TextDetailTemplate")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "HeaderTextDetailTemplate")]
 			string itemTemplateName,
 
-			[Comments("")]
+			[Comments("Defines which fields of the model type bind to the named template fields (e.g. Header, Text, Detail).")]
 			CollectionViewItemBindingsDictionaryParameters bindings,
 
-			[Comments("")]
+			[Comments("Defines the LINQ query for retrieving the list.")]
 			SelectorLambdaOperatorParameters fieldsSelector,
 
-			[Comments("")]
+			[Comments("Defines API URL for the list data. May specify model and data types if we use the URL for multiple types.")]
 			RequestDetailsParameters requestDetails
 		)
 		{

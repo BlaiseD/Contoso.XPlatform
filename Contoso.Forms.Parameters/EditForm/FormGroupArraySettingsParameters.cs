@@ -33,11 +33,11 @@ namespace Contoso.Forms.Parameters.EditForm
 			Type type,
 
 			[NameValue(AttributeNames.DEFAULTVALUE, "(Form)")]
-			[Comments("Placeholder text for the for control when the form is a one-to-one form field. May need to remove this for form arrays..")]
+			[Comments("Placeholder text for the for control when the form is a one-to-one form field.")]
 			string validFormControlText,
 
 			[NameValue(AttributeNames.DEFAULTVALUE, "(Invalid Form)")]
-			[Comments("Placeholder text for the for control when the form is a one-to-one form field and the form is invalid. May need to remove this for form arrays..")]
+			[Comments("Placeholder text for the for control when the form is a one-to-one form field and the form is invalid.")]
 			string invalidFormControlText,
 
 			[Comments("")]

@@ -7,10 +7,13 @@ namespace Contoso.Forms.Parameters.ItemFilter
     {
 		public ItemFilterGroupParameters
 		(
-			[Comments("")]
+			[Domain("and,or")]
+			[ParameterEditorControl(ParameterControlType.DropDown)]
+			[Comments("and,or")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "and")]
 			string logic,
 
-			[Comments("")]
+			[Comments("List of filters - maximum of 2.  For additional filters use add a filter group instead of a filter.")]
 			ICollection<ItemFilterParametersBase> filters
 		)
 		{
