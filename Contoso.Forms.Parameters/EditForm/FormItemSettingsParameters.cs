@@ -6,7 +6,6 @@ namespace Contoso.Forms.Parameters.EditForm
     {
 		public FormItemSettingsParameters
 		(
-			[Comments("")]
 			string field
 		)
 		{

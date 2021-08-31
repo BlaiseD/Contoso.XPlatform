@@ -20,7 +20,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             this.FormSettings = setting;
             this.formsCollectionDisplayTemplateDescriptor = setting.FormsCollectionDisplayTemplate;
             this.Title = this.FormSettings.Title;
-            this.Placeholder = this.formsCollectionDisplayTemplateDescriptor.PlaceHolderText;
+            this.Placeholder = setting.Placeholder;
             this.mapper = mapper;
             this.fieldsCollectionBuilder = fieldsCollectionBuilder;
         }

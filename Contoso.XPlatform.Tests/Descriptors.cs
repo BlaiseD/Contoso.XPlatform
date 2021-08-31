@@ -58,7 +58,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "ID",
                     Type = "System.Int32",
-                    DomElementId = "id",
                     Title = "ID",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" },
                     ValidationSetting = new FieldValidationSettingsDescriptor
@@ -70,7 +69,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "FirstName",
                     Type = "System.String",
-                    DomElementId = "firstNameId",
                     Title = "First Name",
                     Placeholder = "First Name (required)",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
@@ -91,7 +89,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "LastName",
                     Type = "System.String",
-                    DomElementId = "lastNameId",
                     Title = "Last Name",
                     Placeholder = "Last Name (required)",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
@@ -112,7 +109,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "HireDate",
                     Type = "System.DateTime",
-                    DomElementId = "hireDateId",
                     Title = "Hire Date",
                     Placeholder = "",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "DateTemplate" },
@@ -139,7 +135,6 @@ namespace Contoso.XPlatform.Tests
                         {
                             Field = "Location",
                             Type = "System.String",
-                            DomElementId = "locationId",
                             Title = "Location",
                             Placeholder = "Location",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
@@ -149,14 +144,12 @@ namespace Contoso.XPlatform.Tests
                     {
                         TemplateName = "InlineFormGroupTemplate"
                     },
-                    Title = "",
-                    ShowTitle = false
+                    Title = ""
                 },
                 new MultiSelectFormControlSettingsDescriptor
                 {
                     KeyFields = new List<string> { "CourseID" },
                     Field = "Courses",
-                    DomElementId = "coursesId",
                     Title ="Courses",
                     Placeholder = "Select Courses ...",
                     Type = typeof(ICollection<CourseAssignmentModel>).AssemblyQualifiedName,
@@ -264,7 +257,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "ID",
                     Type = "System.Int32",
-                    DomElementId = "id",
                     Title = "ID",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" },
                     ValidationSetting = new FieldValidationSettingsDescriptor
@@ -276,7 +268,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "FirstName",
                     Type = "System.String",
-                    DomElementId = "firstNameId",
                     Title = "First Name",
                     Placeholder = "First Name (required)",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
@@ -297,7 +288,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "LastName",
                     Type = "System.String",
-                    DomElementId = "lastNameId",
                     Title = "Last Name",
                     Placeholder = "Last Name (required)",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
@@ -318,7 +308,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "HireDate",
                     Type = "System.DateTime",
-                    DomElementId = "hireDateId",
                     Title = "Hire Date",
                     Placeholder = "",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "DateTemplate" },
@@ -345,7 +334,6 @@ namespace Contoso.XPlatform.Tests
                         {
                             Field = "Location",
                             Type = "System.String",
-                            DomElementId = "locationId",
                             Title = "Location",
                             Placeholder = "Location",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
@@ -355,14 +343,12 @@ namespace Contoso.XPlatform.Tests
                     {
                         TemplateName = "PopupFormGroupTemplate"
                     },
-                    Title = "",
-                    ShowTitle = false
+                    Title = ""
                 },
                 new MultiSelectFormControlSettingsDescriptor
                 {
                     KeyFields = new List<string> { "CourseID" },
                     Field = "Courses",
-                    DomElementId = "coursesId",
                     Title ="Courses",
                     Placeholder = "Select Courses ...",
                     Type = typeof(ICollection<CourseAssignmentModel>).AssemblyQualifiedName,
@@ -479,7 +465,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "DepartmentID",
                     Type = "System.Int32",
-                    DomElementId = "id",
                     Title = "ID",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" },
                     ValidationSetting = new FieldValidationSettingsDescriptor
@@ -491,7 +476,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "Budget",
                     Type = "System.Decimal",
-                    DomElementId = "mudgetId",
                     Title = "Budget",
                     Placeholder = "Budget (required)",
                     StringFormat = "{0:F2}",
@@ -518,7 +502,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "InstructorID",
                     Type = "System.Int32",
-                    DomElementId = "instructorID",
                     Title = "Administrator",
                     Placeholder = "Select Administrator (required)",
                     DropDownTemplate = new DropDownTemplateDescriptor
@@ -602,7 +585,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "Name",
                     Type = "System.String",
-                    DomElementId = "nameId",
                     Title = "Name",
                     Placeholder = "Name (required)",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
@@ -623,7 +605,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "StartDate",
                     Type = "System.DateTime",
-                    DomElementId = "startDateId",
                     Title = "Start Date",
                     Placeholder = "",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "DateTemplate" },
@@ -643,6 +624,7 @@ namespace Contoso.XPlatform.Tests
                 new FormGroupArraySettingsDescriptor
                 {
                     Field = "Courses",
+                    Placeholder = "(Courses)",
                     FormGroupTemplate = new FormGroupTemplateDescriptor
                     {
                         TemplateName = "FormGroupArrayTemplate"
@@ -690,9 +672,6 @@ namespace Contoso.XPlatform.Tests
                     FormsCollectionDisplayTemplate = new FormsCollectionDisplayTemplateDescriptor
                     {
                         TemplateName = "TextDetailTemplate",
-                        PlaceHolderText = "(Courses)",
-                        LoadingIndicatorText = "Loading ...",
-                        ModelType = typeof(CourseModel).AssemblyQualifiedName,
                         Bindings = new CollectionViewItemBindingsDictionaryDescriptor
                         (
                             new List<CollectionViewItemBindingDescriptor>
@@ -710,32 +689,7 @@ namespace Contoso.XPlatform.Tests
                                     StringFormat = "{0:MMMM dd, yyyy}"
                                 }
                             }
-                        ),
-                        CollectionSelector = new SelectorLambdaOperatorDescriptor
-                        {
-                            Selector = new OrderByOperatorDescriptor
-                            {
-                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
-                                SelectorBody = new MemberSelectorOperatorDescriptor
-                                {
-                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
-                                    MemberFullName = "Title"
-                                },
-                                SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
-                                SelectorParameterName = "d"
-                            },
-                            SourceElementType = typeof(IQueryable<CourseModel>).AssemblyQualifiedName,
-                            ParameterName = "$it",
-                            BodyType = typeof(IEnumerable<CourseModel>).AssemblyQualifiedName
-                        },
-                        RequestDetails = new RequestDetailsDescriptor
-                        {
-                            DataSourceUrl = "api/List/GetList",
-                            ModelType = typeof(CourseModel).AssemblyQualifiedName,
-                            DataType = typeof(Course).AssemblyQualifiedName,
-                            ModelReturnType = typeof(IEnumerable<CourseModel>).AssemblyQualifiedName,
-                            DataReturnType = typeof(IEnumerable<Course>).AssemblyQualifiedName
-                        }
+                        )
                     },
                     FieldSettings = new List<FormItemSettingsDescriptor>
                     {
@@ -743,7 +697,6 @@ namespace Contoso.XPlatform.Tests
                         {
                             Field = "CourseID",
                             Type = "System.Int32",
-                            DomElementId = "courseIDId",
                             Title = "Course",
                             Placeholder = "Course ID (required)",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
@@ -769,7 +722,6 @@ namespace Contoso.XPlatform.Tests
                         {
                             Field = "Credits",
                             Type = "System.Int32",
-                            DomElementId = "creditsId",
                             Title = "Credits",
                             Placeholder = "Credits (required)",
                             DropDownTemplate = new DropDownTemplateDescriptor
@@ -873,7 +825,6 @@ namespace Contoso.XPlatform.Tests
                         {
                             Field = "DepartmentID",
                             Type = "System.Int32",
-                            DomElementId = "departmentID",
                             Title = "Department",
                             Placeholder = "Department(required)",
                             DropDownTemplate = new DropDownTemplateDescriptor
@@ -947,7 +898,6 @@ namespace Contoso.XPlatform.Tests
                         {
                             Field = "Title",
                             Type = "System.String",
-                            DomElementId = "titleId",
                             Title = "Title",
                             Placeholder = "Title (required)",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
@@ -1026,7 +976,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "CourseID",
                     Type = "System.Int32",
-                    DomElementId = "courseIDId",
                     Title = "Course",
                     Placeholder = "Course ID (required)",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
@@ -1052,7 +1001,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "Credits",
                     Type = "System.Int32",
-                    DomElementId = "creditsId",
                     Title = "Credits",
                     Placeholder = "Credits (required)",
                     DropDownTemplate = new DropDownTemplateDescriptor
@@ -1156,7 +1104,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "DepartmentID",
                     Type = "System.Int32",
-                    DomElementId = "departmentID",
                     Title = "Department",
                     Placeholder = "Department(required)",
                     DropDownTemplate = new DropDownTemplateDescriptor
@@ -1230,7 +1177,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "Title",
                     Type = "System.String",
-                    DomElementId = "titleId",
                     Title = "Title",
                     Placeholder = "Title (required)",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
@@ -1295,7 +1241,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "FirstName",
                     Type = "System.String",
-                    DomElementId = "firstNameId",
                     Title = "First Name",
                     Placeholder = "First Name (required)",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
@@ -1316,7 +1261,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "LastName",
                     Type = "System.String",
-                    DomElementId = "lastNameId",
                     Title = "Last Name",
                     Placeholder = "Last Name (required)",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
@@ -1337,7 +1281,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     Field = "EnrollmentDate",
                     Type = "System.DateTime",
-                    DomElementId = "enrollmentDateId",
                     Title = "Enrollment Date",
                     Placeholder = "",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "DateTemplate" },

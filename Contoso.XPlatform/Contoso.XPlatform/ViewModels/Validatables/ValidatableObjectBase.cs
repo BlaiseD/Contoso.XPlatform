@@ -113,7 +113,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         object IValidatable.Value { get => Value; set => Value = (T)value; }
         #endregion Properties
 
-        public bool Validate()
+        public virtual bool Validate()
         {
             Errors = Validations
                         ?.Where(v => !v.Check())

@@ -13,8 +13,6 @@ namespace Contoso.Forms.Configuration.EditForm
         public List<FormItemSettingsDescriptor> FieldSettings { get; set; }
         public EditType EditType { get; set; }
         public string ModelType { get; set; }
-        public string ValidFormControlText { get; set; }
-        public string InvalidFormControlText { get; set; }
         public VariableDirectivesDictionaryDescriptor ConditionalDirectives { get; set; }
     }
 }

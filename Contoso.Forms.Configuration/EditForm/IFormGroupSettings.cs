@@ -8,8 +8,6 @@ namespace Contoso.Forms.Configuration.EditForm
     {
         string ModelType { get; }
         string Title { get; }
-        string ValidFormControlText { get; }
-        string InvalidFormControlText { get; }
         VariableDirectivesDictionaryDescriptor ConditionalDirectives { get; }
         List<FormItemSettingsDescriptor> FieldSettings { get; }
         ValidationMessageDictionaryDescriptor ValidationMessages { get; }

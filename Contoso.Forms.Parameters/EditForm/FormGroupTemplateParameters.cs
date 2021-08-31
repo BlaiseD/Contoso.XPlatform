@@ -6,7 +6,9 @@ namespace Contoso.Forms.Parameters.EditForm
     {
 		public FormGroupTemplateParameters
 		(
-			[Comments("")]
+			[Comments("XAML template name for the form field.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "PopupFormGroupTemplate")]
+			[Domain("InlineFormGroupTemplate,PopupFormGroupTemplate")]
 			string templateName
 		)
 		{

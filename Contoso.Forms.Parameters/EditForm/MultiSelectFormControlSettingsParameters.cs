@@ -9,39 +9,39 @@ namespace Contoso.Forms.Parameters.EditForm
     {
 		public MultiSelectFormControlSettingsParameters
 		(
-			[Comments("")]
+			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
+			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
+			[Comments("Update fieldTypeSource first. Source property name from the target object.")]
+			string field,
+
+			[Comments("Usually just a list of one item - the primary key. Additional fields apply when the primary key is a composite key.")]
 			List<string> keyFields,
 
-			[Comments("")]
-			MultiSelectTemplateParameters multiSelectTemplate,
-
-			[Comments("")]
-			string domElementId,
-
-			[Comments("")]
+			[Comments("Label for the field.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Title")]
 			string title,
 
-			[Comments("")]
+			[Comments("Place holder text.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "(Title) required")]
 			string placeholder,
 
-			[Comments("")]
+			[Comments("May need to remove (doubtful it is useful for a multiselect which has text display fields). String format - useful for binding decimals.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "{0}")]
 			string stringFormat,
 
-			[Comments("")]
+			[Comments("The type for the field being edited. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.  Use the full name (e.g. System.Int32) for literals or core platform types.")]
 			Type type,
 
-			[Comments("")]
-			FieldValidationSettingsParameters validationSetting,
+			[Comments("Holds the XAML template name for the field plus additional multi-select related properties (textField, valueField, request details etc.).")]
+			MultiSelectTemplateParameters multiSelectTemplate,
 
-			[Comments("")]
-			TextFieldTemplateParameters textTemplate,
+			[Comments("Defines the field's default value, validation functions (and arguments for the validator where necessary).")]
+			FieldValidationSettingsParameters validationSetting = null,
 
-			[Comments("")]
-			DropDownTemplateParameters dropDownTemplate,
-
-			[Comments("")]
-			string field
-		) : base(domElementId, title, placeholder, stringFormat, type, validationSetting, textTemplate, dropDownTemplate, field)
+			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
+			[Comments("Fully qualified class name for the model type.")]
+			string fieldTypeSource = "Contoso.Domain.Entities"
+		) : base(field, title, placeholder, stringFormat, type, validationSetting, null, null)
 		{
 			KeyFields = keyFields;
 			MultiSelectTemplate = multiSelectTemplate;

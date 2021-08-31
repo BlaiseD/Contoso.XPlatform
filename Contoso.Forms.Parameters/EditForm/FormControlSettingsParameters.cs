@@ -8,35 +8,40 @@ namespace Contoso.Forms.Parameters.EditForm
     {
 		public FormControlSettingsParameters
 		(
-			[Comments("")]
-			string domElementId,
+			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
+			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
+			[Comments("Update fieldTypeSource first. This property being edited.")]
+			string field,
 
-			[Comments("")]
+			[Comments("Label for the field.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Title")]
 			string title,
 
-			[Comments("")]
+			[Comments("Place holder text.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "(Title) required")]
 			string placeholder,
 
-			[Comments("")]
+			[Comments("String format - useful for binding decimals.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "{0}")]
 			string stringFormat,
 
-			[Comments("")]
+			[Comments("The type for the field being edited. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.  Use the full name (e.g. System.Int32) for literals or core platform types.")]
 			Type type,
 
-			[Comments("")]
-			FieldValidationSettingsParameters validationSetting,
+			[Comments("Defines the field's default value, validation functions (and arguments for the validator where necessary).")]
+			FieldValidationSettingsParameters validationSetting = null,
 
-			[Comments("")]
-			TextFieldTemplateParameters textTemplate,
+			[Comments("Holds the XAML template name for the field.")]
+			TextFieldTemplateParameters textTemplate = null,
 
-			[Comments("")]
-			DropDownTemplateParameters dropDownTemplate,
+			[Comments("Holds the XAML template name for the field plus additional drop-down related properties (textField, valueField, request details etc.).")]
+			DropDownTemplateParameters dropDownTemplate = null,
 
-			[Comments("")]
-			string field
+			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
+			[Comments("Fully qualified class name for the model type.")]
+			string fieldTypeSource = "Contoso.Domain.Entities"
 		) : base(field)
 		{
-			DomElementId = domElementId;
 			Title = title;
 			Placeholder = placeholder;
 			StringFormat = stringFormat;
@@ -46,7 +51,6 @@ namespace Contoso.Forms.Parameters.EditForm
 			DropDownTemplate = dropDownTemplate;
 		}
 
-		public string DomElementId { get; set; }
 		public string Title { get; set; }
 		public string Placeholder { get; set; }
 		public string StringFormat { get; set; }

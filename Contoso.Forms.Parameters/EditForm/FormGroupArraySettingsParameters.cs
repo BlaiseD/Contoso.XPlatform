@@ -10,52 +10,58 @@ namespace Contoso.Forms.Parameters.EditForm
     {
 		public FormGroupArraySettingsParameters
 		(
-			[Comments("")]
+			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
+			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
+			[Comments("Update fieldTypeSource first. Source property name from the target object.")]
+			string field,
+
+			[Comments("Usually just a list of one item - the primary key. Additional fields apply when the primary key is a composite key.")]
+			List<string> keyFields,
+
+			[NameValue(AttributeNames.DEFAULTVALUE, "Title")]
+			[Comments("Title for the form group.")]
 			string title,
 
-			[Comments("")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "(Form Collection)")]
+			[Comments("e.g. (Addresses). Placeholder text for the for multi-form control on the parent form.")]
 			string placeholder,
 
-			[Comments("")]
-			bool showTitle,
-
-			[Comments("")]
+			[Comments("e.g. T. The element type for the list being edited. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type modelType,
 
-			[Comments("")]
+			[Comments("e.g. ICollection<T>. The type for the list being edited. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type type,
 
-			[Comments("")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "(Form)")]
+			[Comments("Placeholder text for the for control when the form is a one-to-one form field. May need to remove this for form arrays..")]
 			string validFormControlText,
 
-			[Comments("")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "(Invalid Form)")]
+			[Comments("Placeholder text for the for control when the form is a one-to-one form field and the form is invalid. May need to remove this for form arrays..")]
 			string invalidFormControlText,
-
-			[Comments("")]
-			List<string> keyFields,
 
 			[Comments("")]
 			FormsCollectionDisplayTemplateParameters formsCollectionDisplayTemplate,
 
-			[Comments("")]
+			[Comments("XAML template for the form group.")]
 			FormGroupTemplateParameters formGroupTemplate,
 
-			[Comments("")]
+			[Comments("Configuration for each field in one of the array's form groups.")]
 			List<FormItemSettingsParameters> fieldSettings,
 
-			[Comments("")]
-			ValidationMessageDictionaryParameters validationMessages,
+			[Comments("Input validation messages for each field.")]
+			ValidationMessageDictionaryParameters validationMessages = null,
 
-			[Comments("")]
-			VariableDirectivesDictionaryParameters conditionalDirectives,
+			[Comments("Conditional directtives for each field.")]
+			VariableDirectivesDictionaryParameters conditionalDirectives = null,
 
-			[Comments("")]
-			string field
+			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
+			[Comments("Fully qualified class name for the model type.")]
+			string fieldTypeSource = "Contoso.Domain.Entities"
 		) : base(field)
 		{
 			Title = title;
 			Placeholder = placeholder;
-			ShowTitle = showTitle;
 			ModelType = modelType;
 			Type = type;
 			ValidFormControlText = validFormControlText;
@@ -70,7 +76,6 @@ namespace Contoso.Forms.Parameters.EditForm
 
 		public string Title { get; set; }
 		public string Placeholder { get; set; }
-		public bool ShowTitle { get; set; }
 		public Type ModelType { get; set; }
 		public Type Type { get; set; }
 		public string ValidFormControlText { get; set; }

@@ -15,37 +15,31 @@ namespace Contoso.Forms.Parameters.EditForm
 			string title,
 
 			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
-			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "modelType")]
-			[Comments("Update displayFieldTypeSource first. This field may be displayed next to the title - empty on Add.")]
+			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
+			[Comments("Update fieldTypeSource first. This field may be displayed next to the title - empty on Add.")]
 			string displayField,
 
-			[Comments("")]
+			[Comments("Includes the URL's for create, read, and update.")]
 			EditFormRequestDetailsParameters requestDetails,
 
-			[Comments("")]
+			[Comments("Input validation messages for each field.")]
 			ValidationMessageDictionaryParameters validationMessages,
 
-			[Comments("")]
+			[Comments("List of fields and form groups for this form.")]
 			List<FormItemSettingsParameters> fieldSettings,
 
-			[Comments("")]
+			[Comments("Click the Variable button and select the configured EditType enum field.")]
 			EditType editType,
 
-			[Comments("")]
+			[Comments("The model type for the object being edited. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type modelType,
 
-			[Comments("")]
-			string validFormControlText,
-
-			[Comments("")]
-			string invalidFormControlText,
-
-			[Comments("")]
+			[Comments("Conditional directtives for each field.")]
 			VariableDirectivesDictionaryParameters conditionalDirectives = null,
 
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
 			[Comments("Fully qualified class name for the model type.")]
-			string displayFieldTypeSource = "Contoso.Domain.Entities"
+			string fieldTypeSource = "Contoso.Domain.Entities"
 		)
 		{
 			Title = title;
@@ -55,8 +49,6 @@ namespace Contoso.Forms.Parameters.EditForm
 			FieldSettings = fieldSettings;
 			EditType = editType;
 			ModelType = modelType;
-			ValidFormControlText = validFormControlText;
-			InvalidFormControlText = invalidFormControlText;
 			ConditionalDirectives = conditionalDirectives;
 		}
 
@@ -67,8 +59,6 @@ namespace Contoso.Forms.Parameters.EditForm
 		public List<FormItemSettingsParameters> FieldSettings { get; set; }
 		public EditType EditType { get; set; }
 		public Type ModelType { get; set; }
-		public string ValidFormControlText { get; set; }
-		public string InvalidFormControlText { get; set; }
 		public VariableDirectivesDictionaryParameters ConditionalDirectives { get; set; }
     }
 }

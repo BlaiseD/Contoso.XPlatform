@@ -21,10 +21,10 @@ namespace Contoso.Forms.Parameters.EditForm
 			[NameValue(AttributeNames.DEFAULTVALUE, "api/Student/Save")]
 			string updateUrl,
 
-			[Comments("The model type. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument (For literals, the full name (e.g. System.Int32) is sufficient.)")]
+			[Comments("The model type for the object being requested. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type modelType,
 
-			[Comments("The data type. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument (For literals, the full name (e.g. System.Int32) is sufficient.)")]
+			[Comments("The data type for the object being requested. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type dataType,
 
 			[Comments("Defines the filter for the single object being edited - only applicable when the edit type is update.")]

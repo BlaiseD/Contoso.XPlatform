@@ -26,7 +26,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
         public ObservableCollection<IValidatable> Properties { get; }
         
-        public IFormGroupSettings FormSettings { get; set; }
+        public IChildFormGroupSettings FormSettings { get; set; }
         private readonly IMapper mapper;
         private readonly IDisposable propertyChangedSubscription;
 
@@ -175,6 +175,16 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         public virtual void Dispose()
         {
             Dispose(this.propertyChangedSubscription);
+        }
+
+        public override bool Validate()
+        {
+            if (!AreFieldsValid())
+                Errors = new Dictionary<string, string> { [Name] = this.FormSettings.InvalidFormControlText };
+
+            IsValid = Errors?.Any() != true;
+
+            return this.IsValid;
         }
 
         protected void Dispose(IDisposable disposable)

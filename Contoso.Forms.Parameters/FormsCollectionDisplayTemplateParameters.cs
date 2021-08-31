@@ -13,39 +13,14 @@ namespace Contoso.Forms.Parameters
 			string templateName,
 
 			[Comments("")]
-			string placeHolderText,
-
-			[Comments("")]
-			Type modelType,
-
-			[Comments("")]
-			string loadingIndicatorText,
-
-			[Comments("")]
-			CollectionViewItemBindingsDictionaryParameters bindings,
-
-			[Comments("")]
-			SelectorLambdaOperatorParameters collectionSelector,
-
-			[Comments("")]
-			RequestDetailsParameters requestDetails
+			CollectionViewItemBindingsDictionaryParameters bindings
 		)
 		{
 			TemplateName = templateName;
-			PlaceHolderText = placeHolderText;
-			ModelType = modelType;
-			LoadingIndicatorText = loadingIndicatorText;
 			Bindings = bindings;
-			CollectionSelector = collectionSelector;
-			RequestDetails = requestDetails;
 		}
 
 		public string TemplateName { get; set; }
-		public string PlaceHolderText { get; set; }
-		public Type ModelType { get; set; }
-		public string LoadingIndicatorText { get; set; }
 		public CollectionViewItemBindingsDictionaryParameters Bindings { get; set; }
-		public SelectorLambdaOperatorParameters CollectionSelector { get; set; }
-		public RequestDetailsParameters RequestDetails { get; set; }
     }
 }

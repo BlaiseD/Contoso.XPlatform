@@ -51,8 +51,7 @@ namespace Contoso.AutoMapperProfiles
 				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
 			CreateMap<FormGroupTemplateParameters, FormGroupTemplateDescriptor>();
 			CreateMap<FormItemSettingsParameters, FormItemSettingsDescriptor>();
-			CreateMap<FormsCollectionDisplayTemplateParameters, FormsCollectionDisplayTemplateDescriptor>()
-				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
+			CreateMap<FormsCollectionDisplayTemplateParameters, FormsCollectionDisplayTemplateDescriptor>();
 			CreateMap<HyperLinkLabelItemParameters, HyperLinkLabelItemDescriptor>();
 			CreateMap<HyperLinkSpanItemParameters, HyperLinkSpanItemDescriptor>();
 			CreateMap<ItemFilterGroupParameters, ItemFilterGroupDescriptor>();
