@@ -21,7 +21,7 @@ namespace Contoso.Forms.Parameters.ItemFilter
 			[Comments("The source field to get the RHS from an existing object which will then be compared with the LHS of the operation.")]
 			string memberSource,
 
-			[Comments("The element type for the memberSource field. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
+			[Comments("The element type for the memberSource field. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.  Use the full name (e.g. System.Int32) for literals or core platform types.")]
 			Type type,
 
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]

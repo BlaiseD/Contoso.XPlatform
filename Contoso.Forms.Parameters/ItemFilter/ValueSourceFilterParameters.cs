@@ -21,7 +21,7 @@ namespace Contoso.Forms.Parameters.ItemFilter
 			[Comments("The value (RHS) being compared with the LHS of the operation.")]
 			object value,
 
-			[Comments("The element type for the value field. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
+			[Comments("The element type for the value field. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.  Use the full name (e.g. System.Int32) for literals or core platform types.")]
 			Type type,
 
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]

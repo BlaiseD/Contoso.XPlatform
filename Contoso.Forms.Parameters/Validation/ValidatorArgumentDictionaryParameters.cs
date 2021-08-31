@@ -9,7 +9,7 @@ namespace Contoso.Forms.Parameters.Validation
 
 		public ValidatorArgumentDictionaryParameters
 		(
-			[Comments("")]
+			[Comments("List of arguments for the validation function.")]
 			List<ValidatorArgumentParameters> validatorArguments
 		)
 		{

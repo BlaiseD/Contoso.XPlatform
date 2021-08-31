@@ -9,7 +9,7 @@ namespace Contoso.Forms.Parameters.Validation
 
 		public ValidationMethodDictionaryParameters
 		(
-			[Comments("")]
+			[Comments("List of validation methods/classes for a given field. - (should rename this form ValidationMethodParameters to ValidationClassParameters)")]
 			List<ValidationMethodParameters> validationMethods
 		)
 		{

@@ -6,10 +6,12 @@ namespace Contoso.Forms.Parameters.Validation
     {
 		public ValidationMethodParameters
 		(
-			[Comments("")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "RequiredRule")]
+			[Comments("The validation class")]
 			string className,
 
-			[Comments("")]
+			[Comments("The validtion message")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "(Property) is required.")]
 			string message
 		)
 		{

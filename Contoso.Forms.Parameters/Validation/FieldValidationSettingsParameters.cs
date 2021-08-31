@@ -7,11 +7,11 @@ namespace Contoso.Forms.Parameters.Validation
     {
 		public FieldValidationSettingsParameters
 		(
-			[Comments("")]
-			object defaultValue,
+			[Comments("Default value for the form control.")]
+			object defaultValue = null,
 
-			[Comments("")]
-			List<ValidatorDefinitionParameters> validators
+			[Comments("Confifuration for validation classes, functions (and arguments for the validator where necessary).")]
+			List<ValidatorDefinitionParameters> validators = null
 		)
 		{
 			DefaultValue = defaultValue;

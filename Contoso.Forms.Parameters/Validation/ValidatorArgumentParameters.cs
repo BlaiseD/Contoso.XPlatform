@@ -7,13 +7,17 @@ namespace Contoso.Forms.Parameters.Validation
     {
 		public ValidatorArgumentParameters
 		(
-			[Comments("")]
+			[Comments("The argument's name.")]
+			[NameValue(AttributeNames.USEFOREQUALITY, "true")]
+			[NameValue(AttributeNames.USEFORHASHCODE, "true")]
 			string name,
 
-			[Comments("")]
+			[Comments("The argument's value.")]
+			[NameValue(AttributeNames.USEFOREQUALITY, "false")]
+			[NameValue(AttributeNames.USEFORHASHCODE, "false")]
 			object value,
 
-			[Comments("")]
+			[Comments("The argumet type. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.  Use the full name (e.g. System.Int32) for literals or core platform types.")]
 			Type type
 		)
 		{

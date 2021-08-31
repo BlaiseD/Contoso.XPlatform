@@ -9,7 +9,7 @@ namespace Contoso.Forms.Parameters.Validation
 
 		public ValidationMessageDictionaryParameters
 		(
-			[Comments("")]
+			[Comments("List of validation messages grouped by field. Each item includes a field and a corressponding list of validation methods.")]
 			List<ValidationMessageParameters> validationMessages
 		)
 		{

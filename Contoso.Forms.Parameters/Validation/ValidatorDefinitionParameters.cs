@@ -6,14 +6,16 @@ namespace Contoso.Forms.Parameters.Validation
     {
 		public ValidatorDefinitionParameters
 		(
-			[Comments("")]
+			[Comments("Validation class name.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "RequiredRule")]
 			string className,
 
-			[Comments("")]
+			[Comments("Function to call on the validation class.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Check")]
 			string functionName,
 
-			[Comments("")]
-			ValidatorArgumentDictionaryParameters arguments
+			[Comments("Where applicable, add arguments for the validator function e.g. min, max vallues.")]
+			ValidatorArgumentDictionaryParameters arguments = null
 		)
 		{
 			ClassName = className;
