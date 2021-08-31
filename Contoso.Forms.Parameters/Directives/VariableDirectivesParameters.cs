@@ -9,7 +9,7 @@ namespace Contoso.Forms.Parameters.Directives
 		(
 			[Comments("Update modelType first. The property to which the directive applies.")]
 			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
-			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "modelType")]
+			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
 			string field,
 
 			[Comments("List of object which define the directive including functions/expressions for enabling/disabling the directive.")]
@@ -18,7 +18,7 @@ namespace Contoso.Forms.Parameters.Directives
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
 			[NameValue(AttributeNames.DEFAULTVALUE, "Contoso.Domain.Entities")]
 			[Comments("Fully qualified class name for the model type.")]
-			string modelType = null
+			string fieldTypeSource = null
 		)
 		{
 			Field = field;

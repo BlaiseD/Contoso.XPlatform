@@ -9,7 +9,7 @@ namespace Contoso.Forms.Parameters.ItemFilter
 		(
 			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
 			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
-			[Comments("Update fieldTypeSource first. This property being compared and LHS of the operation.")]
+			[Comments("Update fieldTypeSource first. The property being compared and LHS of the operation.")]
 			string field,
 
 			[Comments("The filter operator (comparison).")]

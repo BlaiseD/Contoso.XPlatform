@@ -6,8 +6,14 @@ namespace Contoso.Forms.Parameters.SearchForm
     {
 		public SearchFilterParameters
 		(
-			[Comments("")]
-			string field
+			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
+			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
+			[Comments("Update fieldTypeSource first. This property being searched.")]
+			string field,
+
+			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
+			[Comments("Fully qualified class name for the model type.")]
+			string fieldTypeSource = "Contoso.Domain.Entities"
 		)
 		{
 			Field = field;

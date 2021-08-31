@@ -7,7 +7,7 @@ namespace Contoso.Forms.Parameters.SearchForm
     {
 		public SearchFilterGroupParameters
 		(
-			[Comments("")]
+			[Comments("List of filters - maximum of 2.  For additional filters use add a filter group instead of a filter.")]
 			ICollection<SearchFilterParametersBase> filters
 		)
 		{

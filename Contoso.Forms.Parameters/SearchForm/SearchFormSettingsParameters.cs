@@ -9,31 +9,36 @@ namespace Contoso.Forms.Parameters.SearchForm
     {
 		public SearchFormSettingsParameters
 		(
-			[Comments("")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Title")]
+			[Comments("Header field on the form")]
 			string title,
 
-			[Comments("")]
+			[Comments("The element type for a list item. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type modelType,
 
-			[Comments("")]
+			[Comments("Loading text may be useful.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Lodding ...")]
 			string loadingIndicatorText,
 
-			[Comments("")]
+			[Comments("XAML template name for the collection view item template.")]
+			[Domain("HeaderTextDetailTemplate, TextDetailTemplate")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "HeaderTextDetailTemplate")]
 			string itemTemplateName,
 
-			[Comments("")]
+			[Comments("Placeholder text for the search bar.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Filter")]
 			string filterPlaceholder,
 
-			[Comments("")]
+			[Comments("Defines which fields of the model type which bind to the named template fields (e.g. Header, Text, Detail).")]
 			CollectionViewItemBindingsDictionaryParameters bindings,
 
-			[Comments("")]
+			[Comments("Define the sort order and number additional items to return on 'Pull to Refresh'.")]
 			SortCollectionParameters sortCollection,
 
-			[Comments("")]
+			[Comments("Defines the fields to search against - may be different from the displayed template fields.")]
 			SearchFilterGroupParameters searchFilterGroup,
 
-			[Comments("")]
+			[Comments("Defines API URL for the list data. May specify model and data types if we use the URL for multiple types.")]
 			RequestDetailsParameters requestDetails
 		)
 		{
