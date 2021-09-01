@@ -28,7 +28,6 @@ namespace Contoso.AutoMapperProfiles
         {
 			CreateMap<CollectionViewItemBindingParameters, CollectionViewItemBindingDescriptor>();
 			CreateMap<CollectionViewItemBindingsDictionaryParameters, CollectionViewItemBindingsDictionaryDescriptor>();
-			CreateMap<CommandButtonParameters, CommandButtonDescriptor>();
 			CreateMap<DirectiveArgumentDictionaryParameters, DirectiveArgumentDictionaryDescriptor>();
 			CreateMap<DirectiveArgumentParameters, DirectiveArgumentDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
@@ -50,7 +49,6 @@ namespace Contoso.AutoMapperProfiles
 			CreateMap<FormGroupSettingsParameters, FormGroupSettingsDescriptor>()
 				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
 			CreateMap<FormGroupTemplateParameters, FormGroupTemplateDescriptor>();
-			CreateMap<FormItemSettingsParameters, FormItemSettingsDescriptor>();
 			CreateMap<FormsCollectionDisplayTemplateParameters, FormsCollectionDisplayTemplateDescriptor>();
 			CreateMap<HyperLinkLabelItemParameters, HyperLinkLabelItemDescriptor>();
 			CreateMap<HyperLinkSpanItemParameters, HyperLinkSpanItemDescriptor>();

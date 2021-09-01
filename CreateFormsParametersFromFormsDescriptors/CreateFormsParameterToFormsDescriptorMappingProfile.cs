@@ -13,13 +13,18 @@ namespace CreateFormsParametersFromFormsDescriptors
             List<Type> types = typeof(Contoso.Forms.Parameters.CommandButtonParameters).Assembly.GetTypes()
                 .Where
                 (
-                    p => p.Namespace != null &&
-                    p.Namespace.StartsWith("Contoso.Forms.Parameters")
-                    && !p.IsEnum
-                    && !p.IsGenericTypeDefinition
-                    && !p.IsInterface
-                    && p.FullName.EndsWith("Parameters")
-                    && Attribute.GetCustomAttribute(p, typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute)) == null
+                    type => type.Namespace != null &&
+                    type.Namespace.StartsWith("Contoso.Forms.Parameters")
+                    && !type.IsEnum
+                    && !type.IsGenericTypeDefinition
+                    && !type.IsInterface
+                    && !new HashSet<string>
+                    {
+                        "CommandButtonParameters",
+                        "FormItemSettingsParameters"
+                    }.Contains(type.Name)
+                    && type.FullName.EndsWith("Parameters")
+                    && Attribute.GetCustomAttribute(type, typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute)) == null
                 )
                 .OrderBy(type => type.Name)
                 .ToList();
