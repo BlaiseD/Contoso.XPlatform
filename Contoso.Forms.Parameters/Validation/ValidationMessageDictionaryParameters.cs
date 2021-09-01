@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.Validation
 {
-    public class ValidationMessageDictionaryParameters : Dictionary<string, ValidationMethodDictionaryParameters>
+    public class ValidationMessageDictionaryParameters : Dictionary<string, ValidationRuleDictionaryParameters>
     {
 		private List<ValidationMessageParameters> validationMessages;
 
 		public ValidationMessageDictionaryParameters
 		(
-			[Comments("List of validation messages grouped by field. Each item includes a field and a corressponding list of validation methods.")]
+			[Comments("List of validation messages grouped by field. Each item includes a field and a corressponding list of validation rules.")]
 			List<ValidationMessageParameters> validationMessages
 		)
 		{
@@ -28,7 +28,7 @@ namespace Contoso.Forms.Parameters.Validation
                     vmd => this.Add
                     (
                         vmd.Field,
-                        new ValidationMethodDictionaryParameters(vmd.Methods)
+                        new ValidationRuleDictionaryParameters(vmd.Rules)
                     )
                 );
             }

@@ -2,9 +2,9 @@
 
 namespace Contoso.Forms.Parameters.Validation
 {
-    public class ValidationMethodParameters
+    public class ValidationRuleParameters
     {
-		public ValidationMethodParameters
+		public ValidationRuleParameters
 		(
 			[NameValue(AttributeNames.DEFAULTVALUE, "RequiredRule")]
 			[Comments("The validation class")]

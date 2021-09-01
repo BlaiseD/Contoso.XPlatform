@@ -14,8 +14,8 @@ namespace Contoso.Forms.Parameters.Validation
 			[NameValue(AttributeNames.USEFORHASHCODE, "true")]
 			string field,
 
-			[Comments("Validation method and message to be used by the Reactive Forms validator.")]
-			List<ValidationMethodParameters> methods,
+			[Comments("List of validation classes and messages to be used by the validatable view model.")]
+			List<ValidationRuleParameters> rules,
 
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
 			[Comments("Fully qualified class name for the model type.")]
@@ -23,10 +23,10 @@ namespace Contoso.Forms.Parameters.Validation
 		)
 		{
 			Field = field;
-			Methods = methods;
+			Rules = rules;
 		}
 
 		public string Field { get; set; }
-		public List<ValidationMethodParameters> Methods { get; set; }
+		public List<ValidationRuleParameters> Rules { get; set; }
     }
 }

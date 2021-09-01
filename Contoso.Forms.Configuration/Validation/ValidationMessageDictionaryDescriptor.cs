@@ -2,7 +2,7 @@
 
 namespace Contoso.Forms.Configuration.Validation
 {
-    public class ValidationMessageDictionaryDescriptor : Dictionary<string, ValidationMethodDictionaryDescriptor>
+    public class ValidationMessageDictionaryDescriptor : Dictionary<string, ValidationRuleDictionaryDescriptor>
     {
         private List<ValidationMessageDescriptor> validationMessages;
 
@@ -25,7 +25,7 @@ namespace Contoso.Forms.Configuration.Validation
                     vmd => this.Add
                     (
                         vmd.Field, 
-                        new ValidationMethodDictionaryDescriptor(vmd.Methods)
+                        new ValidationRuleDictionaryDescriptor(vmd.Rules)
                     )
                 );
             }

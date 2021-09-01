@@ -29,25 +29,25 @@ namespace Contoso.XPlatform.Tests
                     new ValidationMessageDescriptor
                     {
                         Field = "FirstName",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "LastName",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "HireDate",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Hire Date is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Hire Date is required." }
                         }
                     }
                 }
@@ -228,25 +228,25 @@ namespace Contoso.XPlatform.Tests
                     new ValidationMessageDescriptor
                     {
                         Field = "FirstName",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "LastName",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "HireDate",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Hire Date is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Hire Date is required." }
                         }
                     }
                 }
@@ -427,34 +427,34 @@ namespace Contoso.XPlatform.Tests
                     new ValidationMessageDescriptor
                     {
                         Field = "Budget",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Budget is required." },
-                            new ValidationMethodDescriptor { ClassName = "MustBePositiveNumberRule", Message = "Budget must be a positive number." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Budget is required." },
+                            new ValidationRuleDescriptor { ClassName = "MustBePositiveNumberRule", Message = "Budget must be a positive number." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "InstructorID",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Administrator is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Administrator is required." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "Name",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Name is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Name is required." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "StartDate",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Start Date is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Start Date is required." }
                         }
                     }
                 }
@@ -636,35 +636,35 @@ namespace Contoso.XPlatform.Tests
                             new ValidationMessageDescriptor
                             {
                                 Field = "CourseID",
-                                Methods = new List<ValidationMethodDescriptor>
+                                Rules = new List<ValidationRuleDescriptor>
                                 {
-                                    new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "CourseID is required." },
-                                    new ValidationMethodDescriptor { ClassName = "MustBeIntegerRule", Message = "CourseID must be an integer." }
+                                    new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "CourseID is required." },
+                                    new ValidationRuleDescriptor { ClassName = "MustBeIntegerRule", Message = "CourseID must be an integer." }
                                 }
                             },
                             new ValidationMessageDescriptor
                             {
                                 Field = "Credits",
-                                Methods = new List<ValidationMethodDescriptor>
+                                Rules = new List<ValidationRuleDescriptor>
                                 {
-                                    new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Credits is required." },
-                                    new ValidationMethodDescriptor { ClassName = "RangeRule", Message = "Credits must be between 0 and 5 inclusive." }
+                                    new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Credits is required." },
+                                    new ValidationRuleDescriptor { ClassName = "RangeRule", Message = "Credits must be between 0 and 5 inclusive." }
                                 }
                             },
                             new ValidationMessageDescriptor
                             {
                                 Field = "DepartmentID",
-                                Methods = new List<ValidationMethodDescriptor>
+                                Rules = new List<ValidationRuleDescriptor>
                                 {
-                                    new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Department is required.." }
+                                    new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Department is required.." }
                                 }
                             },
                             new ValidationMessageDescriptor
                             {
                                 Field = "Title",
-                                Methods = new List<ValidationMethodDescriptor>
+                                Rules = new List<ValidationRuleDescriptor>
                                 {
-                                    new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Title is required." }
+                                    new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Title is required." }
                                 }
                             }
                         }
@@ -937,35 +937,35 @@ namespace Contoso.XPlatform.Tests
                     new ValidationMessageDescriptor
                     {
                         Field = "CourseID",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "CourseID is required." },
-                            new ValidationMethodDescriptor { ClassName = "MustBeIntegerRule", Message = "CourseID must be an integer." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "CourseID is required." },
+                            new ValidationRuleDescriptor { ClassName = "MustBeIntegerRule", Message = "CourseID must be an integer." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "Credits",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Credits is required." },
-                            new ValidationMethodDescriptor { ClassName = "RangeRule", Message = "Credits must be between 0 and 5 inclusive." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Credits is required." },
+                            new ValidationRuleDescriptor { ClassName = "RangeRule", Message = "Credits must be between 0 and 5 inclusive." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "DepartmentID",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Department is required.." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Department is required.." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "Title",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Title is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Title is required." }
                         }
                     }
                 }
@@ -1212,25 +1212,25 @@ namespace Contoso.XPlatform.Tests
                     new ValidationMessageDescriptor
                     {
                         Field = "FirstName",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "LastName",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
                         }
                     },
                     new ValidationMessageDescriptor
                     {
                         Field = "EnrollmentDate",
-                        Methods = new List<ValidationMethodDescriptor>
+                        Rules = new List<ValidationRuleDescriptor>
                         {
-                            new ValidationMethodDescriptor { ClassName = "RequiredRule", Message = "Enrollment Date is required." }
+                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Enrollment Date is required." }
                         }
                     }
                 }

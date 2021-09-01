@@ -81,8 +81,8 @@ namespace Contoso.AutoMapperProfiles
 			CreateMap<TextGroupParameters, TextGroupDescriptor>();
 			CreateMap<ValidationMessageDictionaryParameters, ValidationMessageDictionaryDescriptor>();
 			CreateMap<ValidationMessageParameters, ValidationMessageDescriptor>();
-			CreateMap<ValidationMethodDictionaryParameters, ValidationMethodDictionaryDescriptor>();
-			CreateMap<ValidationMethodParameters, ValidationMethodDescriptor>();
+			CreateMap<ValidationRuleDictionaryParameters, ValidationRuleDictionaryDescriptor>();
+			CreateMap<ValidationRuleParameters, ValidationRuleDescriptor>();
 			CreateMap<ValidatorArgumentDictionaryParameters, ValidatorArgumentDictionaryDescriptor>();
 			CreateMap<ValidatorArgumentParameters, ValidatorArgumentDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));

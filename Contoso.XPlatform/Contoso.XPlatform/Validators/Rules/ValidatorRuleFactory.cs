@@ -42,7 +42,7 @@ namespace Contoso.XPlatform.Validators.Rules
             if (validationMessages == null)
                 throw new ArgumentException($"{nameof(validationMessages)}: C1BDA4F7-B684-438F-B5BB-B61F01B625CE");
 
-            if (!validationMessages.TryGetValue(setting.Field, out ValidationMethodDictionaryDescriptor methodDictionary))
+            if (!validationMessages.TryGetValue(setting.Field, out ValidationRuleDictionaryDescriptor methodDictionary))
                 throw new ArgumentException($"{nameof(setting.Field)}: 4FF12AAC-DF7F-4346-8747-52413FCA808F");
 
             if (!methodDictionary.TryGetValue(validator.ClassName, out string validationMessage))
