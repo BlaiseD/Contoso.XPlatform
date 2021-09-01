@@ -156,7 +156,7 @@ namespace Contoso.XPlatform.Tests
                     MultiSelectTemplate =  new MultiSelectTemplateDescriptor
                     {
                         TemplateName = "MultiSelectTemplate",
-                        PlaceHolderText = "(Courses)",
+                        PlaceholderText = "(Courses)",
                         LoadingIndicatorText = "Loading ...",
                         ModelType = typeof(CourseAssignmentModel).AssemblyQualifiedName,
                         TextField = "CourseTitle",
@@ -355,7 +355,7 @@ namespace Contoso.XPlatform.Tests
                     MultiSelectTemplate =  new MultiSelectTemplateDescriptor
                     {
                         TemplateName = "MultiSelectTemplate",
-                        PlaceHolderText = "(Courses)",
+                        PlaceholderText = "(Courses)",
                         LoadingIndicatorText = "Loading ...",
                         ModelType = typeof(CourseAssignmentModel).AssemblyQualifiedName,
                         TextField = "CourseTitle",
@@ -507,7 +507,7 @@ namespace Contoso.XPlatform.Tests
                     DropDownTemplate = new DropDownTemplateDescriptor
                     {
                         TemplateName = "PickerTemplate",
-                        PlaceHolderText = "Select Administrator:",
+                        PlaceholderText = "Select Administrator:",
                         LoadingIndicatorText = "Loading ...",
                         TextField = "FullName",
                         ValueField = "ID",
@@ -727,7 +727,7 @@ namespace Contoso.XPlatform.Tests
                             DropDownTemplate = new DropDownTemplateDescriptor
                             {
                                 TemplateName = "PickerTemplate",
-                                PlaceHolderText = "Select credits:",
+                                PlaceholderText = "Select credits:",
                                 LoadingIndicatorText = "Loading ...",
                                 TextField = "Text",
                                 ValueField = "NumericValue",
@@ -830,7 +830,7 @@ namespace Contoso.XPlatform.Tests
                             DropDownTemplate = new DropDownTemplateDescriptor
                             {
                                 TemplateName = "PickerTemplate",
-                                PlaceHolderText = "Select Department:",
+                                PlaceholderText = "Select Department:",
                                 LoadingIndicatorText = "Loading ...",
                                 TextField = "Name",
                                 ValueField = "DepartmentID",
@@ -1006,7 +1006,7 @@ namespace Contoso.XPlatform.Tests
                     DropDownTemplate = new DropDownTemplateDescriptor
                     {
                         TemplateName = "PickerTemplate",
-                        PlaceHolderText = "Select credits:",
+                        PlaceholderText = "Select credits:",
                         LoadingIndicatorText = "Loading ...",
                         TextField = "Text",
                         ValueField = "NumericValue",
@@ -1109,7 +1109,7 @@ namespace Contoso.XPlatform.Tests
                     DropDownTemplate = new DropDownTemplateDescriptor
                     {
                         TemplateName = "PickerTemplate",
-                        PlaceHolderText = "Select Department:",
+                        PlaceholderText = "Select Department:",
                         LoadingIndicatorText = "Loading ...",
                         TextField = "Name",
                         ValueField = "DepartmentID",

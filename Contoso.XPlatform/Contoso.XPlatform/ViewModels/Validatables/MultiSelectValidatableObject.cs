@@ -167,7 +167,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
             canExecute = true;
             this.Title = this._multiSelectFormControlSettingsDescriptor.Title;
-            this.Placeholder = this._multiSelectTemplate.PlaceHolderText;
+            this.Placeholder = this._multiSelectTemplate.PlaceholderText;
         }
 
         public ICommand TextChangedCommand => new Command

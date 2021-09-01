@@ -9,10 +9,12 @@ namespace Contoso.Forms.Parameters
     {
 		public FormsCollectionDisplayTemplateParameters
 		(
-			[Comments("")]
+			[Comments("XAML template name for the collection view item template.")]
+			[Domain("HeaderTextDetailTemplate, TextDetailTemplate")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "HeaderTextDetailTemplate")]
 			string templateName,
 
-			[Comments("")]
+			[Comments("Defines which of the model type fields bind to the named template fields (e.g. Header, Text, Detail).")]
 			CollectionViewItemBindingsDictionaryParameters bindings
 		)
 		{

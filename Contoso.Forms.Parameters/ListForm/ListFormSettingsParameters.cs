@@ -17,7 +17,7 @@ namespace Contoso.Forms.Parameters.ListForm
 			Type modelType,
 
 			[Comments("Loading text may be useful.")]
-			[NameValue(AttributeNames.DEFAULTVALUE, "Lodding ...")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Loading ...")]
 			string loadingIndicatorText,
 
 			[Comments("XAML template name for the collection view item template.")]
@@ -25,7 +25,7 @@ namespace Contoso.Forms.Parameters.ListForm
 			[NameValue(AttributeNames.DEFAULTVALUE, "HeaderTextDetailTemplate")]
 			string itemTemplateName,
 
-			[Comments("Defines which fields of the model type which bind to the named template fields (e.g. Header, Text, Detail).")]
+			[Comments("Defines which of the model type fields bind to the named template fields (e.g. Header, Text, Detail).")]
 			CollectionViewItemBindingsDictionaryParameters bindings,
 
 			[Comments("Defines the LINQ query for retrieving the list.")]
