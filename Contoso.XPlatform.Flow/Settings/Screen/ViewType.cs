@@ -3,6 +3,8 @@
     public enum ViewType
     {
         EditForm,
+        DeleteForm,
+        DetailForm,
         ListPage,
         SearchPage,
         TextPage

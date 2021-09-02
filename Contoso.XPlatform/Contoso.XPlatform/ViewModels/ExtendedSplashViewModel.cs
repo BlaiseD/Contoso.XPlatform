@@ -1,67 +1,111 @@
 ﻿using Contoso.Domain.Entities;
+using Contoso.XPlatform.Rules;
+using LogicBuilder.RulesDirector;
 using LogicBuilder.Workflow.Activities.Rules;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
-namespace Contoso.Bsl.Flow.Rules
+namespace Contoso.XPlatform.ViewModels
 {
-    public static class RulesService
+    public class ExtendedSplashViewModel : ViewModelBase
     {
-        public static async Task<RulesCache> LoadRules()
+        private readonly IRulesLoader rulesLoader;
+        private double _progress;
+
+        public ExtendedSplashViewModel(IRulesLoader rulesLoader)
         {
-            return await LoadRules(new RulesLoader());
+            this.rulesLoader = rulesLoader;
         }
 
-        static async Task<RulesCache> LoadRules(IRulesLoader rulesLoader)
+        public double Progress
+        {
+            get { return _progress; }
+            set
+            {
+                if (_progress == value)
+                    return;
+
+                _progress = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public async Task AddRulesCacheService()
+        {
+            IRulesCache cache = await LoadRules(rulesLoader);
+            App.ServiceCollection.AddSingleton<IRulesCache>(sp =>
+            {
+                return cache;
+            });
+
+        }
+
+        async Task<RulesCache> LoadRules(IRulesLoader rulesLoader)
         {
             RulesCache cache = new RulesCache(new ConcurrentDictionary<string, RuleEngine>(), new ConcurrentDictionary<string, string>());
 
-            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(FlowActivity)).Assembly;
-            string[] embeddedResources = GetResourceNames(assembly);
+            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(ExtendedSplashViewModel)).Assembly;
+            string[] uwpResources = GetResourceStrings(assembly);
 
-            Dictionary<string, string> rules = embeddedResources
+            Dictionary<string, string> rules = uwpResources
                                                 .Where(f => f.EndsWith(".module"))
                                                 .ToDictionary(f => GetKey(f).ToLowerInvariant());
 
-            Dictionary<string, string> resources = embeddedResources
+            Dictionary<string, string> resources = uwpResources
                                                 .Where(f => f.EndsWith(".resources"))
                                                 .ToDictionary(f => GetKey(f).ToLowerInvariant());
+
+
+            int count = 0;
+            DateTime dt = DateTime.Now;
 
             await Task.WhenAll
             (
                 rules.Keys.Select
                 (
-                    key => rulesLoader.LoadRulesOnStartUp
+                    key => LoadRules
                     (
                         new RulesModuleModel
                         {
                             Name = key,
                             ResourceSetFile = GetBytes(resources[key], assembly),
                             RuleSetFile = GetBytes(rules[key], assembly)
-                        },
-                        cache
+                        }
                     )
                 )
             );
 
             return cache;
 
+            Task LoadRules(RulesModuleModel module)
+            {
+                return Task.Run(() =>
+                {
+                    rulesLoader.LoadRules(module, cache);
+                    count++;
+                    Progress = (double)count / rules.Count;
+                });
+            }
+
             string GetKey(string fullResourceName)
                 => Path.GetExtension(Path.GetFileNameWithoutExtension(fullResourceName)).Substring(1);
         }
 
-        private static string[] GetResourceNames(Assembly assembly)
+        private string[] GetResourceStrings(Assembly assembly)
          => assembly.GetManifestResourceNames()
                     .Where
                     (
                         res => res.StartsWith
                         (
-                            "Contoso.Bsl.Flow.Rulesets.",
-                            System.StringComparison.InvariantCultureIgnoreCase
+                            $"CheckMySymptoms.XPlatform.Rulesets.{Device.RuntimePlatform}.",
+                            StringComparison.InvariantCultureIgnoreCase
                         )
                     ).ToArray();
 

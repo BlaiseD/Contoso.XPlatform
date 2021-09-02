@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
+using Contoso.XPlatform.Flow.Cache;
+using Contoso.XPlatform.Rules;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +39,9 @@ namespace Contoso.XPlatform
                 .AddSingleton<IHttpService, HttpService>()
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
                 .AddSingleton<IGetItemFilterBuilder, GetItemFilterBuilder>()
+                .AddSingleton<FlowDataCache, FlowDataCache>()
+                .AddSingleton<ScreenData, ScreenData>()
+                .AddSingleton<IRulesLoader, RulesLoader>()
                 .AddTransient<IMapper>
                 (
                     sp => new Mapper
@@ -49,7 +54,8 @@ namespace Contoso.XPlatform
                 .AddTransient<EditFormViewModel, EditFormViewModel>()
                 .AddTransient<SearchPageViewModel, SearchPageViewModel>()
                 .AddTransient<ListPageViewModel, ListPageViewModel>()
-                .AddTransient<TextPageViewModel, TextPageViewModel>();
+                .AddTransient<TextPageViewModel, TextPageViewModel>()
+                .AddTransient<ExtendedSplashViewModel, ExtendedSplashViewModel>();
         }
     }
 }
