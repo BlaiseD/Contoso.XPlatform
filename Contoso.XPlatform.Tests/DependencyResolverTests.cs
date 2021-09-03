@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
+using Contoso.XPlatform.Flow;
+using Contoso.XPlatform.Flow.Cache;
 using Contoso.XPlatform.Services;
+using Contoso.XPlatform.Tests.Mocks;
 using Contoso.XPlatform.ViewModels;
+using LogicBuilder.RulesDirector;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Xunit;
@@ -49,6 +53,15 @@ namespace Contoso.XPlatform.Tests
                 )
                 .AddTransient<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService))
                 .AddSingleton<UiNotificationService, UiNotificationService>()
+                .AddSingleton<IFlowManager, FlowManager>()
+                .AddSingleton<FlowActivityFactory, FlowActivityFactory>()
+                .AddSingleton<DirectorFactory, DirectorFactory>()
+                .AddSingleton<FlowDataCache, FlowDataCache>()
+                .AddSingleton<ScreenData, ScreenData>()
+                .AddSingleton<IAppLogger, AppLoggerMock>()
+                .AddSingleton<IRulesCache, RulesCacheMock>()
+                .AddSingleton<IDialogFunctions, DialogFunctions>()
+                .AddSingleton<IActions, Actions>()
                 .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddHttpClient()
