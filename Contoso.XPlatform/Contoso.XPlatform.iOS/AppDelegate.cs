@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Contoso.XPlatform.Flow;
 using Foundation;
 using Microsoft.Extensions.DependencyInjection;
 using UIKit;
@@ -32,7 +32,7 @@ namespace Contoso.XPlatform.iOS
 
         void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSingleton<IAppLogger, AppLogger>();
         }
     }
 }

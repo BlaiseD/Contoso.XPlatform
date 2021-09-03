@@ -15,6 +15,48 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Rulesets\Android\about.module" />
+    <None Remove="Rulesets\Android\about.resources" />
+    <None Remove="Rulesets\Android\about_nav.module" />
+    <None Remove="Rulesets\Android\about_nav.resources" />
+    <None Remove="Rulesets\Android\home.module" />
+    <None Remove="Rulesets\Android\home.resources" />
+    <None Remove="Rulesets\Android\home_nav.module" />
+    <None Remove="Rulesets\Android\home_nav.resources" />
+    <None Remove="Rulesets\Android\VariablesMetadata.xml" />
+    <None Remove="Rulesets\iOS\about.module" />
+    <None Remove="Rulesets\iOS\about.resources" />
+    <None Remove="Rulesets\iOS\about_nav.module" />
+    <None Remove="Rulesets\iOS\about_nav.resources" />
+    <None Remove="Rulesets\iOS\home.module" />
+    <None Remove="Rulesets\iOS\home.resources" />
+    <None Remove="Rulesets\iOS\home_nav.module" />
+    <None Remove="Rulesets\iOS\home_nav.resources" />
+    <None Remove="Rulesets\iOS\VariablesMetadata.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Rulesets\Android\about.module" />
+    <EmbeddedResource Include="Rulesets\Android\about.resources" />
+    <EmbeddedResource Include="Rulesets\Android\about_nav.module" />
+    <EmbeddedResource Include="Rulesets\Android\about_nav.resources" />
+    <EmbeddedResource Include="Rulesets\Android\home.module" />
+    <EmbeddedResource Include="Rulesets\Android\home.resources" />
+    <EmbeddedResource Include="Rulesets\Android\home_nav.module" />
+    <EmbeddedResource Include="Rulesets\Android\home_nav.resources" />
+    <EmbeddedResource Include="Rulesets\Android\VariablesMetadata.xml" />
+    <EmbeddedResource Include="Rulesets\iOS\about.module" />
+    <EmbeddedResource Include="Rulesets\iOS\about.resources" />
+    <EmbeddedResource Include="Rulesets\iOS\about_nav.module" />
+    <EmbeddedResource Include="Rulesets\iOS\about_nav.resources" />
+    <EmbeddedResource Include="Rulesets\iOS\home.module" />
+    <EmbeddedResource Include="Rulesets\iOS\home.resources" />
+    <EmbeddedResource Include="Rulesets\iOS\home_nav.module" />
+    <EmbeddedResource Include="Rulesets\iOS\home_nav.resources" />
+    <EmbeddedResource Include="Rulesets\iOS\VariablesMetadata.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="akavache" Version="7.3.1" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
@@ -86,10 +128,5 @@
     <EmbeddedResource Update="Views\SearchPageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Rulesets\Android\" />
-    <Folder Include="Rulesets\iOS\" />
   </ItemGroup>
 </Project>

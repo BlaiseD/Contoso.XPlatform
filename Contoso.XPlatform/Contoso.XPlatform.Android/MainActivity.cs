@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 
 using Microsoft.Extensions.DependencyInjection;
+using Contoso.XPlatform.Flow;
 
 namespace Contoso.XPlatform.Droid
 {
@@ -37,7 +38,7 @@ namespace Contoso.XPlatform.Droid
 
         void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSingleton<IAppLogger, AppLogger>();
         }
     }
 }

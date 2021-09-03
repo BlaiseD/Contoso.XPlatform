@@ -1857,66 +1857,55 @@ namespace Contoso.XPlatform
                     {
                         new LabelItemDescriptor
                         {
-                            Text = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna."
+                            Text = "Contoso is a sample application generated from a workflow.  The user interface and LINQ queries are dynamically generated from workflow data."
                         }
                     }
                 },
-                //new TextGroupDescriptor
-                //{
-                //    Title = "Welcome to Contoso University",
-                //    Labels = new List<LabelItemDescriptorBase>
-                //    {
-                //        new LabelItemDescriptor
-                //        {
-                //            Text = "Contoso is a sample application generated from a workflow.  The user interface and LINQ queries are dynamically generated from workflow data."
-                //        }
-                //    }
-                //},
-                //new TextGroupDescriptor
-                //{
-                //    Title = "Logic Builder",
-                //    Labels = new List<LabelItemDescriptorBase>
-                //    {
-                //        new FormattedLabelItemDescriptor
-                //        {
-                //            Items = new List<SpanItemDescriptorBase>
-                //            {
-                //                new SpanItemDescriptor { Text = "The 32-bit Logic Builder can be dowloaded from: " },
-                //                new HyperLinkSpanItemDescriptor
-                //                {
-                //                    Text = "here",
-                //                    Url = "https://www.microsoft.com/en-us/p/bps-logic-builder-32-bit-visio/9ngkp83g750j"
-                //                },
-                //                new SpanItemDescriptor { Text = ". and the 64-bit Logic Builder can be dowloaded from: " },
-                //                new HyperLinkSpanItemDescriptor
-                //                {
-                //                    Text = "here",
-                //                    Url = "https://www.microsoft.com/en-us/p/bps-logic-builder-64-bit-visio/9pbq81mnwhlx"
-                //                },
-                //                new SpanItemDescriptor { Text = ".  Select 32-bit or 64-bit depending on your installed version of Visio." }
-                //            }
-                //        }
-                //    }
-                //},new TextGroupDescriptor
-                //{
-                //    Title = "Source Code",
-                //    Labels = new List<LabelItemDescriptorBase>
-                //    {
-                //        new FormattedLabelItemDescriptor
-                //        {
-                //            Items = new List<SpanItemDescriptorBase>
-                //            {
-                //                new SpanItemDescriptor { Text = "Please find the " },
-                //                new HyperLinkSpanItemDescriptor
-                //                {
-                //                    Text = "completed Visual Studio Solution",
-                //                    Url = "https://github.com/BlaiseD/Contoso.XPlatform"
-                //                },
-                //                new SpanItemDescriptor { Text = " on GitHub." }
-                //            }
-                //        }
-                //    }
-                //}
+                new TextGroupDescriptor
+                {
+                    Title = "Logic Builder",
+                    Labels = new List<LabelItemDescriptorBase>
+                    {
+                        new FormattedLabelItemDescriptor
+                        {
+                            Items = new List<SpanItemDescriptorBase>
+                            {
+                                new SpanItemDescriptor { Text = "The 32-bit Logic Builder can be dowloaded from: " },
+                                new HyperLinkSpanItemDescriptor
+                                {
+                                    Text = "here",
+                                    Url = "https://www.microsoft.com/en-us/p/bps-logic-builder-32-bit-visio/9ngkp83g750j"
+                                },
+                                new SpanItemDescriptor { Text = ". and the 64-bit Logic Builder can be dowloaded from: " },
+                                new HyperLinkSpanItemDescriptor
+                                {
+                                    Text = "here",
+                                    Url = "https://www.microsoft.com/en-us/p/bps-logic-builder-64-bit-visio/9pbq81mnwhlx"
+                                },
+                                new SpanItemDescriptor { Text = ".  Select 32-bit or 64-bit depending on your installed version of Visio." }
+                            }
+                        }
+                    }
+                },new TextGroupDescriptor
+                {
+                    Title = "Source Code",
+                    Labels = new List<LabelItemDescriptorBase>
+                    {
+                        new FormattedLabelItemDescriptor
+                        {
+                            Items = new List<SpanItemDescriptorBase>
+                            {
+                                new SpanItemDescriptor { Text = "Please find the " },
+                                new HyperLinkSpanItemDescriptor
+                                {
+                                    Text = "completed Visual Studio Solution",
+                                    Url = "https://github.com/BlaiseD/Contoso.XPlatform"
+                                },
+                                new SpanItemDescriptor { Text = " on GitHub." }
+                            }
+                        }
+                    }
+                }
             }
         };
 

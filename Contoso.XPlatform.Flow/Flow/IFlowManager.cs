@@ -17,7 +17,6 @@ namespace Contoso.XPlatform.Flow
         IActions Actions { get; }
         IFlowActivity FlowActivity { get; }
         IMapper Mapper { get; }
-        ISchoolRepository SchoolRepository { get; }
 
         Task<FlowSettings> Start(string module);
         Task<FlowSettings> Next(RequestBase request);

@@ -1,5 +1,6 @@
 ﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.Navigation;
+using Contoso.XPlatform.Flow;
 using Contoso.XPlatform.Flow.Settings;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
@@ -24,29 +25,71 @@ namespace Contoso.XPlatform.Views
             ViewModel = App.ServiceProvider.GetRequiredService<MainPageViewModel>();
             this.BindingContext = ViewModel;
             flyout.BindingContext = ViewModel;
-            FlowSettingsChanged(Descriptors.GetFlowSettings<EditFormSettingsDescriptor>("home"));
+
+            UiNotificationService.FlowSettingsSubject.Subscribe(FlowSettingsChanged);
         }
+
+        #region Fields
+        private UiNotificationService _uiNotificationService;
+        private IAppLogger _appLogger;
+        #endregion Fields
 
         #region Properties
         public MainPageViewModel ViewModel { get; }
         private bool IsPortrait => Width < Height;
+
+        public UiNotificationService UiNotificationService
+        {
+            get
+            {
+                if (_uiNotificationService == null)
+                {
+                    DateTime dt = DateTime.Now;
+                    _uiNotificationService = App.ServiceProvider.GetRequiredService<UiNotificationService>();
+                    DateTime dt2 = DateTime.Now;
+
+                    AppLogger.LogMessage(nameof(MainPageView), $"Get UiNotificationService (milliseconds) = {(dt2 - dt).TotalMilliseconds}");
+                }
+
+                return _uiNotificationService;
+            }
+        }
+
+        public IAppLogger AppLogger
+        {
+            get
+            {
+                if (_appLogger == null)
+                {
+                    DateTime dt = DateTime.Now;
+                    _appLogger = App.ServiceProvider.GetRequiredService<IAppLogger>();
+                    DateTime dt2 = DateTime.Now;
+
+                    AppLogger.LogMessage(nameof(MainPageView), $"Get AppLogger (milliseconds) = {(dt2 - dt).TotalMilliseconds}");
+                }
+
+                return _appLogger;
+            }
+        }
         #endregion Properties
 
         #region Methods
         protected override void OnAppearing()
         {
-            
+            if (!DesignMode.IsDesignModeEnabled)
+            {
+                Start();
+            }
+
             base.OnAppearing();
         }
+
+        private async void Start() => await UiNotificationService.Start();
 
         private void FlowSettingsChanged(FlowSettings flowSettings)
         {
             flowSettings.FlowDataCache.NavigationBar.MenuItems
                 .ForEach(item => item.Active = item.InitialModule == flowSettings.FlowDataCache.NavigationBar.CurrentModule);
-
-            /*To Remove*/
-            if (flowSettings.ScreenSettings == null)
-                return;
 
             ChangePage(flowSettings.ScreenSettings.CreatePage());
 
@@ -70,19 +113,23 @@ namespace Contoso.XPlatform.Views
         }
         #endregion Methods
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.CurrentSelection.Count != 1)
                 return;
 
             if (!(e.CurrentSelection.First() is NavigationMenuItemDescriptor item))
                 return;
+
             if (item.Active)
                 return;
 
             DisposeCurrentPageBindingContext(Detail);
 
-            FlowSettingsChanged(Descriptors.GetFlowSettings<EditFormSettingsDescriptor>(item.InitialModule));
+            await UiNotificationService.NavStart
+            (
+                new Flow.Requests.NavBarRequest { InitialModuleName = item.InitialModule }
+            );
 
             void DisposeCurrentPageBindingContext(Page detail)
             {

@@ -104,7 +104,7 @@ namespace Contoso.XPlatform.ViewModels
                     (
                         res => res.StartsWith
                         (
-                            $"CheckMySymptoms.XPlatform.Rulesets.{Device.RuntimePlatform}.",
+                            $"Contoso.XPlatform.Rulesets.{Device.RuntimePlatform}.",
                             StringComparison.InvariantCultureIgnoreCase
                         )
                     ).ToArray();

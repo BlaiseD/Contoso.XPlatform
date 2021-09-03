@@ -26,8 +26,7 @@ namespace Contoso.XPlatform.Flow
             IActions actions,
             IDialogFunctions dialogFunctions,
             FlowActivityFactory flowActivityFactory,
-            IMapper mapper,
-            ISchoolRepository SchoolRepository)
+            IMapper mapper)
         {
             this.screenData = screenData;
             this.appLogger = appLogger;
@@ -37,7 +36,6 @@ namespace Contoso.XPlatform.Flow
             this.DialogFunctions = dialogFunctions;
             this.FlowActivity = flowActivityFactory.Create(this);
             this.Mapper = mapper;
-            this.SchoolRepository = SchoolRepository;
         }
 
         #region Fields
@@ -53,7 +51,6 @@ namespace Contoso.XPlatform.Flow
         public IDialogFunctions DialogFunctions { get; }
         public IFlowActivity FlowActivity { get; }
         public IMapper Mapper { get; }
-        public ISchoolRepository SchoolRepository { get; }
 
         private FlowSettings FlowSettings
             => new FlowSettings

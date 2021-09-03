@@ -30,6 +30,7 @@ namespace Contoso.XPlatform.Views
 
         private void AddContent()
         {
+            Title = this.textPageScreenViewModel.Title;
             Content = new Grid
             {
                 Children =

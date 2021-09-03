@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
+using Contoso.Repositories;
+using Contoso.Stores;
 using Contoso.XPlatform.Flow;
 using Contoso.XPlatform.Flow.Cache;
 using Contoso.XPlatform.Rules;
@@ -41,6 +43,8 @@ namespace Contoso.XPlatform
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
                 .AddSingleton<IGetItemFilterBuilder, GetItemFilterBuilder>()
                 .AddSingleton<IFlowManager, FlowManager>()
+                .AddSingleton<FlowActivityFactory, FlowActivityFactory>()
+                .AddSingleton<DirectorFactory, DirectorFactory>()
                 .AddSingleton<FlowDataCache, FlowDataCache>()
                 .AddSingleton<ScreenData, ScreenData>()
                 .AddSingleton<IRulesLoader, RulesLoader>()
