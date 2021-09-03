@@ -4,6 +4,7 @@
              x:Class="Contoso.XPlatform.Views.Flyout"
              xmlns:converters="clr-namespace:Contoso.XPlatform.Converters"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Padding="0,60,0,0"
              IconImageSource="hamburger.png"
              Title="Contoso">
     <ContentPage.Resources>
@@ -13,7 +14,6 @@
     </ContentPage.Resources>
     <StackLayout>
         <CollectionView x:Name="MenuItemsListView"
-                        Margin="0,40,0,0"
                         BackgroundColor="{DynamicResource ResultListBackgroundColor}"
                         SelectionMode="Single"
                         ItemsSource="{Binding MenuItems}">
