@@ -41,8 +41,8 @@ namespace Contoso.XPlatform.Views
 
         private void FlowSettingsChanged(FlowSettings flowSettings)
         {
-            flowSettings.NavigationBar.MenuItems
-                .ForEach(item => item.Active = item.InitialModule == flowSettings.NavigationBar.CurrentModule);
+            flowSettings.FlowDataCache.NavigationBar.MenuItems
+                .ForEach(item => item.Active = item.InitialModule == flowSettings.FlowDataCache.NavigationBar.CurrentModule);
 
             /*To Remove*/
             if (flowSettings.ScreenSettings == null)
@@ -54,7 +54,7 @@ namespace Contoso.XPlatform.Views
         }
 
         private void UpdateNavigationMenu(FlowSettings flowSettings)
-            => ViewModel.MenuItems = new ObservableCollection<NavigationMenuItemDescriptor>(flowSettings.NavigationBar.MenuItems);
+            => ViewModel.MenuItems = new ObservableCollection<NavigationMenuItemDescriptor>(flowSettings.FlowDataCache.NavigationBar.MenuItems);
 
         private void ChangePage(Page page)
         {

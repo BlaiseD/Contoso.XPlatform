@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Contoso.XPlatform
 {
@@ -12,7 +11,7 @@ namespace Contoso.XPlatform
         {
             InitializeComponent();
 
-            MainPage = new MainPageView();
+            MainPage = new ExtendedSplashView();
         }
 
         public const string BASE_URL = "https://contosoapibps.azurewebsites.net/";

@@ -2026,7 +2026,7 @@ namespace Contoso.XPlatform
 
         internal static FlowSettings GetFlowSettings<T>(string currentModule)
         {
-            return new FlowSettings(new FlowDataCache(), GetNavigationBar(currentModule), GetScreenSettings(currentModule));
+            return new FlowSettings(new FlowDataCache() { NavigationBar = GetNavigationBar(currentModule)}, GetScreenSettings(currentModule));
         }
     }
 

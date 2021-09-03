@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="LogicBuilder.RulesDirector" Version="1.0.3-alpha.0.1" />
   </ItemGroup>
 
@@ -12,6 +13,7 @@
     <ProjectReference Include="..\Contoso.Domain\Contoso.Domain.csproj" />
     <ProjectReference Include="..\Contoso.Forms.Configuration\Contoso.Forms.Configuration.csproj" />
     <ProjectReference Include="..\Contoso.Forms.Parameters\Contoso.Forms.Parameters.csproj" />
+    <ProjectReference Include="..\Contoso.Repositories\Contoso.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

@@ -63,6 +63,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AppLogger.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
@@ -140,6 +141,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\Contoso.XPlatform.Flow\Contoso.XPlatform.Flow.csproj">
+      <Project>{97a8ecf5-3603-42ef-ad7d-9f119ca2ce52}</Project>
+      <Name>Contoso.XPlatform.Flow</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Contoso.XPlatform\Contoso.XPlatform.csproj">
       <Project>{E4CFE93F-3D58-4433-BE20-9BCCF0C474B9}</Project>
       <Name>Contoso.XPlatform</Name>

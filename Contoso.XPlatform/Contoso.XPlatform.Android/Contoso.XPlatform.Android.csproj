@@ -65,6 +65,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppLogger.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,6 +98,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\Contoso.XPlatform.Flow\Contoso.XPlatform.Flow.csproj">
+      <Project>{97a8ecf5-3603-42ef-ad7d-9f119ca2ce52}</Project>
+      <Name>Contoso.XPlatform.Flow</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Contoso.XPlatform\Contoso.XPlatform.csproj">
       <Project>{1a05759c-cd91-4448-9d57-fa8f51930950}</Project>
       <Name>Contoso.XPlatform</Name>

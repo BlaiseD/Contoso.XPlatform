@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
+using Contoso.XPlatform.Flow;
 using Contoso.XPlatform.Flow.Cache;
 using Contoso.XPlatform.Rules;
 using Contoso.XPlatform.Services;
@@ -39,9 +40,12 @@ namespace Contoso.XPlatform
                 .AddSingleton<IHttpService, HttpService>()
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
                 .AddSingleton<IGetItemFilterBuilder, GetItemFilterBuilder>()
+                .AddSingleton<IFlowManager, FlowManager>()
                 .AddSingleton<FlowDataCache, FlowDataCache>()
                 .AddSingleton<ScreenData, ScreenData>()
                 .AddSingleton<IRulesLoader, RulesLoader>()
+                .AddSingleton<IDialogFunctions, DialogFunctions>()
+                .AddSingleton<IActions, Actions>()
                 .AddTransient<IMapper>
                 (
                     sp => new Mapper

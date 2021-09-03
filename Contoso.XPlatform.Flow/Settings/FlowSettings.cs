@@ -11,15 +11,13 @@ namespace Contoso.XPlatform.Flow.Settings
             ScreenSettings = screenSettings;
         }
 
-        public FlowSettings(FlowDataCache flowDataCache, NavigationBarDescriptor navigationBar, ScreenSettingsBase screenSettings)
+        public FlowSettings(FlowDataCache flowDataCache, ScreenSettingsBase screenSettings)
         {
             FlowDataCache = flowDataCache;
-            NavigationBar = navigationBar;
             ScreenSettings = screenSettings;
         }
 
         public FlowDataCache FlowDataCache { get; set; }
-        public NavigationBarDescriptor NavigationBar { get; set; }
         public ScreenSettingsBase ScreenSettings { get; set; }
     }
 }
