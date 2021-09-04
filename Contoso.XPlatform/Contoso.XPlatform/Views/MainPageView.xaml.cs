@@ -21,7 +21,6 @@ namespace Contoso.XPlatform.Views
         {
             InitializeComponent();
             flyout.ListView.SelectionChanged += ListView_SelectionChanged;
-            FlyoutLayoutBehavior = FlyoutLayoutBehavior.SplitOnLandscape;
             ViewModel = App.ServiceProvider.GetRequiredService<MainPageViewModel>();
             this.BindingContext = ViewModel;
             flyout.BindingContext = ViewModel;
@@ -106,8 +105,7 @@ namespace Contoso.XPlatform.Views
                 () => Detail = GetNavigationPage(page)
             );
 
-            if (IsPortrait)
-                IsPresented = false;
+            IsPresented = false;
 
             flyout.ListView.SelectedItem = null;
         }

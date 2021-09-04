@@ -64,23 +64,23 @@
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="Margin" Value="0,5,0,0" />
             </Style>
-            
+
             <Style TargetType="Label" x:Key="TextFormItemLabelStyle" BaseResourceKey="BodyStyle">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
             </Style>
-            
+
             <Style TargetType="Label" x:Key="TextFormHyperLinkLabelStyle" BaseResourceKey="BodyStyle">
                 <Setter Property="TextDecorations" Value="Underline" />
                 <Setter Property="TextColor" Value="{DynamicResource HyperLinkColor}" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
             </Style>
-            
+
             <Style TargetType="Span" x:Key="TextFormItemSpanStyle" BaseResourceKey="BodyStyle">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
             </Style>
-            
+
             <Style TargetType="Span" x:Key="TextFormHyperLinkSpanStyle" BaseResourceKey="BodyStyle">
                 <Setter Property="TextDecorations" Value="Underline" />
                 <Setter Property="TextColor" Value="{DynamicResource HyperLinkColor}" />
@@ -328,7 +328,4 @@
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
-    <Application.MainPage>
-        <NavigationPage BarBackgroundColor="{DynamicResource PageBackgroundColor}" BarTextColor="{DynamicResource PrimaryTextColor}" />
-    </Application.MainPage>
 </Application>
