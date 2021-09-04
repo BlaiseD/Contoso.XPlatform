@@ -1,6 +1,6 @@
 ﻿using Contoso.Domain.Entities;
 
-namespace Contoso.XPlatform.Rules
+namespace Contoso.XPlatform.Flow.Rules
 {
     public interface IRulesLoader
     {

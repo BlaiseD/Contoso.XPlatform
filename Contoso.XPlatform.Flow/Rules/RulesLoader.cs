@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Resources;
 
-namespace Contoso.XPlatform.Rules
+namespace Contoso.XPlatform.Flow.Rules
 {
     public class RulesLoader : IRulesLoader
     {

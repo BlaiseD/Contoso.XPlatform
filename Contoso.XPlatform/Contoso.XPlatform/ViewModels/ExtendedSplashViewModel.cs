@@ -1,5 +1,5 @@
 ﻿using Contoso.Domain.Entities;
-using Contoso.XPlatform.Rules;
+using Contoso.XPlatform.Flow.Rules;
 using LogicBuilder.RulesDirector;
 using LogicBuilder.Workflow.Activities.Rules;
 using Microsoft.Extensions.DependencyInjection;

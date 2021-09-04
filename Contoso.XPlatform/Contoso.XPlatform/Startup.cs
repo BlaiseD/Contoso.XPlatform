@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
-using Contoso.Repositories;
-using Contoso.Stores;
 using Contoso.XPlatform.Flow;
 using Contoso.XPlatform.Flow.Cache;
-using Contoso.XPlatform.Rules;
+using Contoso.XPlatform.Flow.Rules;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.ViewModels;
 using Microsoft.Extensions.DependencyInjection;

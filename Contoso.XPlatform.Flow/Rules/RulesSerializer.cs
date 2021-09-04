@@ -1,5 +1,4 @@
 ﻿using Contoso.Domain.Entities;
-using Contoso.XPlatform.Flow;
 using LogicBuilder.Workflow.Activities.Rules;
 using LogicBuilder.Workflow.ComponentModel.Serialization;
 using System;
@@ -8,10 +7,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Xml;
 
-namespace Contoso.XPlatform.Rules
+namespace Contoso.XPlatform.Flow.Rules
 {
     internal static class RulesSerializer
     {
@@ -22,6 +20,7 @@ namespace Contoso.XPlatform.Rules
             typeof(Parameters.Expansions.SortCollectionParameters).Assembly,
             typeof(Common.Configuration.ExpansionDescriptors.SortCollectionDescriptor).Assembly,
             typeof(LogicBuilder.Forms.Parameters.ConnectorParameters).Assembly,
+            typeof(Data.BaseDataClass).Assembly,
             typeof(Domain.BaseModelClass).Assembly,
             typeof(LogicBuilder.RulesDirector.DirectorBase).Assembly,
             typeof(string).Assembly

@@ -3,7 +3,7 @@ using LogicBuilder.Workflow.Activities.Rules;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace Contoso.XPlatform.Rules
+namespace Contoso.XPlatform.Flow.Rules
 {
     public class RulesCache : IRulesCache
     {
