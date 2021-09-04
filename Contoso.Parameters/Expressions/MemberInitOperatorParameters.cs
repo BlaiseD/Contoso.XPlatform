@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace Contoso.Parameters.Expressions
 {
@@ -9,9 +10,9 @@ namespace Contoso.Parameters.Expressions
 		{
 		}
 
-		public MemberInitOperatorParameters(IDictionary<string, IExpressionParameter> memberBindings, Type newType = null)
+		public MemberInitOperatorParameters(IList<MemberBindingItem> memberBindings, Type newType = null)
 		{
-			MemberBindings = memberBindings;
+			MemberBindings = memberBindings.ToDictionary(m => m.Property, m => m.Selector);
 			NewType = newType;
 		}
 

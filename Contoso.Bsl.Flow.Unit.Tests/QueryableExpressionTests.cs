@@ -124,27 +124,31 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                 ),
                 new MemberInitOperatorParameters
                 (
-                    new Dictionary<string, IExpressionParameter>
+                    new List<MemberBindingItem>
                     {
-                        ["Sum_budget"] = new ToListOperatorParameters
+                        new MemberBindingItem
                         (
-                            new WhereOperatorParameters
+                            "Sum_budget",
+                            new ToListOperatorParameters
                             (
-                                new ParameterOperatorParameters("q"),
-                                new AndBinaryOperatorParameters
+                                new WhereOperatorParameters
                                 (
-                                    new EqualsBinaryOperatorParameters
+                                    new ParameterOperatorParameters("q"),
+                                    new AndBinaryOperatorParameters
                                     (
-                                        new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("d")),
-                                        new CountOperatorParameters(new ParameterOperatorParameters("q"))
+                                        new EqualsBinaryOperatorParameters
+                                        (
+                                            new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("d")),
+                                            new CountOperatorParameters(new ParameterOperatorParameters("q"))
+                                        ),
+                                        new EqualsBinaryOperatorParameters
+                                        (
+                                            new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("d")),
+                                            new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("c"))
+                                        )
                                     ),
-                                    new EqualsBinaryOperatorParameters
-                                    (
-                                        new MemberSelectorOperatorParameters("DepartmentID", new ParameterOperatorParameters("d")),
-                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("c"))
-                                    )
-                                ),
-                                "d"
+                                    "d"
+                                )
                             )
                         )
                     }
@@ -205,88 +209,108 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                     ),
                     new MemberInitOperatorParameters
                     (
-                        new Dictionary<string, IExpressionParameter>
+                        new List<MemberBindingItem>
                         {
-                            ["Min_administratorName"] = new MinOperatorParameters
+                            new MemberBindingItem
                             (
-                                new WhereOperatorParameters
+                                "Min_administratorName",
+                                new MinOperatorParameters
                                 (
-                                    new ParameterOperatorParameters("q"),
-                                    new EqualsBinaryOperatorParameters
+                                    new WhereOperatorParameters
                                     (
-                                        new ConstantOperatorParameters(1, typeof(int)),
-                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
+                                        new ParameterOperatorParameters("q"),
+                                        new EqualsBinaryOperatorParameters
+                                        (
+                                            new ConstantOperatorParameters(1, typeof(int)),
+                                            new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
+                                        ),
+                                        "d"
                                     ),
-                                    "d"
-                                ),
-                                new ConcatOperatorParameters
-                                (
                                     new ConcatOperatorParameters
                                     (
-                                        new MemberSelectorOperatorParameters("Administrator.LastName", new ParameterOperatorParameters("item")),
-                                        new ConstantOperatorParameters(" ", typeof(string))
+                                        new ConcatOperatorParameters
+                                        (
+                                            new MemberSelectorOperatorParameters("Administrator.LastName", new ParameterOperatorParameters("item")),
+                                            new ConstantOperatorParameters(" ", typeof(string))
+                                        ),
+                                        new MemberSelectorOperatorParameters("Administrator.FirstName", new ParameterOperatorParameters("item"))
                                     ),
-                                    new MemberSelectorOperatorParameters("Administrator.FirstName", new ParameterOperatorParameters("item"))
-                                ),
-                                "item"
-                            ),
-                            ["Count_name"] = new CountOperatorParameters
-                            (
-                                new WhereOperatorParameters
-                                (
-                                    new ParameterOperatorParameters("q"),
-                                    new EqualsBinaryOperatorParameters
-                                    (
-                                        new ConstantOperatorParameters(1, typeof(int)),
-                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
-                                    ),
-                                    "d"
+                                    "item"
                                 )
                             ),
-                            ["Sum_budget"] = new SumOperatorParameters
+                            new MemberBindingItem
                             (
-                                new WhereOperatorParameters
+                                "Count_name",
+                                new CountOperatorParameters
                                 (
-                                    new ParameterOperatorParameters("q"),
-                                    new EqualsBinaryOperatorParameters
+                                    new WhereOperatorParameters
                                     (
-                                        new ConstantOperatorParameters(1, typeof(int)),
-                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
-                                    ),
-                                    "d"
-                                ),
-                                new MemberSelectorOperatorParameters("Budget", new ParameterOperatorParameters("item")),
-                                "item"
+                                        new ParameterOperatorParameters("q"),
+                                        new EqualsBinaryOperatorParameters
+                                        (
+                                            new ConstantOperatorParameters(1, typeof(int)),
+                                            new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
+                                        ),
+                                        "d"
+                                    )
+                                )
                             ),
-                            ["Min_budget"] = new MinOperatorParameters
+                            new MemberBindingItem
                             (
-                                new WhereOperatorParameters
+                                "Sum_budget",
+                                new SumOperatorParameters
                                 (
-                                    new ParameterOperatorParameters("q"),
-                                    new EqualsBinaryOperatorParameters
+                                    new WhereOperatorParameters
                                     (
-                                        new ConstantOperatorParameters(1, typeof(int)),
-                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
+                                        new ParameterOperatorParameters("q"),
+                                        new EqualsBinaryOperatorParameters
+                                        (
+                                            new ConstantOperatorParameters(1, typeof(int)),
+                                            new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
+                                        ),
+                                        "d"
                                     ),
-                                    "d"
-                                ),
-                                new MemberSelectorOperatorParameters("Budget", new ParameterOperatorParameters("item")),
-                                "item"
+                                    new MemberSelectorOperatorParameters("Budget", new ParameterOperatorParameters("item")),
+                                    "item"
+                                )
                             ),
-                            ["Min_startDate"] = new MinOperatorParameters
+                            new MemberBindingItem
                             (
-                                new WhereOperatorParameters
+                                "Min_budget",
+                                new MinOperatorParameters
                                 (
-                                    new ParameterOperatorParameters("q"),
-                                    new EqualsBinaryOperatorParameters
+                                    new WhereOperatorParameters
                                     (
-                                        new ConstantOperatorParameters(1, typeof(int)),
-                                        new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
+                                        new ParameterOperatorParameters("q"),
+                                        new EqualsBinaryOperatorParameters
+                                        (
+                                            new ConstantOperatorParameters(1, typeof(int)),
+                                            new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
+                                        ),
+                                        "d"
                                     ),
-                                    "d"
-                                ),
-                                new MemberSelectorOperatorParameters("StartDate", new ParameterOperatorParameters("item")),
-                                "item"
+                                    new MemberSelectorOperatorParameters("Budget", new ParameterOperatorParameters("item")),
+                                    "item"
+                                )
+                            ),
+                            new MemberBindingItem
+                            (
+                                "Min_startDate",
+                                new MinOperatorParameters
+                                (
+                                    new WhereOperatorParameters
+                                    (
+                                        new ParameterOperatorParameters("q"),
+                                        new EqualsBinaryOperatorParameters
+                                        (
+                                            new ConstantOperatorParameters(1, typeof(int)),
+                                            new MemberSelectorOperatorParameters("Key", new ParameterOperatorParameters("sel"))
+                                        ),
+                                        "d"
+                                    ),
+                                    new MemberSelectorOperatorParameters("StartDate", new ParameterOperatorParameters("item")),
+                                    "item"
+                                )
                             )
                         }
                     ),
@@ -1251,11 +1275,11 @@ namespace Contoso.Bsl.Flow.Unit.Tests
                             ),
                             new MemberInitOperatorParameters
                             (
-                                new Dictionary<string, IExpressionParameter>
+                                new List<MemberBindingItem>
                                 {
-                                    ["CategoryID"] = new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a")),
-                                    ["CategoryName"] = new MemberSelectorOperatorParameters("CategoryName", new ParameterOperatorParameters("a")),
-                                    ["Products"] = new MemberSelectorOperatorParameters("Products", new ParameterOperatorParameters("a"))
+                                    new MemberBindingItem("CategoryID", new MemberSelectorOperatorParameters("CategoryID", new ParameterOperatorParameters("a"))),
+                                    new MemberBindingItem("CategoryName", new MemberSelectorOperatorParameters("CategoryName", new ParameterOperatorParameters("a"))),
+                                    new MemberBindingItem("Products", new MemberSelectorOperatorParameters("Products", new ParameterOperatorParameters("a")))
                                 }
                             ),
                             "a"
