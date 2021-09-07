@@ -1,5 +1,6 @@
 ﻿using LogicBuilder.Expressions.Utils;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -133,7 +134,9 @@ namespace Contoso.XPlatform.Utils
         /// <param name="elementType"></param>
         /// <returns></returns>
         internal static string GetIQueryableTypeString(this Type elementType)
-            => $"System.Linq.IQueryable`1[[{elementType.AssemblyQualifiedName}]], System.Linq.Expressions, Version=4.2.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a";
+            => typeof(IQueryable<>).MakeGenericType(elementType).AssemblyQualifiedName;
+        //wrong about this
+        //=> $"System.Linq.IQueryable`1[[{elementType.AssemblyQualifiedName}]], System.Linq.Expressions, Version=4.2.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a";
 
         /// <summary>
         /// Using typeof(IEnumerable<>).MakeGenericType(elementType).AssemblyQualifiedName returns the type
@@ -144,6 +147,8 @@ namespace Contoso.XPlatform.Utils
         /// <param name="elementType"></param>
         /// <returns></returns>
         internal static string GetIEnumerableTypeString(this Type elementType)
-            => $"System.Collections.Generic.IEnumerable`1[[{elementType.AssemblyQualifiedName}]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e";
+            => typeof(IEnumerable<>).MakeGenericType(elementType).AssemblyQualifiedName;
+            //wrong about this
+            //=> $"System.Collections.Generic.IEnumerable`1[[{elementType.AssemblyQualifiedName}]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e";
     }
 }
