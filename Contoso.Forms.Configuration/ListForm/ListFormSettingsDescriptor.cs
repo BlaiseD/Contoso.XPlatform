@@ -1,5 +1,6 @@
 ﻿using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Forms.Configuration.Bindings;
+using System.Collections.Generic;
 
 namespace Contoso.Forms.Configuration.ListForm
 {
@@ -9,7 +10,7 @@ namespace Contoso.Forms.Configuration.ListForm
         public string ModelType { get; set; }
         public string LoadingIndicatorText { get; set; }
         public string ItemTemplateName { get; set; }
-        public CollectionViewItemBindingsDictionaryDescriptor Bindings { get; set; }
+        public Dictionary<string, CollectionViewItemBindingDescriptor> Bindings { get; set; }
         public SelectorLambdaOperatorDescriptor FieldsSelector { get; set; }
         public RequestDetailsDescriptor RequestDetails { get; set; }
     }

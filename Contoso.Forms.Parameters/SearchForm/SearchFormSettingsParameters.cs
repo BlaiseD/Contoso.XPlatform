@@ -2,6 +2,8 @@
 using Contoso.Parameters.Expansions;
 using LogicBuilder.Attributes;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Contoso.Forms.Parameters.SearchForm
 {
@@ -30,7 +32,7 @@ namespace Contoso.Forms.Parameters.SearchForm
 			string filterPlaceholder,
 
 			[Comments("Defines which fields of the model type which bind to the named template fields (e.g. Header, Text, Detail).")]
-			CollectionViewItemBindingsDictionaryParameters bindings,
+			List<CollectionViewItemBindingParameters> bindings,
 
 			[Comments("Define the sort order and number additional items to return on 'Pull to Refresh'.")]
 			SortCollectionParameters sortCollection,
@@ -47,7 +49,7 @@ namespace Contoso.Forms.Parameters.SearchForm
 			LoadingIndicatorText = loadingIndicatorText;
 			ItemTemplateName = itemTemplateName;
 			FilterPlaceholder = filterPlaceholder;
-			Bindings = bindings;
+			Bindings = bindings.ToDictionary(cvib => cvib.Name);
 			SortCollection = sortCollection;
 			SearchFilterGroup = searchFilterGroup;
 			RequestDetails = requestDetails;
@@ -58,7 +60,7 @@ namespace Contoso.Forms.Parameters.SearchForm
 		public string LoadingIndicatorText { get; set; }
 		public string ItemTemplateName { get; set; }
 		public string FilterPlaceholder { get; set; }
-		public CollectionViewItemBindingsDictionaryParameters Bindings { get; set; }
+		public Dictionary<string, CollectionViewItemBindingParameters> Bindings { get; set; }
 		public SortCollectionParameters SortCollection { get; set; }
 		public SearchFilterGroupParameters SearchFilterGroup { get; set; }
 		public RequestDetailsParameters RequestDetails { get; set; }

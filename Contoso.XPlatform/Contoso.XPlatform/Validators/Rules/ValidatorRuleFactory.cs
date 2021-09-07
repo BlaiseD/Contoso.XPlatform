@@ -2,14 +2,16 @@
 using Contoso.Forms.Configuration.Validation;
 using Contoso.XPlatform.ViewModels.Validatables;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 
 namespace Contoso.XPlatform.Validators.Rules
 {
     internal static class ValidatorRuleFactory
     {
-        public static IValidationRule GetValidatorRule(ValidatorDefinitionDescriptor validator, FormControlSettingsDescriptor setting, ValidationMessageDictionaryDescriptor validationMessages, ObservableCollection<IValidatable> fields) 
+        public static IValidationRule GetValidatorRule(ValidatorDefinitionDescriptor validator, FormControlSettingsDescriptor setting, Dictionary<string, List<ValidationRuleDescriptor>> validationMessages, ObservableCollection<IValidatable> fields) 
             => (IValidationRule)typeof(ValidatorRuleFactory).GetMethod
             (
                 "_GetValidatorRule",
@@ -20,7 +22,7 @@ namespace Contoso.XPlatform.Validators.Rules
                 {
                     typeof(ValidatorDefinitionDescriptor),
                     typeof(FormControlSettingsDescriptor),
-                    typeof(ValidationMessageDictionaryDescriptor),
+                    typeof(Dictionary<string, List<ValidationRuleDescriptor>>),
                     typeof(ObservableCollection<IValidatable>)
                 },
                 null
@@ -37,13 +39,15 @@ namespace Contoso.XPlatform.Validators.Rules
                 }
             );
 
-        private static IValidationRule _GetValidatorRule<T>(ValidatorDefinitionDescriptor validator, FormControlSettingsDescriptor setting, ValidationMessageDictionaryDescriptor validationMessages, ObservableCollection<IValidatable> fields)
+        private static IValidationRule _GetValidatorRule<T>(ValidatorDefinitionDescriptor validator, FormControlSettingsDescriptor setting, Dictionary<string, List<ValidationRuleDescriptor>> validationMessages, ObservableCollection<IValidatable> fields)
         {
             if (validationMessages == null)
                 throw new ArgumentException($"{nameof(validationMessages)}: C1BDA4F7-B684-438F-B5BB-B61F01B625CE");
 
-            if (!validationMessages.TryGetValue(setting.Field, out ValidationRuleDictionaryDescriptor methodDictionary))
+            if (!validationMessages.TryGetValue(setting.Field, out List<ValidationRuleDescriptor> methodList))
                 throw new ArgumentException($"{nameof(setting.Field)}: 4FF12AAC-DF7F-4346-8747-52413FCA808F");
+
+            Dictionary<string, string> methodDictionary = methodList.ToDictionary(vr => vr.ClassName, vr => vr.Message);
 
             if (!methodDictionary.TryGetValue(validator.ClassName, out string validationMessage))
                 throw new ArgumentException($"{nameof(validator.ClassName)}: 8A45F637-347D-4578-9F9C-72E9026FBCEB");

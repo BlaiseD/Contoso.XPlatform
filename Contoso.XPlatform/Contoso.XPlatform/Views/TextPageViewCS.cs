@@ -35,7 +35,7 @@ namespace Contoso.XPlatform.Views
             {
                 Children =
                 {
-                    GetContent(),
+                    new ScrollView { Content = GetScrollViewContent() },
                     GetTransitionGrid()
                 }
             };
@@ -52,7 +52,7 @@ namespace Contoso.XPlatform.Views
             return transitionGrid;
         }
 
-        private StackLayout GetContent()
+        private View GetScrollViewContent()
         {
             page = new StackLayout
             {

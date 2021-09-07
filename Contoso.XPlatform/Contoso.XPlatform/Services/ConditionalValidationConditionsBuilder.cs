@@ -19,7 +19,7 @@ namespace Contoso.XPlatform.Services
             this.mapper = mapper;
         }
 
-        public List<ValidateIf<TModel>> GetConditions<TModel>(VariableDirectivesDictionaryDescriptor conditionalDirectives, IEnumerable<IValidatable> properties)
+        public List<ValidateIf<TModel>> GetConditions<TModel>(Dictionary<string, List<DirectiveDescriptor>> conditionalDirectives, IEnumerable<IValidatable> properties)
         {
             if (conditionalDirectives == null)
                 return new List<ValidateIf<TModel>>();

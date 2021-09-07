@@ -27,8 +27,6 @@ namespace Contoso.AutoMapperProfiles
         public FormsParameterToFormsDescriptorMappingProfile()
         {
 			CreateMap<CollectionViewItemBindingParameters, CollectionViewItemBindingDescriptor>();
-			CreateMap<CollectionViewItemBindingsDictionaryParameters, CollectionViewItemBindingsDictionaryDescriptor>();
-			CreateMap<DirectiveArgumentDictionaryParameters, DirectiveArgumentDictionaryDescriptor>();
 			CreateMap<DirectiveArgumentParameters, DirectiveArgumentDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<DirectiveDefinitionParameters, DirectiveDefinitionDescriptor>();
@@ -77,17 +75,13 @@ namespace Contoso.AutoMapperProfiles
 			CreateMap<TextFieldTemplateParameters, TextFieldTemplateDescriptor>();
 			CreateMap<TextFormSettingsParameters, TextFormSettingsDescriptor>();
 			CreateMap<TextGroupParameters, TextGroupDescriptor>();
-			CreateMap<ValidationMessageDictionaryParameters, ValidationMessageDictionaryDescriptor>();
 			CreateMap<ValidationMessageParameters, ValidationMessageDescriptor>();
-			CreateMap<ValidationRuleDictionaryParameters, ValidationRuleDictionaryDescriptor>();
 			CreateMap<ValidationRuleParameters, ValidationRuleDescriptor>();
-			CreateMap<ValidatorArgumentDictionaryParameters, ValidatorArgumentDictionaryDescriptor>();
 			CreateMap<ValidatorArgumentParameters, ValidatorArgumentDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<ValidatorDefinitionParameters, ValidatorDefinitionDescriptor>();
 			CreateMap<ValueSourceFilterParameters, ValueSourceFilterDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
-			CreateMap<VariableDirectivesDictionaryParameters, VariableDirectivesDictionaryDescriptor>();
 			CreateMap<VariableDirectivesParameters, VariableDirectivesDescriptor>();
 
             CreateMap<FormItemSettingsParameters, FormItemSettingsDescriptor>()

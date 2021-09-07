@@ -3,6 +3,7 @@ using Contoso.Forms.Parameters.Validation;
 using LogicBuilder.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Contoso.Forms.Parameters.EditForm
 {
@@ -50,10 +51,10 @@ namespace Contoso.Forms.Parameters.EditForm
 			List<FormItemSettingsParameters> fieldSettings,
 
 			[Comments("Input validation messages for each field.")]
-			ValidationMessageDictionaryParameters validationMessages = null,
+			List<ValidationMessageParameters> validationMessages,
 
 			[Comments("Conditional directtives for each field.")]
-			VariableDirectivesDictionaryParameters conditionalDirectives = null,
+			List<VariableDirectivesParameters> conditionalDirectives = null,
 
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
 			[Comments("Fully qualified class name for the model type.")]
@@ -70,8 +71,16 @@ namespace Contoso.Forms.Parameters.EditForm
 			FormsCollectionDisplayTemplate = formsCollectionDisplayTemplate;
 			FormGroupTemplate = formGroupTemplate;
 			FieldSettings = fieldSettings;
-			ValidationMessages = validationMessages;
-			ConditionalDirectives = conditionalDirectives;
+			ValidationMessages = validationMessages.ToDictionary
+			(
+				vm => vm.Field,
+				vm => vm.Rules ?? new List<ValidationRuleParameters>()
+			);
+			ConditionalDirectives = conditionalDirectives?.ToDictionary
+			(
+				cd => cd.Field,
+				cd => cd.ConditionalDirectives ?? new List<DirectiveParameters>()
+			);
 		}
 
 		public string Title { get; set; }
@@ -84,7 +93,7 @@ namespace Contoso.Forms.Parameters.EditForm
 		public FormsCollectionDisplayTemplateParameters FormsCollectionDisplayTemplate { get; set; }
 		public FormGroupTemplateParameters FormGroupTemplate { get; set; }
 		public List<FormItemSettingsParameters> FieldSettings { get; set; }
-		public ValidationMessageDictionaryParameters ValidationMessages { get; set; }
-		public VariableDirectivesDictionaryParameters ConditionalDirectives { get; set; }
+		public Dictionary<string, List<ValidationRuleParameters>> ValidationMessages { get; set; }
+		public Dictionary<string, List<DirectiveParameters>> ConditionalDirectives { get; set; }
     }
 }

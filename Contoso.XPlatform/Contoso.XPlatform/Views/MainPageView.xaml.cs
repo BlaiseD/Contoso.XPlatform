@@ -26,6 +26,11 @@ namespace Contoso.XPlatform.Views
             flyout.BindingContext = ViewModel;
 
             UiNotificationService.FlowSettingsSubject.Subscribe(FlowSettingsChanged);
+
+            if (!DesignMode.IsDesignModeEnabled)
+            {
+                Start();
+            }
         }
 
         #region Fields
@@ -75,10 +80,7 @@ namespace Contoso.XPlatform.Views
         #region Methods
         protected override void OnAppearing()
         {
-            if (!DesignMode.IsDesignModeEnabled)
-            {
-                Start();
-            }
+            
 
             base.OnAppearing();
         }

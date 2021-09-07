@@ -3,6 +3,7 @@ using Contoso.Forms.Parameters.Validation;
 using LogicBuilder.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Contoso.Forms.Parameters.EditForm
 {
@@ -23,7 +24,7 @@ namespace Contoso.Forms.Parameters.EditForm
 			EditFormRequestDetailsParameters requestDetails,
 
 			[Comments("Input validation messages for each field.")]
-			ValidationMessageDictionaryParameters validationMessages,
+			List<ValidationMessageParameters> validationMessages,
 
 			[Comments("List of fields and form groups for this form.")]
 			List<FormItemSettingsParameters> fieldSettings,
@@ -35,7 +36,7 @@ namespace Contoso.Forms.Parameters.EditForm
 			Type modelType,
 
 			[Comments("Conditional directtives for each field.")]
-			VariableDirectivesDictionaryParameters conditionalDirectives = null,
+			List<VariableDirectivesParameters> conditionalDirectives = null,
 
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
 			[Comments("Fully qualified class name for the model type.")]
@@ -45,20 +46,28 @@ namespace Contoso.Forms.Parameters.EditForm
 			Title = title;
 			DisplayField = displayField;
 			RequestDetails = requestDetails;
-			ValidationMessages = validationMessages;
+			ValidationMessages = validationMessages.ToDictionary
+			(
+				vm => vm.Field,
+				vm => vm.Rules ?? new List<ValidationRuleParameters>()
+			);
 			FieldSettings = fieldSettings;
 			EditType = editType;
 			ModelType = modelType;
-			ConditionalDirectives = conditionalDirectives;
+			ConditionalDirectives = conditionalDirectives?.ToDictionary
+			(
+				cd => cd.Field, 
+				cd => cd.ConditionalDirectives ?? new List<DirectiveParameters>()
+			);
 		}
 
 		public string Title { get; set; }
 		public string DisplayField { get; set; }
 		public EditFormRequestDetailsParameters RequestDetails { get; set; }
-		public ValidationMessageDictionaryParameters ValidationMessages { get; set; }
+		public Dictionary<string, List<ValidationRuleParameters>> ValidationMessages { get; set; }
 		public List<FormItemSettingsParameters> FieldSettings { get; set; }
 		public EditType EditType { get; set; }
 		public Type ModelType { get; set; }
-		public VariableDirectivesDictionaryParameters ConditionalDirectives { get; set; }
+		public Dictionary<string, List<DirectiveParameters>> ConditionalDirectives { get; set; }
     }
 }

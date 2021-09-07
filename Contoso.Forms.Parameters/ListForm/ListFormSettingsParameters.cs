@@ -2,6 +2,8 @@
 using Contoso.Parameters.Expressions;
 using LogicBuilder.Attributes;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Contoso.Forms.Parameters.ListForm
 {
@@ -26,7 +28,7 @@ namespace Contoso.Forms.Parameters.ListForm
 			string itemTemplateName,
 
 			[Comments("Defines which of the model type fields bind to the named template fields (e.g. Header, Text, Detail).")]
-			CollectionViewItemBindingsDictionaryParameters bindings,
+			List<CollectionViewItemBindingParameters> bindings,
 
 			[Comments("Defines the LINQ query for retrieving the list.")]
 			SelectorLambdaOperatorParameters fieldsSelector,
@@ -39,7 +41,7 @@ namespace Contoso.Forms.Parameters.ListForm
 			ModelType = modelType;
 			LoadingIndicatorText = loadingIndicatorText;
 			ItemTemplateName = itemTemplateName;
-			Bindings = bindings;
+			Bindings = bindings.ToDictionary(b => b.Name);
 			FieldsSelector = fieldsSelector;
 			RequestDetails = requestDetails;
 		}
@@ -48,7 +50,7 @@ namespace Contoso.Forms.Parameters.ListForm
 		public Type ModelType { get; set; }
 		public string LoadingIndicatorText { get; set; }
 		public string ItemTemplateName { get; set; }
-		public CollectionViewItemBindingsDictionaryParameters Bindings { get; set; }
+		public Dictionary<string, CollectionViewItemBindingParameters> Bindings { get; set; }
 		public SelectorLambdaOperatorParameters FieldsSelector { get; set; }
 		public RequestDetailsParameters RequestDetails { get; set; }
     }

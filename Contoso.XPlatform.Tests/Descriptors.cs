@@ -22,36 +22,33 @@ namespace Contoso.XPlatform.Tests
             {
                 GetUrl = "/Instructor/GetSingle"
             },
-            ValidationMessages = new ValidationMessageDictionaryDescriptor
-            (
-                new List<ValidationMessageDescriptor>
+            ValidationMessages = new List<ValidationMessageDescriptor>
+            {
+                new ValidationMessageDescriptor
                 {
-                    new ValidationMessageDescriptor
+                    Field = "FirstName",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "FirstName",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "LastName",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "LastName",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "HireDate",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "HireDate",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Hire Date is required." }
-                        }
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Hire Date is required." }
                     }
                 }
-            ),
+            }.ToDictionary(v => v.Field, v => v.Rules),
             FieldSettings = new List<FormItemSettingsDescriptor>
             {
                 new FormControlSettingsDescriptor
@@ -221,36 +218,33 @@ namespace Contoso.XPlatform.Tests
             {
                 GetUrl = "/Instructor/GetSingle"
             },
-            ValidationMessages = new ValidationMessageDictionaryDescriptor
-            (
-                new List<ValidationMessageDescriptor>
+            ValidationMessages = new List<ValidationMessageDescriptor>
+            {
+                new ValidationMessageDescriptor
                 {
-                    new ValidationMessageDescriptor
+                    Field = "FirstName",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "FirstName",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "LastName",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "LastName",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "HireDate",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "HireDate",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Hire Date is required." }
-                        }
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Hire Date is required." }
                     }
                 }
-            ),
+            }.ToDictionary(v => v.Field, v => v.Rules),
             FieldSettings = new List<FormItemSettingsDescriptor>
             {
                 new FormControlSettingsDescriptor
@@ -420,45 +414,42 @@ namespace Contoso.XPlatform.Tests
             {
                 GetUrl = "/Department/GetSingle"
             },
-            ValidationMessages = new ValidationMessageDictionaryDescriptor
-            (
-                new List<ValidationMessageDescriptor>
+            ValidationMessages = new List<ValidationMessageDescriptor>
+            {
+                new ValidationMessageDescriptor
                 {
-                    new ValidationMessageDescriptor
+                    Field = "Budget",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "Budget",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Budget is required." },
-                            new ValidationRuleDescriptor { ClassName = "MustBePositiveNumberRule", Message = "Budget must be a positive number." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Budget is required." },
+                        new ValidationRuleDescriptor { ClassName = "MustBePositiveNumberRule", Message = "Budget must be a positive number." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "InstructorID",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "InstructorID",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Administrator is required." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Administrator is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "Name",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "Name",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Name is required." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Name is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "StartDate",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "StartDate",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Start Date is required." }
-                        }
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Start Date is required." }
                     }
                 }
-            ),
+            }.ToDictionary(v => v.Field, v => v.Rules),
             FieldSettings = new List<FormItemSettingsDescriptor>
             {
                 new FormControlSettingsDescriptor
@@ -629,67 +620,61 @@ namespace Contoso.XPlatform.Tests
                     {
                         TemplateName = "FormGroupArrayTemplate"
                     },
-                    ValidationMessages= new ValidationMessageDictionaryDescriptor
-                    (
-                        new List<ValidationMessageDescriptor>
+                    ValidationMessages= new List<ValidationMessageDescriptor>
+                    {
+                        new ValidationMessageDescriptor
                         {
-                            new ValidationMessageDescriptor
+                            Field = "CourseID",
+                            Rules = new List<ValidationRuleDescriptor>
                             {
-                                Field = "CourseID",
-                                Rules = new List<ValidationRuleDescriptor>
-                                {
-                                    new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "CourseID is required." },
-                                    new ValidationRuleDescriptor { ClassName = "MustBeIntegerRule", Message = "CourseID must be an integer." }
-                                }
-                            },
-                            new ValidationMessageDescriptor
+                                new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "CourseID is required." },
+                                new ValidationRuleDescriptor { ClassName = "MustBeIntegerRule", Message = "CourseID must be an integer." }
+                            }
+                        },
+                        new ValidationMessageDescriptor
+                        {
+                            Field = "Credits",
+                            Rules = new List<ValidationRuleDescriptor>
                             {
-                                Field = "Credits",
-                                Rules = new List<ValidationRuleDescriptor>
-                                {
-                                    new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Credits is required." },
-                                    new ValidationRuleDescriptor { ClassName = "RangeRule", Message = "Credits must be between 0 and 5 inclusive." }
-                                }
-                            },
-                            new ValidationMessageDescriptor
+                                new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Credits is required." },
+                                new ValidationRuleDescriptor { ClassName = "RangeRule", Message = "Credits must be between 0 and 5 inclusive." }
+                            }
+                        },
+                        new ValidationMessageDescriptor
+                        {
+                            Field = "DepartmentID",
+                            Rules = new List<ValidationRuleDescriptor>
                             {
-                                Field = "DepartmentID",
-                                Rules = new List<ValidationRuleDescriptor>
-                                {
-                                    new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Department is required.." }
-                                }
-                            },
-                            new ValidationMessageDescriptor
+                                new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Department is required.." }
+                            }
+                        },
+                        new ValidationMessageDescriptor
+                        {
+                            Field = "Title",
+                            Rules = new List<ValidationRuleDescriptor>
                             {
-                                Field = "Title",
-                                Rules = new List<ValidationRuleDescriptor>
-                                {
-                                    new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Title is required." }
-                                }
+                                new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Title is required." }
                             }
                         }
-                    ),
+                    }.ToDictionary(v => v.Field, v => v.Rules),
                     FormsCollectionDisplayTemplate = new FormsCollectionDisplayTemplateDescriptor
                     {
                         TemplateName = "TextDetailTemplate",
-                        Bindings = new CollectionViewItemBindingsDictionaryDescriptor
-                        (
-                            new List<CollectionViewItemBindingDescriptor>
+                        Bindings = new List<CollectionViewItemBindingDescriptor>
+                        {
+                            new CollectionViewItemBindingDescriptor
                             {
-                                new CollectionViewItemBindingDescriptor
-                                {
-                                    Name = "Text",
-                                    Property = "DepartmentName",
-                                    StringFormat = "{0}"
-                                },
-                                new CollectionViewItemBindingDescriptor
-                                {
-                                    Name = "Detail",
-                                    Property = "StartDate",
-                                    StringFormat = "{0:MMMM dd, yyyy}"
-                                }
+                                Name = "Text",
+                                Property = "DepartmentName",
+                                StringFormat = "{0}"
+                            },
+                            new CollectionViewItemBindingDescriptor
+                            {
+                                Name = "Detail",
+                                Property = "StartDate",
+                                StringFormat = "{0:MMMM dd, yyyy}"
                             }
-                        )
+                        }.ToDictionary(b => b.Name)
                     },
                     FieldSettings = new List<FormItemSettingsDescriptor>
                     {
@@ -809,14 +794,11 @@ namespace Contoso.XPlatform.Tests
                                     {
                                         ClassName = "RangeRule",
                                         FunctionName = "Check",
-                                        Arguments = new ValidatorArgumentDictionaryDescriptor
-                                        (
-                                            new List<ValidatorArgumentDescriptor>
-                                            {
-                                                new ValidatorArgumentDescriptor { Name = "min", Value = 0, Type = "System.Int32" },
-                                                new ValidatorArgumentDescriptor { Name = "max", Value = 5, Type = "System.Int32" }
-                                            }
-                                        )
+                                        Arguments = new List<ValidatorArgumentDescriptor>
+                                        {
+                                            new ValidatorArgumentDescriptor { Name = "min", Value = 0, Type = "System.Int32" },
+                                            new ValidatorArgumentDescriptor { Name = "max", Value = 5, Type = "System.Int32" }
+                                        }.ToDictionary(vad => vad.Name)
                                     }
                                 }
                             }
@@ -930,46 +912,43 @@ namespace Contoso.XPlatform.Tests
             {
                 GetUrl = "/Course/GetSingle"
             },
-            ValidationMessages = new ValidationMessageDictionaryDescriptor
-            (
-                new List<ValidationMessageDescriptor>
+            ValidationMessages = new List<ValidationMessageDescriptor>
+            {
+                new ValidationMessageDescriptor
                 {
-                    new ValidationMessageDescriptor
+                    Field = "CourseID",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "CourseID",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "CourseID is required." },
-                            new ValidationRuleDescriptor { ClassName = "MustBeIntegerRule", Message = "CourseID must be an integer." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "CourseID is required." },
+                        new ValidationRuleDescriptor { ClassName = "MustBeIntegerRule", Message = "CourseID must be an integer." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "Credits",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "Credits",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Credits is required." },
-                            new ValidationRuleDescriptor { ClassName = "RangeRule", Message = "Credits must be between 0 and 5 inclusive." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Credits is required." },
+                        new ValidationRuleDescriptor { ClassName = "RangeRule", Message = "Credits must be between 0 and 5 inclusive." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "DepartmentID",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "DepartmentID",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Department is required.." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Department is required.." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "Title",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "Title",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Title is required." }
-                        }
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Title is required." }
                     }
                 }
-            ),
+            }.ToDictionary(v => v.Field, v => v.Rules),
             FieldSettings = new List<FormItemSettingsDescriptor>
             {
                 new FormControlSettingsDescriptor
@@ -1088,14 +1067,11 @@ namespace Contoso.XPlatform.Tests
                             {
                                 ClassName = "RangeRule",
                                 FunctionName = "Check",
-                                Arguments = new ValidatorArgumentDictionaryDescriptor
-                                (
-                                    new List<ValidatorArgumentDescriptor>
-                                    {
-                                        new ValidatorArgumentDescriptor { Name = "min", Value = 0, Type = "System.Int32" },
-                                        new ValidatorArgumentDescriptor { Name = "max", Value = 5, Type = "System.Int32" }
-                                    }
-                                )
+                                Arguments = new List<ValidatorArgumentDescriptor>
+                                {
+                                    new ValidatorArgumentDescriptor { Name = "min", Value = 0, Type = "System.Int32" },
+                                    new ValidatorArgumentDescriptor { Name = "max", Value = 5, Type = "System.Int32" }
+                                }.ToDictionary(v => v.Name)
                             }
                         }
                     }
@@ -1205,36 +1181,33 @@ namespace Contoso.XPlatform.Tests
             {
                 GetUrl = "/Student/GetSingle"
             },
-            ValidationMessages = new ValidationMessageDictionaryDescriptor
-            (
-                new List<ValidationMessageDescriptor>
+            ValidationMessages = new List<ValidationMessageDescriptor>
+            {
+                new ValidationMessageDescriptor
                 {
-                    new ValidationMessageDescriptor
+                    Field = "FirstName",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "FirstName",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "First Name is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "LastName",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "LastName",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
-                        }
-                    },
-                    new ValidationMessageDescriptor
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Last Name is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "EnrollmentDate",
+                    Rules = new List<ValidationRuleDescriptor>
                     {
-                        Field = "EnrollmentDate",
-                        Rules = new List<ValidationRuleDescriptor>
-                        {
-                            new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Enrollment Date is required." }
-                        }
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Enrollment Date is required." }
                     }
                 }
-            ),
+            }.ToDictionary(v => v.Field, v => v.Rules),
             FieldSettings = new List<FormItemSettingsDescriptor>
             {
                 new FormControlSettingsDescriptor
@@ -1298,45 +1271,42 @@ namespace Contoso.XPlatform.Tests
                     }
                 }
             },
-            ConditionalDirectives = new Forms.Configuration.Directives.VariableDirectivesDictionaryDescriptor
-            (
-                new List<Forms.Configuration.Directives.VariableDirectivesDescriptor>
+            ConditionalDirectives = new List<Forms.Configuration.Directives.VariableDirectivesDescriptor>
+            {
+                new Forms.Configuration.Directives.VariableDirectivesDescriptor
                 {
-                    new Forms.Configuration.Directives.VariableDirectivesDescriptor
+                    Field = "EnrollmentDate",
+                    ConditionalDirectives = new List<Forms.Configuration.Directives.DirectiveDescriptor>
                     {
-                        Field = "EnrollmentDate",
-                        ConditionalDirectives = new List<Forms.Configuration.Directives.DirectiveDescriptor>
+                        new Forms.Configuration.Directives.DirectiveDescriptor
                         {
-                            new Forms.Configuration.Directives.DirectiveDescriptor
+                            Definition = new Forms.Configuration.Directives.DirectiveDefinitionDescriptor
                             {
-                                Definition = new Forms.Configuration.Directives.DirectiveDefinitionDescriptor
+                                ClassName = "ValidateIf",
+                                FunctionName = "Check"
+                            },
+                            Condition = new Common.Configuration.ExpressionDescriptors.FilterLambdaOperatorDescriptor
+                            {
+                                SourceElementType = typeof(Domain.Entities.StudentModel).AssemblyQualifiedName,
+                                ParameterName = "f",
+                                FilterBody = new Common.Configuration.ExpressionDescriptors.EqualsBinaryOperatorDescriptor
                                 {
-                                    ClassName = "ValidateIf",
-                                    FunctionName = "Check"
-                                },
-                                Condition = new Common.Configuration.ExpressionDescriptors.FilterLambdaOperatorDescriptor
-                                {
-                                    SourceElementType = typeof(Domain.Entities.StudentModel).AssemblyQualifiedName,
-                                    ParameterName = "f",
-                                    FilterBody = new Common.Configuration.ExpressionDescriptors.EqualsBinaryOperatorDescriptor
+                                    Left = new Common.Configuration.ExpressionDescriptors.MemberSelectorOperatorDescriptor
                                     {
-                                        Left = new Common.Configuration.ExpressionDescriptors.MemberSelectorOperatorDescriptor
-                                        {
-                                            MemberFullName = "FirstName",
-                                            SourceOperand = new Common.Configuration.ExpressionDescriptors.ParameterOperatorDescriptor{ ParameterName = "f" }
-                                        },
-                                        Right = new Common.Configuration.ExpressionDescriptors.MemberSelectorOperatorDescriptor
-                                        {
-                                            MemberFullName = "LastName",
-                                            SourceOperand = new Common.Configuration.ExpressionDescriptors.ParameterOperatorDescriptor{ ParameterName = "f" }
-                                        }
+                                        MemberFullName = "FirstName",
+                                        SourceOperand = new Common.Configuration.ExpressionDescriptors.ParameterOperatorDescriptor{ ParameterName = "f" }
+                                    },
+                                    Right = new Common.Configuration.ExpressionDescriptors.MemberSelectorOperatorDescriptor
+                                    {
+                                        MemberFullName = "LastName",
+                                        SourceOperand = new Common.Configuration.ExpressionDescriptors.ParameterOperatorDescriptor{ ParameterName = "f" }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            ),
+            }.ToDictionary(vd => vd.Field, vd => vd.ConditionalDirectives),
             ModelType = "Contoso.Domain.Entities.StudentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 

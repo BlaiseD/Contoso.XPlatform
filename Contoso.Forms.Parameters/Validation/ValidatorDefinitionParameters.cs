@@ -1,4 +1,6 @@
 ﻿using LogicBuilder.Attributes;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Contoso.Forms.Parameters.Validation
 {
@@ -15,16 +17,16 @@ namespace Contoso.Forms.Parameters.Validation
 			string functionName,
 
 			[Comments("Where applicable, add arguments for the validator function e.g. min, max vallues.")]
-			ValidatorArgumentDictionaryParameters arguments = null
+			List<ValidatorArgumentParameters> arguments = null
 		)
 		{
 			ClassName = className;
 			FunctionName = functionName;
-			Arguments = arguments;
+			Arguments = arguments?.ToDictionary(arg => arg.Name);
 		}
 
 		public string ClassName { get; set; }
 		public string FunctionName { get; set; }
-		public ValidatorArgumentDictionaryParameters Arguments { get; set; }
+		public Dictionary<string, ValidatorArgumentParameters> Arguments { get; set; }
     }
 }

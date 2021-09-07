@@ -2,6 +2,8 @@
 using Contoso.Parameters.Expressions;
 using LogicBuilder.Attributes;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Contoso.Forms.Parameters
 {
@@ -15,14 +17,14 @@ namespace Contoso.Forms.Parameters
 			string templateName,
 
 			[Comments("Defines which of the model type fields bind to the named template fields (e.g. Header, Text, Detail).")]
-			CollectionViewItemBindingsDictionaryParameters bindings
+			List<CollectionViewItemBindingParameters> bindings
 		)
 		{
 			TemplateName = templateName;
-			Bindings = bindings;
+			Bindings = bindings.ToDictionary(cvib => cvib.Name);
 		}
 
 		public string TemplateName { get; set; }
-		public CollectionViewItemBindingsDictionaryParameters Bindings { get; set; }
+		public Dictionary<string, CollectionViewItemBindingParameters> Bindings { get; set; }
     }
 }

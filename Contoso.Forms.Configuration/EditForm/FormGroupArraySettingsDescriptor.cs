@@ -17,7 +17,7 @@ namespace Contoso.Forms.Configuration.EditForm
         public FormsCollectionDisplayTemplateDescriptor FormsCollectionDisplayTemplate { get; set; }
         public FormGroupTemplateDescriptor FormGroupTemplate { get; set; }
         public List<FormItemSettingsDescriptor> FieldSettings { get; set; }
-        public ValidationMessageDictionaryDescriptor ValidationMessages { get; set; }
-        public VariableDirectivesDictionaryDescriptor ConditionalDirectives { get; set; }
+        public Dictionary<string, List<ValidationRuleDescriptor>> ValidationMessages { get; set; }
+        public Dictionary<string, List<DirectiveDescriptor>> ConditionalDirectives { get; set; }
     }
 }

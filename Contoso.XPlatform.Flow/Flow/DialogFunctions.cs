@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contoso.Forms.Configuration;
+using Contoso.Forms.Configuration.ListForm;
 using Contoso.Forms.Configuration.TextForm;
 using Contoso.Forms.Parameters.EditForm;
 using Contoso.Forms.Parameters.ListForm;
@@ -41,7 +42,12 @@ namespace Contoso.XPlatform.Flow
 
         public void DisplayReadOnlyCollection([Comments("Configuration details for the form.")] ListFormSettingsParameters setting, [ListEditorControl(ListControlType.Connectors)] ICollection<ConnectorParameters> buttons)
         {
-            throw new NotImplementedException();
+            this.screenData.ScreenSettings = new ScreenSettings<ListFormSettingsDescriptor>
+            (
+                mapper.Map<ListFormSettingsDescriptor>(setting),
+                mapper.Map<IEnumerable<ConnectorParameters>, IEnumerable<CommandButtonDescriptor>>(buttons),
+                ViewType.ListPage
+            );
         }
 
         public void DisplayTextForm([Comments("Configuration details for the form.")] TextFormSettingsParameters setting, [ListEditorControl(ListControlType.Connectors)] ICollection<ConnectorParameters> buttons)

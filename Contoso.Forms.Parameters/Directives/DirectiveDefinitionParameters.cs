@@ -1,4 +1,6 @@
 ﻿using LogicBuilder.Attributes;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Contoso.Forms.Parameters.Directives
 {
@@ -17,16 +19,16 @@ namespace Contoso.Forms.Parameters.Directives
 			string functionName,
 
 			[Comments("Where applicable, add arguments for the directive evaluation function.")]
-			DirectiveArgumentDictionaryParameters arguments = null
+			List<DirectiveArgumentParameters> arguments = null
 		)
 		{
 			ClassName = className;
 			FunctionName = functionName;
-			Arguments = arguments;
+			Arguments = arguments?.ToDictionary(arg => arg.Name);
 		}
 
 		public string ClassName { get; set; }
 		public string FunctionName { get; set; }
-		public DirectiveArgumentDictionaryParameters Arguments { get; set; }
+		public Dictionary<string, DirectiveArgumentParameters> Arguments { get; set; }
     }
 }
