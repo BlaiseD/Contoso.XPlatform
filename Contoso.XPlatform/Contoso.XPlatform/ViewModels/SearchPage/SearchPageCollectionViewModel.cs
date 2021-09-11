@@ -2,6 +2,8 @@
 using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.SearchForm;
+using Contoso.Parameters.Expressions;
+using Contoso.XPlatform.Flow.Requests;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
@@ -15,12 +17,13 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
 {
     public class SearchPageCollectionViewModel<TModel> : SearchPageCollectionViewModelBase where TModel : Domain.ViewModelBase
     {
-        public SearchPageCollectionViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, ISearchSelectorBuilder searchSelectorBuilder)
+        public SearchPageCollectionViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, ISearchSelectorBuilder searchSelectorBuilder, IGetItemFilterBuilder getItemFilterBuilder)
             : base(screenSettings)
         {
             this.uiNotificationService = uiNotificationService;
             this.httpService = httpService;
             this.searchSelectorBuilder = searchSelectorBuilder;
+            this.getItemFilterBuilder = getItemFilterBuilder;
             defaultSkip = FormSettings.SortCollection.Skip;
             GetItems();
         }
@@ -28,6 +31,7 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
         private readonly UiNotificationService uiNotificationService;
         private readonly IHttpService httpService;
         private readonly ISearchSelectorBuilder searchSelectorBuilder;
+        private readonly IGetItemFilterBuilder getItemFilterBuilder;
         private readonly int? defaultSkip;
 
         private bool _isRefreshing;
@@ -285,25 +289,50 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
 
         }
 
-        private async void Add(CommandButtonDescriptor button)
+        private void Add(CommandButtonDescriptor button)
         {
-            await App.Current.MainPage.DisplayAlert(button.ShortString, button.LongString, "Ok");
+            NavigateNext(button);
         }
 
-        private async void Edit(CommandButtonDescriptor button)
+        private void Edit(CommandButtonDescriptor button)
         {
-            await App.Current.MainPage.DisplayAlert(button.ShortString, button.LongString, "Ok");
+            SetItemFilter();
+            NavigateNext(button);
         }
 
-        private async void Delete(CommandButtonDescriptor button)
+        private void Delete(CommandButtonDescriptor button)
         {
-            await App.Current.MainPage.DisplayAlert(button.ShortString, button.LongString, "Ok");
-            //SelectedItem = null;
+            SetItemFilter();
+            NavigateNext(button);
         }
 
-        private async void Detail(CommandButtonDescriptor button)
+        private void Detail(CommandButtonDescriptor button)
         {
-            await App.Current.MainPage.DisplayAlert(button.ShortString, button.LongString, "Ok");
+            SetItemFilter();
+            NavigateNext(button);
         }
+
+        private void SetItemFilter()
+        {
+            this.uiNotificationService.SetFlowDataCacheItem
+            (
+                typeof(FilterLambdaOperatorParameters).FullName,
+                this.getItemFilterBuilder.CreateFilter
+                (
+                    this.FormSettings.ItemFilterGroup,
+                    typeof(TModel),
+                    SelectedItem
+                )
+            );
+        }
+
+        private Task NavigateNext(CommandButtonDescriptor button)
+            => this.uiNotificationService.Next
+            (
+                new CommandButtonRequest
+                {
+                    NewSelection = button.ShortString
+                }
+            );
     }
 }

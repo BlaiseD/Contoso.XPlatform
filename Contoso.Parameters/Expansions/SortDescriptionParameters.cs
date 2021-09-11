@@ -1,4 +1,5 @@
-﻿using LogicBuilder.Expressions.Utils.Strutures;
+﻿using LogicBuilder.Attributes;
+using LogicBuilder.Expressions.Utils.Strutures;
 
 namespace Contoso.Parameters.Expansions
 {
@@ -9,7 +10,20 @@ namespace Contoso.Parameters.Expansions
 
         }
 
-        public SortDescriptionParameters(string propertyName, ListSortDirection order)
+        public SortDescriptionParameters
+        (
+            [ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
+            [NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
+            [Comments("Update fieldTypeSource first. This property to sort by.")]
+            string propertyName,
+
+            [Comments("Click the variable button and select th configured ListSortDirection.")]
+            ListSortDirection order,
+
+            [ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
+            [Comments("Fully qualified class name for the model type.")]
+            string fieldTypeSource = "Contoso.Domain.Entities"
+        )
         {
             this.PropertyName = propertyName;
             this.SortDirection = order;

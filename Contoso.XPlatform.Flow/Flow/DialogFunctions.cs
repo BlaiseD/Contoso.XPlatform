@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Contoso.Forms.Configuration;
+using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.ListForm;
+using Contoso.Forms.Configuration.SearchForm;
 using Contoso.Forms.Configuration.TextForm;
 using Contoso.Forms.Parameters.EditForm;
 using Contoso.Forms.Parameters.ListForm;
@@ -32,12 +34,22 @@ namespace Contoso.XPlatform.Flow
 
         public void DisplayEditCollection([Comments("Configuration details for the form.")] SearchFormSettingsParameters setting, [ListEditorControl(ListControlType.Connectors)] ICollection<ConnectorParameters> buttons)
         {
-            throw new NotImplementedException();
+            this.screenData.ScreenSettings = new ScreenSettings<SearchFormSettingsDescriptor>
+            (
+                mapper.Map<SearchFormSettingsDescriptor>(setting),
+                mapper.Map<IEnumerable<ConnectorParameters>, IEnumerable<CommandButtonDescriptor>>(buttons),
+                ViewType.SearchPage
+            );
         }
 
         public void DisplayEditForm([Comments("Configuration details for the form.")] EditFormSettingsParameters setting, [ListEditorControl(ListControlType.Connectors)] ICollection<ConnectorParameters> buttons)
         {
-            throw new NotImplementedException();
+            this.screenData.ScreenSettings = new ScreenSettings<EditFormSettingsDescriptor>
+            (
+                mapper.Map<EditFormSettingsDescriptor>(setting),
+                mapper.Map<IEnumerable<ConnectorParameters>, IEnumerable<CommandButtonDescriptor>>(buttons),
+                ViewType.EditForm
+            );
         }
 
         public void DisplayReadOnlyCollection([Comments("Configuration details for the form.")] ListFormSettingsParameters setting, [ListEditorControl(ListControlType.Connectors)] ICollection<ConnectorParameters> buttons)

@@ -2,9 +2,7 @@
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.Navigation;
 using Contoso.Forms.Configuration.TextForm;
-using Contoso.Repositories;
 using Contoso.XPlatform.Flow.Cache;
-using Contoso.XPlatform.Flow.RequestHandlers;
 using Contoso.XPlatform.Flow.Requests;
 using Contoso.XPlatform.Flow.Settings;
 using Contoso.XPlatform.Flow.Settings.Screen;
@@ -99,14 +97,14 @@ namespace Contoso.XPlatform.Flow
             }
         }
 
-        Task<FlowSettings> IFlowManager.Next(RequestBase request) 
+        Task<FlowSettings> IFlowManager.Next(CommandButtonRequest request) 
             => Task.Run(() => Next(request));
 
-        private FlowSettings Next(RequestBase request)
+        private FlowSettings Next(CommandButtonRequest request)
         {
             try
             {
-                BaseRequestHandler.Create(request).Complete(this);
+                this.Director.SetSelection(request.NewSelection);
 
                 DateTime dt = DateTime.Now;
                 this.Director.ExecuteRulesEngine();
@@ -186,7 +184,7 @@ namespace Contoso.XPlatform.Flow
                                 (
                                     Progress
                                         .ProgressItems
-                                        .Select(i => new LabelItemDescriptor{ Text = $"{i.Description} {i.DateAndTime.ToLongTimeString()}" })
+                                        .Select(i => new LabelItemDescriptor{ Text = $"{i.Description} {i.DateAndTime.ToString("hh:mm:ss.fff tt")}" })
                                 )
                             }
                         }

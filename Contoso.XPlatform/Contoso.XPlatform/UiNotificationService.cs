@@ -48,7 +48,7 @@ namespace Contoso.XPlatform
             this.FlowSettingsSubject.OnNext(flowSettings);
         }
 
-        public async Task Next(RequestBase request)
+        public async Task Next(CommandButtonRequest request)
         {
             DateTime dt = DateTime.Now;
             FlowSettings flowSettings = await this.FlowManager.Next(request);
@@ -62,6 +62,14 @@ namespace Contoso.XPlatform
         public void NotifyPropertyChanged(string fieldName)
         {
             this.ValueChanged.OnNext(fieldName);
+        }
+
+        public void SetFlowDataCacheItem(string key, object value)
+        {
+            if (this.FlowSettings?.FlowDataCache?.Items == null)
+                return;
+
+            this.FlowSettings.FlowDataCache.Items[key] = value;
         }
     }
 }

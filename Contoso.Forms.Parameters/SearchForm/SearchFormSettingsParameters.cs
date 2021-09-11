@@ -1,4 +1,5 @@
 ﻿using Contoso.Forms.Parameters.Bindings;
+using Contoso.Forms.Parameters.ItemFilter;
 using Contoso.Parameters.Expansions;
 using LogicBuilder.Attributes;
 using System;
@@ -40,6 +41,9 @@ namespace Contoso.Forms.Parameters.SearchForm
 			[Comments("Defines the fields to search against - may be different from the displayed template fields.")]
 			SearchFilterGroupParameters searchFilterGroup,
 
+			[Comments("Defines a filter to find a selected item on a subsequent form e.g. to edit the selected item.")]
+			ItemFilterGroupParameters itemFilterGroup,
+
 			[Comments("Defines API URL for the list data. May specify model and data types if we use the URL for multiple types.")]
 			RequestDetailsParameters requestDetails
 		)
@@ -52,6 +56,7 @@ namespace Contoso.Forms.Parameters.SearchForm
 			Bindings = bindings.ToDictionary(cvib => cvib.Name);
 			SortCollection = sortCollection;
 			SearchFilterGroup = searchFilterGroup;
+			ItemFilterGroup = itemFilterGroup;
 			RequestDetails = requestDetails;
 		}
 
@@ -63,6 +68,7 @@ namespace Contoso.Forms.Parameters.SearchForm
 		public Dictionary<string, CollectionViewItemBindingParameters> Bindings { get; set; }
 		public SortCollectionParameters SortCollection { get; set; }
 		public SearchFilterGroupParameters SearchFilterGroup { get; set; }
+		public ItemFilterGroupParameters ItemFilterGroup { get; set; }
 		public RequestDetailsParameters RequestDetails { get; set; }
     }
 }

@@ -23,6 +23,10 @@
     <None Remove="Rulesets\Android\home.resources" />
     <None Remove="Rulesets\Android\home_nav.module" />
     <None Remove="Rulesets\Android\home_nav.resources" />
+    <None Remove="Rulesets\Android\nav_students.module" />
+    <None Remove="Rulesets\Android\nav_students.resources" />
+    <None Remove="Rulesets\Android\students.module" />
+    <None Remove="Rulesets\Android\students.resources" />
     <None Remove="Rulesets\Android\VariablesMetadata.xml" />
     <None Remove="Rulesets\iOS\about.module" />
     <None Remove="Rulesets\iOS\about.resources" />
@@ -32,6 +36,10 @@
     <None Remove="Rulesets\iOS\home.resources" />
     <None Remove="Rulesets\iOS\home_nav.module" />
     <None Remove="Rulesets\iOS\home_nav.resources" />
+    <None Remove="Rulesets\iOS\nav_students.module" />
+    <None Remove="Rulesets\iOS\nav_students.resources" />
+    <None Remove="Rulesets\iOS\students.module" />
+    <None Remove="Rulesets\iOS\students.resources" />
     <None Remove="Rulesets\iOS\VariablesMetadata.xml" />
   </ItemGroup>
 
@@ -44,6 +52,10 @@
     <EmbeddedResource Include="Rulesets\Android\home.resources" />
     <EmbeddedResource Include="Rulesets\Android\home_nav.module" />
     <EmbeddedResource Include="Rulesets\Android\home_nav.resources" />
+    <EmbeddedResource Include="Rulesets\Android\nav_students.module" />
+    <EmbeddedResource Include="Rulesets\Android\nav_students.resources" />
+    <EmbeddedResource Include="Rulesets\Android\students.module" />
+    <EmbeddedResource Include="Rulesets\Android\students.resources" />
     <EmbeddedResource Include="Rulesets\Android\VariablesMetadata.xml" />
     <EmbeddedResource Include="Rulesets\iOS\about.module" />
     <EmbeddedResource Include="Rulesets\iOS\about.resources" />
@@ -53,6 +65,10 @@
     <EmbeddedResource Include="Rulesets\iOS\home.resources" />
     <EmbeddedResource Include="Rulesets\iOS\home_nav.module" />
     <EmbeddedResource Include="Rulesets\iOS\home_nav.resources" />
+    <EmbeddedResource Include="Rulesets\iOS\nav_students.module" />
+    <EmbeddedResource Include="Rulesets\iOS\nav_students.resources" />
+    <EmbeddedResource Include="Rulesets\iOS\students.module" />
+    <EmbeddedResource Include="Rulesets\iOS\students.resources" />
     <EmbeddedResource Include="Rulesets\iOS\VariablesMetadata.xml" />
   </ItemGroup>
 

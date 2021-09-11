@@ -30,6 +30,7 @@ namespace Contoso.XPlatform.Views
 
         private void AddContent()
         {
+            LayoutHelpers.AddToolBarItems(this.ToolbarItems, this.textPageScreenViewModel.Buttons);
             Title = this.textPageScreenViewModel.Title;
             Content = new Grid
             {
@@ -61,7 +62,7 @@ namespace Contoso.XPlatform.Views
                 {
                     new Label
                     {
-                        Text = "Home",
+                        Text = this.textPageScreenViewModel.Title,
                         Style = LayoutHelpers.GetStaticStyleResource("HeaderStyle")
                     }
                 }

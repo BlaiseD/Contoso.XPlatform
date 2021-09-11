@@ -12,12 +12,14 @@ namespace Contoso.XPlatform.ViewModels
         private readonly UiNotificationService uiNotificationService;
         private readonly IHttpService httpService;
         private readonly ISearchSelectorBuilder searchSelectorBuilder;
+        private readonly IGetItemFilterBuilder getItemFilterBuilder;
 
-        public SearchPageViewModel(UiNotificationService uiNotificationService, IHttpService httpService, ISearchSelectorBuilder searchSelectorBuilder)
+        public SearchPageViewModel(UiNotificationService uiNotificationService, IHttpService httpService, ISearchSelectorBuilder searchSelectorBuilder, IGetItemFilterBuilder getItemFilterBuilder)
         {
             this.uiNotificationService = uiNotificationService;
             this.httpService = httpService;
             this.searchSelectorBuilder = searchSelectorBuilder;
+            this.getItemFilterBuilder = getItemFilterBuilder;
         }
 
         public override void Initialize(ScreenSettingsBase screenSettings)
@@ -45,7 +47,8 @@ namespace Contoso.XPlatform.ViewModels
                     screenSettings,
                     this.uiNotificationService,
                     this.httpService,
-                    this.searchSelectorBuilder
+                    this.searchSelectorBuilder,
+                    this.getItemFilterBuilder
                 }
             );
 
