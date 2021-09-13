@@ -78,7 +78,15 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             );
 
             if (getEntityResponse.Success == false)
+            {
+                await App.Current.MainPage.DisplayAlert
+                (
+                    "Errors",
+                    string.Join(Environment.NewLine, getEntityResponse.ErrorMessages),
+                    "Ok"
+                );
                 return;
+            }
 
             this.entity = (TModel)getEntityResponse.Entity;
 
