@@ -35,5 +35,10 @@ namespace Contoso.XPlatform.Services
         {
             return Task.FromResult(new GetEntityResponse { Success = true });
         }
+
+        public Task<BaseResponse> SaveEntity(BaseRequest request, string url = null)
+        {
+            return Task.FromResult((BaseResponse)new GetEntityResponse { Success = true });
+        }
     }
 }

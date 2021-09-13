@@ -15,61 +15,35 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Rulesets\Android\about.module" />
-    <None Remove="Rulesets\Android\about.resources" />
-    <None Remove="Rulesets\Android\about_nav.module" />
-    <None Remove="Rulesets\Android\about_nav.resources" />
-    <None Remove="Rulesets\Android\home.module" />
-    <None Remove="Rulesets\Android\home.resources" />
-    <None Remove="Rulesets\Android\home_nav.module" />
-    <None Remove="Rulesets\Android\home_nav.resources" />
-    <None Remove="Rulesets\Android\nav_students.module" />
-    <None Remove="Rulesets\Android\nav_students.resources" />
-    <None Remove="Rulesets\Android\students.module" />
-    <None Remove="Rulesets\Android\students.resources" />
-    <None Remove="Rulesets\Android\VariablesMetadata.xml" />
-    <None Remove="Rulesets\iOS\about.module" />
-    <None Remove="Rulesets\iOS\about.resources" />
-    <None Remove="Rulesets\iOS\about_nav.module" />
-    <None Remove="Rulesets\iOS\about_nav.resources" />
-    <None Remove="Rulesets\iOS\home.module" />
-    <None Remove="Rulesets\iOS\home.resources" />
-    <None Remove="Rulesets\iOS\home_nav.module" />
-    <None Remove="Rulesets\iOS\home_nav.resources" />
-    <None Remove="Rulesets\iOS\nav_students.module" />
-    <None Remove="Rulesets\iOS\nav_students.resources" />
-    <None Remove="Rulesets\iOS\students.module" />
-    <None Remove="Rulesets\iOS\students.resources" />
-    <None Remove="Rulesets\iOS\VariablesMetadata.xml" />
+    <None Remove="Rulesets\about.module" />
+    <None Remove="Rulesets\about.resources" />
+    <None Remove="Rulesets\about_nav.module" />
+    <None Remove="Rulesets\about_nav.resources" />
+    <None Remove="Rulesets\home.module" />
+    <None Remove="Rulesets\home.resources" />
+    <None Remove="Rulesets\home_nav.module" />
+    <None Remove="Rulesets\home_nav.resources" />
+    <None Remove="Rulesets\nav_students.module" />
+    <None Remove="Rulesets\nav_students.resources" />
+    <None Remove="Rulesets\students.module" />
+    <None Remove="Rulesets\students.resources" />
+    <None Remove="Rulesets\VariablesMetadata.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Rulesets\Android\about.module" />
-    <EmbeddedResource Include="Rulesets\Android\about.resources" />
-    <EmbeddedResource Include="Rulesets\Android\about_nav.module" />
-    <EmbeddedResource Include="Rulesets\Android\about_nav.resources" />
-    <EmbeddedResource Include="Rulesets\Android\home.module" />
-    <EmbeddedResource Include="Rulesets\Android\home.resources" />
-    <EmbeddedResource Include="Rulesets\Android\home_nav.module" />
-    <EmbeddedResource Include="Rulesets\Android\home_nav.resources" />
-    <EmbeddedResource Include="Rulesets\Android\nav_students.module" />
-    <EmbeddedResource Include="Rulesets\Android\nav_students.resources" />
-    <EmbeddedResource Include="Rulesets\Android\students.module" />
-    <EmbeddedResource Include="Rulesets\Android\students.resources" />
-    <EmbeddedResource Include="Rulesets\Android\VariablesMetadata.xml" />
-    <EmbeddedResource Include="Rulesets\iOS\about.module" />
-    <EmbeddedResource Include="Rulesets\iOS\about.resources" />
-    <EmbeddedResource Include="Rulesets\iOS\about_nav.module" />
-    <EmbeddedResource Include="Rulesets\iOS\about_nav.resources" />
-    <EmbeddedResource Include="Rulesets\iOS\home.module" />
-    <EmbeddedResource Include="Rulesets\iOS\home.resources" />
-    <EmbeddedResource Include="Rulesets\iOS\home_nav.module" />
-    <EmbeddedResource Include="Rulesets\iOS\home_nav.resources" />
-    <EmbeddedResource Include="Rulesets\iOS\nav_students.module" />
-    <EmbeddedResource Include="Rulesets\iOS\nav_students.resources" />
-    <EmbeddedResource Include="Rulesets\iOS\students.module" />
-    <EmbeddedResource Include="Rulesets\iOS\students.resources" />
-    <EmbeddedResource Include="Rulesets\iOS\VariablesMetadata.xml" />
+    <EmbeddedResource Include="Rulesets\about.module" />
+    <EmbeddedResource Include="Rulesets\about.resources" />
+    <EmbeddedResource Include="Rulesets\about_nav.module" />
+    <EmbeddedResource Include="Rulesets\about_nav.resources" />
+    <EmbeddedResource Include="Rulesets\home.module" />
+    <EmbeddedResource Include="Rulesets\home.resources" />
+    <EmbeddedResource Include="Rulesets\home_nav.module" />
+    <EmbeddedResource Include="Rulesets\home_nav.resources" />
+    <EmbeddedResource Include="Rulesets\nav_students.module" />
+    <EmbeddedResource Include="Rulesets\nav_students.resources" />
+    <EmbeddedResource Include="Rulesets\students.module" />
+    <EmbeddedResource Include="Rulesets\students.resources" />
+    <EmbeddedResource Include="Rulesets\VariablesMetadata.xml" />
   </ItemGroup>
 
   <ItemGroup>

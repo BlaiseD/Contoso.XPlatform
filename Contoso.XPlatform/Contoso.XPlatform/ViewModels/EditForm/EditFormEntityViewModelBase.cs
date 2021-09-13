@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
+using Contoso.XPlatform.Flow.Requests;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -23,7 +25,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             FormSettings = screenSettings.Settings;
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);
             Properties = fieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
-            propertyChangedSubscription = this.UiNotificationService.ValueChanged.Subscribe(FieldChanged);
+            
         }
 
         public EditFormSettingsDescriptor FormSettings { get; set; }
@@ -33,32 +35,39 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 
         protected IDictionary<string, object> values;
         protected IHttpService httpService;
-        private readonly IDisposable propertyChangedSubscription;
+        
 
-        private ICommand _submitCommand;
-        public ICommand SubmitCommand => _submitCommand ??= new Command<CommandButtonDescriptor>
-        (
-            execute: async (button) =>
+
+        private ICommand _nextCommand;
+        public ICommand NextCommand
+        {
+            get
             {
-                foreach (var property in Properties)
-                    property.IsDirty = true;
+                if (_nextCommand != null)
+                    return _nextCommand;
 
-                AreFieldsValid();
+                _nextCommand = new Command<CommandButtonDescriptor>
+                (
+                     Next
+                );
 
-                //this.values = Properties.ToObjectDictionary();
-                await App.Current.MainPage.DisplayAlert("Welcome", "", "Ok");
-            },
-            canExecute: (button) => AreFieldsValid()
-        );
-
-        private ICommand _navigateCommand;
-        public ICommand NavigateCommand => _navigateCommand ??= new Command
-        (
-            async () =>
-            {
-                await App.Current.MainPage.DisplayAlert("Navigate", "Navigate", "Ok");
+                return _nextCommand;
             }
-        );
+        }
+
+        protected void Next(CommandButtonDescriptor button)
+        {
+            NavigateNext(button);
+        }
+
+        private Task NavigateNext(CommandButtonDescriptor button)
+            => this.UiNotificationService.Next
+            (
+                new CommandButtonRequest
+                {
+                    NewSelection = button.ShortString
+                }
+            );
 
         public bool AreFieldsValid()
             => Properties.Aggregate
@@ -69,18 +78,6 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 
         public virtual void Dispose()
         {
-            Dispose(this.propertyChangedSubscription);
-        }
-
-        protected void Dispose(IDisposable disposable)
-        {
-            if (disposable != null)
-                disposable.Dispose();
-        }
-
-        private void FieldChanged(string fieldName)
-        {
-            (SubmitCommand as Command).ChangeCanExecute();
         }
     }
 }

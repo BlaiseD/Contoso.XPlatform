@@ -11,5 +11,6 @@ namespace Contoso.XPlatform.Services
         Task<GetObjectDropDownListResponse> GetObjectDropDown(GetTypedListRequest request, string url = null);
         Task<GetListResponse> GetList(GetTypedListRequest request, string url = null);
         Task<GetEntityResponse> GetEntity(GetEntityRequest request, string url = null);
+        Task<BaseResponse> SaveEntity(BaseRequest request, string url = null);
     }
 }

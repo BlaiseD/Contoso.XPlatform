@@ -34,9 +34,9 @@ namespace Contoso.Bsl.Web.Tests
                     "api/Student/Save",
                     JsonSerializer.Serialize
                     (
-                        new SaveStudentRequest
+                        new SaveEntityRequest<StudentModel>
                         {
-                            Student = new StudentModel
+                            Entity = new StudentModel
                             {
                                 ID = 1,
                                 FirstName = "Carson",

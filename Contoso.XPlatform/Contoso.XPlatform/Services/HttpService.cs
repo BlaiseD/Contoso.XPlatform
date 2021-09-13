@@ -114,6 +114,17 @@ namespace Contoso.XPlatform.Services
                 )
             );
 
+        public Task<BaseResponse> SaveEntity(BaseRequest request, string url)
+            => PollyHelpers.ExecutePolicyAsync
+            (
+                () => this.factory.PostAsync<BaseResponse>
+                (
+                    url,
+                    JsonSerializer.Serialize(request),
+                    App.BASE_URL
+                )
+            );
+
         public async Task AddToCache<T>(string cacheName, T objectToAdd)
         {
             await cache.Insert

@@ -31,7 +31,7 @@ namespace Contoso.Forms.Parameters.EditForm
 			FilterLambdaOperatorParameters filter,
 
 			[Comments("Defines and navigation properties to include in the edit model")]
-			SelectExpandDefinitionParameters selectExpandDefinition
+			SelectExpandDefinitionParameters selectExpandDefinition = null
 		)
 		{
 			GetUrl = getUrl;

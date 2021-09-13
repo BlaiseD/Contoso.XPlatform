@@ -1,6 +1,7 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
 using Contoso.Bsl.Flow;
+using Contoso.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -24,9 +25,9 @@ namespace Contoso.Bsl.Controllers
         }
 
         [HttpPost("Save")]
-        public IActionResult Save([FromBody] SaveStudentRequest saveStudentRequest)
+        public IActionResult Save([FromBody] SaveEntityRequest<StudentModel> saveStudentRequest)
         {
-            this.flowManager.FlowDataCache.Request = saveStudentRequest;
+            this.flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = saveStudentRequest.Entity };
             this.flowManager.Start("savestudent");
             return Ok((SaveStudentResponse)this.flowManager.FlowDataCache.Response);
         }

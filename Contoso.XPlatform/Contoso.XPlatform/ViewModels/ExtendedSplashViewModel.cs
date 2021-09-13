@@ -104,7 +104,7 @@ namespace Contoso.XPlatform.ViewModels
                     (
                         res => res.StartsWith
                         (
-                            $"Contoso.XPlatform.Rulesets.{Device.RuntimePlatform}.",
+                            $"Contoso.XPlatform.Rulesets.",
                             StringComparison.InvariantCultureIgnoreCase
                         )
                     ).ToArray();

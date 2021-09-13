@@ -20,9 +20,6 @@ namespace Contoso.Forms.Parameters.EditForm
 			[Comments("Update fieldTypeSource first. This field may be displayed next to the title - empty on Add.")]
 			string displayField,
 
-			[Comments("Includes the URL's for create, read, and update.")]
-			EditFormRequestDetailsParameters requestDetails,
-
 			[Comments("Input validation messages for each field.")]
 			List<ValidationMessageParameters> validationMessages,
 
@@ -34,6 +31,9 @@ namespace Contoso.Forms.Parameters.EditForm
 
 			[Comments("The model type for the object being edited. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type modelType,
+
+			[Comments("Includes the URL's for create, read, and update.")]
+			EditFormRequestDetailsParameters requestDetails = null,
 
 			[Comments("Conditional directtives for each field.")]
 			List<VariableDirectivesParameters> conditionalDirectives = null,
