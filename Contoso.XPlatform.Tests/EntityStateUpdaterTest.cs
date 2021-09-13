@@ -17,9 +17,9 @@ using Xunit;
 
 namespace Contoso.XPlatform.Tests
 {
-    public class UpdateEntityStatesTests
+    public class EntityStateUpdaterTest
     {
-        public UpdateEntityStatesTests()
+        public EntityStateUpdaterTest()
         {
             Initialize();
         }
@@ -94,27 +94,13 @@ namespace Contoso.XPlatform.Tests
                 }
             );
 
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-            Dictionary<string, object> existing = instructorModel.EntityToObjectDictionary
+            InstructorModel currentInstructor = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
-                mapper,
+                instructorModel,
+                modifiedProperties,
                 formDescriptor.FieldSettings
             );
 
-            Dictionary<string, object> current = modifiedProperties.ValidatableListToObjectDictionary
-            (
-                mapper,
-                formDescriptor.FieldSettings
-            );
-
-            EntityMapper.UpdateEntityStates
-            (
-                existing, 
-                current,
-                formDescriptor.FieldSettings
-            );
-
-            InstructorModel currentInstructor = mapper.Map<InstructorModel>(current);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Modified, currentInstructor.EntityState);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.Courses.Single(c => c.CourseID == 1).EntityState);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.Courses.Single(c => c.CourseID == 2).EntityState);
@@ -191,27 +177,13 @@ namespace Contoso.XPlatform.Tests
                 }
             );
 
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-            Dictionary<string, object> existing = departmentModel.EntityToObjectDictionary
+            DepartmentModel currentDepartment = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
-                mapper,
+                departmentModel,
+                modifiedProperties,
                 formDescriptor.FieldSettings
             );
 
-            Dictionary<string, object> current = modifiedProperties.ValidatableListToObjectDictionary
-            (
-                mapper,
-                formDescriptor.FieldSettings
-            );
-
-            EntityMapper.UpdateEntityStates
-            (
-                existing,
-                current,
-                formDescriptor.FieldSettings
-            );
-
-            DepartmentModel currentDepartment = mapper.Map<DepartmentModel>(current);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Modified, currentDepartment.EntityState);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentDepartment.Courses.Single(c => c.CourseID == 1).EntityState);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentDepartment.Courses.Single(c => c.CourseID == 2).EntityState);
@@ -241,27 +213,13 @@ namespace Contoso.XPlatform.Tests
             propertiesDictionary["HireDate"].Value = new DateTime(2021, 5, 20);
             propertiesDictionary["OfficeAssignment.Location"].Value = "Location1";
 
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-            Dictionary<string, object> existing = instructorModel.EntityToObjectDictionary
+            InstructorModel currentInstructor = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
-                mapper,
+                instructorModel,
+                modifiedProperties,
                 formDescriptor.FieldSettings
             );
 
-            Dictionary<string, object> current = modifiedProperties.ValidatableListToObjectDictionary
-            (
-                mapper,
-                formDescriptor.FieldSettings
-            );
-
-            EntityMapper.UpdateEntityStates
-            (
-                existing,
-                current,
-                formDescriptor.FieldSettings
-            );
-
-            InstructorModel currentInstructor = mapper.Map<InstructorModel>(current);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Modified, currentInstructor.EntityState);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Added, currentInstructor.OfficeAssignment.EntityState);
         }
@@ -291,29 +249,94 @@ namespace Contoso.XPlatform.Tests
             propertiesDictionary["HireDate"].Value = new DateTime(2021, 5, 20);
             propertiesDictionary["OfficeAssignment.Location"].Value = "Location1";
 
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-            Dictionary<string, object> existing = instructorModel.EntityToObjectDictionary
+            InstructorModel currentInstructor = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
-                mapper,
+                instructorModel,
+                modifiedProperties,
                 formDescriptor.FieldSettings
             );
 
-            Dictionary<string, object> current = modifiedProperties.ValidatableListToObjectDictionary
-            (
-                mapper,
-                formDescriptor.FieldSettings
-            );
-
-            EntityMapper.UpdateEntityStates
-            (
-                existing,
-                current,
-                formDescriptor.FieldSettings
-            );
-
-            InstructorModel currentInstructor = mapper.Map<InstructorModel>(current);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.EntityState);
             Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.OfficeAssignment.EntityState);
+        }
+
+        [Fact]
+        public void ShouldCorrectlySetEntityStatesForAddedObjectGraph()
+        {
+            //arrange
+            EditFormSettingsDescriptor formDescriptor = Descriptors.DepartmentForm;
+            DepartmentModel departmentModel = null;
+
+            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFromSettings(formDescriptor);
+            IDictionary<string, IValidatable> propertiesDictionary = modifiedProperties.ToDictionary(property => property.Name);
+            propertiesDictionary["DepartmentID"].Value = 1;
+            propertiesDictionary["Name"].Value = "Mathematics";
+            propertiesDictionary["Budget"].Value = 100000m;
+            propertiesDictionary["StartDate"].Value = new DateTime(2021, 5, 20);
+            propertiesDictionary["InstructorID"].Value = 1;
+            propertiesDictionary["Courses"].Value = new ObservableCollection<CourseModel>
+            (
+                new List<CourseModel>
+                {
+                    new CourseModel
+                    {
+                        CourseID = 1,
+                        Credits = 3,
+                        Title = "Trigonometry"
+                    },
+                    new CourseModel
+                    {
+                        CourseID = 2,
+                        Credits = 4,
+                        Title = "Physics"
+                    },
+                    new CourseModel
+                    {
+                        CourseID = 4,
+                        Credits = 5,
+                        Title = "Algebra"
+                    }
+                }
+            );
+
+            DepartmentModel currentDepartment = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
+            (
+                departmentModel,
+                modifiedProperties,
+                formDescriptor.FieldSettings
+            );
+
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Added, currentDepartment.EntityState);
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Added, currentDepartment.Courses.Single(c => c.CourseID == 1).EntityState);
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Added, currentDepartment.Courses.Single(c => c.CourseID == 2).EntityState);
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Added, currentDepartment.Courses.Single(c => c.CourseID == 4).EntityState);
+            Assert.Equal(3, currentDepartment.Courses.Count);
+        }
+
+        [Fact]
+        public void ShouldCorrectlySetEntityStatesForAddedObjectGraphWithChildEntity()
+        {
+            //arrange
+            EditFormSettingsDescriptor formDescriptor = Descriptors.InstructorFormWithInlineOfficeAssignment;
+            InstructorModel instructorModel = null;
+
+            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFromSettings(formDescriptor);
+            IDictionary<string, IValidatable> propertiesDictionary = modifiedProperties.ToDictionary(property => property.Name);
+            propertiesDictionary["ID"].Value = 3;
+            propertiesDictionary["FirstName"].Value = "John";
+            propertiesDictionary["LastName"].Value = "Smith";
+            propertiesDictionary["HireDate"].Value = new DateTime(2021, 5, 20);
+            propertiesDictionary["OfficeAssignment.Location"].Value = "Location1";
+
+            InstructorModel currentInstructor = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
+            (
+                instructorModel,
+                modifiedProperties,
+                formDescriptor.FieldSettings
+            );
+
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Added, currentInstructor.EntityState);
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Added, currentInstructor.OfficeAssignment.EntityState);
         }
 
         #region Fields
@@ -355,6 +378,7 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<IActions, Actions>()
                 .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
+                .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpServiceMock>()
                 .BuildServiceProvider();

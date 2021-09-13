@@ -8,7 +8,6 @@ using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
 using System;
-using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -16,7 +15,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 {
     public class EditFormEntityViewModel<TModel> : EditFormEntityViewModelBase where TModel : Domain.ViewModelBase
     {
-        public EditFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder)
+        public EditFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder, IEntityStateUpdater entityStateUpdater)
             : base(screenSettings, uiNotificationService, httpService, fieldsCollectionBuilder)
         {
             this.mapper = mapper;
@@ -31,6 +30,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                 this.mapper,
                 this.UiNotificationService
             );
+            this.entityStateUpdater = entityStateUpdater;
 
             propertyChangedSubscription = this.UiNotificationService.ValueChanged.Subscribe(FieldChanged);
 
@@ -42,11 +42,13 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         private readonly IMapper mapper;
         private TModel entity;
         private readonly IDisposable propertyChangedSubscription;
+        private readonly IEntityStateUpdater entityStateUpdater;
 
         public override void Dispose()
         {
             base.Dispose();
             Dispose(this.validateIfManager);
+            Dispose(this.propertyChangedSubscription);
         }
 
         protected void Dispose(IDisposable disposable)
@@ -92,30 +94,6 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             );
         }
 
-        private TModel GetEntityToSave()
-        {
-            Dictionary<string, object> existing = this.entity.EntityToObjectDictionary
-            (
-                mapper,
-                FormSettings.FieldSettings
-            );
-
-            Dictionary<string, object> current = Properties.ValidatableListToObjectDictionary
-            (
-                mapper,
-                FormSettings.FieldSettings
-            );
-
-            EntityMapper.UpdateEntityStates
-            (
-                existing,
-                current,
-                FormSettings.FieldSettings
-            );
-
-            return mapper.Map<TModel>(current);
-        }
-
         private ICommand _submitCommand;
         public ICommand SubmitCommand => _submitCommand ??= new Command<CommandButtonDescriptor>
         (
@@ -128,7 +106,12 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                 (
                     new SaveEntityRequest<TModel> 
                     { 
-                        Entity = GetEntityToSave()
+                        Entity = this.entityStateUpdater.GetUpdatedModel
+                        (
+                            entity, 
+                            Properties, 
+                            FormSettings.FieldSettings
+                        )
                     }
                 );
 

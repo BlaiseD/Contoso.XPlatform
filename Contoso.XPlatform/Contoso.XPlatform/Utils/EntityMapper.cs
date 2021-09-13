@@ -293,11 +293,13 @@ namespace Contoso.XPlatform.Utils
             {
                 if (setting is FormGroupSettingsDescriptor formGroupSetting)
                 {
-                    UpdateEntityStates((Dictionary<string, object>)existing[setting.Field], (Dictionary<string, object>)current[setting.Field], formGroupSetting.FieldSettings);
+                    existing.TryGetValue(setting.Field, out object existingObject);
+                    UpdateEntityStates((Dictionary<string, object>)existingObject ?? new Dictionary<string, object>(), (Dictionary<string, object>)current[setting.Field], formGroupSetting.FieldSettings);
                 }
                 else if (setting is MultiSelectFormControlSettingsDescriptor multiSelectFormControlSettingsDescriptor)
                 {
-                    ICollection<Dictionary<string, object>> existingList = (ICollection<Dictionary<string, object>>)existing[setting.Field];
+                    existing.TryGetValue(setting.Field, out object existingCollection);
+                    ICollection<Dictionary<string, object>> existingList = (ICollection<Dictionary<string, object>>)existingCollection ?? new List<Dictionary<string, object>>();
                     ICollection<Dictionary<string, object>> currentList = (ICollection<Dictionary<string, object>>)current[setting.Field];
 
                     if (currentList.Any() == true)
@@ -325,7 +327,8 @@ namespace Contoso.XPlatform.Utils
                 }
                 else if (setting is FormGroupArraySettingsDescriptor formGroupArraySetting)
                 {
-                    ICollection<Dictionary<string, object>> existingList = (ICollection<Dictionary<string, object>>)existing[setting.Field];
+                    existing.TryGetValue(setting.Field, out object existingCollection);
+                    ICollection<Dictionary<string, object>> existingList = (ICollection<Dictionary<string, object>>)existingCollection ?? new List<Dictionary<string, object>>();
                     ICollection<Dictionary<string, object>> currentList = (ICollection<Dictionary<string, object>>)current[setting.Field];
 
                     if (currentList.Any() == true)

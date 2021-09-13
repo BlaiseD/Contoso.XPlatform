@@ -25,7 +25,6 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             FormSettings = screenSettings.Settings;
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);
             Properties = fieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
-            
         }
 
         public EditFormSettingsDescriptor FormSettings { get; set; }
