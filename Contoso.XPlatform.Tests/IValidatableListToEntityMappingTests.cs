@@ -67,7 +67,12 @@ namespace Contoso.XPlatform.Tests
             );
 
             //act
-            InstructorModel instructorModel = (InstructorModel)properties.ToModelObject(typeof(InstructorModel), serviceProvider.GetRequiredService<IMapper>(), Descriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings);
+            InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
+            (
+                (InstructorModel)null,
+                properties,
+                Descriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings
+            );
 
             //assert
             Assert.Equal(3, instructorModel.ID);
@@ -118,7 +123,12 @@ namespace Contoso.XPlatform.Tests
             );
 
             //act
-            InstructorModel instructorModel = (InstructorModel)properties.ToModelObject(typeof(InstructorModel), serviceProvider.GetRequiredService<IMapper>(), Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings);
+            InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
+            (
+                (InstructorModel)null,
+                properties,
+                Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings
+            );
 
             //assert
             Assert.Equal(3, instructorModel.ID);
@@ -169,7 +179,12 @@ namespace Contoso.XPlatform.Tests
             );
 
             //act
-            DepartmentModel departmentModel = (DepartmentModel)properties.ToModelObject(typeof(DepartmentModel), serviceProvider.GetRequiredService<IMapper>(), Descriptors.DepartmentForm.FieldSettings);
+            DepartmentModel departmentModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
+            (
+                (DepartmentModel)null,
+                properties,
+                Descriptors.DepartmentForm.FieldSettings
+            );
 
             //assert
             Assert.Equal(1, departmentModel.DepartmentID);
@@ -208,6 +223,7 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<IActions, Actions>()
                 .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
+                .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpServiceMock>()
                 .BuildServiceProvider();

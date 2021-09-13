@@ -41,13 +41,13 @@ namespace Contoso.XPlatform.Utils
             {
                 return mapper.Map<T>
                 (
-                    properties.ToDictionary(p => p.Name, p => p.Value).ToObjectDictionaryFromValidatableObjects(mapper, fieldSettings)
+                    properties.ValidatableListToObjectDictionary(mapper, fieldSettings)
                 );
             }
 
             return (T)mapper.Map
             (
-                properties.ToDictionary(p => p.Name, p => p.Value).ToObjectDictionaryFromValidatableObjects(mapper, fieldSettings),
+                properties.ValidatableListToObjectDictionary(mapper, fieldSettings),
                 destination,
                 typeof(Dictionary<string, object>),
                 typeof(T)

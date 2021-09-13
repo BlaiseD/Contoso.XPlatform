@@ -15,14 +15,16 @@ namespace Contoso.XPlatform.ViewModels
         private readonly IMapper mapper;
         private readonly IFieldsCollectionBuilder fieldsCollectionBuilder;
         private readonly IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder;
+        private readonly IEntityStateUpdater entityStateUpdater;
 
-        public EditFormViewModel(UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder)
+        public EditFormViewModel(UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder, IEntityStateUpdater entityStateUpdater)
         {
             this.uiNotificationService = uiNotificationService;
             this.httpService = httpService;
             this.mapper = mapper;
             this.fieldsCollectionBuilder = fieldsCollectionBuilder;
             this.conditionalValidationConditionsBuilder = conditionalValidationConditionsBuilder;
+            this.entityStateUpdater = entityStateUpdater;
         }
 
         public override void Initialize(ScreenSettingsBase screenSettings)
@@ -52,7 +54,8 @@ namespace Contoso.XPlatform.ViewModels
                     this.httpService,
                     this.mapper,
                     this.fieldsCollectionBuilder,
-                    this.conditionalValidationConditionsBuilder
+                    this.conditionalValidationConditionsBuilder,
+                    this.entityStateUpdater
                 }
             );
 
