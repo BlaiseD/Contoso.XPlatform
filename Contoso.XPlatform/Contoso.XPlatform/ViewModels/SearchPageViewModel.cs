@@ -10,16 +10,12 @@ namespace Contoso.XPlatform.ViewModels
     public class SearchPageViewModel : FlyoutDetailViewModelBase
     {
         private readonly UiNotificationService uiNotificationService;
-        private readonly IHttpService httpService;
-        private readonly ISearchSelectorBuilder searchSelectorBuilder;
-        private readonly IGetItemFilterBuilder getItemFilterBuilder;
+        private readonly IUtilities utilities;
 
-        public SearchPageViewModel(UiNotificationService uiNotificationService, IHttpService httpService, ISearchSelectorBuilder searchSelectorBuilder, IGetItemFilterBuilder getItemFilterBuilder)
+        public SearchPageViewModel(UiNotificationService uiNotificationService, IUtilities utilities)
         {
             this.uiNotificationService = uiNotificationService;
-            this.httpService = httpService;
-            this.searchSelectorBuilder = searchSelectorBuilder;
-            this.getItemFilterBuilder = getItemFilterBuilder;
+            this.utilities = utilities;
         }
 
         public override void Initialize(ScreenSettingsBase screenSettings)
@@ -46,9 +42,7 @@ namespace Contoso.XPlatform.ViewModels
                 {
                     screenSettings,
                     this.uiNotificationService,
-                    this.httpService,
-                    this.searchSelectorBuilder,
-                    this.getItemFilterBuilder
+                    this.utilities
                 }
             );
 

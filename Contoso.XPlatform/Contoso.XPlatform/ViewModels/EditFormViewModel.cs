@@ -11,20 +11,12 @@ namespace Contoso.XPlatform.ViewModels
     public class EditFormViewModel : FlyoutDetailViewModelBase
     {
         private readonly UiNotificationService uiNotificationService;
-        private readonly IHttpService httpService;
-        private readonly IMapper mapper;
-        private readonly IFieldsCollectionBuilder fieldsCollectionBuilder;
-        private readonly IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder;
-        private readonly IEntityStateUpdater entityStateUpdater;
+        private readonly IUtilities utilities;
 
-        public EditFormViewModel(UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder, IEntityStateUpdater entityStateUpdater)
+        public EditFormViewModel(UiNotificationService uiNotificationService, IUtilities utilities)
         {
             this.uiNotificationService = uiNotificationService;
-            this.httpService = httpService;
-            this.mapper = mapper;
-            this.fieldsCollectionBuilder = fieldsCollectionBuilder;
-            this.conditionalValidationConditionsBuilder = conditionalValidationConditionsBuilder;
-            this.entityStateUpdater = entityStateUpdater;
+            this.utilities = utilities;
         }
 
         public override void Initialize(ScreenSettingsBase screenSettings)
@@ -51,11 +43,7 @@ namespace Contoso.XPlatform.ViewModels
                 {
                     screenSettings,
                     this.uiNotificationService,
-                    this.httpService,
-                    this.mapper,
-                    this.fieldsCollectionBuilder,
-                    this.conditionalValidationConditionsBuilder,
-                    this.entityStateUpdater
+                    this.utilities
                 }
             );
 

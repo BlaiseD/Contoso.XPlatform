@@ -29,6 +29,7 @@ namespace Contoso.XPlatform
                 .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
+                .AddSingleton<IEntityUpdater, EntityUpdater>()
                 .AddSingleton<AutoMapper.IConfigurationProvider>
                 (
                     new MapperConfiguration(cfg =>
@@ -41,6 +42,7 @@ namespace Contoso.XPlatform
                 .AddSingleton<IHttpService, HttpService>()
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
                 .AddSingleton<IGetItemFilterBuilder, GetItemFilterBuilder>()
+                .AddSingleton<IUtilities, Utilities>()
                 .AddSingleton<IFlowManager, FlowManager>()
                 .AddSingleton<FlowActivityFactory, FlowActivityFactory>()
                 .AddSingleton<DirectorFactory, DirectorFactory>()

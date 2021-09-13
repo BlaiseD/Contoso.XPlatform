@@ -15,22 +15,20 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 {
     public class EditFormEntityViewModel<TModel> : EditFormEntityViewModelBase where TModel : Domain.ViewModelBase
     {
-        public EditFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder, IEntityStateUpdater entityStateUpdater)
-            : base(screenSettings, uiNotificationService, httpService, fieldsCollectionBuilder)
+        public EditFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IUtilities utilities)
+            : base(screenSettings, uiNotificationService, utilities)
         {
-            this.mapper = mapper;
             this.validateIfManager = new ValidateIfManager<TModel>
             (
                 Properties,
-                conditionalValidationConditionsBuilder.GetConditions<TModel>
+                this.utilities.ConditionalValidationConditionsBuilder.GetConditions<TModel>
                 (
                     FormSettings.ConditionalDirectives,
                     Properties
                 ),
-                this.mapper,
+                this.utilities.Mapper,
                 this.UiNotificationService
             );
-            this.entityStateUpdater = entityStateUpdater;
 
             propertyChangedSubscription = this.UiNotificationService.ValueChanged.Subscribe(FieldChanged);
 
@@ -39,10 +37,8 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         }
 
         private readonly ValidateIfManager<TModel> validateIfManager;
-        private readonly IMapper mapper;
         private TModel entity;
         private readonly IDisposable propertyChangedSubscription;
-        private readonly IEntityStateUpdater entityStateUpdater;
 
         public override void Dispose()
         {
@@ -69,7 +65,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 
             GetEntityResponse getEntityResponse = await BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
             (
-                () => httpService.GetEntity
+                () => this.utilities.HttpService.GetEntity
                 (
                     new GetEntityRequest
                     {
@@ -90,7 +86,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             (
                 getEntityResponse.Entity,
                 this.FormSettings.FieldSettings,
-                this.mapper
+                this.utilities.Mapper
             );
         }
 
@@ -102,11 +98,11 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                 foreach (var property in Properties)
                     property.IsDirty = true;
 
-                BaseResponse response = await this.httpService.SaveEntity
+                BaseResponse response = await this.utilities.HttpService.SaveEntity
                 (
                     new SaveEntityRequest<TModel> 
                     { 
-                        Entity = this.entityStateUpdater.GetUpdatedModel
+                        Entity = this.utilities.EntityStateUpdater.GetUpdatedModel
                         (
                             entity, 
                             Properties, 

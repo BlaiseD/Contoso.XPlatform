@@ -230,6 +230,9 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<IActions, Actions>()
                 .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
+                .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
+                .AddSingleton<IEntityUpdater, EntityUpdater>()
+                .AddSingleton<IUtilities, Utilities>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpServiceMock>()
                 .BuildServiceProvider();

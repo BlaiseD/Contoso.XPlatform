@@ -28,14 +28,14 @@ namespace Contoso.XPlatform.Utils
                     typeof(IEnumerable<IValidatable>),
                     typeof(IMapper),
                     typeof(List<FormItemSettingsDescriptor>),
-                    typeof(object)
+                    entityType
                 }
             ).MakeGenericMethod(entityType);
 
             return methodInfo.Invoke(null, new object[] { properties, mapper, fieldSettings, destination });
         }
 
-        public static T ToModelObject<T>(this IEnumerable<IValidatable> properties, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings, object destination = null)
+        public static T ToModelObject<T>(this IEnumerable<IValidatable> properties, IMapper mapper, List<FormItemSettingsDescriptor> fieldSettings, T destination = null) where T : class
         {
             if (destination == null)
             {

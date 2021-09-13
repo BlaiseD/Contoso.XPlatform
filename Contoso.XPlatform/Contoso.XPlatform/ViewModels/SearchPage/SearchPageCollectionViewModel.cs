@@ -17,21 +17,17 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
 {
     public class SearchPageCollectionViewModel<TModel> : SearchPageCollectionViewModelBase where TModel : Domain.ViewModelBase
     {
-        public SearchPageCollectionViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IHttpService httpService, ISearchSelectorBuilder searchSelectorBuilder, IGetItemFilterBuilder getItemFilterBuilder)
+        public SearchPageCollectionViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IUtilities utilities)
             : base(screenSettings)
         {
             this.uiNotificationService = uiNotificationService;
-            this.httpService = httpService;
-            this.searchSelectorBuilder = searchSelectorBuilder;
-            this.getItemFilterBuilder = getItemFilterBuilder;
+            this.utilities = utilities;
             defaultSkip = FormSettings.SortCollection.Skip;
             GetItems();
         }
 
         private readonly UiNotificationService uiNotificationService;
-        private readonly IHttpService httpService;
-        private readonly ISearchSelectorBuilder searchSelectorBuilder;
-        private readonly IGetItemFilterBuilder getItemFilterBuilder;
+        private readonly IUtilities utilities;
         private readonly int? defaultSkip;
 
         private bool _isRefreshing;
@@ -241,11 +237,11 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
         private Task<GetListResponse> GetList()
             => BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
             (
-                () => httpService.GetList
+                () => this.utilities.HttpService.GetList
                 (
                     new GetTypedListRequest
                     {
-                        Selector = this.searchSelectorBuilder.CreatePagingSelector
+                        Selector = this.utilities.SearchSelectorBuilder.CreatePagingSelector
                         (
                             this.FormSettings.SortCollection,
                             typeof(TModel),
@@ -317,7 +313,7 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
             this.uiNotificationService.SetFlowDataCacheItem
             (
                 typeof(FilterLambdaOperatorParameters).FullName,
-                this.getItemFilterBuilder.CreateFilter
+                this.utilities.GetItemFilterBuilder.CreateFilter
                 (
                     this.FormSettings.ItemFilterGroup,
                     typeof(TModel),
