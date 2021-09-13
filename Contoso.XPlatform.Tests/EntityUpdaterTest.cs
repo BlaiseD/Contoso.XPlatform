@@ -16,9 +16,9 @@ using Xunit;
 
 namespace Contoso.XPlatform.Tests
 {
-    public class IValidatableListToEntityMappingTests
+    public class EntityUpdaterTest
     {
-        public IValidatableListToEntityMappingTests()
+        public EntityUpdaterTest()
         {
             Initialize();
         }
@@ -67,9 +67,8 @@ namespace Contoso.XPlatform.Tests
             );
 
             //act
-            InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
+            InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityUpdater>().ToModelObject<InstructorModel>
             (
-                (InstructorModel)null,
                 properties,
                 Descriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings
             );
@@ -123,9 +122,8 @@ namespace Contoso.XPlatform.Tests
             );
 
             //act
-            InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
+            InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityUpdater>().ToModelObject<InstructorModel>
             (
-                (InstructorModel)null,
                 properties,
                 Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings
             );
@@ -179,9 +177,8 @@ namespace Contoso.XPlatform.Tests
             );
 
             //act
-            DepartmentModel departmentModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
+            DepartmentModel departmentModel = serviceProvider.GetRequiredService<IEntityUpdater>().ToModelObject<DepartmentModel>
             (
-                (DepartmentModel)null,
                 properties,
                 Descriptors.DepartmentForm.FieldSettings
             );

@@ -14,12 +14,13 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class FormValidatableObject<T> : ValidatableObjectBase<T>, IDisposable where T : class
     {
-        public FormValidatableObject(string name, IChildFormGroupSettings setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder) : base(name, setting.FormGroupTemplate.TemplateName, validations, uiNotificationService)
+        public FormValidatableObject(string name, IChildFormGroupSettings setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IEntityUpdater entityUpdater) : base(name, setting.FormGroupTemplate.TemplateName, validations, uiNotificationService)
         {
             this.FormSettings = setting;
             this.Title = this.FormSettings.Title;
             this.Placeholder = this.FormSettings.ValidFormControlText;
             this.mapper = mapper;
+            this.entityUpdater = entityUpdater;
             Properties = fieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
             propertyChangedSubscription = this.uiNotificationService.ValueChanged.Subscribe(FieldChanged);
         }
@@ -28,6 +29,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         
         public IChildFormGroupSettings FormSettings { get; set; }
         private readonly IMapper mapper;
+        private readonly IEntityUpdater entityUpdater;
         private readonly IDisposable propertyChangedSubscription;
 
         private string _title;
@@ -99,11 +101,10 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 (
                     () =>
                     {
-                        Value = (T)Properties.ToModelObject
+                        Value = this.entityUpdater.ToModelObject
                         (
-                            typeof(T), 
-                            this.mapper, 
-                            this.FormSettings.FieldSettings,
+                            Properties, 
+                            this.FormSettings.FieldSettings, 
                             Value
                         );
 

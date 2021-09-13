@@ -14,7 +14,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class FormArrayValidatableObject<T, E> : ValidatableObjectBase<T> where T : ObservableCollection<E> where E : class
     {
-        public FormArrayValidatableObject(string name, FormGroupArraySettingsDescriptor setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder) 
+        public FormArrayValidatableObject(string name, FormGroupArraySettingsDescriptor setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IEntityUpdater entityUpdater) 
             : base(name, setting.FormGroupTemplate.TemplateName, validations, uiNotificationService)
         {
             this.FormSettings = setting;
@@ -22,11 +22,13 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             this.Title = this.FormSettings.Title;
             this.Placeholder = setting.Placeholder;
             this.mapper = mapper;
+            this.entityUpdater = entityUpdater;
             this.fieldsCollectionBuilder = fieldsCollectionBuilder;
         }
 
         private readonly IMapper mapper;
         private readonly IFieldsCollectionBuilder fieldsCollectionBuilder;
+        private readonly IEntityUpdater entityUpdater;
         private readonly FormsCollectionDisplayTemplateDescriptor formsCollectionDisplayTemplateDescriptor;
         public IChildFormGroupSettings FormSettings { get; set; }
         public FormsCollectionDisplayTemplateDescriptor FormsCollectionDisplayTemplate => formsCollectionDisplayTemplateDescriptor;
@@ -259,7 +261,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                             new IValidationRule[] { },
                             this.uiNotificationService,
                             this.mapper,
-                            this.fieldsCollectionBuilder
+                            this.fieldsCollectionBuilder,
+                            this.entityUpdater
                         )
                         {
                             Value = this.SelectedItem
@@ -282,7 +285,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 new IValidationRule[] { },
                 this.uiNotificationService,
                 this.mapper,
-                this.fieldsCollectionBuilder
+                this.fieldsCollectionBuilder,
+                this.entityUpdater
             )
             {
                 Value = newItem

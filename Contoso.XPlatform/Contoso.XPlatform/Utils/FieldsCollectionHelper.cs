@@ -5,7 +5,6 @@ using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Validators;
 using Contoso.XPlatform.Validators.Rules;
 using Contoso.XPlatform.ViewModels.Validatables;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,8 +20,9 @@ namespace Contoso.XPlatform.Utils
         private readonly IHttpService httpService;
         private readonly IMapper mapper;
         private readonly IFieldsCollectionBuilder fieldsCollectionBuilder;
+        private readonly IEntityUpdater entityUpdater;
 
-        public FieldsCollectionHelper(IFormGroupSettings formSettings, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder)
+        public FieldsCollectionHelper(IFormGroupSettings formSettings, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IEntityUpdater entityUpdater)
         {
             this.formSettings = formSettings;
             this.uiNotificationService = uiNotificationService;
@@ -30,6 +30,7 @@ namespace Contoso.XPlatform.Utils
             this.mapper = mapper;
             this.properties = new ObservableCollection<IValidatable>();
             this.fieldsCollectionBuilder = fieldsCollectionBuilder;
+            this.entityUpdater = entityUpdater;
         }
 
         public ObservableCollection<IValidatable> CreateFields()
@@ -195,7 +196,8 @@ namespace Contoso.XPlatform.Utils
                 new IValidationRule[] { },
                 this.uiNotificationService,
                 this.mapper,
-                this.fieldsCollectionBuilder
+                this.fieldsCollectionBuilder,
+                this.entityUpdater
             );
         }
 
@@ -295,7 +297,8 @@ namespace Contoso.XPlatform.Utils
                     new IValidationRule[] { },
                     this.uiNotificationService,
                     this.mapper,
-                    this.fieldsCollectionBuilder
+                    this.fieldsCollectionBuilder,
+                    this.entityUpdater
                 );
         }
     }
