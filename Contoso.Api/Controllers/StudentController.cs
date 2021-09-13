@@ -1,5 +1,6 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
+using Contoso.Domain.Entities;
 using Contoso.Web.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -24,7 +25,7 @@ namespace Contoso.Api.Controllers
         }
 
         [HttpPost("Save")]
-        public async Task<SaveStudentResponse> Save([FromBody] SaveStudentRequest saveStudentRequest) 
+        public async Task<SaveStudentResponse> Save([FromBody] SaveEntityRequest<StudentModel> saveStudentRequest) 
             => await this.clientFactory.PostAsync<SaveStudentResponse>
             (
                 "api/Student/Save",
