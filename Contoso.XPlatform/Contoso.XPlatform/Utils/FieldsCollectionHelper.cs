@@ -17,20 +17,14 @@ namespace Contoso.XPlatform.Utils
         private IFormGroupSettings formSettings;
         private ObservableCollection<IValidatable> properties;
         private readonly UiNotificationService uiNotificationService;
-        private readonly IHttpService httpService;
-        private readonly IMapper mapper;
-        private readonly IFieldsCollectionBuilder fieldsCollectionBuilder;
-        private readonly IEntityUpdater entityUpdater;
+        private readonly IContextProvider contextProvider;
 
         public FieldsCollectionHelper(IFormGroupSettings formSettings, IContextProvider contextProvider)
         {
             this.formSettings = formSettings;
+            this.contextProvider = contextProvider;
             this.uiNotificationService = contextProvider.UiNotificationService;
-            this.httpService = contextProvider.HttpService;
-            this.mapper = contextProvider.Mapper;
             this.properties = new ObservableCollection<IValidatable>();
-            this.fieldsCollectionBuilder = contextProvider.FieldsCollectionBuilder;
-            this.entityUpdater = contextProvider.EntityUpdater;
         }
 
         public ObservableCollection<IValidatable> CreateFields()
@@ -194,10 +188,7 @@ namespace Contoso.XPlatform.Utils
                 name,
                 setting,
                 new IValidationRule[] { },
-                this.uiNotificationService,
-                this.mapper,
-                this.fieldsCollectionBuilder,
-                this.entityUpdater
+                this.contextProvider
             );
         }
 
@@ -251,9 +242,8 @@ namespace Contoso.XPlatform.Utils
                     typeof(PickerValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
                     name,
                     setting,
-                    this.httpService,
                     GetValidationRules(setting),
-                    this.uiNotificationService
+                    this.contextProvider
                 ),
                 setting
             );
@@ -273,9 +263,8 @@ namespace Contoso.XPlatform.Utils
                         ),
                         name,
                         setting,
-                        this.httpService,
                         GetValidationRules(setting),
-                        this.uiNotificationService
+                        this.contextProvider
                     ),
                     setting
                 );
@@ -295,10 +284,7 @@ namespace Contoso.XPlatform.Utils
                     name,
                     setting,
                     new IValidationRule[] { },
-                    this.uiNotificationService,
-                    this.mapper,
-                    this.fieldsCollectionBuilder,
-                    this.entityUpdater
+                    this.contextProvider
                 );
         }
     }

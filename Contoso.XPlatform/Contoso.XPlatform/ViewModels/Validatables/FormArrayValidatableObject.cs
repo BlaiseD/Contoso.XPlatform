@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using Contoso.Forms.Configuration;
+﻿using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Validators;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,21 +12,17 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class FormArrayValidatableObject<T, E> : ValidatableObjectBase<T> where T : ObservableCollection<E> where E : class
     {
-        public FormArrayValidatableObject(string name, FormGroupArraySettingsDescriptor setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IEntityUpdater entityUpdater) 
-            : base(name, setting.FormGroupTemplate.TemplateName, validations, uiNotificationService)
+        public FormArrayValidatableObject(string name, FormGroupArraySettingsDescriptor setting, IEnumerable<IValidationRule> validations, IContextProvider contextProvider) 
+            : base(name, setting.FormGroupTemplate.TemplateName, validations, contextProvider.UiNotificationService)
         {
             this.FormSettings = setting;
             this.formsCollectionDisplayTemplateDescriptor = setting.FormsCollectionDisplayTemplate;
             this.Title = this.FormSettings.Title;
             this.Placeholder = setting.Placeholder;
-            this.mapper = mapper;
-            this.entityUpdater = entityUpdater;
-            this.fieldsCollectionBuilder = fieldsCollectionBuilder;
+            this.contextProvider = contextProvider;
         }
 
-        private readonly IMapper mapper;
-        private readonly IFieldsCollectionBuilder fieldsCollectionBuilder;
-        private readonly IEntityUpdater entityUpdater;
+        private readonly IContextProvider contextProvider;
         private readonly FormsCollectionDisplayTemplateDescriptor formsCollectionDisplayTemplateDescriptor;
         public IChildFormGroupSettings FormSettings { get; set; }
         public FormsCollectionDisplayTemplateDescriptor FormsCollectionDisplayTemplate => formsCollectionDisplayTemplateDescriptor;
@@ -259,10 +253,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                             Value.IndexOf(this.SelectedItem).ToString(),
                             this.FormSettings,
                             new IValidationRule[] { },
-                            this.uiNotificationService,
-                            this.mapper,
-                            this.fieldsCollectionBuilder,
-                            this.entityUpdater
+                            this.contextProvider
                         )
                         {
                             Value = this.SelectedItem
@@ -283,10 +274,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 Value?.Count.ToString(),
                 this.FormSettings,
                 new IValidationRule[] { },
-                this.uiNotificationService,
-                this.mapper,
-                this.fieldsCollectionBuilder,
-                this.entityUpdater
+                this.contextProvider
             )
             {
                 Value = newItem

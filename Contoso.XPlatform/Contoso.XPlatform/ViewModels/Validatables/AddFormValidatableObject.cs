@@ -10,7 +10,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class AddFormValidatableObject<T> : FormValidatableObject<T> where T : class
     {
-        public AddFormValidatableObject(string name, IChildFormGroupSettings setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IEntityUpdater entityUpdater) : base(name, setting, validations, uiNotificationService, mapper, fieldsCollectionBuilder, entityUpdater)
+        public AddFormValidatableObject(string name, IChildFormGroupSettings setting, IEnumerable<IValidationRule> validations, IContextProvider contextProvider) : base(name, setting, validations, contextProvider)
         {
         }
 
