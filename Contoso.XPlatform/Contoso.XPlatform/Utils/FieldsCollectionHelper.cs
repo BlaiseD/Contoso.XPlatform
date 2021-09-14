@@ -22,15 +22,15 @@ namespace Contoso.XPlatform.Utils
         private readonly IFieldsCollectionBuilder fieldsCollectionBuilder;
         private readonly IEntityUpdater entityUpdater;
 
-        public FieldsCollectionHelper(IFormGroupSettings formSettings, UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IFieldsCollectionBuilder fieldsCollectionBuilder, IEntityUpdater entityUpdater)
+        public FieldsCollectionHelper(IFormGroupSettings formSettings, IContextProvider contextProvider)
         {
             this.formSettings = formSettings;
-            this.uiNotificationService = uiNotificationService;
-            this.httpService = httpService;
-            this.mapper = mapper;
+            this.uiNotificationService = contextProvider.UiNotificationService;
+            this.httpService = contextProvider.HttpService;
+            this.mapper = contextProvider.Mapper;
             this.properties = new ObservableCollection<IValidatable>();
-            this.fieldsCollectionBuilder = fieldsCollectionBuilder;
-            this.entityUpdater = entityUpdater;
+            this.fieldsCollectionBuilder = contextProvider.FieldsCollectionBuilder;
+            this.entityUpdater = contextProvider.EntityUpdater;
         }
 
         public ObservableCollection<IValidatable> CreateFields()

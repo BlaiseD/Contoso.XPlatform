@@ -17,7 +17,7 @@ namespace Contoso.XPlatform.Services
 
             //passing IContextProvider to FieldsCollectionBuilder will create a circular dependency
             //so creating the instance here instead of using DI.
-            FieldsCollectionBuilder = new FieldsCollectionBuilder(UiNotificationService, HttpService, Mapper, EntityUpdater);
+            FieldsCollectionBuilder = new FieldsCollectionBuilder(this);
         }
 
         public IConditionalValidationConditionsBuilder ConditionalValidationConditionsBuilder { get; }

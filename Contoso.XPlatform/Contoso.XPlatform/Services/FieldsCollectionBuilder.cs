@@ -8,20 +8,14 @@ namespace Contoso.XPlatform.Services
 {
     public class FieldsCollectionBuilder : IFieldsCollectionBuilder
     {
-        private readonly UiNotificationService uiNotificationService;
-        private readonly IHttpService httpService;
-        private readonly IMapper mapper;
-        private readonly IEntityUpdater entityUpdater;
+        private readonly IContextProvider contextProvider;
 
-        public FieldsCollectionBuilder(UiNotificationService uiNotificationService, IHttpService httpService, IMapper mapper, IEntityUpdater entityUpdater)
+        public FieldsCollectionBuilder(IContextProvider contextProvider)
         {
-            this.uiNotificationService = uiNotificationService;
-            this.httpService = httpService;
-            this.mapper = mapper;
-            this.entityUpdater = entityUpdater;
+            this.contextProvider = contextProvider;
         }
 
         public ObservableCollection<IValidatable> CreateFieldsCollection(IFormGroupSettings formSettings) 
-            => new FieldsCollectionHelper(formSettings, this.uiNotificationService, this.httpService, this.mapper, this, this.entityUpdater).CreateFields();
+            => new FieldsCollectionHelper(formSettings, this.contextProvider).CreateFields();
     }
 }
