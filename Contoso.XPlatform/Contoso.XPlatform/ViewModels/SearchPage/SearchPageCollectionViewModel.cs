@@ -17,13 +17,13 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
 {
     public class SearchPageCollectionViewModel<TModel> : SearchPageCollectionViewModelBase where TModel : Domain.ViewModelBase
     {
-        public SearchPageCollectionViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IUtilities utilities)
+        public SearchPageCollectionViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings, IContextProvider contextProvider)
             : base(screenSettings)
         {
-            this.uiNotificationService = uiNotificationService;
-            this.getItemFilterBuilder = utilities.GetItemFilterBuilder;
-            this.httpService = utilities.HttpService;
-            this.searchSelectorBuilder = utilities.SearchSelectorBuilder;
+            this.uiNotificationService = contextProvider.UiNotificationService;
+            this.getItemFilterBuilder = contextProvider.GetItemFilterBuilder;
+            this.httpService = contextProvider.HttpService;
+            this.searchSelectorBuilder = contextProvider.SearchSelectorBuilder;
             defaultSkip = FormSettings.SortCollection.Skip;
             GetItems();
         }

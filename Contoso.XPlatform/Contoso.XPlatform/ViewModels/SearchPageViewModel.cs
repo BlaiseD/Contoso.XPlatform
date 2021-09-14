@@ -9,13 +9,11 @@ namespace Contoso.XPlatform.ViewModels
 {
     public class SearchPageViewModel : FlyoutDetailViewModelBase
     {
-        private readonly UiNotificationService uiNotificationService;
-        private readonly IUtilities utilities;
+        private readonly IContextProvider contextProvider;
 
-        public SearchPageViewModel(UiNotificationService uiNotificationService, IUtilities utilities)
+        public SearchPageViewModel(IContextProvider contextProvider)
         {
-            this.uiNotificationService = uiNotificationService;
-            this.utilities = utilities;
+            this.contextProvider = contextProvider;
         }
 
         public override void Initialize(ScreenSettingsBase screenSettings)
@@ -41,8 +39,7 @@ namespace Contoso.XPlatform.ViewModels
                 new object[]
                 {
                     screenSettings,
-                    this.uiNotificationService,
-                    this.utilities
+                    this.contextProvider
                 }
             );
 

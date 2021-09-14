@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Contoso.Forms.Configuration;
+﻿using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Flow.Requests;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
-using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels.Validatables;
 using System;
 using System.Collections.Generic;
@@ -18,12 +16,12 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 {
     public abstract class EditFormEntityViewModelBase : ViewModelBase, IDisposable
     {
-        protected EditFormEntityViewModelBase(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IUtilities utilities)
+        protected EditFormEntityViewModelBase(ScreenSettings<EditFormSettingsDescriptor> screenSettings, IContextProvider contextProvider)
         {
-            this.UiNotificationService = uiNotificationService;
+            this.UiNotificationService = contextProvider.UiNotificationService;
             FormSettings = screenSettings.Settings;
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);
-            Properties = utilities.FieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
+            Properties = contextProvider.FieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
         }
 
         public EditFormSettingsDescriptor FormSettings { get; set; }

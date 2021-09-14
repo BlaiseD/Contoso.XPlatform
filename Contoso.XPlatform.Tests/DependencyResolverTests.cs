@@ -68,7 +68,7 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
                 .AddSingleton<IEntityUpdater, EntityUpdater>()
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
-                .AddSingleton<IUtilities, Utilities>()
+                .AddSingleton<IContextProvider, ContextProvider>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpServiceMock>()
                 .AddTransient<EditFormViewModel, EditFormViewModel>()

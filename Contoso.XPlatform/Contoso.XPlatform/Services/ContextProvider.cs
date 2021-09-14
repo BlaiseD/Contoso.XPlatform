@@ -2,18 +2,22 @@
 
 namespace Contoso.XPlatform.Services
 {
-    public class Utilities : IUtilities
+    public class ContextProvider : IContextProvider
     {
-        public Utilities(IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder, IEntityStateUpdater entityStateUpdater, IEntityUpdater entityUpdater, IFieldsCollectionBuilder fieldsCollectionBuilder, IGetItemFilterBuilder getItemFilterBuilder, IHttpService httpService, IMapper mapper, ISearchSelectorBuilder searchSelectorBuilder)
+        public ContextProvider(UiNotificationService uiNotificationService, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder, IEntityStateUpdater entityStateUpdater, IEntityUpdater entityUpdater, IGetItemFilterBuilder getItemFilterBuilder, IHttpService httpService, IMapper mapper, ISearchSelectorBuilder searchSelectorBuilder)
         {
+            UiNotificationService = uiNotificationService;
             ConditionalValidationConditionsBuilder = conditionalValidationConditionsBuilder;
             EntityStateUpdater = entityStateUpdater;
             EntityUpdater = entityUpdater;
-            FieldsCollectionBuilder = fieldsCollectionBuilder;
             GetItemFilterBuilder = getItemFilterBuilder;
             HttpService = httpService;
             Mapper = mapper;
             SearchSelectorBuilder = searchSelectorBuilder;
+
+            //passing IContextProvider to FieldsCollectionBuilder will create a circular dependency
+            //so creating the instance here instead of using DI.
+            FieldsCollectionBuilder = new FieldsCollectionBuilder(UiNotificationService, HttpService, Mapper, EntityUpdater);
         }
 
         public IConditionalValidationConditionsBuilder ConditionalValidationConditionsBuilder { get; }
@@ -24,5 +28,6 @@ namespace Contoso.XPlatform.Services
         public IHttpService HttpService { get; }
         public IMapper Mapper { get; }
         public ISearchSelectorBuilder SearchSelectorBuilder { get; }
+        public UiNotificationService UiNotificationService { get; }
     }
 }

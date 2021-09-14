@@ -42,7 +42,7 @@ namespace Contoso.XPlatform
                 .AddSingleton<IHttpService, HttpService>()
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
                 .AddSingleton<IGetItemFilterBuilder, GetItemFilterBuilder>()
-                .AddSingleton<IUtilities, Utilities>()
+                .AddSingleton<IContextProvider, ContextProvider>()
                 .AddSingleton<IFlowManager, FlowManager>()
                 .AddSingleton<FlowActivityFactory, FlowActivityFactory>()
                 .AddSingleton<DirectorFactory, DirectorFactory>()

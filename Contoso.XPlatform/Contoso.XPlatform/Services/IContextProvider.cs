@@ -2,7 +2,7 @@
 
 namespace Contoso.XPlatform.Services
 {
-    public interface IUtilities
+    public interface IContextProvider
     {
         public IConditionalValidationConditionsBuilder ConditionalValidationConditionsBuilder { get; }
         public IEntityStateUpdater EntityStateUpdater { get; }
@@ -12,5 +12,6 @@ namespace Contoso.XPlatform.Services
         public IHttpService HttpService { get; }
         public IMapper Mapper { get; }
         public ISearchSelectorBuilder SearchSelectorBuilder { get; }
+        public UiNotificationService UiNotificationService { get; }
     }
 }

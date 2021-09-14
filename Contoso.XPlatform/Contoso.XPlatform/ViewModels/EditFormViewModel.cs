@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.ViewModels.EditForm;
@@ -10,13 +9,11 @@ namespace Contoso.XPlatform.ViewModels
 {
     public class EditFormViewModel : FlyoutDetailViewModelBase
     {
-        private readonly UiNotificationService uiNotificationService;
-        private readonly IUtilities utilities;
+        private readonly IContextProvider contextProvider;
 
-        public EditFormViewModel(UiNotificationService uiNotificationService, IUtilities utilities)
+        public EditFormViewModel(IContextProvider contextProvider)
         {
-            this.uiNotificationService = uiNotificationService;
-            this.utilities = utilities;
+            this.contextProvider = contextProvider;
         }
 
         public override void Initialize(ScreenSettingsBase screenSettings)
@@ -42,8 +39,7 @@ namespace Contoso.XPlatform.ViewModels
                 new object[]
                 {
                     screenSettings,
-                    this.uiNotificationService,
-                    this.utilities
+                    this.contextProvider
                 }
             );
 
