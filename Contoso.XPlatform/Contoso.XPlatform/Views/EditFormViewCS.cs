@@ -1,8 +1,7 @@
-﻿
-using Contoso.Forms.Configuration;
-using Contoso.XPlatform.Utils;
+﻿using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.ViewModels.EditForm;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Views
@@ -31,6 +30,26 @@ namespace Contoso.XPlatform.Views
         {
             LayoutHelpers.AddToolBarItems(this.ToolbarItems, this.editFormEntityViewModel.Buttons);
             Title = editFormEntityViewModel.FormSettings.Title;
+
+            BindingBase GetHeaderBinding()
+            {
+                if (editFormEntityViewModel.FormSettings.EditType == Forms.Configuration.EditForm.EditType.Add)
+                    return new Binding("FormSettings.Title");
+
+                if (editFormEntityViewModel.FormSettings.HeaderBindings == null)
+                    return null;
+
+                return new MultiBinding
+                {
+                    StringFormat = editFormEntityViewModel.FormSettings.HeaderBindings.StringFormat,
+                    Bindings = editFormEntityViewModel.FormSettings.HeaderBindings.Fields.Select
+                    (
+                        field => new Binding($"PropertiesDictionary[{field}].Value")
+                    )
+                    .Cast<BindingBase>()
+                    .ToList()
+                };
+            }
             Content = new Grid
             {
                 Children =
@@ -45,7 +64,11 @@ namespace Contoso.XPlatform.Views
                                 {
                                     Style = LayoutHelpers.GetStaticStyleResource("HeaderStyle")
                                 }
-                                .AddBinding(Label.TextProperty, new Binding("FormSettings.Title")),
+                                .AddBinding
+                                (
+                                    Label.TextProperty, 
+                                    GetHeaderBinding()
+                                ),
                                 new CollectionView
                                 {
                                     SelectionMode = SelectionMode.Single,

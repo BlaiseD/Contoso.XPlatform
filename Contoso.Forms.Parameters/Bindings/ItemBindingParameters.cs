@@ -15,7 +15,7 @@ namespace Contoso.Forms.Parameters.Bindings
 
 			[Comments("Update modelType first. The property to bind to the name section.")]
 			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
-			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "modelType")]
+			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
 			string property,
 
 			[Comments("Specify a format for the binding e.g. 'Value: {0:F2}'")]
@@ -25,7 +25,7 @@ namespace Contoso.Forms.Parameters.Bindings
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
 			[NameValue(AttributeNames.DEFAULTVALUE, "Contoso.Domain.Entities")]
 			[Comments("Fully qualified class name for the model type.")]
-			string modelType = null
+			string fieldTypeSource = null
 		)
 		{
 			Name = name;

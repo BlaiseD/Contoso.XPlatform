@@ -17,7 +17,6 @@ namespace Contoso.XPlatform.Tests
         internal static EditFormSettingsDescriptor InstructorFormWithInlineOfficeAssignment = new EditFormSettingsDescriptor
         {
             Title = "Instructor",
-            DisplayField = "FullName",
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle"
@@ -213,7 +212,6 @@ namespace Contoso.XPlatform.Tests
         internal static EditFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new EditFormSettingsDescriptor
         {
             Title = "Instructor",
-            DisplayField = "FullName",
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle"
@@ -409,7 +407,6 @@ namespace Contoso.XPlatform.Tests
         internal static EditFormSettingsDescriptor DepartmentForm = new EditFormSettingsDescriptor
         {
             Title = "Department",
-            DisplayField = "Name",
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle"
@@ -907,7 +904,6 @@ namespace Contoso.XPlatform.Tests
         internal static EditFormSettingsDescriptor CourseForm = new EditFormSettingsDescriptor
         {
             Title = "Course",
-            DisplayField = "FullName",
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
                 GetUrl = "/Course/GetSingle"
@@ -1176,7 +1172,6 @@ namespace Contoso.XPlatform.Tests
         internal static EditFormSettingsDescriptor StudentForm = new EditFormSettingsDescriptor
         {
             Title = "Student",
-            DisplayField = "FullName",
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
                 GetUrl = "/Student/GetSingle"

@@ -15,11 +15,6 @@ namespace Contoso.Forms.Parameters.EditForm
 			[Comments("Header field on the form")]
 			string title,
 
-			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
-			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
-			[Comments("Update fieldTypeSource first. This field may be displayed next to the title - empty on Add.")]
-			string displayField,
-
 			[Comments("Input validation messages for each field.")]
 			List<ValidationMessageParameters> validationMessages,
 
@@ -32,19 +27,18 @@ namespace Contoso.Forms.Parameters.EditForm
 			[Comments("The model type for the object being edited. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type modelType,
 
+			[Comments("Multibindings list for the form header field - typically used in edit mode.")]
+			HeaderBindingsParameters headerBindings = null,
+
 			[Comments("Includes the URL's for create, read, and update.")]
 			EditFormRequestDetailsParameters requestDetails = null,
 
 			[Comments("Conditional directtives for each field.")]
-			List<VariableDirectivesParameters> conditionalDirectives = null,
+			List<VariableDirectivesParameters> conditionalDirectives = null
 
-			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
-			[Comments("Fully qualified class name for the model type.")]
-			string fieldTypeSource = "Contoso.Domain.Entities"
 		)
 		{
 			Title = title;
-			DisplayField = displayField;
 			RequestDetails = requestDetails;
 			ValidationMessages = validationMessages.ToDictionary
 			(
@@ -59,15 +53,16 @@ namespace Contoso.Forms.Parameters.EditForm
 				cd => cd.Field, 
 				cd => cd.ConditionalDirectives ?? new List<DirectiveParameters>()
 			);
+			HeaderBindings = headerBindings;
 		}
 
 		public string Title { get; set; }
-		public string DisplayField { get; set; }
 		public EditFormRequestDetailsParameters RequestDetails { get; set; }
 		public Dictionary<string, List<ValidationRuleParameters>> ValidationMessages { get; set; }
 		public List<FormItemSettingsParameters> FieldSettings { get; set; }
 		public EditType EditType { get; set; }
 		public Type ModelType { get; set; }
 		public Dictionary<string, List<DirectiveParameters>> ConditionalDirectives { get; set; }
-    }
+		public HeaderBindingsParameters HeaderBindings { get; set; }
+	}
 }

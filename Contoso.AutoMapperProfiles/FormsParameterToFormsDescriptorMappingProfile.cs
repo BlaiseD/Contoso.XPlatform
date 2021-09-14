@@ -26,7 +26,6 @@ namespace Contoso.AutoMapperProfiles
     {
         public FormsParameterToFormsDescriptorMappingProfile()
         {
-			CreateMap<ItemBindingParameters, ItemBindingDescriptor>();
 			CreateMap<DirectiveArgumentParameters, DirectiveArgumentDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<DirectiveDefinitionParameters, DirectiveDefinitionDescriptor>();
@@ -48,8 +47,10 @@ namespace Contoso.AutoMapperProfiles
 				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
 			CreateMap<FormGroupTemplateParameters, FormGroupTemplateDescriptor>();
 			CreateMap<FormsCollectionDisplayTemplateParameters, FormsCollectionDisplayTemplateDescriptor>();
+			CreateMap<HeaderBindingsParameters, HeaderBindingsDescriptor>();
 			CreateMap<HyperLinkLabelItemParameters, HyperLinkLabelItemDescriptor>();
 			CreateMap<HyperLinkSpanItemParameters, HyperLinkSpanItemDescriptor>();
+			CreateMap<ItemBindingParameters, ItemBindingDescriptor>();
 			CreateMap<ItemFilterGroupParameters, ItemFilterGroupDescriptor>();
 			CreateMap<LabelItemParameters, LabelItemDescriptor>();
 			CreateMap<ListFormSettingsParameters, ListFormSettingsDescriptor>()

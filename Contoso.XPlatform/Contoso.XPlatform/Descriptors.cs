@@ -25,7 +25,6 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor InstructorForm = new EditFormSettingsDescriptor
         {
             Title = "Instructor",
-            DisplayField = "FullName",
             EditType = EditType.Update,
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
@@ -240,7 +239,6 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new EditFormSettingsDescriptor
         {
             Title = "Instructor",
-            DisplayField = "FullName",
             EditType = EditType.Update,
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
@@ -469,7 +467,6 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor DepartmentForm = new EditFormSettingsDescriptor
         {
             Title = "Department",
-            DisplayField = "Name",
             EditType = EditType.Update,
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
@@ -685,7 +682,6 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor DepartmentFormWithCourses = new EditFormSettingsDescriptor
         {
             Title = "Department",
-            DisplayField = "Name",
             EditType = EditType.Update,
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
@@ -1206,7 +1202,6 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor CourseForm = new EditFormSettingsDescriptor
         {
             Title = "Course",
-            DisplayField = "FullName",
             EditType = EditType.Update,
             RequestDetails = new EditFormRequestDetailsDescriptor
             {
@@ -1492,7 +1487,6 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor StudentForm = new EditFormSettingsDescriptor
         {
             Title = "Student",
-            DisplayField = "FullName",
             EditType = EditType.Update,
             RequestDetails = new EditFormRequestDetailsDescriptor
             {

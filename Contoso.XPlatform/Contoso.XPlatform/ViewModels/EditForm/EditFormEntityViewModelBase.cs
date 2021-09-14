@@ -24,6 +24,9 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             Properties = contextProvider.FieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
         }
 
+        public Dictionary<string, IValidatable> PropertiesDictionary
+            => Properties.ToDictionary(p => p.Name);
+
         public EditFormSettingsDescriptor FormSettings { get; set; }
         public ObservableCollection<IValidatable> Properties { get; set; }
         public UiNotificationService UiNotificationService { get; set; }
