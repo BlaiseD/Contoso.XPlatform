@@ -4,14 +4,15 @@ namespace Contoso.XPlatform.Services
 {
     public interface IContextProvider
     {
-        public IConditionalValidationConditionsBuilder ConditionalValidationConditionsBuilder { get; }
-        public IEntityStateUpdater EntityStateUpdater { get; }
-        public IEntityUpdater EntityUpdater { get; }
-        public IFieldsCollectionBuilder FieldsCollectionBuilder { get; }
-        public IGetItemFilterBuilder GetItemFilterBuilder { get; }
-        public IHttpService HttpService { get; }
-        public IMapper Mapper { get; }
-        public ISearchSelectorBuilder SearchSelectorBuilder { get; }
-        public UiNotificationService UiNotificationService { get; }
+        IConditionalValidationConditionsBuilder ConditionalValidationConditionsBuilder { get; }
+        IEntityStateUpdater EntityStateUpdater { get; }
+        IEntityUpdater EntityUpdater { get; }
+        IFieldsCollectionBuilder FieldsCollectionBuilder { get; }
+        IGetItemFilterBuilder GetItemFilterBuilder { get; }
+        IHttpService HttpService { get; }
+        IMapper Mapper { get; }
+        ISearchSelectorBuilder SearchSelectorBuilder { get; }
+        IPropertiesUpdater PropertiesUpdater { get; }
+        UiNotificationService UiNotificationService { get; }
     }
 }

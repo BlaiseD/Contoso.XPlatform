@@ -16,9 +16,9 @@ using Xunit;
 
 namespace Contoso.XPlatform.Tests
 {
-    public class EntityToIValidatableListMappingTests
+    public class PropertiesUpdaterTest
     {
-        public EntityToIValidatableListMappingTests()
+        public PropertiesUpdaterTest()
         {
             Initialize();
         }
@@ -31,7 +31,7 @@ namespace Contoso.XPlatform.Tests
         public void MapInstructorModelToIValidatableListWithInlineOfficeAssignment()
         {
             //arrange
-            InstructorModel inststructor = new InstructorModel
+            InstructorModel instructor = new InstructorModel
             {
                 ID = 3,
                 FirstName = "John",
@@ -69,11 +69,11 @@ namespace Contoso.XPlatform.Tests
             );
 
             //act
-            properties.UpdateValidatables
+            serviceProvider.GetRequiredService<IPropertiesUpdater>().UpdateProperties
             (
-                inststructor,
-                Descriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings,
-                serviceProvider.GetRequiredService<IMapper>()
+                properties,
+                instructor,
+                Descriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings
             );
 
             //assert
@@ -128,11 +128,11 @@ namespace Contoso.XPlatform.Tests
             );
 
             //act
-            properties.UpdateValidatables
+            serviceProvider.GetRequiredService<IPropertiesUpdater>().UpdateProperties
             (
+                properties,
                 instructor,
-                Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings,
-                serviceProvider.GetRequiredService<IMapper>()
+                Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings
             );
 
             //assert
@@ -184,11 +184,11 @@ namespace Contoso.XPlatform.Tests
             );
 
             //act
-            properties.UpdateValidatables
+            serviceProvider.GetRequiredService<IPropertiesUpdater>().UpdateProperties
             (
+                properties,
                 department,
-                Descriptors.DepartmentForm.FieldSettings,
-                serviceProvider.GetRequiredService<IMapper>()
+                Descriptors.DepartmentForm.FieldSettings
             );
 
             //assert
@@ -234,6 +234,7 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
                 .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
                 .AddSingleton<IEntityUpdater, EntityUpdater>()
+                .AddSingleton<IPropertiesUpdater, PropertiesUpdater>()
                 .AddSingleton<IContextProvider, ContextProvider>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpServiceMock>()

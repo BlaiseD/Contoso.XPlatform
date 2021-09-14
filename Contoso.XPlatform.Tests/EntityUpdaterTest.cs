@@ -224,6 +224,7 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
                 .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
                 .AddSingleton<IEntityUpdater, EntityUpdater>()
+                .AddSingleton<IPropertiesUpdater, PropertiesUpdater>()
                 .AddSingleton<IContextProvider, ContextProvider>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpServiceMock>()

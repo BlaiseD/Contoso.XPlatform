@@ -20,7 +20,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         {
             this.entityStateUpdater = contextProvider.EntityStateUpdater;
             this.httpService = contextProvider.HttpService;
-            this.mapper = contextProvider.Mapper;
+            this.propertiesUpdater = contextProvider.PropertiesUpdater;
             this.validateIfManager = new ValidateIfManager<TModel>
             (
                 Properties,
@@ -41,7 +41,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 
         private readonly IEntityStateUpdater entityStateUpdater;
         private readonly IHttpService httpService;
-        private readonly IMapper mapper;
+        private readonly IPropertiesUpdater propertiesUpdater;
         private readonly ValidateIfManager<TModel> validateIfManager;
         private TModel entity;
         private readonly IDisposable propertyChangedSubscription;
@@ -96,11 +96,11 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 
             this.entity = (TModel)getEntityResponse.Entity;
 
-            Properties.UpdateValidatables
+            this.propertiesUpdater.UpdateProperties
             (
+                Properties,
                 getEntityResponse.Entity,
-                this.FormSettings.FieldSettings,
-                this.mapper
+                this.FormSettings.FieldSettings
             );
         }
 

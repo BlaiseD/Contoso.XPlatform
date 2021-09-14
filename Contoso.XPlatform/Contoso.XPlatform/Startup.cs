@@ -30,6 +30,7 @@ namespace Contoso.XPlatform
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
                 .AddSingleton<IEntityUpdater, EntityUpdater>()
+                .AddSingleton<IPropertiesUpdater, PropertiesUpdater>()
                 .AddSingleton<AutoMapper.IConfigurationProvider>
                 (
                     new MapperConfiguration(cfg =>

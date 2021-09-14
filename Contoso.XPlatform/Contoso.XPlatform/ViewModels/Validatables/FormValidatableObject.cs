@@ -19,8 +19,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             this.FormSettings = setting;
             this.Title = this.FormSettings.Title;
             this.Placeholder = this.FormSettings.ValidFormControlText;
-            this.mapper = contextProvider.Mapper;
             this.entityUpdater = contextProvider.EntityUpdater;
+            this.propertiesUpdater = contextProvider.PropertiesUpdater;
             Properties = contextProvider.FieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
             propertyChangedSubscription = this.uiNotificationService.ValueChanged.Subscribe(FieldChanged);
         }
@@ -28,8 +28,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         public ObservableCollection<IValidatable> Properties { get; }
         
         public IChildFormGroupSettings FormSettings { get; set; }
-        private readonly IMapper mapper;
         private readonly IEntityUpdater entityUpdater;
+        private readonly IPropertiesUpdater propertiesUpdater;
         private readonly IDisposable propertyChangedSubscription;
 
         private string _title;
@@ -68,7 +68,12 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             set
             {
                 base.Value = value;
-                Properties.UpdateValidatables(base.Value, FormSettings.FieldSettings, this.mapper);
+                this.propertiesUpdater.UpdateProperties
+                (
+                    Properties,
+                    base.Value,
+                    FormSettings.FieldSettings
+                );
 
                 IsValid = Validate();
 

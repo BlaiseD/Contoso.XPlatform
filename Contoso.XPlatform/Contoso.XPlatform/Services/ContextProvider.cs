@@ -4,7 +4,7 @@ namespace Contoso.XPlatform.Services
 {
     public class ContextProvider : IContextProvider
     {
-        public ContextProvider(UiNotificationService uiNotificationService, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder, IEntityStateUpdater entityStateUpdater, IEntityUpdater entityUpdater, IGetItemFilterBuilder getItemFilterBuilder, IHttpService httpService, IMapper mapper, ISearchSelectorBuilder searchSelectorBuilder)
+        public ContextProvider(UiNotificationService uiNotificationService, IConditionalValidationConditionsBuilder conditionalValidationConditionsBuilder, IEntityStateUpdater entityStateUpdater, IEntityUpdater entityUpdater, IGetItemFilterBuilder getItemFilterBuilder, IHttpService httpService, IMapper mapper, ISearchSelectorBuilder searchSelectorBuilder, IPropertiesUpdater propertiesUpdater)
         {
             UiNotificationService = uiNotificationService;
             ConditionalValidationConditionsBuilder = conditionalValidationConditionsBuilder;
@@ -14,6 +14,7 @@ namespace Contoso.XPlatform.Services
             HttpService = httpService;
             Mapper = mapper;
             SearchSelectorBuilder = searchSelectorBuilder;
+            PropertiesUpdater = propertiesUpdater;
 
             //passing IContextProvider to FieldsCollectionBuilder will create a circular dependency
             //so creating the instance here instead of using DI.
@@ -28,6 +29,7 @@ namespace Contoso.XPlatform.Services
         public IHttpService HttpService { get; }
         public IMapper Mapper { get; }
         public ISearchSelectorBuilder SearchSelectorBuilder { get; }
+        public IPropertiesUpdater PropertiesUpdater { get; }
         public UiNotificationService UiNotificationService { get; }
     }
 }
