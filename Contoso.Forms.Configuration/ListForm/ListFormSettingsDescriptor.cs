@@ -10,7 +10,7 @@ namespace Contoso.Forms.Configuration.ListForm
         public string ModelType { get; set; }
         public string LoadingIndicatorText { get; set; }
         public string ItemTemplateName { get; set; }
-        public Dictionary<string, CollectionViewItemBindingDescriptor> Bindings { get; set; }
+        public Dictionary<string, ItemBindingDescriptor> Bindings { get; set; }
         public SelectorLambdaOperatorDescriptor FieldsSelector { get; set; }
         public RequestDetailsDescriptor RequestDetails { get; set; }
     }

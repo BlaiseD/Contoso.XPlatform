@@ -28,7 +28,7 @@ namespace Contoso.Forms.Parameters.ListForm
 			string itemTemplateName,
 
 			[Comments("Defines which of the model type fields bind to the named template fields (e.g. Header, Text, Detail).")]
-			List<CollectionViewItemBindingParameters> bindings,
+			List<ItemBindingParameters> bindings,
 
 			[Comments("Defines the LINQ query for retrieving the list.")]
 			SelectorLambdaOperatorParameters fieldsSelector,
@@ -50,7 +50,7 @@ namespace Contoso.Forms.Parameters.ListForm
 		public Type ModelType { get; set; }
 		public string LoadingIndicatorText { get; set; }
 		public string ItemTemplateName { get; set; }
-		public Dictionary<string, CollectionViewItemBindingParameters> Bindings { get; set; }
+		public Dictionary<string, ItemBindingParameters> Bindings { get; set; }
 		public SelectorLambdaOperatorParameters FieldsSelector { get; set; }
 		public RequestDetailsParameters RequestDetails { get; set; }
     }

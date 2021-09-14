@@ -6,6 +6,6 @@ namespace Contoso.Forms.Configuration
     public class FormsCollectionDisplayTemplateDescriptor
     {
         public string TemplateName { get; set; }
-        public Dictionary<string, CollectionViewItemBindingDescriptor> Bindings { get; set; }
+        public Dictionary<string, ItemBindingDescriptor> Bindings { get; set; }
     }
 }

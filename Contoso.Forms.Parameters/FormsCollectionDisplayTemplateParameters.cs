@@ -17,7 +17,7 @@ namespace Contoso.Forms.Parameters
 			string templateName,
 
 			[Comments("Defines which of the model type fields bind to the named template fields (e.g. Header, Text, Detail).")]
-			List<CollectionViewItemBindingParameters> bindings
+			List<ItemBindingParameters> bindings
 		)
 		{
 			TemplateName = templateName;
@@ -25,6 +25,6 @@ namespace Contoso.Forms.Parameters
 		}
 
 		public string TemplateName { get; set; }
-		public Dictionary<string, CollectionViewItemBindingParameters> Bindings { get; set; }
+		public Dictionary<string, ItemBindingParameters> Bindings { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace Contoso.AutoMapperProfiles
     {
         public FormsParameterToFormsDescriptorMappingProfile()
         {
-			CreateMap<CollectionViewItemBindingParameters, CollectionViewItemBindingDescriptor>();
+			CreateMap<ItemBindingParameters, ItemBindingDescriptor>();
 			CreateMap<DirectiveArgumentParameters, DirectiveArgumentDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<DirectiveDefinitionParameters, DirectiveDefinitionDescriptor>();

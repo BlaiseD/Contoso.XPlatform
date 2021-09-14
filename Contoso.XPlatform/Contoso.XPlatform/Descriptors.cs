@@ -953,21 +953,21 @@ namespace Contoso.XPlatform
                     FormsCollectionDisplayTemplate = new FormsCollectionDisplayTemplateDescriptor
                     {
                         TemplateName = "TextDetailTemplate",
-                        Bindings = new List<CollectionViewItemBindingDescriptor>
+                        Bindings = new List<ItemBindingDescriptor>
                         {
-                            new CollectionViewItemBindingDescriptor
+                            new ItemBindingDescriptor
                             {
                                 Name = "Header",
                                 Property = "CourseID",
                                 StringFormat = "ID {0}"
                             },
-                            new CollectionViewItemBindingDescriptor
+                            new ItemBindingDescriptor
                             {
                                 Name = "Text",
                                 Property = "Title",
                                 StringFormat = "{0}"
                             },
-                            new CollectionViewItemBindingDescriptor
+                            new ItemBindingDescriptor
                             {
                                 Name = "Detail",
                                 Property = "Credits",
@@ -1650,21 +1650,21 @@ namespace Contoso.XPlatform
             LoadingIndicatorText = "Loading ...",
             FilterPlaceholder = "Filter",
             ItemTemplateName = "TextDetailTemplate",
-            Bindings = new List<CollectionViewItemBindingDescriptor>
+            Bindings = new List<ItemBindingDescriptor>
             {
-                new CollectionViewItemBindingDescriptor
+                new ItemBindingDescriptor
                 {
                     Name = "Header",
                     Property = "ID",
                     StringFormat = "ID {0}"
                 },
-                new CollectionViewItemBindingDescriptor
+                new ItemBindingDescriptor
                 {
                     Name = "Text",
                     Property = "FullName",
                     StringFormat = "{0}"
                 },
-                new CollectionViewItemBindingDescriptor
+                new ItemBindingDescriptor
                 {
                     Name = "Detail",
                     Property = "EnrollmentDate",
@@ -1714,15 +1714,15 @@ namespace Contoso.XPlatform
             ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
             LoadingIndicatorText = "Loading ...",
             ItemTemplateName = "TextDetailTemplate",
-            Bindings = new List<CollectionViewItemBindingDescriptor>
+            Bindings = new List<ItemBindingDescriptor>
             {
-                new CollectionViewItemBindingDescriptor
+                new ItemBindingDescriptor
                 {
                     Name = "Text",
                     Property = "DateTimeValue",
                     StringFormat = "Enrollment Date: {0:MM/dd/yyyy}"
                 },
-                new CollectionViewItemBindingDescriptor
+                new ItemBindingDescriptor
                 {
                     Name = "Detail",
                     Property = "NumericValue",

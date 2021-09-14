@@ -1,6 +1,6 @@
 ﻿namespace Contoso.Forms.Configuration.Bindings
 {
-    public class CollectionViewItemBindingDescriptor
+    public class ItemBindingDescriptor
     {
         public string Name { get; set; }
         public string Property { get; set; }

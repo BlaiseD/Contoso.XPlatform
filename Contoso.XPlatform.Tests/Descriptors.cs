@@ -660,15 +660,15 @@ namespace Contoso.XPlatform.Tests
                     FormsCollectionDisplayTemplate = new FormsCollectionDisplayTemplateDescriptor
                     {
                         TemplateName = "TextDetailTemplate",
-                        Bindings = new List<CollectionViewItemBindingDescriptor>
+                        Bindings = new List<ItemBindingDescriptor>
                         {
-                            new CollectionViewItemBindingDescriptor
+                            new ItemBindingDescriptor
                             {
                                 Name = "Text",
                                 Property = "DepartmentName",
                                 StringFormat = "{0}"
                             },
-                            new CollectionViewItemBindingDescriptor
+                            new ItemBindingDescriptor
                             {
                                 Name = "Detail",
                                 Property = "StartDate",

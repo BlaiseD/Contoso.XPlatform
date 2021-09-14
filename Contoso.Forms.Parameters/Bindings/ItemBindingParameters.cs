@@ -2,14 +2,15 @@
 
 namespace Contoso.Forms.Parameters.Bindings
 {
-    public class CollectionViewItemBindingParameters
+    public class ItemBindingParameters
     {
-		public CollectionViewItemBindingParameters
+		public ItemBindingParameters
 		(
 			[Comments("The section of the item template we're binding the property to.")]
 			[Domain("Header,Text,Detail")]
 			[NameValue(AttributeNames.USEFOREQUALITY, "true")]
 			[NameValue(AttributeNames.USEFORHASHCODE, "true")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "Header")]
 			string name,
 
 			[Comments("Update modelType first. The property to bind to the name section.")]

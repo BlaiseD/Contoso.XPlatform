@@ -29,9 +29,9 @@ namespace Contoso.XPlatform.Tests
                 typeof(LookUpsModel),
                 "Loading ...",
                 "TextDetailTemplate",
-                new List<CollectionViewItemBindingParameters>
+                new List<ItemBindingParameters>
                 {
-                    new CollectionViewItemBindingParameters
+                    new ItemBindingParameters
                     (
                         "Text",
                         "DateTimeValue",
