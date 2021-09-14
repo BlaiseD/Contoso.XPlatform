@@ -21,7 +21,6 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         protected EditFormEntityViewModelBase(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IUtilities utilities)
         {
             this.UiNotificationService = uiNotificationService;
-            this.utilities = utilities;
             FormSettings = screenSettings.Settings;
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);
             Properties = utilities.FieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
@@ -33,7 +32,6 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         public ObservableCollection<CommandButtonDescriptor> Buttons { get; set; }
 
         protected IDictionary<string, object> values;
-        protected IUtilities utilities;
 
         private ICommand _nextCommand;
         public ICommand NextCommand

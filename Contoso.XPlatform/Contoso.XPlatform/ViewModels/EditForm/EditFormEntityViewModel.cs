@@ -18,15 +18,18 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         public EditFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, UiNotificationService uiNotificationService, IUtilities utilities)
             : base(screenSettings, uiNotificationService, utilities)
         {
+            this.entityStateUpdater = utilities.EntityStateUpdater;
+            this.httpService = utilities.HttpService;
+            this.mapper = utilities.Mapper;
             this.validateIfManager = new ValidateIfManager<TModel>
             (
                 Properties,
-                this.utilities.ConditionalValidationConditionsBuilder.GetConditions<TModel>
+                utilities.ConditionalValidationConditionsBuilder.GetConditions<TModel>
                 (
                     FormSettings.ConditionalDirectives,
                     Properties
                 ),
-                this.utilities.Mapper,
+                utilities.Mapper,
                 this.UiNotificationService
             );
 
@@ -36,6 +39,9 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                 GetEntity();
         }
 
+        private readonly IEntityStateUpdater entityStateUpdater;
+        private readonly IHttpService httpService;
+        private readonly IMapper mapper;
         private readonly ValidateIfManager<TModel> validateIfManager;
         private TModel entity;
         private readonly IDisposable propertyChangedSubscription;
@@ -65,7 +71,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 
             GetEntityResponse getEntityResponse = await BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
             (
-                () => this.utilities.HttpService.GetEntity
+                () => this.httpService.GetEntity
                 (
                     new GetEntityRequest
                     {
@@ -94,7 +100,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             (
                 getEntityResponse.Entity,
                 this.FormSettings.FieldSettings,
-                this.utilities.Mapper
+                this.mapper
             );
         }
 
@@ -106,11 +112,11 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                 foreach (var property in Properties)
                     property.IsDirty = true;
 
-                BaseResponse response = await this.utilities.HttpService.SaveEntity
+                BaseResponse response = await this.httpService.SaveEntity
                 (
                     new SaveEntityRequest<TModel> 
                     { 
-                        Entity = this.utilities.EntityStateUpdater.GetUpdatedModel
+                        Entity = this.entityStateUpdater.GetUpdatedModel
                         (
                             entity, 
                             Properties, 

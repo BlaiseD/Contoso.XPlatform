@@ -21,13 +21,17 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
             : base(screenSettings)
         {
             this.uiNotificationService = uiNotificationService;
-            this.utilities = utilities;
+            this.getItemFilterBuilder = utilities.GetItemFilterBuilder;
+            this.httpService = utilities.HttpService;
+            this.searchSelectorBuilder = utilities.SearchSelectorBuilder;
             defaultSkip = FormSettings.SortCollection.Skip;
             GetItems();
         }
 
         private readonly UiNotificationService uiNotificationService;
-        private readonly IUtilities utilities;
+        private readonly IGetItemFilterBuilder getItemFilterBuilder;
+        private readonly IHttpService httpService;
+        private readonly ISearchSelectorBuilder searchSelectorBuilder;
         private readonly int? defaultSkip;
 
         private bool _isRefreshing;
@@ -237,11 +241,11 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
         private Task<GetListResponse> GetList()
             => BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
             (
-                () => this.utilities.HttpService.GetList
+                () => this.httpService.GetList
                 (
                     new GetTypedListRequest
                     {
-                        Selector = this.utilities.SearchSelectorBuilder.CreatePagingSelector
+                        Selector = this.searchSelectorBuilder.CreatePagingSelector
                         (
                             this.FormSettings.SortCollection,
                             typeof(TModel),
@@ -313,7 +317,7 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
             this.uiNotificationService.SetFlowDataCacheItem
             (
                 typeof(FilterLambdaOperatorParameters).FullName,
-                this.utilities.GetItemFilterBuilder.CreateFilter
+                this.getItemFilterBuilder.CreateFilter
                 (
                     this.FormSettings.ItemFilterGroup,
                     typeof(TModel),
