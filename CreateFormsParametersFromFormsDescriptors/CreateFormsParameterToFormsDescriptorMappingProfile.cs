@@ -21,7 +21,8 @@ namespace CreateFormsParametersFromFormsDescriptors
                     && !new HashSet<string>
                     {
                         "CommandButtonParameters",
-                        "FormItemSettingsParameters"
+                        "FormItemSettingsParameters",
+                        "DetailItemSettingsParameters"
                     }.Contains(type.Name)
                     && type.FullName.EndsWith("Parameters")
                     && Attribute.GetCustomAttribute(type, typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute)) == null
@@ -76,6 +77,17 @@ namespace CreateFormsParametersFromFormsDescriptors
             )
             .ToList();
 
+            List<string> detailItemSettingsIncludes = types.Where
+            (
+                t => t != typeof(Contoso.Forms.Parameters.DetailForm.DetailItemSettingsParameters)
+                    && typeof(Contoso.Forms.Parameters.DetailForm.DetailItemSettingsParameters).IsAssignableFrom(t)
+            )
+            .Select
+            (
+                type => $"\t\t\t\t.Include<{type.Name}, {type.Name.Replace("Parameters", "Descriptor")}>()"
+            )
+            .ToList();
+
             List<string> searchFilterParametersBaseIncludes = types.Where
             (
                 t => t != typeof(Contoso.Forms.Parameters.SearchForm.SearchFilterParametersBase)
@@ -123,6 +135,7 @@ namespace CreateFormsParametersFromFormsDescriptors
             string text = File.ReadAllText($"{Directory.GetCurrentDirectory()}\\FormsParameterToFormsDescriptorMappingProfileTemplate.txt")
                 .Replace("#Mappings#", string.Join(Environment.NewLine, createMapStatements))
                 .Replace("#FormItemSettingsIncludes#", $"{string.Join(Environment.NewLine, formItemSettingsIncludes)};")
+                .Replace("#DetailItemSettingsIncludes#", $"{string.Join(Environment.NewLine, detailItemSettingsIncludes)};")
                 .Replace("#SearchFilterParametersBaseIncludes#", $"{string.Join(Environment.NewLine, searchFilterParametersBaseIncludes)};")
                 .Replace("#ItemFilterDescriptorBaseIncludes#", $"{string.Join(Environment.NewLine, itemFilterParametersBaseIncludes)};")
                 .Replace("#LabelItemParametersBaseIncludes#", $"{string.Join(Environment.NewLine, labelItemParametersBaseIncludes)};")

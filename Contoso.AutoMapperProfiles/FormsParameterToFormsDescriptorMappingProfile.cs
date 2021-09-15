@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.Bindings;
+using Contoso.Forms.Configuration.DetailForm;
 using Contoso.Forms.Configuration.Directives;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.ItemFilter;
@@ -11,6 +12,7 @@ using Contoso.Forms.Configuration.TextForm;
 using Contoso.Forms.Configuration.Validation;
 using Contoso.Forms.Parameters;
 using Contoso.Forms.Parameters.Bindings;
+using Contoso.Forms.Parameters.DetailForm;
 using Contoso.Forms.Parameters.Directives;
 using Contoso.Forms.Parameters.EditForm;
 using Contoso.Forms.Parameters.ItemFilter;
@@ -26,6 +28,17 @@ namespace Contoso.AutoMapperProfiles
     {
         public FormsParameterToFormsDescriptorMappingProfile()
         {
+			CreateMap<DetailControlSettingsParameters, DetailControlSettingsDescriptor>()
+				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
+			CreateMap<DetailFormSettingsParameters, DetailFormSettingsDescriptor>()
+				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
+			CreateMap<DetailGroupArraySettingsParameters, DetailGroupArraySettingsDescriptor>()
+				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName))
+				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
+			CreateMap<DetailGroupSettingsParameters, DetailGroupSettingsDescriptor>()
+				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
+			CreateMap<DetailMultiSelectFormControlSettingsParameters, DetailMultiSelectFormControlSettingsDescriptor>()
+				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<DirectiveArgumentParameters, DirectiveArgumentDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<DirectiveDefinitionParameters, DirectiveDefinitionDescriptor>();
@@ -90,6 +103,12 @@ namespace Contoso.AutoMapperProfiles
 				.Include<FormGroupArraySettingsParameters, FormGroupArraySettingsDescriptor>()
 				.Include<FormGroupSettingsParameters, FormGroupSettingsDescriptor>()
 				.Include<MultiSelectFormControlSettingsParameters, MultiSelectFormControlSettingsDescriptor>();
+
+            CreateMap<DetailItemSettingsParameters, DetailItemSettingsDescriptor>()
+				.Include<DetailControlSettingsParameters, DetailControlSettingsDescriptor>()
+				.Include<DetailGroupArraySettingsParameters, DetailGroupArraySettingsDescriptor>()
+				.Include<DetailGroupSettingsParameters, DetailGroupSettingsDescriptor>()
+				.Include<DetailMultiSelectFormControlSettingsParameters, DetailMultiSelectFormControlSettingsDescriptor>();
 
             CreateMap<SearchFilterParametersBase, SearchFilterDescriptorBase>()
 				.Include<SearchFilterGroupParameters, SearchFilterGroupDescriptor>()

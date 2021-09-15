@@ -1,6 +1,7 @@
 ﻿using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.ViewModels.EditForm;
+using Contoso.XPlatform.ViewModels.Validatables;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -44,7 +45,7 @@ namespace Contoso.XPlatform.Views
                     StringFormat = editFormEntityViewModel.FormSettings.HeaderBindings.StringFormat,
                     Bindings = editFormEntityViewModel.FormSettings.HeaderBindings.Fields.Select
                     (
-                        field => new Binding($"PropertiesDictionary[{field}].Value")
+                        field => new Binding($"{nameof(EditFormEntityViewModel<Domain.ViewModelBase>.PropertiesDictionary)}[{field}].{nameof(IValidatable.Value)}")
                     )
                     .Cast<BindingBase>()
                     .ToList()

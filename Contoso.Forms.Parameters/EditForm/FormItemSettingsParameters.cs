@@ -1,6 +1,4 @@
-﻿using LogicBuilder.Attributes;
-
-namespace Contoso.Forms.Parameters.EditForm
+﻿namespace Contoso.Forms.Parameters.EditForm
 {
     abstract public class FormItemSettingsParameters
     {

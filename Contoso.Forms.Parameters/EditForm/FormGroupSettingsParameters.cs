@@ -34,7 +34,7 @@ namespace Contoso.Forms.Parameters.EditForm
 			[Comments("XAML template for the form group.")]
 			FormGroupTemplateParameters formGroupTemplate,
 
-			[Comments("Configuration for each field in one of the array's form groups.")]
+			[Comments("Configuration for each field in the form group.")]
 			List<FormItemSettingsParameters> fieldSettings,
 
 			[Comments("Input validation messages for each field.")]

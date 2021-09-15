@@ -41,7 +41,7 @@ namespace Contoso.Forms.Parameters.EditForm
 			[Comments("Placeholder text for the for control when the form is a one-to-one form field and the form is invalid.")]
 			string invalidFormControlText,
 
-			[Comments("")]
+			[Comments("Template and property bindings to be displayed for each item in the list.")]
 			FormsCollectionDisplayTemplateParameters formsCollectionDisplayTemplate,
 
 			[Comments("XAML template for the form group.")]
