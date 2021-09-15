@@ -8,6 +8,7 @@ namespace Contoso.Forms.Configuration.DetailForm
         public string Title { get; set; }
         public EditFormRequestDetailsDescriptor RequestDetails { get; set; }
         public List<DetailItemSettingsDescriptor> FieldSettings { get; set; }
+        public DetailType DetailType { get; set; }
         public string ModelType { get; set; }
         public HeaderBindingsDescriptor HeaderBindings { get; set; }
     }
