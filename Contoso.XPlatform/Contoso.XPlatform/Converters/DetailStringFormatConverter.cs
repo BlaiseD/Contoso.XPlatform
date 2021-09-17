@@ -1,19 +1,19 @@
-﻿using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration.DetailForm;
 using Contoso.XPlatform.Utils;
-using Contoso.XPlatform.ViewModels.Validatables;
+using Contoso.XPlatform.ViewModels.ReadOnlys;
 using System;
 using System.Globalization;
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Converters
 {
-    public class StringFormatConverter : IValueConverter
+    public class DetailStringFormatConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return GetFormattedString(GetFormControlSettingsDescriptor());
 
-            object GetFormattedString(FormControlSettingsDescriptor formControlSettings)
+            object GetFormattedString(DetailControlSettingsDescriptor formControlSettings)
             {
                 if (value == null)
                     return null;
@@ -24,10 +24,10 @@ namespace Contoso.XPlatform.Converters
                 return string.Format(CultureInfo.CurrentCulture, formControlSettings.StringFormat, value);
             }
 
-            FormControlSettingsDescriptor GetFormControlSettingsDescriptor()
-                => ((VisualElement)parameter).BindingContext.GetPropertyValue<FormControlSettingsDescriptor>
+            DetailControlSettingsDescriptor GetFormControlSettingsDescriptor()
+                => ((VisualElement)parameter).BindingContext.GetPropertyValue<DetailControlSettingsDescriptor>
                 (
-                    nameof(EntryValidatableObject<string>.FormControlSettingsDescriptor)
+                    nameof(TextFieldReadOnlyObject<string>.DetailControlSettingsDescriptor)
                 );
         }
 

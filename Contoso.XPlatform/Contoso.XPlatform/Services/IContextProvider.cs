@@ -8,11 +8,13 @@ namespace Contoso.XPlatform.Services
         IEntityStateUpdater EntityStateUpdater { get; }
         IEntityUpdater EntityUpdater { get; }
         IFieldsCollectionBuilder FieldsCollectionBuilder { get; }
+        IReadOnlyFieldsCollectionBuilder ReadOnlyFieldsCollectionBuilder { get; }
         IGetItemFilterBuilder GetItemFilterBuilder { get; }
         IHttpService HttpService { get; }
         IMapper Mapper { get; }
         ISearchSelectorBuilder SearchSelectorBuilder { get; }
         IPropertiesUpdater PropertiesUpdater { get; }
+        IReadOnlyPropertiesUpdater ReadOnlyPropertiesUpdater { get; }
         UiNotificationService UiNotificationService { get; }
     }
 }

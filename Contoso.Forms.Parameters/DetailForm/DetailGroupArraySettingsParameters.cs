@@ -15,6 +15,9 @@ namespace Contoso.Forms.Parameters.DetailForm
 			[Comments("Update fieldTypeSource first. Source property name from the target object.")]
 			string field,
 
+			[Comments("Usually just a list of one item - the primary key. Additional fields apply when the primary key is a composite key.")]
+			List<string> keyFields,
+
 			[NameValue(AttributeNames.DEFAULTVALUE, "Title")]
 			[Comments("Title for the form group.")]
 			string title,
@@ -40,6 +43,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 		) : base(field)
 		{
 			Title = title;
+			KeyFields = keyFields;
 			ModelType = modelType;
 			Type = type;
 			FormsCollectionDisplayTemplate = formsCollectionDisplayTemplate;
@@ -50,6 +54,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 		public string Title { get; set; }
 		public Type ModelType { get; set; }
 		public Type Type { get; set; }
+		public List<string> KeyFields { get; set; }
 		public FormsCollectionDisplayTemplateParameters FormsCollectionDisplayTemplate { get; set; }
 		public FormGroupTemplateParameters FormGroupTemplate { get; set; }
 		public List<DetailItemSettingsParameters> FieldSettings { get; set; }

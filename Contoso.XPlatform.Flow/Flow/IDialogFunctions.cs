@@ -1,4 +1,5 @@
-﻿using Contoso.Forms.Parameters.EditForm;
+﻿using Contoso.Forms.Parameters.DetailForm;
+using Contoso.Forms.Parameters.EditForm;
 using Contoso.Forms.Parameters.ListForm;
 using Contoso.Forms.Parameters.SearchForm;
 using Contoso.Forms.Parameters.TextForm;
@@ -26,6 +27,16 @@ namespace Contoso.XPlatform.Flow
         (
             [Comments("Configuration details for the form.")]
             EditFormSettingsParameters setting,
+            [ListEditorControl(ListControlType.Connectors)]
+            ICollection<ConnectorParameters> buttons
+        );
+
+        [AlsoKnownAs("DisplayDetailForm")]
+        [FunctionGroup(FunctionGroup.DialogForm)]
+        void DisplayDetailForm
+        (
+            [Comments("Configuration details for the form.")]
+            DetailFormSettingsParameters setting,
             [ListEditorControl(ListControlType.Connectors)]
             ICollection<ConnectorParameters> buttons
         );

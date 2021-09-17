@@ -383,6 +383,7 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
                 .AddSingleton<IEntityUpdater, EntityUpdater>()
                 .AddSingleton<IPropertiesUpdater, PropertiesUpdater>()
+                .AddSingleton<IReadOnlyPropertiesUpdater, ReadOnlyPropertiesUpdater>()
                 .AddSingleton<IContextProvider, ContextProvider>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpServiceMock>()

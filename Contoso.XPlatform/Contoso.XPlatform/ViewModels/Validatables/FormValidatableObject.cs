@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
-using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
 using System;
 using System.Collections.Generic;

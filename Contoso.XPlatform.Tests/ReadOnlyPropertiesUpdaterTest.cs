@@ -1,11 +1,10 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Contoso.Domain.Entities;
 using Contoso.XPlatform.Flow;
 using Contoso.XPlatform.Flow.Cache;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Tests.Mocks;
-using Contoso.XPlatform.Utils;
-using Contoso.XPlatform.ViewModels.Validatables;
+using Contoso.XPlatform.ViewModels.ReadOnlys;
 using LogicBuilder.RulesDirector;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,9 +15,9 @@ using Xunit;
 
 namespace Contoso.XPlatform.Tests
 {
-    public class PropertiesUpdaterTest
+    public class ReadOnlyPropertiesUpdaterTest
     {
-        public PropertiesUpdaterTest()
+        public ReadOnlyPropertiesUpdaterTest()
         {
             Initialize();
         }
@@ -28,7 +27,7 @@ namespace Contoso.XPlatform.Tests
         #endregion Fields
 
         [Fact]
-        public void MapInstructorModelToIValidatableListWithInlineOfficeAssignment()
+        public void MapInstructorModelToIReadOnlyListWithInlineOfficeAssignment()
         {
             //arrange
             InstructorModel instructor = new InstructorModel
@@ -63,17 +62,17 @@ namespace Contoso.XPlatform.Tests
                     }
                 }
             };
-            ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            ObservableCollection<IReadOnly> properties = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.InstructorFormWithInlineOfficeAssignment
+                ReadOnlyDescriptors.InstructorFormWithInlineOfficeAssignment
             );
 
             //act
-            serviceProvider.GetRequiredService<IPropertiesUpdater>().UpdateProperties
+            serviceProvider.GetRequiredService<IReadOnlyPropertiesUpdater>().UpdateProperties
             (
                 properties,
                 instructor,
-                Descriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings
+                ReadOnlyDescriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings
             );
 
             //assert
@@ -87,7 +86,7 @@ namespace Contoso.XPlatform.Tests
         }
 
         [Fact]
-        public void MapInstructorModelToIValidatableListWithPopupOfficeAssignment()
+        public void MapInstructorModelToIReadOnlyeListWithPopupOfficeAssignment()
         {
             //arrange
             InstructorModel instructor = new InstructorModel
@@ -122,17 +121,17 @@ namespace Contoso.XPlatform.Tests
                     }
                 }
             };
-            ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            ObservableCollection<IReadOnly> properties = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.InstructorFormWithPopupOfficeAssignment
+                ReadOnlyDescriptors.InstructorFormWithPopupOfficeAssignment
             );
 
             //act
-            serviceProvider.GetRequiredService<IPropertiesUpdater>().UpdateProperties
+            serviceProvider.GetRequiredService<IReadOnlyPropertiesUpdater>().UpdateProperties
             (
                 properties,
                 instructor,
-                Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings
+                ReadOnlyDescriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings
             );
 
             //assert
@@ -146,7 +145,7 @@ namespace Contoso.XPlatform.Tests
         }
 
         [Fact]
-        public void MapDepartmentModelToIValidatableList()
+        public void MapDepartmentModelToIReadOnlyList()
         {
             //arrange
             DepartmentModel department = new DepartmentModel
@@ -178,17 +177,17 @@ namespace Contoso.XPlatform.Tests
                     }
                 }
             };
-            ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            ObservableCollection<IReadOnly> properties = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.DepartmentForm
+                ReadOnlyDescriptors.DepartmentForm
             );
 
             //act
-            serviceProvider.GetRequiredService<IPropertiesUpdater>().UpdateProperties
+            serviceProvider.GetRequiredService<IReadOnlyPropertiesUpdater>().UpdateProperties
             (
                 properties,
                 department,
-                Descriptors.DepartmentForm.FieldSettings
+                ReadOnlyDescriptors.DepartmentForm.FieldSettings
             );
 
             //assert
@@ -229,6 +228,7 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<IDialogFunctions, DialogFunctions>()
                 .AddSingleton<IActions, Actions>()
                 .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
+                .AddSingleton<IReadOnlyFieldsCollectionBuilder, ReadOnlyFieldsCollectionBuilder>()
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddSingleton<IGetItemFilterBuilder, GetItemFilterBuilder>()
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()

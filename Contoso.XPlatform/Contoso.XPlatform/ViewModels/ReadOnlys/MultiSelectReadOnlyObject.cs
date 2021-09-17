@@ -1,40 +1,36 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DetailForm;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
-using Contoso.XPlatform.Validators;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Contoso.XPlatform.ViewModels.Validatables
+namespace Contoso.XPlatform.ViewModels.ReadOnlys
 {
-    public class MultiSelectValidatableObject<T, E> : ValidatableObjectBase<T> where T : ObservableCollection<E>
+    public class MultiSelectReadOnlyObject<T, E> : ReadOnlyObjectBase<T> where T : ObservableCollection<E>
     {
-        public MultiSelectValidatableObject(string name, MultiSelectFormControlSettingsDescriptor setting, IEnumerable<IValidationRule> validations, IContextProvider contextProvider)
-            : base(name, setting.MultiSelectTemplate.TemplateName, validations, contextProvider.UiNotificationService)
+        public MultiSelectReadOnlyObject(string name, DetailMultiSelectFormControlSettingsDescriptor setting, IContextProvider contextProvider) 
+            : base(name, setting.MultiSelectTemplate.TemplateName)
         {
             this._multiSelectFormControlSettingsDescriptor = setting;
             this._multiSelectTemplate = setting.MultiSelectTemplate;
-            this.Title = this._multiSelectTemplate.LoadingIndicatorText;
             this.httpService = contextProvider.HttpService;
             itemComparer = new MultiSelectItemComparer<E>(_multiSelectFormControlSettingsDescriptor.KeyFields);
             SelectedItems = new ObservableCollection<object>();
-            this.canExecute = false;
-            this.Placeholder = this._multiSelectTemplate.LoadingIndicatorText;
             GetItemSource();
         }
 
         private readonly IHttpService httpService;
         private readonly MultiSelectTemplateDescriptor _multiSelectTemplate;
-        private readonly MultiSelectFormControlSettingsDescriptor _multiSelectFormControlSettingsDescriptor;
+        private readonly DetailMultiSelectFormControlSettingsDescriptor _multiSelectFormControlSettingsDescriptor;
         private readonly MultiSelectItemComparer<E> itemComparer;
-        private bool canExecute;
 
         public MultiSelectTemplateDescriptor MultiSelectTemplate => _multiSelectTemplate;
 
@@ -45,42 +41,25 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 if (Value == null)
                     return string.Empty;
 
-                return string.Join
+                if (string.IsNullOrEmpty(_multiSelectFormControlSettingsDescriptor.StringFormat))
+                    return GetText();
+
+                return string.Format
                 (
-                    ", ",
-                    Value.Select
-                    (
-                        item => typeof(E).GetProperty(_multiSelectTemplate.TextField).GetValue(item)
-                    )
+                    CultureInfo.CurrentCulture,
+                    _multiSelectFormControlSettingsDescriptor.StringFormat,
+                    GetText()
                 );
-            }
-        }
 
-        private string _placeholder;
-        public string Placeholder
-        {
-            get => _placeholder;
-            set
-            {
-                if (_placeholder == value)
-                    return;
-
-                _placeholder = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _title;
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                if (_title == value)
-                    return;
-
-                _title = value;
-                OnPropertyChanged();
+                string GetText()
+                    => string.Join
+                    (
+                        ", ",
+                        Value.Select
+                        (
+                            item => typeof(E).GetProperty(_multiSelectTemplate.TextField).GetValue(item)
+                        )
+                    );
             }
         }
 
@@ -164,52 +143,6 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             SelectedItems.Clear();
             foreach (var item in selected)
                 SelectedItems.Add(item);
-
-            canExecute = true;
-            this.Title = this._multiSelectFormControlSettingsDescriptor.Title;
-            this.Placeholder = this._multiSelectTemplate.PlaceholderText;
-        }
-
-        public ICommand TextChangedCommand => new Command
-        (
-            (parameter) =>
-            {
-                IsDirty = true;
-                string text = ((TextChangedEventArgs)parameter).NewTextValue;
-                if (text == null)
-                    return;
-
-                IsValid = Validate();
-            }
-        );
-
-        private ICommand _submitCommand;
-        public ICommand SubmitCommand
-        {
-            get
-            {
-                if (_submitCommand != null)
-                    return _submitCommand;
-
-                _submitCommand = new Command
-                (
-                    () =>
-                    {
-                        Value = (T)new ObservableCollection<E>
-                        (
-                            Items.Where(i => SelectedItems.Cast<E>().Contains(i, itemComparer))
-                        );
-
-                        Xamarin.Essentials.MainThread.BeginInvokeOnMainThread
-                        (
-                            () => App.Current.MainPage.Navigation.PopModalAsync()
-                        );
-                    },
-                    () => canExecute
-                );
-
-                return _submitCommand;
-            }
         }
 
         private ICommand _openCommand;
@@ -228,11 +161,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                         (
                             () => App.Current.MainPage.Navigation.PushModalAsync
                             (
-                                new Views.MultiSelectPageCS(this)
-                                //new Views.MultiSelectPage()
-                                //{
-                                //    BindingContext = this
-                                //}
+                                new Views.ReadOnlyMultiSelectPageCS(this)
                             )
                         );
                     });
@@ -248,7 +177,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             {
                 if (_cancelCommand != null)
                     return _cancelCommand;
-                
+
                 _cancelCommand = new Command
                 (
                     () =>

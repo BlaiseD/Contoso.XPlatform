@@ -39,32 +39,22 @@ namespace Contoso.XPlatform.Utils
             (
                 setting =>
                 {
-                    switch (setting.AbstractControlType)
+                    switch (setting)
                     {
-                        case AbstractControlEnumDescriptor.FormControl:
-                            AddFormControl
-                            (
-                                (FormControlSettingsDescriptor)setting,
-                                GetFieldName(setting.Field, parentName)
-                            );
+                        case MultiSelectFormControlSettingsDescriptor multiSelectFormControlSettings:
+                            AddMultiSelectControl(multiSelectFormControlSettings, GetFieldName(setting.Field, parentName));
                             break;
-                        case AbstractControlEnumDescriptor.MultiSelectFormControl:
-                            AddMultiSelectControl
-                            (
-                                (MultiSelectFormControlSettingsDescriptor)setting,
-                                GetFieldName(setting.Field, parentName)
-                            );
+                        case FormControlSettingsDescriptor formControlSettings:
+                            AddFormControl(formControlSettings, GetFieldName(setting.Field, parentName));
                             break;
-                        case AbstractControlEnumDescriptor.FormGroup:
-                            AddFormGroupSettings((FormGroupSettingsDescriptor)setting, parentName);
+                        case FormGroupSettingsDescriptor formGroupSettings:
+                            AddFormGroupSettings(formGroupSettings, parentName);
                             break;
-                        case AbstractControlEnumDescriptor.FormGroupArray:
-                            AddFormGroupArray
-                            (
-                                (FormGroupArraySettingsDescriptor)setting,
-                                GetFieldName(setting.Field, parentName)
-                            );
+                        case FormGroupArraySettingsDescriptor formGroupArraySettings:
+                            AddFormGroupArray(formGroupArraySettings, GetFieldName(setting.Field, parentName));
                             break;
+                        default:
+                            throw new ArgumentException($"{nameof(setting)}: B024F65A-50DC-4D45-B8F0-9EC0BE0E2FE2");
                     }
                 }
             );
@@ -124,6 +114,10 @@ namespace Contoso.XPlatform.Utils
             else if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.HiddenTemplate))
             {
                 properties.Add(CreateHiddenValidatableObject(setting, name));
+            }
+            else if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.CheckboxTemplate))
+            {
+                properties.Add(CreateCheckboxValidatableObject(setting, name));
             }
             else
             {
@@ -200,6 +194,21 @@ namespace Contoso.XPlatform.Utils
                     typeof(HiddenValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
                     name,
                     setting,
+                    GetValidationRules(setting),
+                    this.uiNotificationService
+                ),
+                setting
+            );
+
+        private IValidatable CreateCheckboxValidatableObject(FormControlSettingsDescriptor setting, string name)
+            => ValidatableObjectFactory.GetValidatable
+            (
+                Activator.CreateInstance
+                (
+                    typeof(CheckboxValidatableObject),
+                    name,
+                    setting.TextTemplate.TemplateName,
+                    setting.Title,
                     GetValidationRules(setting),
                     this.uiNotificationService
                 ),

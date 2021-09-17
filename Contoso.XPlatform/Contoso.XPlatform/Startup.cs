@@ -27,10 +27,12 @@ namespace Contoso.XPlatform
             services
                 .AddSingleton<UiNotificationService, UiNotificationService>()
                 .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
+                .AddSingleton<IReadOnlyFieldsCollectionBuilder, ReadOnlyFieldsCollectionBuilder>()
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
                 .AddSingleton<IEntityUpdater, EntityUpdater>()
                 .AddSingleton<IPropertiesUpdater, PropertiesUpdater>()
+                .AddSingleton<IReadOnlyPropertiesUpdater, ReadOnlyPropertiesUpdater>()
                 .AddSingleton<AutoMapper.IConfigurationProvider>
                 (
                     new MapperConfiguration(cfg =>
