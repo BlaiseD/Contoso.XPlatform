@@ -1,4 +1,5 @@
-﻿using Contoso.XPlatform.Utils;
+﻿using Contoso.Forms.Configuration.EditForm;
+using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.ViewModels.EditForm;
 using Contoso.XPlatform.ViewModels.Validatables;
@@ -34,15 +35,13 @@ namespace Contoso.XPlatform.Views
 
             BindingBase GetHeaderBinding()
             {
-                if (editFormEntityViewModel.FormSettings.EditType == Forms.Configuration.EditForm.EditType.Add)
-                    return new Binding("FormSettings.Title");
-
-                if (editFormEntityViewModel.FormSettings.HeaderBindings == null)
-                    return null;
+                if (editFormEntityViewModel.FormSettings.EditType == EditType.Add 
+                    || editFormEntityViewModel.FormSettings.HeaderBindings == null)
+                    return new Binding($"{nameof(EditFormEntityViewModelBase.FormSettings)}.{nameof(EditFormSettingsDescriptor.Title)}");
 
                 return new MultiBinding
                 {
-                    StringFormat = editFormEntityViewModel.FormSettings.HeaderBindings.StringFormat,
+                    StringFormat = editFormEntityViewModel.FormSettings.HeaderBindings.HeaderStringFormat,
                     Bindings = editFormEntityViewModel.FormSettings.HeaderBindings.Fields.Select
                     (
                         field => new Binding($"{nameof(EditFormEntityViewModel<Domain.ViewModelBase>.PropertiesDictionary)}[{field}].{nameof(IValidatable.Value)}")
@@ -72,10 +71,10 @@ namespace Contoso.XPlatform.Views
                                 ),
                                 new CollectionView
                                 {
-                                    SelectionMode = SelectionMode.Single,
+                                    SelectionMode = SelectionMode.None,
                                     ItemTemplate = EditFormViewHelpers.QuestionTemplateSelector
                                 }
-                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Properties")),
+                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding(nameof(EditFormEntityViewModelBase.Properties))),
                             }
                         }
                     ),

@@ -47,6 +47,19 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
             }
         }
 
+        private string _placeholder;
+        public string Placeholder
+        {
+            get => _placeholder; set
+            {
+                if (_placeholder == value)
+                    return;
+
+                _placeholder = value;
+                OnPropertyChanged();
+            }
+        }
+
         public object SelectedItem
         {
             get

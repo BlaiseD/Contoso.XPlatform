@@ -25,6 +25,10 @@ namespace Contoso.Forms.Parameters.DetailForm
 			[NameValue(AttributeNames.DEFAULTVALUE, "{0}")]
 			string stringFormat,
 
+			[Comments("Place holder text.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "(Courses)")]
+			string placeholder,
+
 			[Comments("The type for the field being edited. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.  Use the full name (e.g. System.Int32) for literals or core platform types.")]
 			Type type,
 
@@ -34,7 +38,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
 			[Comments("Fully qualified class name for the model type.")]
 			string fieldTypeSource = "Contoso.Domain.Entities"
-		) : base(field, title, stringFormat, type, null, null)
+		) : base(field, title, stringFormat, placeholder, type, null, null)
 		{
 			KeyFields = keyFields;
 			MultiSelectTemplate = multiSelectTemplate;

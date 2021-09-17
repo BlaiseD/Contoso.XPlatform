@@ -6,6 +6,7 @@ namespace Contoso.XPlatform.Utils
     public class ReadOnlyControlTemplateSelector : DataTemplateSelector
     {
         public DataTemplate CheckboxTemplate { get; set; }
+        public DataTemplate DateTemplate { get; set; }
         public DataTemplate FormGroupArrayTemplate { get; set; }
         public DataTemplate HiddenTemplate { get; set; }
         public DataTemplate MultiSelectTemplate { get; set; }
@@ -21,6 +22,7 @@ namespace Contoso.XPlatform.Utils
             return input.TemplateName switch
             {
                 nameof(CheckboxTemplate) => CheckboxTemplate,
+                nameof(DateTemplate) => DateTemplate,
                 nameof(HiddenTemplate) => HiddenTemplate,
                 nameof(FormGroupArrayTemplate) => FormGroupArrayTemplate,
                 nameof(MultiSelectTemplate) => MultiSelectTemplate,

@@ -64,6 +64,7 @@ namespace Contoso.XPlatform
                 )
                 .AddTransient<MainPageViewModel, MainPageViewModel>()
                 .AddTransient<EditFormViewModel, EditFormViewModel>()
+                .AddTransient<DetailFormViewModel, DetailFormViewModel>()
                 .AddTransient<SearchPageViewModel, SearchPageViewModel>()
                 .AddTransient<ListPageViewModel, ListPageViewModel>()
                 .AddTransient<TextPageViewModel, TextPageViewModel>()

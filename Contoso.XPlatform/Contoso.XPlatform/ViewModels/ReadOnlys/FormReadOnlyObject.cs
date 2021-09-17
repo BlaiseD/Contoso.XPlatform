@@ -22,6 +22,8 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
 
         public ObservableCollection<IReadOnly> Properties { get; }
 
+        public string DisplayText => string.Empty;
+
         private string _title;
         public string Title
         {
@@ -32,6 +34,19 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
                     return;
 
                 _title = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _placeholder;
+        public string Placeholder
+        {
+            get => _placeholder; set
+            {
+                if (_placeholder == value)
+                    return;
+
+                _placeholder = value;
                 OnPropertyChanged();
             }
         }

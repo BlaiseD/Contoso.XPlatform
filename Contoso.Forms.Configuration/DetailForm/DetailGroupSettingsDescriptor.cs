@@ -7,6 +7,7 @@ namespace Contoso.Forms.Configuration.DetailForm
     {
         public string Title { get; set; }
         public string ModelType { get; set; }
+        public string Placeholder { get; set; }
         public FormGroupTemplateDescriptor FormGroupTemplate { get; set; }
         public List<DetailItemSettingsDescriptor> FieldSettings { get; set; }
     }

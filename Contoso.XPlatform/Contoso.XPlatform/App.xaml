@@ -58,6 +58,13 @@
                 <Setter Property="LineBreakMode" Value="NoWrap" />
             </Style>
 
+            <Style TargetType="Label" x:Key="DetailFormDeleteQuestionStyle" BaseResourceKey="SubtitleStyle">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="0,5,0,0" />
+            </Style>
+
             <Style TargetType="Label" x:Key="TextFormGroupHeaderStyle" BaseResourceKey="SubtitleStyle">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
@@ -116,6 +123,13 @@
 
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="DetailFormLabel">
+                <Setter Property="Margin" Value = "10,15,0,0" />
+                <Setter Property="Padding"  Value = "10,15,0,10" />
+                <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource EntryBackgroundColor}" />
             </Style>
 
             <Style TargetType="Button">

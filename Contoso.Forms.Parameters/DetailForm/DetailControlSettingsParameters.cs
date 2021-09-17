@@ -20,6 +20,10 @@ namespace Contoso.Forms.Parameters.DetailForm
 			[NameValue(AttributeNames.DEFAULTVALUE, "{0}")]
 			string stringFormat,
 
+			[Comments("Place holder text.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "(Title)")]
+			string placeholder,
+
 			[Comments("The type for the field being displayed. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.  Use the full name (e.g. System.Int32) for literals or core platform types.")]
 			Type type,
 
@@ -36,6 +40,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 		{
 			Title = title;
 			StringFormat = stringFormat;
+			Placeholder = placeholder;
 			Type = type;
 			TextTemplate = textTemplate;
 			DropDownTemplate = dropDownTemplate;
@@ -43,6 +48,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 
 		public string Title { get; set; }
 		public string StringFormat { get; set; }
+		public string Placeholder { get; set; }
 		public Type Type { get; set; }
 		public TextFieldTemplateParameters TextTemplate { get; set; }
 		public DropDownTemplateParameters DropDownTemplate { get; set; }

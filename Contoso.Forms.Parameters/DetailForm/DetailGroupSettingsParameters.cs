@@ -18,6 +18,10 @@ namespace Contoso.Forms.Parameters.DetailForm
 			[Comments("Title for the detail group.")]
 			string title,
 
+			[Comments("Place holder text.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "(Office Assignment)")]
+			string placeholder,
+
 			[Comments("The entity type for the object being displayed. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type modelType,
 
@@ -33,12 +37,14 @@ namespace Contoso.Forms.Parameters.DetailForm
 		) : base(field)
 		{
 			Title = title;
+			Placeholder = placeholder;
 			ModelType = modelType;
 			FormGroupTemplate = formGroupTemplate;
 			FieldSettings = fieldSettings;
 		}
 
 		public string Title { get; set; }
+		public string Placeholder { get; set; }
 		public Type ModelType { get; set; }
 		public FormGroupTemplateParameters FormGroupTemplate { get; set; }
 		public List<DetailItemSettingsParameters> FieldSettings { get; set; }

@@ -78,7 +78,8 @@ namespace Contoso.XPlatform.Utils
         private void AddTextControl(DetailControlSettingsDescriptor setting, string name)
         {
             if (setting.TextTemplate.TemplateName == nameof(ReadOnlyControlTemplateSelector.TextTemplate)
-                || setting.TextTemplate.TemplateName == nameof(ReadOnlyControlTemplateSelector.PasswordTemplate))
+                || setting.TextTemplate.TemplateName == nameof(ReadOnlyControlTemplateSelector.PasswordTemplate)
+                || setting.TextTemplate.TemplateName == nameof(ReadOnlyControlTemplateSelector.DateTemplate))
             {
                 properties.Add(CreateTextFieldReadOnlyObject(setting, name));
             }

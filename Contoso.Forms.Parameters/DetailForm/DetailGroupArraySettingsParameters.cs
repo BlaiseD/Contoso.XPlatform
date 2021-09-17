@@ -22,6 +22,10 @@ namespace Contoso.Forms.Parameters.DetailForm
 			[Comments("Title for the form group.")]
 			string title,
 
+			[Comments("Place holder text.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "(Courses)")]
+			string placeholder,
+
 			[Comments("e.g. T. The element type for the list being dispalyed. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type modelType,
 
@@ -43,6 +47,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 		) : base(field)
 		{
 			Title = title;
+			Placeholder = placeholder;
 			KeyFields = keyFields;
 			ModelType = modelType;
 			Type = type;
@@ -55,6 +60,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 		public Type ModelType { get; set; }
 		public Type Type { get; set; }
 		public List<string> KeyFields { get; set; }
+		public string Placeholder { get; set; }
 		public FormsCollectionDisplayTemplateParameters FormsCollectionDisplayTemplate { get; set; }
 		public FormGroupTemplateParameters FormGroupTemplate { get; set; }
 		public List<DetailItemSettingsParameters> FieldSettings { get; set; }

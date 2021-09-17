@@ -4,7 +4,8 @@ namespace Contoso.Forms.Configuration.EditForm
 {
     public class HeaderBindingsDescriptor
     {
-        public string StringFormat { get; set; }
+        public string HeaderStringFormat { get; set; }
+        public string SubTitleStringFormat { get; set; }
         public List<string> Fields { get; set; }
     }
 }

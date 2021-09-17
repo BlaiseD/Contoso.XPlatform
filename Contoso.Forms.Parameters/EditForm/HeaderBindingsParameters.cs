@@ -9,12 +9,16 @@ namespace Contoso.Forms.Parameters.EditForm
         (
             [Comments("Specify a format for the multi binding e.g. 'Value: {0:F2} {1}'")]
             [NameValue(AttributeNames.DEFAULTVALUE, "{0}")]
-            string stringFormat,
+            string headerStringFormat,
 
             [Comments("The list of fields to be bound in the multibinding.")]
             [ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
             [NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
             List<string> fields,
+
+            [Comments("Optional sub title string format.")]
+            [NameValue(AttributeNames.DEFAULTVALUE, "{0}")]
+            string subTitleStringFormat = null,
 
             [ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
             [NameValue(AttributeNames.DEFAULTVALUE, "Contoso.Domain.Entities")]
@@ -22,11 +26,13 @@ namespace Contoso.Forms.Parameters.EditForm
             string fieldTypeSource = null
         )
         {
-            StringFormat = stringFormat;
+            HeaderStringFormat = headerStringFormat;
+            SubTitleStringFormat = subTitleStringFormat;
             Fields = fields;
         }
 
-        public string StringFormat { get; set; }
+        public string HeaderStringFormat { get; set; }
+        public string SubTitleStringFormat { get; set; }
         public List<string> Fields { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
             this._multiSelectFormControlSettingsDescriptor = setting;
             this._multiSelectTemplate = setting.MultiSelectTemplate;
             this.httpService = contextProvider.HttpService;
+            this.Title = setting.Title;
             itemComparer = new MultiSelectItemComparer<E>(_multiSelectFormControlSettingsDescriptor.KeyFields);
             SelectedItems = new ObservableCollection<object>();
             GetItemSource();
@@ -60,6 +61,33 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
                             item => typeof(E).GetProperty(_multiSelectTemplate.TextField).GetValue(item)
                         )
                     );
+            }
+        }
+
+        private string _title;
+        public string Title
+        {
+            get => _title;
+            set
+            {
+                if (_title == value)
+                    return;
+
+                _title = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _placeholder;
+        public string Placeholder
+        {
+            get => _placeholder; set
+            {
+                if (_placeholder == value)
+                    return;
+
+                _placeholder = value;
+                OnPropertyChanged();
             }
         }
 
