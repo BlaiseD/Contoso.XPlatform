@@ -1,4 +1,4 @@
-﻿namespace Contoso.Forms.Configuration.EditForm
+﻿namespace Contoso.Forms.Configuration
 {
     public class FormGroupTemplateDescriptor
     {
