@@ -1,5 +1,4 @@
-﻿using Contoso.Forms.Parameters.EditForm;
-using LogicBuilder.Attributes;
+﻿using LogicBuilder.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -23,7 +22,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 			Type modelType,
 
 			[Comments("Includes the URL's for create, read, and update.")]
-			EditFormRequestDetailsParameters requestDetails = null,
+			FormRequestDetailsParameters requestDetails = null,
 
 			[Comments("Multibindings list for the form header field.")]
 			MultiBindingParameters headerBindings = null,
@@ -42,7 +41,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 		}
 
 		public string Title { get; set; }
-		public EditFormRequestDetailsParameters RequestDetails { get; set; }
+		public FormRequestDetailsParameters RequestDetails { get; set; }
 		public List<DetailItemSettingsParameters> FieldSettings { get; set; }
 		public DetailType DetailType { get; set; }
 		public Type ModelType { get; set; }

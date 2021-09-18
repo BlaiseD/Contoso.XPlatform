@@ -1,9 +1,9 @@
 ﻿using Contoso.Common.Configuration.ExpansionDescriptors;
 using Contoso.Common.Configuration.ExpressionDescriptors;
 
-namespace Contoso.Forms.Configuration.EditForm
+namespace Contoso.Forms.Configuration
 {
-    public class EditFormRequestDetailsDescriptor
+    public class FormRequestDetailsDescriptor
     {
         public string GetUrl { get; set; }
         public string AddUrl { get; set; }

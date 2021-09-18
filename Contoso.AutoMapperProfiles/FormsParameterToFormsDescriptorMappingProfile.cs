@@ -44,9 +44,6 @@ namespace Contoso.AutoMapperProfiles
 			CreateMap<DirectiveDefinitionParameters, DirectiveDefinitionDescriptor>();
 			CreateMap<DirectiveParameters, DirectiveDescriptor>();
 			CreateMap<DropDownTemplateParameters, DropDownTemplateDescriptor>();
-			CreateMap<EditFormRequestDetailsParameters, EditFormRequestDetailsDescriptor>()
-				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName))
-				.ForMember(dest => dest.DataType, opts => opts.MapFrom(x => x.DataType.AssemblyQualifiedName));
 			CreateMap<EditFormSettingsParameters, EditFormSettingsDescriptor>()
 				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
 			CreateMap<FieldValidationSettingsParameters, FieldValidationSettingsDescriptor>();
@@ -59,6 +56,9 @@ namespace Contoso.AutoMapperProfiles
 			CreateMap<FormGroupSettingsParameters, FormGroupSettingsDescriptor>()
 				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
 			CreateMap<FormGroupTemplateParameters, FormGroupTemplateDescriptor>();
+			CreateMap<FormRequestDetailsParameters, FormRequestDetailsDescriptor>()
+				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName))
+				.ForMember(dest => dest.DataType, opts => opts.MapFrom(x => x.DataType.AssemblyQualifiedName));
 			CreateMap<FormsCollectionDisplayTemplateParameters, FormsCollectionDisplayTemplateDescriptor>();
 			CreateMap<HyperLinkLabelItemParameters, HyperLinkLabelItemDescriptor>();
 			CreateMap<HyperLinkSpanItemParameters, HyperLinkSpanItemDescriptor>();

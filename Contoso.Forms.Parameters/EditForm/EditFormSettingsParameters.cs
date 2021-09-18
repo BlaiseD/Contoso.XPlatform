@@ -31,7 +31,7 @@ namespace Contoso.Forms.Parameters.EditForm
 			MultiBindingParameters headerBindings = null,
 
 			[Comments("Includes the URL's for create, read, and update.")]
-			EditFormRequestDetailsParameters requestDetails = null,
+			FormRequestDetailsParameters requestDetails = null,
 
 			[Comments("Conditional directtives for each field.")]
 			List<VariableDirectivesParameters> conditionalDirectives = null
@@ -57,7 +57,7 @@ namespace Contoso.Forms.Parameters.EditForm
 		}
 
 		public string Title { get; set; }
-		public EditFormRequestDetailsParameters RequestDetails { get; set; }
+		public FormRequestDetailsParameters RequestDetails { get; set; }
 		public Dictionary<string, List<ValidationRuleParameters>> ValidationMessages { get; set; }
 		public List<FormItemSettingsParameters> FieldSettings { get; set; }
 		public EditType EditType { get; set; }

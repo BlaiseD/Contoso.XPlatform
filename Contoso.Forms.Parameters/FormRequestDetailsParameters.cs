@@ -3,11 +3,11 @@ using Contoso.Parameters.Expressions;
 using LogicBuilder.Attributes;
 using System;
 
-namespace Contoso.Forms.Parameters.EditForm
+namespace Contoso.Forms.Parameters
 {
-    public class EditFormRequestDetailsParameters
+    public class FormRequestDetailsParameters
     {
-		public EditFormRequestDetailsParameters
+		public FormRequestDetailsParameters
 		(
 			[Comments("API end point to get the entity.")]
 			[NameValue(AttributeNames.DEFAULTVALUE, "api/Entity/GetEntity")]

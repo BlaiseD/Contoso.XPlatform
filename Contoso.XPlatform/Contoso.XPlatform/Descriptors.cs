@@ -26,7 +26,7 @@ namespace Contoso.XPlatform
         {
             Title = "Instructor",
             EditType = EditType.Update,
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle",
                 ModelType = typeof(InstructorModel).AssemblyQualifiedName,
@@ -240,7 +240,7 @@ namespace Contoso.XPlatform
         {
             Title = "Instructor",
             EditType = EditType.Update,
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle",
                 ModelType = typeof(InstructorModel).AssemblyQualifiedName,
@@ -468,7 +468,7 @@ namespace Contoso.XPlatform
         {
             Title = "Department",
             EditType = EditType.Update,
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle",
                 ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
@@ -683,7 +683,7 @@ namespace Contoso.XPlatform
         {
             Title = "Department",
             EditType = EditType.Update,
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle",
                 ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
@@ -1203,7 +1203,7 @@ namespace Contoso.XPlatform
         {
             Title = "Course",
             EditType = EditType.Update,
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Course/GetSingle",
                 ModelType = typeof(CourseModel).AssemblyQualifiedName,
@@ -1488,7 +1488,7 @@ namespace Contoso.XPlatform
         {
             Title = "Student",
             EditType = EditType.Update,
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Student/GetSingle",
                 ModelType = typeof(StudentModel).AssemblyQualifiedName,

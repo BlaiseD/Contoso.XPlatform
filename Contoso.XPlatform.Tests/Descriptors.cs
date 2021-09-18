@@ -17,7 +17,7 @@ namespace Contoso.XPlatform.Tests
         internal static EditFormSettingsDescriptor InstructorFormWithInlineOfficeAssignment = new EditFormSettingsDescriptor
         {
             Title = "Instructor",
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle"
             },
@@ -212,7 +212,7 @@ namespace Contoso.XPlatform.Tests
         internal static EditFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new EditFormSettingsDescriptor
         {
             Title = "Instructor",
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle"
             },
@@ -407,7 +407,7 @@ namespace Contoso.XPlatform.Tests
         internal static EditFormSettingsDescriptor DepartmentForm = new EditFormSettingsDescriptor
         {
             Title = "Department",
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle"
             },
@@ -904,7 +904,7 @@ namespace Contoso.XPlatform.Tests
         internal static EditFormSettingsDescriptor CourseForm = new EditFormSettingsDescriptor
         {
             Title = "Course",
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Course/GetSingle"
             },
@@ -1172,7 +1172,7 @@ namespace Contoso.XPlatform.Tests
         internal static EditFormSettingsDescriptor StudentForm = new EditFormSettingsDescriptor
         {
             Title = "Student",
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Student/GetSingle"
             },

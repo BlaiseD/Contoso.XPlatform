@@ -15,7 +15,7 @@ namespace Contoso.XPlatform.Tests
         internal static DetailFormSettingsDescriptor InstructorFormWithInlineOfficeAssignment = new DetailFormSettingsDescriptor
         {
             Title = "Instructor",
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle"
             },
@@ -141,7 +141,7 @@ namespace Contoso.XPlatform.Tests
         internal static DetailFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new DetailFormSettingsDescriptor
         {
             Title = "Instructor",
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle"
             },
@@ -268,7 +268,7 @@ namespace Contoso.XPlatform.Tests
         internal static DetailFormSettingsDescriptor DepartmentForm = new DetailFormSettingsDescriptor
         {
             Title = "Department",
-            RequestDetails = new EditFormRequestDetailsDescriptor
+            RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle"
             },
