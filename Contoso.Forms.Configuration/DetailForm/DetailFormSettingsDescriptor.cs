@@ -10,6 +10,7 @@ namespace Contoso.Forms.Configuration.DetailForm
         public List<DetailItemSettingsDescriptor> FieldSettings { get; set; }
         public DetailType DetailType { get; set; }
         public string ModelType { get; set; }
-        public HeaderBindingsDescriptor HeaderBindings { get; set; }
+        public MultiBindingDescriptor HeaderBindings { get; set; }
+        public MultiBindingDescriptor SubtitleBindings { get; set; }
     }
 }

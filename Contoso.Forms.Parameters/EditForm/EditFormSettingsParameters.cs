@@ -28,7 +28,7 @@ namespace Contoso.Forms.Parameters.EditForm
 			Type modelType,
 
 			[Comments("Multibindings list for the form header field - typically used in edit mode.")]
-			HeaderBindingsParameters headerBindings = null,
+			MultiBindingParameters headerBindings = null,
 
 			[Comments("Includes the URL's for create, read, and update.")]
 			EditFormRequestDetailsParameters requestDetails = null,
@@ -63,6 +63,6 @@ namespace Contoso.Forms.Parameters.EditForm
 		public EditType EditType { get; set; }
 		public Type ModelType { get; set; }
 		public Dictionary<string, List<DirectiveParameters>> ConditionalDirectives { get; set; }
-		public HeaderBindingsParameters HeaderBindings { get; set; }
+		public MultiBindingParameters HeaderBindings { get; set; }
 	}
 }

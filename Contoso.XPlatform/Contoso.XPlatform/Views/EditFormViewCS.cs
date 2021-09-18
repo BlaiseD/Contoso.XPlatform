@@ -1,4 +1,5 @@
-﻿using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration;
+using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.ViewModels.EditForm;
@@ -33,16 +34,16 @@ namespace Contoso.XPlatform.Views
             LayoutHelpers.AddToolBarItems(this.ToolbarItems, this.editFormEntityViewModel.Buttons);
             Title = editFormEntityViewModel.FormSettings.Title;
 
-            BindingBase GetHeaderBinding()
+            BindingBase GetHeaderBinding(MultiBindingDescriptor multiBindingDescriptor)
             {
                 if (editFormEntityViewModel.FormSettings.EditType == EditType.Add 
-                    || editFormEntityViewModel.FormSettings.HeaderBindings == null)
+                    || multiBindingDescriptor == null)
                     return new Binding($"{nameof(EditFormEntityViewModelBase.FormSettings)}.{nameof(EditFormSettingsDescriptor.Title)}");
 
                 return new MultiBinding
                 {
-                    StringFormat = editFormEntityViewModel.FormSettings.HeaderBindings.HeaderStringFormat,
-                    Bindings = editFormEntityViewModel.FormSettings.HeaderBindings.Fields.Select
+                    StringFormat = multiBindingDescriptor.StringFormat,
+                    Bindings = multiBindingDescriptor.Fields.Select
                     (
                         field => new Binding($"{nameof(EditFormEntityViewModel<Domain.ViewModelBase>.PropertiesDictionary)}[{field}].{nameof(IValidatable.Value)}")
                     )
@@ -67,7 +68,7 @@ namespace Contoso.XPlatform.Views
                                 .AddBinding
                                 (
                                     Label.TextProperty, 
-                                    GetHeaderBinding()
+                                    GetHeaderBinding(editFormEntityViewModel.FormSettings.HeaderBindings)
                                 ),
                                 new CollectionView
                                 {

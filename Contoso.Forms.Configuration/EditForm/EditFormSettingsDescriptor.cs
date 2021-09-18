@@ -13,6 +13,6 @@ namespace Contoso.Forms.Configuration.EditForm
         public EditType EditType { get; set; }
         public string ModelType { get; set; }
         public Dictionary<string, List<DirectiveDescriptor>> ConditionalDirectives { get; set; }
-        public HeaderBindingsDescriptor HeaderBindings { get; set; }
+        public MultiBindingDescriptor HeaderBindings { get; set; }
     }
 }

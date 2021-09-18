@@ -26,7 +26,10 @@ namespace Contoso.Forms.Parameters.DetailForm
 			EditFormRequestDetailsParameters requestDetails = null,
 
 			[Comments("Multibindings list for the form header field.")]
-			HeaderBindingsParameters headerBindings = null
+			MultiBindingParameters headerBindings = null,
+
+			[Comments("Multibindings list for the form header field.")]
+			MultiBindingParameters subtitleBindings = null
 		)
 		{
 			Title = title;
@@ -35,6 +38,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 			DetailType = detailType;
 			ModelType = modelType;
 			HeaderBindings = headerBindings;
+			SubtitleBindings = subtitleBindings;
 		}
 
 		public string Title { get; set; }
@@ -42,6 +46,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 		public List<DetailItemSettingsParameters> FieldSettings { get; set; }
 		public DetailType DetailType { get; set; }
 		public Type ModelType { get; set; }
-		public HeaderBindingsParameters HeaderBindings { get; set; }
-    }
+		public MultiBindingParameters HeaderBindings { get; set; }
+		public MultiBindingParameters SubtitleBindings { get; set; }
+	}
 }

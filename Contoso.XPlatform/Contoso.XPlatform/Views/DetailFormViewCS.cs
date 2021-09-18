@@ -1,4 +1,5 @@
-﻿using Contoso.Forms.Configuration.DetailForm;
+﻿using Contoso.Forms.Configuration;
+using Contoso.Forms.Configuration.DetailForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.ViewModels.DetailForm;
@@ -34,15 +35,15 @@ namespace Contoso.XPlatform.Views
             LayoutHelpers.AddToolBarItems(this.ToolbarItems, this.detailFormEntityViewModel.Buttons);
             Title = detailFormEntityViewModel.FormSettings.Title;
 
-            BindingBase GetHeaderBinding(string stringFormat)
+            BindingBase GetLabelBinding(MultiBindingDescriptor multiBindingDescriptor)
             {
-                if (detailFormEntityViewModel.FormSettings.HeaderBindings == null)
+                if (multiBindingDescriptor == null)
                     return new Binding($"{nameof(DetailFormEntityViewModelBase.FormSettings)}.{nameof(DetailFormSettingsDescriptor.Title)}");
 
                 return new MultiBinding
                 {
-                    StringFormat = stringFormat,
-                    Bindings = detailFormEntityViewModel.FormSettings.HeaderBindings.Fields.Select
+                    StringFormat = multiBindingDescriptor.StringFormat,
+                    Bindings = multiBindingDescriptor.Fields.Select
                     (
                         field => new Binding($"{nameof(DetailFormEntityViewModel<Domain.ViewModelBase>.PropertiesDictionary)}[{field}].{nameof(IReadOnly.Value)}")
                     )
@@ -68,7 +69,7 @@ namespace Contoso.XPlatform.Views
                                 .AddBinding
                                 (
                                     Label.TextProperty,
-                                    GetHeaderBinding(detailFormEntityViewModel.FormSettings.HeaderBindings.HeaderStringFormat)
+                                    GetLabelBinding(detailFormEntityViewModel.FormSettings.HeaderBindings)
                                 ),
                                 new Label
                                 {
@@ -78,7 +79,7 @@ namespace Contoso.XPlatform.Views
                                 .AddBinding
                                 (
                                     Label.TextProperty,
-                                    GetHeaderBinding(detailFormEntityViewModel.FormSettings.HeaderBindings.SubTitleStringFormat)
+                                    GetLabelBinding(detailFormEntityViewModel.FormSettings.SubtitleBindings)
                                 ),
                                 new CollectionView
                                 {
