@@ -37,8 +37,6 @@ namespace Contoso.AutoMapperProfiles
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<DetailGroupSettingsParameters, DetailGroupSettingsDescriptor>()
 				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
-			CreateMap<DetailMultiSelectFormControlSettingsParameters, DetailMultiSelectFormControlSettingsDescriptor>()
-				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<DirectiveArgumentParameters, DirectiveArgumentDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<DirectiveDefinitionParameters, DirectiveDefinitionDescriptor>();
@@ -70,6 +68,8 @@ namespace Contoso.AutoMapperProfiles
 			CreateMap<MemberSourceFilterParameters, MemberSourceFilterDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<MultiBindingParameters, MultiBindingDescriptor>();
+			CreateMap<MultiSelectDetailControlSettingsParameters, MultiSelectDetailControlSettingsDescriptor>()
+				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<MultiSelectFormControlSettingsParameters, MultiSelectFormControlSettingsDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<MultiSelectTemplateParameters, MultiSelectTemplateDescriptor>()
@@ -108,7 +108,7 @@ namespace Contoso.AutoMapperProfiles
 				.Include<DetailControlSettingsParameters, DetailControlSettingsDescriptor>()
 				.Include<DetailGroupArraySettingsParameters, DetailGroupArraySettingsDescriptor>()
 				.Include<DetailGroupSettingsParameters, DetailGroupSettingsDescriptor>()
-				.Include<DetailMultiSelectFormControlSettingsParameters, DetailMultiSelectFormControlSettingsDescriptor>();
+				.Include<MultiSelectDetailControlSettingsParameters, MultiSelectDetailControlSettingsDescriptor>();
 
             CreateMap<SearchFilterParametersBase, SearchFilterDescriptorBase>()
 				.Include<SearchFilterGroupParameters, SearchFilterGroupDescriptor>()

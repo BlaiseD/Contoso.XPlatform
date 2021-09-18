@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Contoso.Forms.Parameters.DetailForm
 {
-    public class DetailMultiSelectFormControlSettingsParameters : DetailControlSettingsParameters
+    public class MultiSelectDetailControlSettingsParameters : DetailControlSettingsParameters
     {
-		public DetailMultiSelectFormControlSettingsParameters
+		public MultiSelectDetailControlSettingsParameters
 		(
 
 			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]

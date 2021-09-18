@@ -72,7 +72,7 @@ namespace Contoso.XPlatform.Tests
                     },
                     Title = ""
                 },
-                new DetailMultiSelectFormControlSettingsDescriptor
+                new MultiSelectDetailControlSettingsDescriptor
                 {
                     KeyFields = new List<string> { "CourseID" },
                     Field = "Courses",
@@ -199,7 +199,7 @@ namespace Contoso.XPlatform.Tests
                     },
                     Title = ""
                 },
-                new DetailMultiSelectFormControlSettingsDescriptor
+                new MultiSelectDetailControlSettingsDescriptor
                 {
                     KeyFields = new List<string> { "CourseID" },
                     Field = "Courses",

@@ -16,21 +16,21 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
 {
     public class MultiSelectReadOnlyObject<T, E> : ReadOnlyObjectBase<T> where T : ObservableCollection<E>
     {
-        public MultiSelectReadOnlyObject(string name, DetailMultiSelectFormControlSettingsDescriptor setting, IContextProvider contextProvider) 
+        public MultiSelectReadOnlyObject(string name, MultiSelectDetailControlSettingsDescriptor setting, IContextProvider contextProvider) 
             : base(name, setting.MultiSelectTemplate.TemplateName)
         {
-            this._multiSelectFormControlSettingsDescriptor = setting;
+            this._multiSelectDetailControlSettingsDescriptor = setting;
             this._multiSelectTemplate = setting.MultiSelectTemplate;
             this.httpService = contextProvider.HttpService;
             this.Title = setting.Title;
-            itemComparer = new MultiSelectItemComparer<E>(_multiSelectFormControlSettingsDescriptor.KeyFields);
+            itemComparer = new MultiSelectItemComparer<E>(_multiSelectDetailControlSettingsDescriptor.KeyFields);
             SelectedItems = new ObservableCollection<object>();
             GetItemSource();
         }
 
         private readonly IHttpService httpService;
         private readonly MultiSelectTemplateDescriptor _multiSelectTemplate;
-        private readonly DetailMultiSelectFormControlSettingsDescriptor _multiSelectFormControlSettingsDescriptor;
+        private readonly MultiSelectDetailControlSettingsDescriptor _multiSelectDetailControlSettingsDescriptor;
         private readonly MultiSelectItemComparer<E> itemComparer;
 
         public MultiSelectTemplateDescriptor MultiSelectTemplate => _multiSelectTemplate;
@@ -42,13 +42,13 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
                 if (Value == null)
                     return string.Empty;
 
-                if (string.IsNullOrEmpty(_multiSelectFormControlSettingsDescriptor.StringFormat))
+                if (string.IsNullOrEmpty(_multiSelectDetailControlSettingsDescriptor.StringFormat))
                     return GetText();
 
                 return string.Format
                 (
                     CultureInfo.CurrentCulture,
-                    _multiSelectFormControlSettingsDescriptor.StringFormat,
+                    _multiSelectDetailControlSettingsDescriptor.StringFormat,
                     GetText()
                 );
 

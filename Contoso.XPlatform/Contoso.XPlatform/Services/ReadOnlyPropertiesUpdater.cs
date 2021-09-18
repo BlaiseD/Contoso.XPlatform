@@ -27,15 +27,15 @@ namespace Contoso.XPlatform.Services
             IDictionary<string, IReadOnly> propertiesDictionary = properties.ToDictionary(p => p.Name);
             foreach (var setting in fieldSettings)
             {
-                if (setting is DetailMultiSelectFormControlSettingsDescriptor multiSelectFormControlSetting)
+                if (setting is MultiSelectDetailControlSettingsDescriptor multiSelectDetailControlSetting)
                 {
-                    if (existingValues.TryGetValue(multiSelectFormControlSetting.Field, out object @value) && @value != null)
+                    if (existingValues.TryGetValue(multiSelectDetailControlSetting.Field, out object @value) && @value != null)
                     {
-                        propertiesDictionary[GetFieldName(multiSelectFormControlSetting.Field)].Value = Activator.CreateInstance
+                        propertiesDictionary[GetFieldName(multiSelectDetailControlSetting.Field)].Value = Activator.CreateInstance
                         (
                             typeof(ObservableCollection<>).MakeGenericType
                             (
-                                Type.GetType(multiSelectFormControlSetting.MultiSelectTemplate.ModelType)
+                                Type.GetType(multiSelectDetailControlSetting.MultiSelectTemplate.ModelType)
                             ),
                             new object[] { @value }
                         );

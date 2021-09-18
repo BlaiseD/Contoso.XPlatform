@@ -34,8 +34,8 @@ namespace Contoso.XPlatform.Utils
                 {
                     switch (setting)
                     {
-                        case DetailMultiSelectFormControlSettingsDescriptor multiSelectFormControlSettings:
-                            AddMultiSelectControl(multiSelectFormControlSettings, GetFieldName(setting.Field, parentName));
+                        case MultiSelectDetailControlSettingsDescriptor multiSelectDetailControlSettings:
+                            AddMultiSelectControl(multiSelectDetailControlSettings, GetFieldName(setting.Field, parentName));
                             break;
                         case DetailControlSettingsDescriptor formControlSettings:
                             AddFormControl(formControlSettings, GetFieldName(setting.Field, parentName));
@@ -53,7 +53,7 @@ namespace Contoso.XPlatform.Utils
             );
         }
 
-        private void AddMultiSelectControl(DetailMultiSelectFormControlSettingsDescriptor setting, string name)
+        private void AddMultiSelectControl(MultiSelectDetailControlSettingsDescriptor setting, string name)
         {
             if (setting.MultiSelectTemplate.TemplateName == nameof(ReadOnlyControlTemplateSelector.MultiSelectTemplate))
             {
@@ -195,7 +195,7 @@ namespace Contoso.XPlatform.Utils
                 this.contextProvider
             );
 
-        private IReadOnly CreateMultiSelectReadOnlyObject(DetailMultiSelectFormControlSettingsDescriptor setting, string name)
+        private IReadOnly CreateMultiSelectReadOnlyObject(MultiSelectDetailControlSettingsDescriptor setting, string name)
         {
             return GetValidatable(Type.GetType(setting.MultiSelectTemplate.ModelType));
             IReadOnly GetValidatable(Type elementType)

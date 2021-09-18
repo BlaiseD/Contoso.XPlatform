@@ -19,7 +19,7 @@ namespace Contoso.XPlatform.Flow
             DetailControlSettingsParameters detailControlSettingsParameters,
             DetailGroupArraySettingsParameters detailGroupArraySettingsParameters,
             DetailGroupSettingsParameters detailGroupSettingsParameters,
-            DetailMultiSelectFormControlSettingsParameters detailMultiSelectFormControlSettingsParameters,
+            MultiSelectDetailControlSettingsParameters multiSelectDetailControlSettingsParameters,
             SearchFilterGroupParameters searchFilterGroupParameters,
             SearchFilterParameters searchFilterParameters,
             ItemFilterGroupParameters itemFilterGroupParameters,
