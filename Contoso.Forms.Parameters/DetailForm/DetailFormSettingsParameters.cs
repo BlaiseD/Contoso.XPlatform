@@ -1,4 +1,5 @@
-﻿using LogicBuilder.Attributes;
+﻿using Contoso.Forms.Parameters.ItemFilter;
+using LogicBuilder.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -28,7 +29,10 @@ namespace Contoso.Forms.Parameters.DetailForm
 			MultiBindingParameters headerBindings = null,
 
 			[Comments("Multibindings list for the form header field.")]
-			MultiBindingParameters subtitleBindings = null
+			MultiBindingParameters subtitleBindings = null,
+
+			[Comments("Defines a filter to find a selected item on a subsequent form e.g. to edit the selected item.")]
+			ItemFilterGroupParameters itemFilterGroup = null
 		)
 		{
 			Title = title;
@@ -38,6 +42,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 			ModelType = modelType;
 			HeaderBindings = headerBindings;
 			SubtitleBindings = subtitleBindings;
+			ItemFilterGroup = itemFilterGroup;
 		}
 
 		public string Title { get; set; }
@@ -47,5 +52,6 @@ namespace Contoso.Forms.Parameters.DetailForm
 		public Type ModelType { get; set; }
 		public MultiBindingParameters HeaderBindings { get; set; }
 		public MultiBindingParameters SubtitleBindings { get; set; }
+		public ItemFilterGroupParameters ItemFilterGroup { get; set; }
 	}
 }

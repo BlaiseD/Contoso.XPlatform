@@ -83,6 +83,8 @@ namespace Contoso.Domain.Entities
 			}
 		}
 
+		public string HireDateString { get; set; }
+
 		private ICollection<CourseAssignmentModel> _courses;
 		[ListEditorControl(ListControlType.HashSetForm)]
 		[AlsoKnownAs("Instructor_Courses")]

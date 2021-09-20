@@ -53,7 +53,7 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
             NavigateNext(button);
         }
 
-        private Task NavigateNext(CommandButtonDescriptor button)
+        protected Task NavigateNext(CommandButtonDescriptor button)
             => this.UiNotificationService.Next
             (
                 new CommandButtonRequest
@@ -61,6 +61,5 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
                     NewSelection = button.ShortString
                 }
             );
-
     }
 }

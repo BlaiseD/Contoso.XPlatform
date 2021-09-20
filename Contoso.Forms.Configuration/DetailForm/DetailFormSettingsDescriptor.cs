@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Contoso.Forms.Configuration.ItemFilter;
+using System.Collections.Generic;
 
 namespace Contoso.Forms.Configuration.DetailForm
 {
@@ -11,5 +12,6 @@ namespace Contoso.Forms.Configuration.DetailForm
         public string ModelType { get; set; }
         public MultiBindingDescriptor HeaderBindings { get; set; }
         public MultiBindingDescriptor SubtitleBindings { get; set; }
+        public ItemFilterGroupDescriptor ItemFilterGroup { get; set; }
     }
 }

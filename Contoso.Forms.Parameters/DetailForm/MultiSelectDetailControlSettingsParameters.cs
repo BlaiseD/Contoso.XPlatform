@@ -14,7 +14,9 @@ namespace Contoso.Forms.Parameters.DetailForm
 			[Comments("Update fieldTypeSource first. Source property name from the target object.")]
 			string field,
 
-			[Comments("Usually just a list of one item - the primary key. Additional fields apply when the primary key is a composite key.")]
+			[Comments("Update listElementTypeSource first. Usually just a list of one item - the primary key. Additional fields apply when the primary key is a composite key.")]
+			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
+			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "listElementTypeSource")]
 			List<string> keyFields,
 
 			[Comments("Label for the field.")]
@@ -37,7 +39,11 @@ namespace Contoso.Forms.Parameters.DetailForm
 
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
 			[Comments("Fully qualified class name for the model type.")]
-			string fieldTypeSource = "Contoso.Domain.Entities"
+			string fieldTypeSource = "Contoso.Domain.Entities",
+
+			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
+			[Comments("Fully qualified class name for the model type.")]
+			string listElementTypeSource = "Contoso.Domain.Entities"
 		) : base(field, title, stringFormat, placeholder, type, null, null)
 		{
 			KeyFields = keyFields;

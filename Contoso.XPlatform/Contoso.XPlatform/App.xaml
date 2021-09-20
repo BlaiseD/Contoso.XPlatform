@@ -125,8 +125,8 @@
             </Style>
 
             <Style TargetType="Label" x:Key="DetailFormLabel">
-                <Setter Property="Margin" Value = "10,15,0,0" />
-                <Setter Property="Padding"  Value = "10,15,0,10" />
+                <Setter Property="Margin" Value = "0,10,0,0" />
+                <Setter Property="Padding"  Value = "5,15,0,10" />
                 <Setter Property="TextColor" Value = "{DynamicResource PrimaryTextColor}" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource EntryBackgroundColor}" />
             </Style>
@@ -290,6 +290,11 @@
 
             <Style TargetType="Button" x:Key="PopupEditButtonStyle" BasedOn="{StaticResource BaseCommandButtonStyle}">
                 <Setter Property="Text" Value="{x:Static utils:FontAwesomeIconConstants.Edit}" />
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}" />
+            </Style>
+
+            <Style TargetType="Button" x:Key="PopupDetailButtonStyle" BasedOn="{StaticResource BaseCommandButtonStyle}">
+                <Setter Property="Text" Value="{x:Static utils:FontAwesomeIconConstants.Info}" />
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}" />
             </Style>
 

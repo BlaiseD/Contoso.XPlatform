@@ -14,6 +14,7 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
             this.FormSettings = setting;
             this.Title = this.FormSettings.Title;
             this.propertiesUpdater = contextProvider.ReadOnlyPropertiesUpdater;
+            this.Placeholder = this.FormSettings.Placeholder;
             Properties = contextProvider.ReadOnlyFieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
         }
 

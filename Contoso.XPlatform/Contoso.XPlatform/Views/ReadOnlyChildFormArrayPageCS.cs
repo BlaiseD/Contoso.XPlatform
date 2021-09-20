@@ -1,19 +1,96 @@
-﻿using Contoso.XPlatform.ViewModels.ReadOnlys;
-
+﻿using Contoso.Forms.Configuration;
+using Contoso.XPlatform.Utils;
+using Contoso.XPlatform.ViewModels.ReadOnlys;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Views
 {
     public class ReadOnlyChildFormArrayPageCS : ContentPage
     {
-        public ReadOnlyChildFormArrayPageCS(IReadOnly formArrayValidatable)
+        public ReadOnlyChildFormArrayPageCS(IReadOnly formArrayReadOnly)
         {
-            Content = new StackLayout
+            this.formArrayReadOnly = formArrayReadOnly;
+            this.formsCollectionDisplayTemplateDescriptor = (FormsCollectionDisplayTemplateDescriptor)this.formArrayReadOnly.GetType()
+                .GetProperty(nameof(FormArrayReadOnlyObject<ObservableCollection<string>, string>.FormsCollectionDisplayTemplate))
+                .GetValue(this.formArrayReadOnly);
+
+            Content = new AbsoluteLayout
             {
-                Children = {
-                    new Label { Text = "Welcome to Xamarin.Forms!" }
+                HorizontalOptions = LayoutOptions.Fill,
+                VerticalOptions = LayoutOptions.Fill,
+                Children =
+                {
+                    new ContentView
+                    {
+                        Content = new StackLayout
+                        {
+                            Style = LayoutHelpers.GetStaticStyleResource("FormArrayPopupViewStyle"),
+                            Children =
+                            {
+                                new Grid
+                                {
+                                    Style = LayoutHelpers.GetStaticStyleResource("PopupHeaderStyle"),
+                                    Children =
+                                    {
+                                        new Label
+                                        {
+                                            Style = LayoutHelpers.GetStaticStyleResource("PopupHeaderLabelStyle"),
+                                        }.AddBinding(Label.TextProperty, new Binding("Title"))
+                                    }
+                                },
+                                new CollectionView
+                                {
+                                    Style = LayoutHelpers.GetStaticStyleResource("FormArrayPopupCollectionViewStyle"),
+                                    ItemTemplate = LayoutHelpers.GetCollectionViewItemTemplate
+                                    (
+                                        this.formsCollectionDisplayTemplateDescriptor.TemplateName,
+                                        this.formsCollectionDisplayTemplateDescriptor.Bindings
+                                    )
+                                }
+                                .AddBinding(ItemsView.ItemsSourceProperty, new Binding("Value"))
+                                .AddBinding(SelectableItemsView.SelectionChangedCommandProperty, new Binding("SelectionChangedCommand"))
+                                .AddBinding(SelectableItemsView.SelectedItemProperty, new Binding("SelectedItem")),
+                                new BoxView { Style = LayoutHelpers.GetStaticStyleResource("PopupFooterSeparatorStyle") },
+                                new Grid
+                                {
+                                    Style = LayoutHelpers.GetStaticStyleResource("PopupFooterStyle"),
+                                    ColumnDefinitions =
+                                    {
+                                        new ColumnDefinition{ Width = new GridLength(1, GridUnitType.Star) },
+                                        new ColumnDefinition{ Width = new GridLength(1, GridUnitType.Star) },
+                                        new ColumnDefinition{ Width = new GridLength(1, GridUnitType.Star) }
+                                    },
+                                    Children =
+                                    {
+                                        new Button
+                                        {
+                                            Style = LayoutHelpers.GetStaticStyleResource("PopupDetailButtonStyle")
+                                        }
+                                        .AddBinding(Button.CommandProperty, new Binding("DetailCommand"))
+                                        .SetGridColumn(2),
+                                        new Button
+                                        {
+                                            Style = LayoutHelpers.GetStaticStyleResource("PopupCancelButtonStyle")
+                                        }
+                                        .AddBinding(Button.CommandProperty, new Binding("CancelCommand"))
+                                        .SetGridColumn(3)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .AssignDynamicResource(VisualElement.BackgroundColorProperty, "PopupViewBackgroundColor")
+                    .SetAbsoluteLayoutBounds(new Rectangle(0, 0, 1, 1))
+                    .SetAbsoluteLayoutFlags(AbsoluteLayoutFlags.All)
                 }
             };
+
+            this.BackgroundColor = Color.Transparent;
+            this.BindingContext = this.formArrayReadOnly;
         }
+
+        private IReadOnly formArrayReadOnly;
+        private FormsCollectionDisplayTemplateDescriptor formsCollectionDisplayTemplateDescriptor;
     }
 }

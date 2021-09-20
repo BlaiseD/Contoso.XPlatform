@@ -54,6 +54,14 @@ namespace Contoso.AutoMapperProfiles
             CreateMap<InstructorModel, Instructor>()
                 .ReverseMap()
                 .ForMember(dest => dest.FullName, opts => opts.MapFrom(x => x.FirstName + " " + x.LastName))
+                .ForMember
+                (
+                    dest => dest.HireDateString,
+                    opts => opts.MapFrom
+                    (
+                        x => Contexts.BaseDbContextSqlFunctions.FormatDateTime(x.HireDate, "MM/dd/yyyy", "en-US")
+                    )
+                )
                 .ForAllMembers(o => o.ExplicitExpansion());
 
             CreateMap<OfficeAssignmentModel, OfficeAssignment>()

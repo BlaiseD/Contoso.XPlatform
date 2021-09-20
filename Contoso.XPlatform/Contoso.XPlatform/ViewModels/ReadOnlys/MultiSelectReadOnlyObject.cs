@@ -23,6 +23,7 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
             this._multiSelectTemplate = setting.MultiSelectTemplate;
             this.httpService = contextProvider.HttpService;
             this.Title = setting.Title;
+            this.Placeholder = this._multiSelectTemplate.LoadingIndicatorText;
             itemComparer = new MultiSelectItemComparer<E>(_multiSelectDetailControlSettingsDescriptor.KeyFields);
             SelectedItems = new ObservableCollection<object>();
             GetItemSource();
@@ -171,6 +172,8 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
             SelectedItems.Clear();
             foreach (var item in selected)
                 SelectedItems.Add(item);
+
+            this.Placeholder = this._multiSelectTemplate.PlaceholderText;
         }
 
         private ICommand _openCommand;

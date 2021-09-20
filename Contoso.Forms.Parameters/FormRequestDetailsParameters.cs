@@ -28,7 +28,7 @@ namespace Contoso.Forms.Parameters
 			Type dataType,
 
 			[Comments("Defines the filter for the single object being edited - only applicable when the edit type is update.")]
-			FilterLambdaOperatorParameters filter,
+			FilterLambdaOperatorParameters filter = null,
 
 			[Comments("Defines and navigation properties to include in the edit model")]
 			SelectExpandDefinitionParameters selectExpandDefinition = null

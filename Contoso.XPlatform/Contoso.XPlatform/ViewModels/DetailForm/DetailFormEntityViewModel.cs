@@ -1,10 +1,14 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
+using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.DetailForm;
+using Contoso.Parameters.Expressions;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using System;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Contoso.XPlatform.ViewModels.DetailForm
 {
@@ -15,11 +19,40 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
         {
             this.httpService = contextProvider.HttpService;
             this.propertiesUpdater = contextProvider.ReadOnlyPropertiesUpdater;
+            this.uiNotificationService = contextProvider.UiNotificationService;
+            this.getItemFilterBuilder = contextProvider.GetItemFilterBuilder;
             GetEntity();
         }
 
         private readonly IHttpService httpService;
         private readonly IReadOnlyPropertiesUpdater propertiesUpdater;
+        private readonly IGetItemFilterBuilder getItemFilterBuilder;
+        private readonly UiNotificationService uiNotificationService;
+        private TModel entity;
+
+        private ICommand _editCommand;
+        public ICommand EditCommand
+        {
+            get
+            {
+                if (_editCommand != null)
+                    return _editCommand;
+
+                _editCommand = new Command<CommandButtonDescriptor>
+                (
+                    Edit,
+                    (button) => this.entity != null
+                );
+
+                return _editCommand;
+            }
+        }
+
+        private void Edit(CommandButtonDescriptor button)
+        {
+            SetItemFilter();
+            NavigateNext(button);
+        }
 
         private async void GetEntity()
         {
@@ -51,11 +84,28 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
                 return;
             }
 
+            this.entity = (TModel)getEntityResponse.Entity;
+            (EditCommand as Command).ChangeCanExecute();
+
             this.propertiesUpdater.UpdateProperties
             (
                 Properties,
                 getEntityResponse.Entity,
                 this.FormSettings.FieldSettings
+            );
+        }
+
+        private void SetItemFilter()
+        {
+            this.uiNotificationService.SetFlowDataCacheItem
+            (
+                typeof(FilterLambdaOperatorParameters).FullName,
+                this.getItemFilterBuilder.CreateFilter
+                (
+                    this.FormSettings.ItemFilterGroup,
+                    typeof(TModel),
+                    this.entity
+                )
             );
         }
     }

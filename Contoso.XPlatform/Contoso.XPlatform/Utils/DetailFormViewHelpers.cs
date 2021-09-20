@@ -133,8 +133,11 @@ namespace Contoso.XPlatform.Utils
             {
                 Children =
                 {
-                    GetEntry()
-                    .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(MultiSelectReadOnlyObject<ObservableCollection<string>, string>.DisplayText)))
+                    GetTextField
+                    (
+                        nameof(MultiSelectReadOnlyObject<ObservableCollection<string>, string>.Title),
+                        nameof(MultiSelectReadOnlyObject<ObservableCollection<string>, string>.DisplayText)
+                    )
                     .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(MultiSelectReadOnlyObject<ObservableCollection<string>, string>.Placeholder))),
                     new BoxView()
                 },
