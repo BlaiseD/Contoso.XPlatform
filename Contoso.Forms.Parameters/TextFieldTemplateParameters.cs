@@ -8,7 +8,7 @@ namespace Contoso.Forms.Parameters
 		(
 			[Comments("XAML template name for the field.")]
 			[NameValue(AttributeNames.DEFAULTVALUE, "TextTemplate")]
-			[Domain("TextTemplate,CheckboxTemplate,DateTemplate,PasswordTemplate")]
+			[Domain("TextTemplate,CheckboxTemplate,DateTemplate,PasswordTemplate,HiddenTemplate")]
 			string templateName
 		)
 		{

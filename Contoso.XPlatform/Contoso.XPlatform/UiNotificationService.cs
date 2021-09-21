@@ -43,7 +43,7 @@ namespace Contoso.XPlatform
             FlowSettings flowSettings = await this.FlowManager.NavStart(navBarRequest);
             DateTime dt2 = DateTime.Now;
 
-            appLogger.LogMessage(nameof(UiNotificationService), $"Start (milliseconds) = {(dt2 - dt).TotalMilliseconds}");
+            appLogger.LogMessage(nameof(UiNotificationService), $"NavStart (milliseconds) = {(dt2 - dt).TotalMilliseconds}");
             this.FlowSettings = flowSettings;
             this.FlowSettingsSubject.OnNext(flowSettings);
         }

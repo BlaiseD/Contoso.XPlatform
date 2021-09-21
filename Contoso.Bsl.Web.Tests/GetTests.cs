@@ -197,6 +197,50 @@ namespace Contoso.Bsl.Web.Tests
                 SelectorParameterName = "sel"
             };
 
+        private SelectOperatorDescriptor GetBodyForAdministratorLookup()
+            => new SelectOperatorDescriptor
+            {
+                SourceOperand = new OrderByOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                    SelectorBody = new MemberSelectorOperatorDescriptor
+                    {
+                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                        MemberFullName = "FullName"
+                    },
+                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                    SelectorParameterName = "d"
+                },
+                SelectorBody = new MemberInitOperatorDescriptor
+                {
+                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                    {
+                        ["ID"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                            MemberFullName = "ID"
+                        },
+                        ["FirstName"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                            MemberFullName = "FirstName"
+                        },
+                        ["LastName"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                            MemberFullName = "LastName"
+                        },
+                        ["FullName"] = new MemberSelectorOperatorDescriptor
+                        {
+                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                            MemberFullName = "FullName"
+                        }
+                    },
+                    NewType = typeof(InstructorModel).AssemblyQualifiedName
+                },
+                SelectorParameterName = "s"
+            };
+
         private EqualsBinaryOperatorDescriptor GetDepartmentByIdFilterBody(int id)
             => new EqualsBinaryOperatorDescriptor
             {
@@ -227,6 +271,35 @@ namespace Contoso.Bsl.Web.Tests
         #endregion Helpers
 
         #region Tests
+        [Fact]
+        public async void GetDropDownListRequest_AdministratorLookup()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<InstructorModel>, IQueryable<InstructorModel>>
+            (
+                GetBodyForAdministratorLookup(),
+                "$it"
+            );
+
+            var result = await this.clientFactory.PostAsync<GetObjectDropDownListResponse>
+            (
+                "api/Dropdown/GetObjectDropdown",
+                JsonSerializer.Serialize
+                (
+                    new Business.Requests.GetTypedListRequest
+                    {
+                        Selector = selectorLambdaOperatorDescriptor,
+                        ModelType = typeof(InstructorModel).AssemblyQualifiedName,
+                        DataType = typeof(Instructor).AssemblyQualifiedName,
+                        ModelReturnType = typeof(IQueryable<InstructorModel>).AssemblyQualifiedName,
+                        DataReturnType = typeof(IQueryable<Instructor>).AssemblyQualifiedName
+                    }
+                )
+            );
+
+            Assert.NotNull(result);
+        }
+
         [Fact]
         public async void GetDropDownListRequest_As_LookUpsModel()
         {

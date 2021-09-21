@@ -109,7 +109,7 @@ namespace Contoso.XPlatform.Flow
                 DateTime dt = DateTime.Now;
                 this.Director.ExecuteRulesEngine();
                 DateTime dt2 = DateTime.Now;
-                appLogger.LogMessage(nameof(FlowManager), $"Next (milliseconds) = {(dt2 - dt).TotalMilliseconds}");
+                appLogger.LogMessage(nameof(FlowManager), $"FlowManagerNext (milliseconds) = {(dt2 - dt).TotalMilliseconds}");
 
                 return this.FlowSettings;
             }

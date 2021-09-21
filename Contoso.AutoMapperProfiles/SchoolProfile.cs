@@ -28,6 +28,22 @@ namespace Contoso.AutoMapperProfiles
                 .ForMember(dest => dest.Administrator, opts => opts.Ignore())
                 .ReverseMap()
                 .ForMember(dest => dest.AdministratorName, opts => opts.MapFrom(x => x.Administrator.FirstName + " " + x.Administrator.LastName))
+                .ForMember
+                (
+                    dest => dest.StartDateString,
+                    opts => opts.MapFrom
+                    (
+                        x => Contexts.BaseDbContextSqlFunctions.FormatDateTime(x.StartDate, "MM/dd/yyyy", "en-US")
+                    )
+                )
+                .ForMember
+                (
+                    dest => dest.BudgetString,
+                    opts => opts.MapFrom
+                    (
+                        x => Contexts.BaseDbContextSqlFunctions.FormatDecimal(x.Budget, "F2", "en-US")
+                    )
+                )
                 .ForAllMembers(o => o.ExplicitExpansion());
 
             CreateMap<EnrollmentModel, Enrollment>()

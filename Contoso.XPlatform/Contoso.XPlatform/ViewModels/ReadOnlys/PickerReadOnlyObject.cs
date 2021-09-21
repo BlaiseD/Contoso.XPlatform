@@ -18,6 +18,7 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
             this._dropDownTemplate = setting.DropDownTemplate;
             this.httpService = contextProvider.HttpService;
             DetailControlSettingsDescriptor = setting;
+            this.Title = setting.Title;
             GetItemSource();
         }
 
@@ -44,6 +45,20 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
                     DetailControlSettingsDescriptor.StringFormat,
                     SelectedItem.GetPropertyValue<string>(_dropDownTemplate.TextField)
                 );
+            }
+        }
+
+        private string _title;
+        public string Title
+        {
+            get => _title;
+            set
+            {
+                if (_title == value)
+                    return;
+
+                _title = value;
+                OnPropertyChanged();
             }
         }
 
@@ -78,6 +93,16 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
             }
         }
 
+        public override T Value
+        {
+            get { return base.Value; }
+            set
+            {
+                base.Value = value;
+                OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
         private async void GetItemSource()
         {
             try
@@ -94,6 +119,17 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
                     },
                     this._dropDownTemplate.RequestDetails.DataSourceUrl
                 );
+
+                if (response?.Success != true)
+                {
+                    await App.Current.MainPage.DisplayAlert
+                    (
+                        "Errors",
+                        string.Join(Environment.NewLine, response.ErrorMessages),
+                        "Ok"
+                    );
+                    return;
+                }
 
                 _items = null;
                 _items = response.DropDownList.Cast<object>().ToList();

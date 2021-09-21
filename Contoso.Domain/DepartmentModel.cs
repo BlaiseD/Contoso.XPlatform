@@ -57,6 +57,8 @@ namespace Contoso.Domain.Entities
 			}
 		}
 
+		public string BudgetString { get; set; }
+
 		private System.DateTime _startDate;
 		[DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString  = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -75,6 +77,8 @@ namespace Contoso.Domain.Entities
 				OnPropertyChanged();
 			}
 		}
+
+		public string StartDateString { get; set; }
 
 		private int? _instructorID;
 		[VariableEditorControl(VariableControlType.SingleLineTextBox)]

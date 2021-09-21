@@ -9,13 +9,20 @@ namespace Contoso.Parameters.Expressions
     {
         public MemberBindingItem
         (
-            [Comments("Property name.")]
             [NameValue(AttributeNames.USEFOREQUALITY, "true")]
             [NameValue(AttributeNames.USEFORHASHCODE, "true")]
+            [ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
+            [NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
+            [Comments("Update fieldTypeSource first. Property to bind the selector to.")]
             string property,
 
             [Comments("Selector.")]
-            IExpressionParameter selector
+            IExpressionParameter selector,
+
+            [ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
+            [NameValue(AttributeNames.DEFAULTVALUE, "Contoso.Domain.Entities")]
+            [Comments("Fully qualified class name for the model type.")]
+            string fieldTypeSource = null
         )
         {
             Property = property;

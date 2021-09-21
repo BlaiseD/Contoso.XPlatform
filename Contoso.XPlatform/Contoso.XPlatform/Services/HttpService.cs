@@ -74,7 +74,7 @@ namespace Contoso.XPlatform.Services
             string jsonRequest = JsonSerializer.Serialize(request);
             var response = await GetFromCache<GetObjectDropDownListResponse>(jsonRequest);
 
-            if (response != null)
+            if (response?.Success == true)
                 return response;
 
             response = await PollyHelpers.ExecutePolicyAsync

@@ -108,6 +108,17 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                     this._dropDownTemplate.RequestDetails.DataSourceUrl
                 );
 
+                if (response?.Success != true)
+                {
+                    await App.Current.MainPage.DisplayAlert
+                    (
+                        "Errors",
+                        string.Join(Environment.NewLine, response.ErrorMessages),
+                        "Ok"
+                    );
+                    return;
+                }
+
                 Items = null;
                 await System.Threading.Tasks.Task.Delay(400);
                 Items = response.DropDownList.Cast<object>().ToList();
