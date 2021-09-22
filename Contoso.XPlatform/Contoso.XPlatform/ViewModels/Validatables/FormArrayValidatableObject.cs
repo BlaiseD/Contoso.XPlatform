@@ -20,6 +20,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             this.Title = this.FormSettings.Title;
             this.Placeholder = setting.Placeholder;
             this.contextProvider = contextProvider;
+            Value = (T)new ObservableCollection<E>();
         }
 
         private readonly IContextProvider contextProvider;
@@ -271,7 +272,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
             var addValidatable = new AddFormValidatableObject<E>
             (
-                Value?.Count.ToString(),
+                Value.Count.ToString(),
                 this.FormSettings,
                 new IValidationRule[] { },
                 this.contextProvider
