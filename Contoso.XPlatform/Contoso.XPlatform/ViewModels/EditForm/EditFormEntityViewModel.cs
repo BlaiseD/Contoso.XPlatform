@@ -109,33 +109,39 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         (
             execute: async (button) =>
             {
-                foreach (var property in Properties)
-                    property.IsDirty = true;
-
-                BaseResponse response = await this.httpService.SaveEntity
+                await App.Current.MainPage.DisplayAlert
                 (
-                    new SaveEntityRequest<TModel> 
-                    { 
-                        Entity = this.entityStateUpdater.GetUpdatedModel
-                        (
-                            entity, 
-                            Properties, 
-                            FormSettings.FieldSettings
-                        )
-                    }
+                    "Errors",
+                    "To do:  Save.",
+                    "Ok"
                 );
 
-                if (response.Success)
-                    Next(button);
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert
-                    (
-                        "Errors",
-                        string.Join(Environment.NewLine, response.ErrorMessages),
-                        "Ok"
-                    );
-                }
+                Next(button);
+
+                //BaseResponse response = await this.httpService.SaveEntity
+                //(
+                //    new SaveEntityRequest<TModel> 
+                //    { 
+                //        Entity = this.entityStateUpdater.GetUpdatedModel
+                //        (
+                //            entity, 
+                //            Properties, 
+                //            FormSettings.FieldSettings
+                //        )
+                //    }
+                //);
+
+                //if (response.Success)
+                //    Next(button);
+                //else
+                //{
+                //    await App.Current.MainPage.DisplayAlert
+                //    (
+                //        "Errors",
+                //        string.Join(Environment.NewLine, response.ErrorMessages),
+                //        "Ok"
+                //    );
+                //}
             },
             canExecute: (button) => AreFieldsValid()
         );

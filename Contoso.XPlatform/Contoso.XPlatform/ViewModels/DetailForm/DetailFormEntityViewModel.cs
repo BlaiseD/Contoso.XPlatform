@@ -30,6 +30,33 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
         private readonly UiNotificationService uiNotificationService;
         private TModel entity;
 
+        private ICommand _deleteCommand;
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                if (_deleteCommand != null)
+                    return _deleteCommand;
+
+                _deleteCommand = new Command<CommandButtonDescriptor>
+                (
+                     async (button) => 
+                     {
+                         await App.Current.MainPage.DisplayAlert
+                         (
+                             "Errors",
+                             "To do:  Delete.",
+                             "Ok"
+                         );
+
+                         Next(button);
+                     }
+                );
+
+                return _deleteCommand;
+            }
+        }
+
         private ICommand _editCommand;
         public ICommand EditCommand
         {
