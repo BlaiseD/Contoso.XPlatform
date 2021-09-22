@@ -55,6 +55,17 @@ namespace Contoso.XPlatform.Utils
                     }
                 }
             ),
+            LabelTemplate = new DataTemplate
+            (
+                () => new StackLayout
+                {
+                    Children =
+                    {
+                        GetLabelControl(),
+                        GetLabelForValidation()
+                    }
+                }
+            ),
             PasswordTemplate = new DataTemplate
             (
                 () => new StackLayout
@@ -354,111 +365,29 @@ namespace Contoso.XPlatform.Utils
                 _ => throw new ArgumentOutOfRangeException(nameof(Device.RuntimePlatform)),
             };
 
-        private static DataTemplate GetButtonTemplate(string commandName, Type viewModelType, EventHandler buttonTappedHandler)
-        {
-            return new DataTemplate
+        private static View GetLabelControl()
+            => GetLabel
             (
-                () =>
+                nameof(LabelValidatableObject<string>.Title),
+                nameof(LabelValidatableObject<string>.DisplayText)
+            )
+            .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(LabelValidatableObject<string>.Placeholder)));
+
+        private static View GetLabel(string titleBinding, string valueBinding, bool isPassword = false)
+            => new Label
+            {
+                Style = LayoutHelpers.GetStaticStyleResource("EditFormLabel"),
+                FormattedText = new FormattedString
                 {
-                    return GetButtonLayout();
-
-                    Label GetIconLabel()
+                    Spans =
                     {
-                        Label label =  new Label
-                        {
-                            FontSize = 18,
-                            Margin = new Thickness(0, 0, 0, -3),
-                            HorizontalOptions = LayoutOptions.Center,
-                            VerticalOptions = LayoutOptions.Start,
-                            FontFamily = GetFontAwesomeFontFamily()
-                        }.AddBinding(Label.TextProperty, new Binding(path: "ButtonIcon", converter: new FontAwesomeConverter()));
-
-                        label.SetDynamicResource(Label.TextColorProperty, "TertiaryTextColor");
-                        return label;
-                    }
-
-                    Label GetTextlabel()
-                    {
-                        Label label =  new Label
-                        {
-                            FontSize = 12,
-                            Margin = new Thickness(0, -1, 0, 0),
-                            HorizontalOptions = LayoutOptions.Center,
-                            VerticalOptions = LayoutOptions.Start,
-                        }.AddBinding(Label.TextProperty, new Binding("LongString"));
-
-                        label.SetDynamicResource(Label.TextColorProperty, "TertiaryTextColor");
-                        return label;
-                    }
-
-                    TapGestureRecognizer GetTapGestureRecognizer()
-                    {
-                        TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer().AddBinding
-                        (
-                            TapGestureRecognizer.CommandProperty,
-                            new Binding(path: commandName)
-                            {
-                                Source = new RelativeBindingSource
-                                (
-                                    RelativeBindingSourceMode.FindAncestorBindingContext,
-                                    viewModelType
-                                )
-                            }
-                        );
-                        tapGestureRecognizer.Tapped += buttonTappedHandler;
-                        
-                        return tapGestureRecognizer;
-                    }
-
-                    StackLayout GetButtonLayout()
-                    {
-                        StackLayout stackLayout = new StackLayout
-                        {
-                            Padding = 2,
-                            HorizontalOptions = LayoutOptions.CenterAndExpand,
-                            VerticalOptions = LayoutOptions.Center,
-                            Children =
-                            {
-                                GetIconLabel(),
-                                GetTextlabel()
-                            },
-                            GestureRecognizers =
-                            {
-                                GetTapGestureRecognizer()
-                            }
-                        };
-
-                        if (Application.Current.Resources.TryGetValue("SelectedCommandButtonBackgroundColor", out object backGroundColor))
-                        {
-                            VisualStateManager.GetVisualStateGroups(stackLayout).Add
-                            (
-                                new VisualStateGroup()
-                                {
-                                    Name = "CommonStates",
-                                    States =
-                                    {
-                                        new VisualState { Name="Normal" },
-                                        new VisualState
-                                        {
-                                            Name = "Selected",
-                                            Setters =
-                                            {
-                                                new Setter
-                                                {
-                                                    Property = VisualElement.BackgroundColorProperty,
-                                                    Value = backGroundColor
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            );
-                        }
-
-                        return stackLayout;
+                        new Span{ FontAttributes = FontAttributes.Italic }.AddBinding(Span.TextProperty, new Binding(titleBinding)),
+                        new Span { Text = ":  " },
+                        isPassword
+                            ? new Span{ FontAttributes = FontAttributes.Bold, Text = "*****" }
+                            : new Span{ FontAttributes = FontAttributes.Bold }.AddBinding(Span.TextProperty, new Binding(valueBinding))
                     }
                 }
-            );
-        }
+            };
     }
 }

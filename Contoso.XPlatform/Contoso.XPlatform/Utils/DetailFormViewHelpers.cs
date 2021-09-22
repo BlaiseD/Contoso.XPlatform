@@ -98,20 +98,13 @@ namespace Contoso.XPlatform.Utils
             )
         };
 
-        private static Grid GetTextFieldControl() 
-            => new Grid
-            {
-                Children =
-                {
-                    GetTextField
-                    (
-                        nameof(TextFieldReadOnlyObject<string>.Title), 
-                        nameof(TextFieldReadOnlyObject<string>.DisplayText)
-                    )
-                    .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(TextFieldReadOnlyObject<string>.Placeholder))),
-                    new BoxView()
-                }
-            };
+        private static View GetTextFieldControl() 
+            => GetTextField
+            (
+                nameof(TextFieldReadOnlyObject<string>.Title),
+                nameof(TextFieldReadOnlyObject<string>.DisplayText)
+            )
+            .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(TextFieldReadOnlyObject<string>.Placeholder)));
 
         private static Grid GetPasswordTextFieldControl()
             => new Grid

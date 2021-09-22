@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Contoso.Bsl.Web.Tests
@@ -27,106 +28,117 @@ namespace Contoso.Bsl.Web.Tests
         [Fact]
         public async void SaveStudent()
         {
+            List<Task<SaveStudentResponse>> tasks = new List<Task<SaveStudentResponse>>();
             for (int i = 0; i < 30; i++)
             {
-                var result = await this.clientFactory.PostAsync<SaveStudentResponse>
+                tasks.Add
                 (
-                    "api/Student/Save",
-                    JsonSerializer.Serialize
+                    this.clientFactory.PostAsync<SaveStudentResponse>
                     (
-                        new SaveEntityRequest<StudentModel>
-                        {
-                            Entity = new StudentModel
+                        "api/Student/Save",
+                        JsonSerializer.Serialize
+                        (
+                            new SaveEntityRequest<StudentModel>
                             {
-                                ID = 1,
-                                FirstName = "Carson",
-                                LastName = "Alexander",
-                                EnrollmentDate = DateTime.Parse("2010-09-01"),
-                                EntityState = LogicBuilder.Domain.EntityStateType.Modified,
-                                Enrollments = new HashSet<EnrollmentModel>
+                                Entity = new StudentModel
                                 {
-                                    new EnrollmentModel
+                                    ID = 1,
+                                    FirstName = "Carson",
+                                    LastName = "Alexander",
+                                    EnrollmentDate = DateTime.Parse("2010-09-01"),
+                                    EntityState = LogicBuilder.Domain.EntityStateType.Modified,
+                                    Enrollments = new HashSet<EnrollmentModel>
                                     {
-                                        EnrollmentID = 1,
-                                        CourseID = 1050,
-                                        Grade = Contoso.Domain.Entities.Grade.A,
-                                        EntityState = LogicBuilder.Domain.EntityStateType.Modified
-                                    },
-                                    new EnrollmentModel
-                                    {
-                                        EnrollmentID = 2,
-                                        CourseID = 4022,
-                                        Grade = Contoso.Domain.Entities.Grade.C,
-                                        EntityState = LogicBuilder.Domain.EntityStateType.Modified
-                                    },
-                                    new EnrollmentModel
-                                    {
-                                        EnrollmentID = 3,
-                                        CourseID = 4041,
-                                        Grade = Contoso.Domain.Entities.Grade.B,
-                                        EntityState = LogicBuilder.Domain.EntityStateType.Modified
+                                        new EnrollmentModel
+                                        {
+                                            EnrollmentID = 1,
+                                            CourseID = 1050,
+                                            Grade = Contoso.Domain.Entities.Grade.A,
+                                            EntityState = LogicBuilder.Domain.EntityStateType.Modified
+                                        },
+                                        new EnrollmentModel
+                                        {
+                                            EnrollmentID = 2,
+                                            CourseID = 4022,
+                                            Grade = Contoso.Domain.Entities.Grade.C,
+                                            EntityState = LogicBuilder.Domain.EntityStateType.Modified
+                                        },
+                                        new EnrollmentModel
+                                        {
+                                            EnrollmentID = 3,
+                                            CourseID = 4041,
+                                            Grade = Contoso.Domain.Entities.Grade.B,
+                                            EntityState = LogicBuilder.Domain.EntityStateType.Modified
+                                        }
                                     }
                                 }
                             }
-                        }
-                    ),
-                    "http://localhost:55688/"
+                        ),
+                        "http://localhost:55688/"
+                    )
                 );
 
-                Assert.True(result.Success);
+                await Task.WhenAll(tasks);
+
+                tasks.ForEach(task => Assert.True(task.Result.Success));
             }
         }
 
         [Fact]
         public async void SaveStudentWithoutRules()
         {
+            List<Task<SaveStudentResponse>> tasks = new List<Task<SaveStudentResponse>>();
             for (int i = 0; i < 30; i++)
             {
-                var result = await this.clientFactory.PostAsync<SaveStudentResponse>
+                tasks.Add
                 (
-                    "api/Student/SaveWithoutRules",
-                    JsonSerializer.Serialize
+                    this.clientFactory.PostAsync<SaveStudentResponse>
                     (
-                        new SaveStudentRequest
-                        {
-                            Student = new StudentModel
+                        "api/Student/SaveWithoutRules",
+                        JsonSerializer.Serialize
+                        (
+                            new SaveStudentRequest
                             {
-                                ID = 1,
-                                FirstName = "Carson",
-                                LastName = "Alexander",
-                                EnrollmentDate = DateTime.Parse("2010-09-01"),
-                                EntityState = LogicBuilder.Domain.EntityStateType.Modified,
-                                Enrollments = new HashSet<EnrollmentModel>
+                                Student = new StudentModel
                                 {
-                                    new EnrollmentModel
+                                    ID = 1,
+                                    FirstName = "Carson",
+                                    LastName = "Alexander",
+                                    EnrollmentDate = DateTime.Parse("2010-09-01"),
+                                    EntityState = LogicBuilder.Domain.EntityStateType.Modified,
+                                    Enrollments = new HashSet<EnrollmentModel>
                                     {
-                                        EnrollmentID = 1,
-                                        CourseID = 1050,
-                                        Grade = Contoso.Domain.Entities.Grade.A,
-                                        EntityState = LogicBuilder.Domain.EntityStateType.Modified
-                                    },
-                                    new EnrollmentModel
-                                    {
-                                        EnrollmentID = 2,
-                                        CourseID = 4022,
-                                        Grade = Contoso.Domain.Entities.Grade.C,
-                                        EntityState = LogicBuilder.Domain.EntityStateType.Modified
-                                    },
-                                    new EnrollmentModel
-                                    {
-                                        EnrollmentID = 3,
-                                        CourseID = 4041,
-                                        Grade = Contoso.Domain.Entities.Grade.B,
-                                        EntityState = LogicBuilder.Domain.EntityStateType.Modified
+                                        new EnrollmentModel
+                                        {
+                                            EnrollmentID = 1,
+                                            CourseID = 1050,
+                                            Grade = Contoso.Domain.Entities.Grade.A,
+                                            EntityState = LogicBuilder.Domain.EntityStateType.Modified
+                                        },
+                                        new EnrollmentModel
+                                        {
+                                            EnrollmentID = 2,
+                                            CourseID = 4022,
+                                            Grade = Contoso.Domain.Entities.Grade.C,
+                                            EntityState = LogicBuilder.Domain.EntityStateType.Modified
+                                        },
+                                        new EnrollmentModel
+                                        {
+                                            EnrollmentID = 3,
+                                            CourseID = 4041,
+                                            Grade = Contoso.Domain.Entities.Grade.B,
+                                            EntityState = LogicBuilder.Domain.EntityStateType.Modified
+                                        }
                                     }
                                 }
                             }
-                        }
-                    ),
-                    "http://localhost:55688/"
+                        ),
+                        "http://localhost:55688/"
+                    )
                 );
 
-                Assert.True(result.Success);
+                await Task.WhenAll(tasks);
+                tasks.ForEach(task => Assert.True(task.Result.Success));
             }
         }
         #endregion Tests

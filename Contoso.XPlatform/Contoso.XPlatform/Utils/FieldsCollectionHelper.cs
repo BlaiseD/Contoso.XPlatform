@@ -119,6 +119,10 @@ namespace Contoso.XPlatform.Utils
             {
                 properties.Add(CreateCheckboxValidatableObject(setting, name));
             }
+            else if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.LabelTemplate))
+            {
+                properties.Add(CreateLabelValidatableObject(setting, name));
+            }
             else
             {
                 throw new ArgumentException($"{nameof(setting.TextTemplate.TemplateName)}: BFCC0C85-244A-4896-BAB2-0D29AD0F86D8");
@@ -221,6 +225,20 @@ namespace Contoso.XPlatform.Utils
                 Activator.CreateInstance
                 (
                     typeof(EntryValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
+                    name,
+                    setting,
+                    GetValidationRules(setting),
+                    this.uiNotificationService
+                ),
+                setting
+            );
+
+        private IValidatable CreateLabelValidatableObject(FormControlSettingsDescriptor setting, string name)
+            => ValidatableObjectFactory.GetValidatable
+            (
+                Activator.CreateInstance
+                (
+                    typeof(LabelValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
                     name,
                     setting,
                     GetValidationRules(setting),
