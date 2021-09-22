@@ -58,7 +58,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LogicBuilder.RulesDirector" Version="1.0.3-alpha.0.1" />
+    <PackageReference Include="LogicBuilder.RulesDirector" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
