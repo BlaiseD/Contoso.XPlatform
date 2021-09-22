@@ -15,6 +15,7 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
             this.FormSettings = setting;
             this.formsCollectionDisplayTemplateDescriptor = setting.FormsCollectionDisplayTemplate;
             this.Title = this.FormSettings.Title;
+            this.Placeholder= this.FormSettings.Placeholder;
             this.contextProvider = contextProvider;
         }
 

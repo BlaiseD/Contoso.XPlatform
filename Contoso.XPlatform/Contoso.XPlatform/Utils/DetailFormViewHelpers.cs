@@ -103,8 +103,7 @@ namespace Contoso.XPlatform.Utils
             (
                 nameof(TextFieldReadOnlyObject<string>.Title),
                 nameof(TextFieldReadOnlyObject<string>.DisplayText)
-            )
-            .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(TextFieldReadOnlyObject<string>.Placeholder)));
+            );
 
         private static Grid GetPasswordTextFieldControl()
             => new Grid
@@ -115,8 +114,7 @@ namespace Contoso.XPlatform.Utils
                     (
                         nameof(TextFieldReadOnlyObject<string>.Title),
                         nameof(TextFieldReadOnlyObject<string>.DisplayText)
-                    )
-                    .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(TextFieldReadOnlyObject<string>.Placeholder))),
+                    ),
                     new BoxView()
                 }
             };
