@@ -22,6 +22,7 @@ namespace Contoso.AutoMapperProfiles
                 .ForMember(dest => dest.Enrollments, opts => opts.Ignore())
                 .ReverseMap()
                 .ForMember(dest => dest.DepartmentName, opts => opts.MapFrom(x => x.Department.Name))
+                .ForMember(dest => dest.CourseIDString, opts => opts.MapFrom(x => x.CourseID.ToString()))
                 .ForAllMembers(o => o.ExplicitExpansion());
 
             CreateMap<DepartmentModel, Department>()

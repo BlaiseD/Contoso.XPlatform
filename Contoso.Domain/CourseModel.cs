@@ -24,6 +24,8 @@ namespace Contoso.Domain.Entities
 			}
 		}
 
+		public string CourseIDString { get; set; }
+
 		private string _title;
 		[StringLength(50, MinimumLength = 3)]
 		[VariableEditorControl(VariableControlType.SingleLineTextBox)]
