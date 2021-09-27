@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace Contoso.XPlatform.ViewModels.DetailForm
 {
-    public class DetailFormEntityViewModel<TModel> : DetailFormEntityViewModelBase where TModel : Domain.ViewModelBase
+    public class DetailFormEntityViewModel<TModel> : DetailFormEntityViewModelBase where TModel : Domain.EntityModelBase
     {
         public DetailFormEntityViewModel(ScreenSettings<DetailFormSettingsDescriptor> screenSettings, IContextProvider contextProvider) 
             : base(screenSettings, contextProvider)

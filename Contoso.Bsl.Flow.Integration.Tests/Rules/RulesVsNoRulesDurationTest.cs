@@ -60,7 +60,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
                 enrollment.Grade = Domain.Entities.Grade.A;
                 enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
             });
-            flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = student };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -70,8 +70,8 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.FirstName);
-            Assert.Equal(Domain.Entities.Grade.A, ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.Enrollments.First().Grade);
+            Assert.Equal("First", ((StudentModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).FirstName);
+            Assert.Equal(Domain.Entities.Grade.A, ((StudentModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).Enrollments.First().Grade);
         }
 
         [Fact]
@@ -99,7 +99,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
                 enrollment.Grade = Domain.Entities.Grade.A;
                 enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
             });
-            flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = student };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -109,8 +109,8 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.FirstName);
-            Assert.Equal(Domain.Entities.Grade.A, ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.Enrollments.First().Grade);
+            Assert.Equal("First", ((StudentModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).FirstName);
+            Assert.Equal(Domain.Entities.Grade.A, ((StudentModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).Enrollments.First().Grade);
         }
 
         [Fact]
@@ -136,11 +136,11 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
                 enrollment.Grade = Domain.Entities.Grade.A;
                 enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
             });
-            SaveStudentRequest saveStudentRequest = new SaveStudentRequest { Student = student };
+            SaveEntityRequest saveStudentRequest = new SaveEntityRequest { Entity = student };
 
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
-            StudentModel studentModel = saveStudentRequest.Student;
-            SaveStudentResponse saveStudentResponse = new SaveStudentResponse();
+            StudentModel studentModel = (StudentModel)saveStudentRequest.Entity;
+            SaveEntityResponse saveStudentResponse = new SaveEntityResponse();
             saveStudentResponse.Success = schoolRepository.SaveGraphAsync<StudentModel, Student>(studentModel).Result;
 
             if (!saveStudentResponse.Success) return;
@@ -158,7 +158,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
                 }
             ).Result.SingleOrDefault();
 
-            saveStudentResponse.Student = studentModel;
+            saveStudentResponse.Entity = studentModel;
 
             int Iteration_Index = 0;
 
@@ -221,11 +221,11 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
                 enrollment.Grade = Domain.Entities.Grade.A;
                 enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
             });
-            SaveStudentRequest saveStudentRequest = new SaveStudentRequest { Student = student };
+            SaveEntityRequest saveStudentRequest = new SaveEntityRequest { Entity = student };
 
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
-            StudentModel studentModel = saveStudentRequest.Student;
-            SaveStudentResponse saveStudentResponse = new SaveStudentResponse();
+            StudentModel studentModel = (StudentModel)saveStudentRequest.Entity;
+            SaveEntityResponse saveStudentResponse = new SaveEntityResponse();
             saveStudentResponse.Success = schoolRepository.SaveGraphAsync<StudentModel, Student>(studentModel).Result;
 
             if (!saveStudentResponse.Success) return;
@@ -243,7 +243,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
                 }
             ).Result.SingleOrDefault();
 
-            saveStudentResponse.Student = studentModel;
+            saveStudentResponse.Entity = studentModel;
 
             int Iteration_Index = 0;
 
@@ -287,7 +287,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
         public void JustLoopWithRules1()
         {
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            flowManager.FlowDataCache.Response = new SaveStudentResponse();
+            flowManager.FlowDataCache.Response = new SaveEntityResponse();
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
             flowManager.Start("justloop");
             stopWatch.Stop();
@@ -298,7 +298,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
         public void JustLoopWithRules2()
         {
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            flowManager.FlowDataCache.Response = new SaveStudentResponse();
+            flowManager.FlowDataCache.Response = new SaveEntityResponse();
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
             flowManager.Start("justloop");
             stopWatch.Stop();
@@ -309,7 +309,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
         public void JustLoopWithRulesNoBoxing1()
         {
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            flowManager.FlowDataCache.Response = new SaveStudentResponse();
+            flowManager.FlowDataCache.Response = new SaveEntityResponse();
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
             flowManager.Start("justloopnoboxing");
             stopWatch.Stop();
@@ -320,7 +320,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
         public void JustLoopWithRulesNoBoxing2()
         {
             IFlowManager flowManager = serviceProvider.GetRequiredService<IFlowManager>();
-            flowManager.FlowDataCache.Response = new SaveStudentResponse();
+            flowManager.FlowDataCache.Response = new SaveEntityResponse();
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
             flowManager.Start("justloopnoboxing");
             stopWatch.Stop();

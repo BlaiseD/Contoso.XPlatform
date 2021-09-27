@@ -53,7 +53,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
                 enrollment.Grade = Domain.Entities.Grade.A;
                 enrollment.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
             });
-            flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = student };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -63,8 +63,8 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.FirstName);
-            Assert.Equal(Domain.Entities.Grade.A, ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.Enrollments.First().Grade);
+            Assert.Equal("First", ((StudentModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).FirstName);
+            Assert.Equal(Domain.Entities.Grade.A, ((StudentModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).Enrollments.First().Grade);
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             ).Result.Single();
             student.FirstName = "First";
             student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = student };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -88,7 +88,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveStudentResponse)flowManager.FlowDataCache.Response).Student.FirstName);
+            Assert.Equal("First", ((StudentModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).FirstName);
         }
 
         [Fact]
@@ -104,7 +104,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             student.LastName = "";
             student.EnrollmentDate = default;
             student.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = student };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = student };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();

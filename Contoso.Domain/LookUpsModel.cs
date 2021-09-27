@@ -5,7 +5,7 @@ using LogicBuilder.Attributes;
 
 namespace Contoso.Domain.Entities
 {
-    public class LookUpsModel : ViewModelBase
+    public class LookUpsModel : EntityModelBase
     {
 		private int _lookUpsID;
 		[VariableEditorControl(VariableControlType.SingleLineTextBox)]

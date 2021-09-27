@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Contoso.XPlatform.ViewModels.ListPage
 {
-    public class ListPageCollectionViewModel<TModel> : ListPageCollectionViewModelBase where TModel : Domain.ViewModelBase
+    public class ListPageCollectionViewModel<TModel> : ListPageCollectionViewModelBase where TModel : Domain.EntityModelBase
     {
         public ListPageCollectionViewModel(ScreenSettings<ListFormSettingsDescriptor> screenSettings, IHttpService httpService) : base(screenSettings)
         {

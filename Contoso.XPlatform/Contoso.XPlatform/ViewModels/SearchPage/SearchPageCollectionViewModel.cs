@@ -15,7 +15,7 @@ using Xamarin.Forms;
 
 namespace Contoso.XPlatform.ViewModels.SearchPage
 {
-    public class SearchPageCollectionViewModel<TModel> : SearchPageCollectionViewModelBase where TModel : Domain.ViewModelBase
+    public class SearchPageCollectionViewModel<TModel> : SearchPageCollectionViewModelBase where TModel : Domain.EntityModelBase
     {
         public SearchPageCollectionViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings, IContextProvider contextProvider)
             : base(screenSettings)

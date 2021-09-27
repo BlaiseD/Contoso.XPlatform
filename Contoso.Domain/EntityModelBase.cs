@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace Contoso.Domain
 {
     [JsonConverter(typeof(ModelConverter))]
-    public abstract class ViewModelBase : BaseModelClass, INotifyPropertyChanged
+    public abstract class EntityModelBase : BaseModelClass, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

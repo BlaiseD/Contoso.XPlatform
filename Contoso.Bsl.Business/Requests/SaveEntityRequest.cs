@@ -1,12 +1,9 @@
 ﻿using Contoso.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Contoso.Bsl.Business.Requests
 {
-    public class SaveEntityRequest<TModel> : BaseRequest where TModel : BaseModelClass
+    public class SaveEntityRequest : BaseRequest
     {
-        public TModel Entity { get; set; }
+        public EntityModelBase Entity { get; set; }
     }
 }

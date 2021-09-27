@@ -47,7 +47,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             ).Result.Single();
             course.Title = "First";
             course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = course };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -57,7 +57,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveCourseResponse)flowManager.FlowDataCache.Response).Course.Title);
+            Assert.Equal("First", ((CourseModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).Title);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             ).Result.Single();
             course.Title = "First";
             course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = course };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -81,7 +81,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveCourseResponse)flowManager.FlowDataCache.Response).Course.Title);
+            Assert.Equal("First", ((CourseModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).Title);
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             course.DepartmentID = 0;
             course.Title = "";
             course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = course };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -124,7 +124,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             course.DepartmentID = 0;
             course.Title = "";
             course.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveCourseRequest { Course = course };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = course };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();

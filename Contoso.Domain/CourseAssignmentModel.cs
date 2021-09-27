@@ -5,7 +5,7 @@ using LogicBuilder.Attributes;
 
 namespace Contoso.Domain.Entities
 {
-    public class CourseAssignmentModel : ViewModelBase
+    public class CourseAssignmentModel : EntityModelBase
     {
 		private int _instructorID;
 		[VariableEditorControl(VariableControlType.SingleLineTextBox)]

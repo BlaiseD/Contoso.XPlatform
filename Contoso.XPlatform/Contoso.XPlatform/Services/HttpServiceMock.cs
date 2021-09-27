@@ -23,12 +23,12 @@ namespace Contoso.XPlatform.Services
 
         public Task<GetObjectDropDownListResponse> GetObjectDropDown(GetTypedListRequest request, string url = null)
         {
-            return Task.FromResult(new GetObjectDropDownListResponse { Success = true, DropDownList = new List<ViewModelBase> { } });
+            return Task.FromResult(new GetObjectDropDownListResponse { Success = true, DropDownList = new List<EntityModelBase> { } });
         }
 
         public Task<GetListResponse> GetList(GetTypedListRequest request, string url = null)
         {
-            return Task.FromResult(new GetListResponse { Success = true, List = new List<ViewModelBase> { } });
+            return Task.FromResult(new GetListResponse { Success = true, List = new List<EntityModelBase> { } });
         }
 
         public Task<GetEntityResponse> GetEntity(GetEntityRequest request, string url = null)

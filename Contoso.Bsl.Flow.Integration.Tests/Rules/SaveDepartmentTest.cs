@@ -59,7 +59,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             ).Result.Single();
             department.Budget = 1000.1m;
             department.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveDepartmentRequest { Department = department };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = department };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -69,7 +69,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal(1000.1m, ((SaveDepartmentResponse)flowManager.FlowDataCache.Response).Department.Budget);
+            Assert.Equal(1000.1m, ((DepartmentModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).Budget);
         }
 
         [Fact]
@@ -83,7 +83,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             ).Result.Single();
             department.Budget = 1000.1m;
             department.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveDepartmentRequest { Department = department };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = department };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -93,7 +93,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal(1000.1m, ((SaveDepartmentResponse)flowManager.FlowDataCache.Response).Department.Budget);
+            Assert.Equal(1000.1m, ((DepartmentModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).Budget);
         }
 
         [Fact]
@@ -123,7 +123,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             department.Name = "";
             department.StartDate = default;
             department.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveDepartmentRequest { Department = department };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = department };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -150,7 +150,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             department.Name = "";
             department.StartDate = default;
             department.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveDepartmentRequest { Department = department };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = department };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();

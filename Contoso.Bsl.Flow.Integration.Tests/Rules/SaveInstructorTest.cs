@@ -46,7 +46,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             ).Result.Single();
             instructor.FirstName = "First";
             instructor.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveInstructorRequest { Instructor = instructor };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = instructor };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -56,7 +56,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveInstructorResponse)flowManager.FlowDataCache.Response).Instructor.FirstName);
+            Assert.Equal("First", ((InstructorModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).FirstName);
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             ).Result.Single();
             instructor.FirstName = "First";
             instructor.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveInstructorRequest { Instructor = instructor };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = instructor };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -80,7 +80,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.True(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal("First", ((SaveInstructorResponse)flowManager.FlowDataCache.Response).Instructor.FirstName);
+            Assert.Equal("First", ((InstructorModel)((SaveEntityResponse)flowManager.FlowDataCache.Response).Entity).FirstName);
         }
 
         [Fact]
@@ -97,7 +97,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             instructor.LastName = "";
             instructor.HireDate = default;
             instructor.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveInstructorRequest { Instructor = instructor };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = instructor };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
@@ -124,7 +124,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
             instructor.LastName = "";
             instructor.HireDate = default;
             instructor.EntityState = LogicBuilder.Domain.EntityStateType.Modified;
-            flowManager.FlowDataCache.Request = new SaveInstructorRequest { Instructor = instructor };
+            flowManager.FlowDataCache.Request = new SaveEntityRequest { Entity = instructor };
 
             //act
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();

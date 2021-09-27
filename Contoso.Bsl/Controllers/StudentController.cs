@@ -25,15 +25,15 @@ namespace Contoso.Bsl.Controllers
         }
 
         [HttpPost("Save")]
-        public IActionResult Save([FromBody] SaveEntityRequest<StudentModel> saveStudentRequest)
+        public IActionResult Save([FromBody] SaveEntityRequest saveStudentRequest)
         {
-            this.flowManager.FlowDataCache.Request = new SaveStudentRequest { Student = saveStudentRequest.Entity };
+            this.flowManager.FlowDataCache.Request = saveStudentRequest;
             this.flowManager.Start("savestudent");
-            return Ok((SaveStudentResponse)this.flowManager.FlowDataCache.Response);
+            return Ok((SaveEntityResponse)this.flowManager.FlowDataCache.Response);
         }
 
         [HttpPost("SaveWithoutRules")]
-        public IActionResult SaveWithoutRules([FromBody] SaveStudentRequest saveStudentRequest)
+        public IActionResult SaveWithoutRules([FromBody] SaveEntityRequest saveStudentRequest)
         {
             System.Diagnostics.Stopwatch stopWatch = System.Diagnostics.Stopwatch.StartNew();
             var response = SaveStudentWithoutRules(saveStudentRequest);
@@ -42,10 +42,10 @@ namespace Contoso.Bsl.Controllers
             return Ok(response);
         }
 
-        private SaveStudentResponse SaveStudentWithoutRules(SaveStudentRequest saveStudentRequest)
+        private SaveEntityResponse SaveStudentWithoutRules(SaveEntityRequest saveStudentRequest)
         {
-            Domain.Entities.StudentModel studentModel = saveStudentRequest.Student;
-            SaveStudentResponse saveStudentResponse = new SaveStudentResponse()
+            Domain.Entities.StudentModel studentModel = (StudentModel)saveStudentRequest.Entity;
+            SaveEntityResponse saveStudentResponse = new SaveEntityResponse()
             {
                 ErrorMessages = new List<string>()
             };
@@ -83,7 +83,7 @@ namespace Contoso.Bsl.Controllers
                 }
             ).Result.SingleOrDefault();
 
-            saveStudentResponse.Student = studentModel;
+            saveStudentResponse.Entity = studentModel;
             #endregion Save and retrieve
 
             #region Log Enrollments

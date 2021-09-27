@@ -79,7 +79,7 @@ namespace Contoso.Bsl.Utils
             where TData : BaseData
             => new GetObjectDropDownListResponse
             {
-                DropDownList = (IEnumerable<ViewModelBase>)await Query<TModel, TData, TModelReturn, TDataReturn>
+                DropDownList = (IEnumerable<EntityModelBase>)await Query<TModel, TData, TModelReturn, TDataReturn>
                 (
                     contextRepository,
                     mapper.MapToOperator(request.Selector)
@@ -102,7 +102,7 @@ namespace Contoso.Bsl.Utils
             where TData : BaseData
             => new GetListResponse
             {
-                List = (IEnumerable<ViewModelBase>)await Query<TModel, TData, TModelReturn, TDataReturn>
+                List = (IEnumerable<EntityModelBase>)await Query<TModel, TData, TModelReturn, TDataReturn>
                 (
                     contextRepository,
                     mapper.MapToOperator(request.Selector)
@@ -119,7 +119,7 @@ namespace Contoso.Bsl.Utils
             ).Invoke(null, new object[] { request, contextRepository, mapper });
 
         public static async Task<GetEntityResponse> GetEntity<TModel, TData>(GetEntityRequest request, IContextRepository contextRepository, IMapper mapper)
-            where TModel : ViewModelBase
+            where TModel : EntityModelBase
             where TData : BaseData
             => new GetEntityResponse
             {

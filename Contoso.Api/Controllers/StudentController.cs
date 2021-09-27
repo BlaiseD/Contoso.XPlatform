@@ -25,8 +25,8 @@ namespace Contoso.Api.Controllers
         }
 
         [HttpPost("Save")]
-        public async Task<SaveStudentResponse> Save([FromBody] SaveEntityRequest<StudentModel> saveStudentRequest) 
-            => await this.clientFactory.PostAsync<SaveStudentResponse>
+        public async Task<SaveEntityResponse> Save([FromBody] SaveEntityRequest saveStudentRequest) 
+            => await this.clientFactory.PostAsync<SaveEntityResponse>
             (
                 "api/Student/Save",
                 JsonSerializer.Serialize(saveStudentRequest),

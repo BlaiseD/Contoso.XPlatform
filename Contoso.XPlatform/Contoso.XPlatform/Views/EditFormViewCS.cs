@@ -45,7 +45,7 @@ namespace Contoso.XPlatform.Views
                     StringFormat = multiBindingDescriptor.StringFormat,
                     Bindings = multiBindingDescriptor.Fields.Select
                     (
-                        field => new Binding($"{nameof(EditFormEntityViewModel<Domain.ViewModelBase>.PropertiesDictionary)}[{field}].{nameof(IValidatable.Value)}")
+                        field => new Binding($"{nameof(EditFormEntityViewModel<Domain.EntityModelBase>.PropertiesDictionary)}[{field}].{nameof(IValidatable.Value)}")
                     )
                     .Cast<BindingBase>()
                     .ToList()

@@ -5,7 +5,7 @@ using LogicBuilder.Attributes;
 
 namespace Contoso.Domain.Entities
 {
-    public class VariableMetaDataModel : ViewModelBase
+    public class VariableMetaDataModel : EntityModelBase
     {
 		private int _variableMetaDataId;
 		[VariableEditorControl(VariableControlType.SingleLineTextBox)]

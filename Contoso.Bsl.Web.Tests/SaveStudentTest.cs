@@ -28,17 +28,17 @@ namespace Contoso.Bsl.Web.Tests
         [Fact]
         public async void SaveStudent()
         {
-            List<Task<SaveStudentResponse>> tasks = new List<Task<SaveStudentResponse>>();
+            List<Task<SaveEntityResponse>> tasks = new List<Task<SaveEntityResponse>>();
             for (int i = 0; i < 30; i++)
             {
                 tasks.Add
                 (
-                    this.clientFactory.PostAsync<SaveStudentResponse>
+                    this.clientFactory.PostAsync<SaveEntityResponse>
                     (
                         "api/Student/Save",
                         JsonSerializer.Serialize
                         (
-                            new SaveEntityRequest<StudentModel>
+                            new SaveEntityRequest
                             {
                                 Entity = new StudentModel
                                 {
@@ -87,19 +87,19 @@ namespace Contoso.Bsl.Web.Tests
         [Fact]
         public async void SaveStudentWithoutRules()
         {
-            List<Task<SaveStudentResponse>> tasks = new List<Task<SaveStudentResponse>>();
+            List<Task<SaveEntityResponse>> tasks = new List<Task<SaveEntityResponse>>();
             for (int i = 0; i < 30; i++)
             {
                 tasks.Add
                 (
-                    this.clientFactory.PostAsync<SaveStudentResponse>
+                    this.clientFactory.PostAsync<SaveEntityResponse>
                     (
                         "api/Student/SaveWithoutRules",
                         JsonSerializer.Serialize
                         (
-                            new SaveStudentRequest
+                            new SaveEntityRequest
                             {
-                                Student = new StudentModel
+                                Entity = new StudentModel
                                 {
                                     ID = 1,
                                     FirstName = "Carson",

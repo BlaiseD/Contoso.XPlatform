@@ -5,7 +5,7 @@ using LogicBuilder.Attributes;
 
 namespace Contoso.Domain.Entities
 {
-    public class CourseModel : ViewModelBase
+    public class CourseModel : EntityModelBase
     {
 		private int _courseID;
 		[Display(Name = "Number")]

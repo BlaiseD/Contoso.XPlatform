@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace Contoso.XPlatform.ViewModels.EditForm
 {
-    public class EditFormEntityViewModel<TModel> : EditFormEntityViewModelBase where TModel : Domain.ViewModelBase
+    public class EditFormEntityViewModel<TModel> : EditFormEntityViewModelBase where TModel : Domain.EntityModelBase
     {
         public EditFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, IContextProvider contextProvider)
             : base(screenSettings, contextProvider)
