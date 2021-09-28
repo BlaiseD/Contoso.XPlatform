@@ -2,8 +2,8 @@
 using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.DetailForm;
+using Contoso.Utils;
 using Contoso.XPlatform.Services;
-using Contoso.XPlatform.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

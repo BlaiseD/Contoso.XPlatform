@@ -1,5 +1,5 @@
 ﻿using Contoso.Forms.Configuration;
-using Contoso.XPlatform.Utils;
+using Contoso.Utils;
 using Contoso.XPlatform.ViewModels.Validatables;
 using System;
 using System.Globalization;

@@ -2,8 +2,8 @@
 using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
+using Contoso.Utils;
 using Contoso.XPlatform.Services;
-using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
 using System;
 using System.Collections.Generic;

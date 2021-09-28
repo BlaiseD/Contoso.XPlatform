@@ -1,5 +1,5 @@
 ﻿using Contoso.Forms.Configuration.DetailForm;
-using Contoso.XPlatform.Utils;
+using Contoso.Utils;
 using Contoso.XPlatform.ViewModels.ReadOnlys;
 using System;
 using System.Globalization;
