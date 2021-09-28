@@ -55,6 +55,7 @@ namespace Contoso.XPlatform.Tests
                 cfg.AddProfile<SchoolProfile>();
                 cfg.AddProfile<ExpansionParameterToDescriptorMappingProfile>();
                 cfg.AddProfile<ExpansionDescriptorToOperatorMappingProfile>();
+                cfg.AddProfile<ItemFilterParameterToDescriptorMappingProfile>();
             });
             config.AssertConfigurationIsValid<FormsParameterToFormsDescriptorMappingProfile>();
             mapper = config.CreateMapper();

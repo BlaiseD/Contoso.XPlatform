@@ -1,11 +1,11 @@
 ﻿using LogicBuilder.Attributes;
 using System;
 
-namespace Contoso.Forms.Parameters.ItemFilter
+namespace Contoso.Parameters.ItemFilter
 {
-    public class MemberSourceFilterParameters : ItemFilterParametersBase
+    public class ValueSourceFilterParameters : ItemFilterParametersBase
     {
-		public MemberSourceFilterParameters
+		public ValueSourceFilterParameters
 		(
 			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
 			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
@@ -18,10 +18,10 @@ namespace Contoso.Forms.Parameters.ItemFilter
 			[NameValue(AttributeNames.DEFAULTVALUE, "eq")]
 			string oper,
 
-			[Comments("The source field to get the RHS from an existing object which will then be compared with the LHS of the operation.")]
-			string memberSource,
+			[Comments("The value (RHS) being compared with the LHS of the operation.")]
+			object value,
 
-			[Comments("The element type for the memberSource field. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.  Use the full name (e.g. System.Int32) for literals or core platform types.")]
+			[Comments("The element type for the value field. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.  Use the full name (e.g. System.Int32) for literals or core platform types.")]
 			Type type,
 
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
@@ -31,13 +31,13 @@ namespace Contoso.Forms.Parameters.ItemFilter
 		{
 			Field = field;
 			Operator = oper;
-			MemberSource = memberSource;
+			Value = value;
 			Type = type;
 		}
 
 		public string Field { get; set; }
 		public string Operator { get; set; }
-		public string MemberSource { get; set; }
+		public object Value { get; set; }
 		public Type Type { get; set; }
     }
 }

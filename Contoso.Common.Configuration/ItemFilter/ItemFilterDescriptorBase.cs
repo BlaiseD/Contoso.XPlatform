@@ -1,7 +1,7 @@
-﻿using Contoso.Forms.Configuration.ItemFilter.Json;
+﻿using Contoso.Common.Configuration.ItemFilter.Json;
 using System.Text.Json.Serialization;
 
-namespace Contoso.Forms.Configuration.ItemFilter
+namespace Contoso.Common.Configuration.ItemFilter
 {
     [JsonConverter(typeof(ItemFilterDescriptorConverter))]
     public abstract class ItemFilterDescriptorBase

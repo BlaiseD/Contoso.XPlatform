@@ -1,4 +1,4 @@
-﻿namespace Contoso.Forms.Configuration.ItemFilter
+﻿namespace Contoso.Common.Configuration.ItemFilter
 {
     public class MemberSourceFilterDescriptor : ItemFilterDescriptorBase
     {

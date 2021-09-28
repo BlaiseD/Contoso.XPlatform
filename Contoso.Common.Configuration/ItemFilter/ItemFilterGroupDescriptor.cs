@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Contoso.Forms.Configuration.ItemFilter
+namespace Contoso.Common.Configuration.ItemFilter
 {
     public class ItemFilterGroupDescriptor : ItemFilterDescriptorBase
     {

@@ -1,6 +1,6 @@
 ﻿using Contoso.Forms.Parameters.Bindings;
-using Contoso.Forms.Parameters.ItemFilter;
 using Contoso.Parameters.Expansions;
+using Contoso.Parameters.ItemFilter;
 using LogicBuilder.Attributes;
 using System;
 using System.Collections.Generic;

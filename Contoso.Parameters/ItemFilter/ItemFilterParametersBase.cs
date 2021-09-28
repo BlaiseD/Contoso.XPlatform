@@ -1,6 +1,6 @@
 ﻿using LogicBuilder.Attributes;
 
-namespace Contoso.Forms.Parameters.ItemFilter
+namespace Contoso.Parameters.ItemFilter
 {
     abstract public class ItemFilterParametersBase
     {

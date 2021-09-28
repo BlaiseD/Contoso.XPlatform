@@ -4,7 +4,6 @@ using Contoso.Forms.Configuration.Bindings;
 using Contoso.Forms.Configuration.DetailForm;
 using Contoso.Forms.Configuration.Directives;
 using Contoso.Forms.Configuration.EditForm;
-using Contoso.Forms.Configuration.ItemFilter;
 using Contoso.Forms.Configuration.ListForm;
 using Contoso.Forms.Configuration.Navigation;
 using Contoso.Forms.Configuration.SearchForm;
@@ -15,7 +14,6 @@ using Contoso.Forms.Parameters.Bindings;
 using Contoso.Forms.Parameters.DetailForm;
 using Contoso.Forms.Parameters.Directives;
 using Contoso.Forms.Parameters.EditForm;
-using Contoso.Forms.Parameters.ItemFilter;
 using Contoso.Forms.Parameters.ListForm;
 using Contoso.Forms.Parameters.Navigation;
 using Contoso.Forms.Parameters.SearchForm;
@@ -61,12 +59,9 @@ namespace Contoso.AutoMapperProfiles
 			CreateMap<HyperLinkLabelItemParameters, HyperLinkLabelItemDescriptor>();
 			CreateMap<HyperLinkSpanItemParameters, HyperLinkSpanItemDescriptor>();
 			CreateMap<ItemBindingParameters, ItemBindingDescriptor>();
-			CreateMap<ItemFilterGroupParameters, ItemFilterGroupDescriptor>();
 			CreateMap<LabelItemParameters, LabelItemDescriptor>();
 			CreateMap<ListFormSettingsParameters, ListFormSettingsDescriptor>()
 				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
-			CreateMap<MemberSourceFilterParameters, MemberSourceFilterDescriptor>()
-				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<MultiBindingParameters, MultiBindingDescriptor>();
 			CreateMap<MultiSelectDetailControlSettingsParameters, MultiSelectDetailControlSettingsDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
@@ -94,8 +89,6 @@ namespace Contoso.AutoMapperProfiles
 			CreateMap<ValidatorArgumentParameters, ValidatorArgumentDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<ValidatorDefinitionParameters, ValidatorDefinitionDescriptor>();
-			CreateMap<ValueSourceFilterParameters, ValueSourceFilterDescriptor>()
-				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<VariableDirectivesParameters, VariableDirectivesDescriptor>();
 
             CreateMap<FormItemSettingsParameters, FormItemSettingsDescriptor>()
@@ -113,11 +106,6 @@ namespace Contoso.AutoMapperProfiles
             CreateMap<SearchFilterParametersBase, SearchFilterDescriptorBase>()
 				.Include<SearchFilterGroupParameters, SearchFilterGroupDescriptor>()
 				.Include<SearchFilterParameters, SearchFilterDescriptor>();
-
-            CreateMap<ItemFilterParametersBase, ItemFilterDescriptorBase>()
-				.Include<ItemFilterGroupParameters, ItemFilterGroupDescriptor>()
-				.Include<MemberSourceFilterParameters, MemberSourceFilterDescriptor>()
-				.Include<ValueSourceFilterParameters, ValueSourceFilterDescriptor>();
 
             CreateMap<LabelItemParametersBase, LabelItemDescriptorBase>()
 				.Include<FormattedLabelItemParameters, FormattedLabelItemDescriptor>()

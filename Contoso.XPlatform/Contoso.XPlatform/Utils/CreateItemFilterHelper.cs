@@ -1,5 +1,4 @@
-﻿using Contoso.Common.Configuration.ExpressionDescriptors;
-using Contoso.Forms.Configuration.ItemFilter;
+﻿using Contoso.Common.Configuration.ItemFilter;
 using Contoso.Parameters.Expressions;
 using System;
 using System.Linq;

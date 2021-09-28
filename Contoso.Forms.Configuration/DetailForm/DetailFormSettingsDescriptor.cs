@@ -1,4 +1,4 @@
-﻿using Contoso.Forms.Configuration.ItemFilter;
+﻿using Contoso.Common.Configuration.ItemFilter;
 using System.Collections.Generic;
 
 namespace Contoso.Forms.Configuration.DetailForm

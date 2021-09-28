@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
 using Contoso.Bsl.Utils;
+using Contoso.Common.Configuration.ItemFilter;
 using Contoso.Domain.Entities;
-using Contoso.Forms.Configuration.ItemFilter;
 using Contoso.Parameters.Expressions;
 using Contoso.XPlatform.Services;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder.Lambda;

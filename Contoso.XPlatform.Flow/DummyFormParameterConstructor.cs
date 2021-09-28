@@ -1,9 +1,9 @@
 ﻿using Contoso.Forms.Parameters;
 using Contoso.Forms.Parameters.DetailForm;
 using Contoso.Forms.Parameters.EditForm;
-using Contoso.Forms.Parameters.ItemFilter;
 using Contoso.Forms.Parameters.SearchForm;
 using Contoso.Forms.Parameters.TextForm;
+using Contoso.Parameters.ItemFilter;
 
 namespace Contoso.XPlatform.Flow
 {

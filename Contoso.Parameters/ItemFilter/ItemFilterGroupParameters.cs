@@ -1,7 +1,7 @@
 ﻿using LogicBuilder.Attributes;
 using System.Collections.Generic;
 
-namespace Contoso.Forms.Parameters.ItemFilter
+namespace Contoso.Parameters.ItemFilter
 {
     public class ItemFilterGroupParameters : ItemFilterParametersBase
     {

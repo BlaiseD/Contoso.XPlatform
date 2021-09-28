@@ -101,8 +101,8 @@ namespace CreateFormsParametersFromFormsDescriptors
 
             List<string> itemFilterParametersBaseIncludes = types.Where
             (
-                t => t != typeof(Contoso.Forms.Parameters.ItemFilter.ItemFilterParametersBase)
-                    && typeof(Contoso.Forms.Parameters.ItemFilter.ItemFilterParametersBase).IsAssignableFrom(t)
+                t => t != typeof(Contoso.Parameters.ItemFilter.ItemFilterParametersBase)
+                    && typeof(Contoso.Parameters.ItemFilter.ItemFilterParametersBase).IsAssignableFrom(t)
             )
             .Select
             (

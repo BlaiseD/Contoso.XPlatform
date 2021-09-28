@@ -1,6 +1,6 @@
 ﻿using Contoso.Utils;
 
-namespace Contoso.Forms.Configuration.ItemFilter.Json
+namespace Contoso.Common.Configuration.ItemFilter.Json
 {
     public class ItemFilterDescriptorConverter : JsonTypeConverter<ItemFilterDescriptorBase>
     {
