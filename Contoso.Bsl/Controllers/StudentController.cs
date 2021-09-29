@@ -2,6 +2,7 @@
 using Contoso.Bsl.Business.Responses;
 using Contoso.Bsl.Flow;
 using Contoso.Domain.Entities;
+using Contoso.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -14,14 +15,22 @@ namespace Contoso.Bsl.Controllers
     public class StudentController : Controller
     {
         private readonly IFlowManager flowManager;
-        private readonly Repositories.ISchoolRepository schoolRepository;
+        private readonly ISchoolRepository schoolRepository;
         private readonly ILogger<StudentController> logger;
 
-        public StudentController(IFlowManager flowManager, Repositories.ISchoolRepository schoolRepository, ILogger<StudentController> logger)
+        public StudentController(IFlowManager flowManager, ISchoolRepository schoolRepository, ILogger<StudentController> logger)
         {
             this.flowManager = flowManager;
             this.schoolRepository = schoolRepository;
             this.logger = logger;
+        }
+
+        [HttpPost("Delete")]
+        public IActionResult Delete([FromBody] DeleteEntityRequest deleteStudentRequest)
+        {
+            this.flowManager.FlowDataCache.Request = deleteStudentRequest;
+            this.flowManager.Start("deletestudent");
+            return Ok((DeleteEntityResponse)this.flowManager.FlowDataCache.Response);
         }
 
         [HttpPost("Save")]

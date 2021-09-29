@@ -12,5 +12,6 @@ namespace Contoso.XPlatform.Services
         Task<GetListResponse> GetList(GetTypedListRequest request, string url = null);
         Task<GetEntityResponse> GetEntity(GetEntityRequest request, string url = null);
         Task<BaseResponse> SaveEntity(BaseRequest request, string url = null);
+        Task<BaseResponse> DeleteEntity(BaseRequest request, string url = null);
     }
 }

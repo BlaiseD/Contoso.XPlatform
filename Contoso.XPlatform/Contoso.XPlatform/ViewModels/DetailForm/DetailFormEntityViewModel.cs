@@ -42,12 +42,36 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
                 (
                      async (button) => 
                      {
-                         await App.Current.MainPage.DisplayAlert
-                         (
-                             "Errors",
-                             "To do:  Delete.",
-                             "Ok"
-                         );
+                         BaseResponse response = await BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
+                        (
+                            () => this.httpService.DeleteEntity
+                            (
+                                new DeleteEntityRequest
+                                {
+                                    Entity = entity
+                                },
+                                this.FormSettings.RequestDetails.DeleteUrl
+                            )
+                        );
+
+                         if (response.Success)
+                         {
+                             await App.Current.MainPage.DisplayAlert
+                             (
+                                 "Success",
+                                 $"{FormSettings.Title} deleted.",
+                                 "Ok"
+                             );
+                         }
+                         else
+                         {
+                             await App.Current.MainPage.DisplayAlert
+                             (
+                                 "Errors",
+                                 string.Join(Environment.NewLine, response.ErrorMessages),
+                                 "Ok"
+                             );
+                         }
 
                          Next(button);
                      }

@@ -40,5 +40,10 @@ namespace Contoso.XPlatform.Services
         {
             return Task.FromResult((BaseResponse)new GetEntityResponse { Success = true });
         }
+
+        public Task<BaseResponse> DeleteEntity(BaseRequest request, string url = null)
+        {
+            return Task.FromResult((BaseResponse)new GetEntityResponse { Success = true });
+        }
     }
 }

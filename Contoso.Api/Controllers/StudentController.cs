@@ -1,6 +1,5 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
-using Contoso.Domain.Entities;
 using Contoso.Web.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -23,6 +22,15 @@ namespace Contoso.Api.Controllers
             this.clientFactory = clientFactory;
             this.configurationOptions = optionsAccessor.Value;
         }
+
+        [HttpPost("Delete")]
+        public async Task<DeleteEntityResponse> Delete([FromBody] DeleteEntityRequest deleteStudentRequest)
+            => await this.clientFactory.PostAsync<DeleteEntityResponse>
+            (
+                "api/Student/Delete",
+                JsonSerializer.Serialize(deleteStudentRequest),
+                this.configurationOptions.BaseBslUrl
+            );
 
         [HttpPost("Save")]
         public async Task<SaveEntityResponse> Save([FromBody] SaveEntityRequest saveStudentRequest) 

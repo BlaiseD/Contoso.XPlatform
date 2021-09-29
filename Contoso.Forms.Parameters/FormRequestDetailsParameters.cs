@@ -21,6 +21,10 @@ namespace Contoso.Forms.Parameters
 			[NameValue(AttributeNames.DEFAULTVALUE, "api/Student/Save")]
 			string updateUrl,
 
+			[Comments("API end point to update the entity.")]
+			[NameValue(AttributeNames.DEFAULTVALUE, "api/Student/Delete")]
+			string deleteUrl,
+
 			[Comments("The model type for the object being requested. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type modelType,
 
@@ -37,6 +41,7 @@ namespace Contoso.Forms.Parameters
 			GetUrl = getUrl;
 			AddUrl = addUrl;
 			UpdateUrl = updateUrl;
+			DeleteUrl = deleteUrl;
 			ModelType = modelType;
 			DataType = dataType;
 			Filter = filter;
@@ -46,6 +51,7 @@ namespace Contoso.Forms.Parameters
 		public string GetUrl { get; set; }
 		public string AddUrl { get; set; }
 		public string UpdateUrl { get; set; }
+		public string DeleteUrl { get; set; }
 		public Type ModelType { get; set; }
 		public Type DataType { get; set; }
 		public FilterLambdaOperatorParameters Filter { get; set; }

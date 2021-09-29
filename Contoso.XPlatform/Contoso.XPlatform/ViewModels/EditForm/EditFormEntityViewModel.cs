@@ -69,7 +69,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             if (this.FormSettings.RequestDetails.Filter == null)
                 throw new ArgumentException($"{nameof(this.FormSettings.RequestDetails.Filter)}: 883E834F-98A6-4DF7-9D07-F1BB0D6639E1");
 
-            GetEntityResponse getEntityResponse = await BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
+            BaseResponse baseResponse = await BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
             (
                 () => this.httpService.GetEntity
                 (
@@ -83,17 +83,18 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                 )
             );
 
-            if (getEntityResponse.Success == false)
+            if (baseResponse.Success == false)
             {
                 await App.Current.MainPage.DisplayAlert
                 (
                     "Errors",
-                    string.Join(Environment.NewLine, getEntityResponse.ErrorMessages),
+                    string.Join(Environment.NewLine, baseResponse.ErrorMessages),
                     "Ok"
                 );
                 return;
             }
 
+            GetEntityResponse getEntityResponse = (GetEntityResponse)baseResponse;
             this.entity = (TModel)getEntityResponse.Entity;
 
             this.propertiesUpdater.UpdateProperties
@@ -109,39 +110,45 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         (
             execute: async (button) =>
             {
-                await App.Current.MainPage.DisplayAlert
+                BaseResponse response = await BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
                 (
-                    "Errors",
-                    "To do:  Save.",
-                    "Ok"
+                    () => this.httpService.SaveEntity
+                    (
+                        new SaveEntityRequest
+                        {
+                            Entity = this.entityStateUpdater.GetUpdatedModel
+                            (
+                                entity,
+                                Properties,
+                                FormSettings.FieldSettings
+                            )
+                        },
+                        this.FormSettings.EditType == EditType.Add
+                            ? this.FormSettings.RequestDetails.AddUrl
+                            : this.FormSettings.RequestDetails.UpdateUrl
+                    )
                 );
 
+                if (response.Success)
+                {
+                    await App.Current.MainPage.DisplayAlert
+                    (
+                        "Success",
+                        $"{FormSettings.Title} saved.",
+                        "Ok"
+                    );
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert
+                    (
+                        "Errors",
+                        string.Join(Environment.NewLine, response.ErrorMessages),
+                        "Ok"
+                    );
+                }
+
                 Next(button);
-
-                //BaseResponse response = await this.httpService.SaveEntity
-                //(
-                //    new SaveEntityRequest<TModel> 
-                //    { 
-                //        Entity = this.entityStateUpdater.GetUpdatedModel
-                //        (
-                //            entity, 
-                //            Properties, 
-                //            FormSettings.FieldSettings
-                //        )
-                //    }
-                //);
-
-                //if (response.Success)
-                //    Next(button);
-                //else
-                //{
-                //    await App.Current.MainPage.DisplayAlert
-                //    (
-                //        "Errors",
-                //        string.Join(Environment.NewLine, response.ErrorMessages),
-                //        "Ok"
-                //    );
-                //}
             },
             canExecute: (button) => AreFieldsValid()
         );
