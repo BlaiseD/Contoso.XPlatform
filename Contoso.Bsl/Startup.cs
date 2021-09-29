@@ -60,55 +60,69 @@ namespace Contoso.Bsl
             )
             .AddScoped<ISchoolStore, SchoolStore>()
             .AddScoped<ISchoolRepository, SchoolRepository>()
-            .AddSingleton<AutoMapper.IConfigurationProvider>(sp => 
-            {
-                const string mapperConfigurationKey = "mapperConfiguration";
-                IMemoryCache cache = sp.GetRequiredService<IMemoryCache>();
-                if (!cache.TryGetValue<AutoMapper.IConfigurationProvider>(mapperConfigurationKey, out AutoMapper.IConfigurationProvider config))
+            .AddSingleton<AutoMapper.IConfigurationProvider>
+            (
+                new MapperConfiguration(cfg =>
                 {
+                    cfg.AddExpressionMapping();
 
-                    config = new MapperConfiguration(cfg =>
-                    {
-                        cfg.AddExpressionMapping();
+                    cfg.AddProfile<ParameterToDescriptorMappingProfile>();
+                    cfg.AddProfile<DescriptorToOperatorMappingProfile>();
+                    cfg.AddProfile<SchoolProfile>();
+                    cfg.AddProfile<ExpansionParameterToDescriptorMappingProfile>();
+                    cfg.AddProfile<ExpansionDescriptorToOperatorMappingProfile>();
+                })
+            )
+            //.AddSingleton<AutoMapper.IConfigurationProvider>(sp => 
+            //{
+            //    const string mapperConfigurationKey = "mapperConfiguration";
+            //    //IMemoryCache cache = sp.GetRequiredService<IMemoryCache>();
+            //    if (!cache.TryGetValue<AutoMapper.IConfigurationProvider>(mapperConfigurationKey, out AutoMapper.IConfigurationProvider config))
+            //    {
 
-                        cfg.AddProfile<ParameterToDescriptorMappingProfile>();
-                        cfg.AddProfile<DescriptorToOperatorMappingProfile>();
-                        cfg.AddProfile<SchoolProfile>();
-                        cfg.AddProfile<ExpansionParameterToDescriptorMappingProfile>();
-                        cfg.AddProfile<ExpansionDescriptorToOperatorMappingProfile>();
-                    });
+            //        config = new MapperConfiguration(cfg =>
+            //        {
+            //            cfg.AddExpressionMapping();
 
-                    cache.Set(mapperConfigurationKey, config, new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromHours(1) });
-                }
+            //            cfg.AddProfile<ParameterToDescriptorMappingProfile>();
+            //            cfg.AddProfile<DescriptorToOperatorMappingProfile>();
+            //            cfg.AddProfile<SchoolProfile>();
+            //            cfg.AddProfile<ExpansionParameterToDescriptorMappingProfile>();
+            //            cfg.AddProfile<ExpansionDescriptorToOperatorMappingProfile>();
+            //        });
 
-                return config;
-            })
+            //        cache.Set(mapperConfigurationKey, config, new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromHours(1) });
+            //    }
+
+            //    return config;
+            //})
             .AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService))
             .AddScoped<IFlowManager, FlowManager>()
             .AddScoped<FlowActivityFactory, FlowActivityFactory>()
             .AddScoped<DirectorFactory, DirectorFactory>()
             .AddScoped<ICustomActions, CustomActions>()
-            .AddMemoryCache()
+            //.AddMemoryCache()
             .AddScoped<FlowDataCache, FlowDataCache>()
             .AddScoped<Progress, Progress>()
             .AddScoped<IGetItemFilterBuilder, GetItemFilterBuilder>()
             .AddSingleton<IRulesCache>(sp =>
             {
-                const string rulesKey = "rules";
-                IMemoryCache cache = sp.GetRequiredService<IMemoryCache>();
-                if (!cache.TryGetValue<IRulesCache>(rulesKey, out IRulesCache rulesCache))
-                {
-                    ILogger<Startup> logger = sp.GetRequiredService<ILogger<Startup>>();
-                    //long before = GC.GetTotalMemory(false);
-                    rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
-                    //long after = GC.GetTotalMemory(false);
-                    //long size = after - before;
+                //const string rulesKey = "rules";
+                //IMemoryCache cache = sp.GetRequiredService<IMemoryCache>();
+                //if (!cache.TryGetValue<IRulesCache>(rulesKey, out IRulesCache rulesCache))
+                //{
+                //    ILogger<Startup> logger = sp.GetRequiredService<ILogger<Startup>>();
+                //    //long before = GC.GetTotalMemory(false);
+                //    rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
+                //    //long after = GC.GetTotalMemory(false);
+                //    //long size = after - before;
                     
-                    logger.LogInformation($"Setting rules cache: {DateTimeOffset.Now}");
-                    cache.Set(rulesKey, rulesCache, new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromHours(1) });
-                }
+                //    logger.LogInformation($"Setting rules cache: {DateTimeOffset.Now}");
+                //    cache.Set(rulesKey, rulesCache, new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromHours(1) });
+                //}
 
-                return rulesCache;
+                //return rulesCache;
+                return Bsl.Flow.Rules.RulesService.LoadRules().Result;
             });
         }
 

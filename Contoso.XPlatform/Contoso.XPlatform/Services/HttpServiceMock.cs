@@ -36,14 +36,14 @@ namespace Contoso.XPlatform.Services
             return Task.FromResult(new GetEntityResponse { Success = true });
         }
 
-        public Task<BaseResponse> SaveEntity(BaseRequest request, string url = null)
+        public Task<SaveEntityResponse> SaveEntity(SaveEntityRequest request, string url = null)
         {
-            return Task.FromResult((BaseResponse)new GetEntityResponse { Success = true });
+            return Task.FromResult(new SaveEntityResponse { Success = true });
         }
 
-        public Task<BaseResponse> DeleteEntity(BaseRequest request, string url = null)
+        public Task<DeleteEntityResponse> DeleteEntity(DeleteEntityRequest request, string url = null)
         {
-            return Task.FromResult((BaseResponse)new GetEntityResponse { Success = true });
+            return Task.FromResult(new DeleteEntityResponse { Success = true });
         }
     }
 }

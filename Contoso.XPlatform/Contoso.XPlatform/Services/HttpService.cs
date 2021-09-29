@@ -114,10 +114,10 @@ namespace Contoso.XPlatform.Services
                 )
             );
 
-        public Task<BaseResponse> DeleteEntity(BaseRequest request, string url = null)
+        public Task<DeleteEntityResponse> DeleteEntity(DeleteEntityRequest request, string url = null)
             => PollyHelpers.ExecutePolicyAsync
             (
-                () => this.factory.PostAsync<BaseResponse>
+                () => this.factory.PostAsync<DeleteEntityResponse>
                 (
                     url,
                     JsonSerializer.Serialize(request),
@@ -125,10 +125,10 @@ namespace Contoso.XPlatform.Services
                 )
             );
 
-        public Task<BaseResponse> SaveEntity(BaseRequest request, string url)
+        public Task<SaveEntityResponse> SaveEntity(SaveEntityRequest request, string url) 
             => PollyHelpers.ExecutePolicyAsync
             (
-                () => this.factory.PostAsync<BaseResponse>
+                () => this.factory.PostAsync<SaveEntityResponse>
                 (
                     url,
                     JsonSerializer.Serialize(request),
