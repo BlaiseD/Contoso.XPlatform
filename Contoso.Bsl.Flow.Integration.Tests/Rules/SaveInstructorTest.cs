@@ -108,7 +108,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.False(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal(4, flowManager.FlowDataCache.Response.ErrorMessages.Count);
+            Assert.Equal(3, flowManager.FlowDataCache.Response.ErrorMessages.Count);
         }
 
         [Fact]
@@ -135,7 +135,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
 
             //assert
             Assert.False(flowManager.FlowDataCache.Response.Success);
-            Assert.Equal(4, flowManager.FlowDataCache.Response.ErrorMessages.Count);
+            Assert.Equal(3, flowManager.FlowDataCache.Response.ErrorMessages.Count);
         }
         #region Helpers
         static MapperConfiguration MapperConfiguration;
