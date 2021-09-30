@@ -54,24 +54,24 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
                             )
                         );
 
-                         if (response.Success)
-                         {
-                             await App.Current.MainPage.DisplayAlert
-                             (
-                                 "Success",
-                                 $"{FormSettings.Title} deleted.",
-                                 "Ok"
-                             );
-                         }
-                         else
-                         {
-                             await App.Current.MainPage.DisplayAlert
-                             (
-                                 "Errors",
-                                 string.Join(Environment.NewLine, response.ErrorMessages),
-                                 "Ok"
-                             );
-                         }
+                         //if (response.Success)
+                         //{
+                         //    await App.Current.MainPage.DisplayAlert
+                         //    (
+                         //        "Success",
+                         //        $"{FormSettings.Title} deleted.",
+                         //        "Ok"
+                         //    );
+                         //}
+                         //else
+                         //{
+                         //    await App.Current.MainPage.DisplayAlert
+                         //    (
+                         //        "Errors",
+                         //        string.Join(Environment.NewLine, response.ErrorMessages),
+                         //        "Ok"
+                         //    );
+                         //}
 
                          Next(button);
                      }

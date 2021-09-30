@@ -62,7 +62,7 @@ namespace Contoso.XPlatform.Tests
                 }
             };
 
-            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFromSettings(formDescriptor);
+            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFormSettings(formDescriptor);
             IDictionary<string, IValidatable> propertiesDictionary = modifiedProperties.ToDictionary(property => property.Name);
             propertiesDictionary["ID"].Value = 3;
             propertiesDictionary["FirstName"].Value = "John";
@@ -111,7 +111,7 @@ namespace Contoso.XPlatform.Tests
         }
 
         [Fact]
-        public void ShouldCorrectlySetEntityStatesForChileFormGroupArray()
+        public void ShouldCorrectlySetEntityStatesForChildFormGroupArray()
         {
             //arrange
             EditFormSettingsDescriptor formDescriptor = Descriptors.DepartmentForm;
@@ -145,7 +145,7 @@ namespace Contoso.XPlatform.Tests
                 }
             };
 
-            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFromSettings(formDescriptor);
+            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFormSettings(formDescriptor);
             IDictionary<string, IValidatable> propertiesDictionary = modifiedProperties.ToDictionary(property => property.Name);
             propertiesDictionary["DepartmentID"].Value = 1;
             propertiesDictionary["Name"].Value = "Mathematics";
@@ -205,7 +205,7 @@ namespace Contoso.XPlatform.Tests
                 HireDate = new DateTime(2021, 5, 20)
             };
 
-            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFromSettings(formDescriptor);
+            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFormSettings(formDescriptor);
             IDictionary<string, IValidatable> propertiesDictionary = modifiedProperties.ToDictionary(property => property.Name);
             propertiesDictionary["ID"].Value = 3;
             propertiesDictionary["FirstName"].Value = "John";
@@ -241,7 +241,7 @@ namespace Contoso.XPlatform.Tests
                 }
             };
 
-            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFromSettings(formDescriptor);
+            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFormSettings(formDescriptor);
             IDictionary<string, IValidatable> propertiesDictionary = modifiedProperties.ToDictionary(property => property.Name);
             propertiesDictionary["ID"].Value = 3;
             propertiesDictionary["FirstName"].Value = "John";
@@ -267,7 +267,7 @@ namespace Contoso.XPlatform.Tests
             EditFormSettingsDescriptor formDescriptor = Descriptors.DepartmentForm;
             DepartmentModel departmentModel = null;
 
-            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFromSettings(formDescriptor);
+            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFormSettings(formDescriptor);
             IDictionary<string, IValidatable> propertiesDictionary = modifiedProperties.ToDictionary(property => property.Name);
             propertiesDictionary["DepartmentID"].Value = 1;
             propertiesDictionary["Name"].Value = "Mathematics";
@@ -320,7 +320,7 @@ namespace Contoso.XPlatform.Tests
             EditFormSettingsDescriptor formDescriptor = Descriptors.InstructorFormWithInlineOfficeAssignment;
             InstructorModel instructorModel = null;
 
-            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFromSettings(formDescriptor);
+            ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFormSettings(formDescriptor);
             IDictionary<string, IValidatable> propertiesDictionary = modifiedProperties.ToDictionary(property => property.Name);
             propertiesDictionary["ID"].Value = 3;
             propertiesDictionary["FirstName"].Value = "John";
@@ -343,7 +343,7 @@ namespace Contoso.XPlatform.Tests
         private IServiceProvider serviceProvider;
         #endregion Fields
 
-        private ObservableCollection<IValidatable> CreateValidatablesFromSettings(IFormGroupSettings formSettings)
+        private ObservableCollection<IValidatable> CreateValidatablesFormSettings(IFormGroupSettings formSettings)
         {
             return serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (

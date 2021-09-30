@@ -9,6 +9,12 @@ namespace Contoso.XPlatform.Utils
     {
         public bool Equals(Dictionary<string, object> x, Dictionary<string, object> y)
         {
+            if (x == null && y == null)
+                return true;
+
+            if (x == null ^ y == null)
+                return false;
+
             if (x.Count != y.Count)
                 return false;
 

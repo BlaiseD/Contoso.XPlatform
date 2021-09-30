@@ -5,7 +5,6 @@ using Contoso.XPlatform.ViewModels.ReadOnlys;
 using Contoso.XPlatform.ViewModels.Validatables;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
@@ -104,14 +103,23 @@ namespace Contoso.XPlatform.Utils
                     ).ToList()//Need an ICollection<Dictionary<string, object>>
                 );
 
-                void AddFormGroupPopup(FormGroupSettingsDescriptor formGroupSetting) => objectDictionary.Add
-                (
-                    setting.Field,
-                    mapper.Map<Dictionary<string, object>>
+                void AddFormGroupPopup(FormGroupSettingsDescriptor formGroupSetting)
+                {
+                    if (propertiesDictionary[GetFieldName(formGroupSetting.Field)] == null)
+                    {
+                        objectDictionary.Add(setting.Field, null);
+                        return;
+                    }
+
+                    objectDictionary.Add
                     (
-                        propertiesDictionary[GetFieldName(formGroupSetting.Field)]
-                    ).ToObjectDictionaryFromValidatableObjects(mapper, formGroupSetting.FieldSettings)
-                );
+                        setting.Field,
+                        mapper.Map<Dictionary<string, object>>
+                        (
+                            propertiesDictionary[GetFieldName(formGroupSetting.Field)]
+                        ).ToObjectDictionaryFromValidatableObjects(mapper, formGroupSetting.FieldSettings)
+                    );
+                }
 
                 void AddFormGroupInline(FormGroupSettingsDescriptor formGroupSetting) => objectDictionary.Add
                 (
@@ -125,14 +133,24 @@ namespace Contoso.XPlatform.Utils
                     )
                 );
 
-                void AddMultiSelects() => objectDictionary.Add
-                (
-                    setting.Field,
-                    mapper.Map<IEnumerable<object>, IEnumerable<Dictionary<string, object>>>
+                void AddMultiSelects()
+                {
+                    if (propertiesDictionary[GetFieldName(setting.Field)] == null)
+                    {//The mapper.Map<IEnumerable, IEnumerable>(null) behavior in the Xamarin runtime is different
+                     //form the local tests.  Use the null check to ensure the same behavior.
+                        objectDictionary.Add(setting.Field, null);
+                        return;
+                    }
+
+                    objectDictionary.Add
                     (
-                        (IEnumerable<object>)propertiesDictionary[GetFieldName(setting.Field)]
-                    )
-                );
+                        setting.Field,
+                        mapper.Map<IEnumerable<object>, IEnumerable<Dictionary<string, object>>>
+                        (
+                            (IEnumerable<object>)propertiesDictionary[GetFieldName(setting.Field)]
+                        )
+                    );
+                }
 
                 void AddSingleValueField() => objectDictionary.Add
                 (
@@ -182,23 +200,42 @@ namespace Contoso.XPlatform.Utils
                     ).ToList()//Need an ICollection<Dictionary<string, object>>
                 );
 
-                void AddFormGroup(FormGroupSettingsDescriptor formGroupSetting) => objectDictionary.Add
-                (
-                    setting.Field,
-                    mapper.Map<Dictionary<string, object>>
-                    (
-                        propertiesDictionary[setting.Field]
-                    ).ToObjectDictionaryFromEntity(mapper, formGroupSetting.FieldSettings)
-                );
+                void AddFormGroup(FormGroupSettingsDescriptor formGroupSetting)
+                {
+                    if (propertiesDictionary[setting.Field] == null)
+                    {
+                        objectDictionary.Add(setting.Field, null);
+                        return;
+                    }
 
-                void AddMultiSelects() => objectDictionary.Add
-                (
-                    setting.Field,
-                    mapper.Map<IEnumerable<object>, IEnumerable<Dictionary<string, object>>>
+                    objectDictionary.Add
                     (
-                        (IEnumerable<object>)propertiesDictionary[setting.Field]
-                    )
-                );
+                        setting.Field,
+                        mapper.Map<Dictionary<string, object>>
+                        (
+                            propertiesDictionary[setting.Field]
+                        ).ToObjectDictionaryFromEntity(mapper, formGroupSetting.FieldSettings)
+                    );
+                }
+
+                void AddMultiSelects()
+                {
+                    if (propertiesDictionary[setting.Field] == null)
+                    {//The mapper.Map<IEnumerable, IEnumerable>(null) behavior in the Xamarin runtime is different
+                     //form the local tests.  Use the null check to ensure the same behavior.
+                        objectDictionary.Add(setting.Field, null);
+                        return;
+                    }
+
+                    objectDictionary.Add
+                    (
+                        setting.Field,
+                        mapper.Map<IEnumerable<object>, IEnumerable<Dictionary<string, object>>>
+                        (
+                            (IEnumerable<object>)propertiesDictionary[setting.Field]
+                        )
+                    );
+                }
 
                 void AddSingleValueField() => objectDictionary.Add
                 (
@@ -216,13 +253,18 @@ namespace Contoso.XPlatform.Utils
         const string EntityState = "EntityState";
         public static void UpdateEntityStates(Dictionary<string, object> existing, Dictionary<string, object> current, List<FormItemSettingsDescriptor> fieldSettings)
         {
-            if (current.IsEmpty())
+            if (current.IsEmpty() && existing.IsEmpty() == false)
             {
                 current[EntityState] = LogicBuilder.Domain.EntityStateType.Deleted;
                 return;
             }
 
-            if (existing.IsEmpty())
+            if (current.IsEmpty() && existing.IsEmpty())
+            {
+                return;
+            }
+
+            if (existing.IsEmpty() && current.IsEmpty() == false)
             {
                 current[EntityState] = LogicBuilder.Domain.EntityStateType.Added;
             }
@@ -245,7 +287,7 @@ namespace Contoso.XPlatform.Utils
                 {
                     existing.TryGetValue(setting.Field, out object existingCollection);
                     ICollection<Dictionary<string, object>> existingList = (ICollection<Dictionary<string, object>>)existingCollection ?? new List<Dictionary<string, object>>();
-                    ICollection<Dictionary<string, object>> currentList = (ICollection<Dictionary<string, object>>)current[setting.Field];
+                    ICollection<Dictionary<string, object>> currentList = (ICollection<Dictionary<string, object>>)current[setting.Field] ?? new List<Dictionary<string, object>>();
 
                     if (currentList.Any() == true)
                     {

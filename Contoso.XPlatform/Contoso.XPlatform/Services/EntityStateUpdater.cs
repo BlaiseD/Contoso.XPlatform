@@ -37,7 +37,18 @@ namespace Contoso.XPlatform.Services
                 fieldSettings
             );
 
-            return mapper.Map<TModel>(current);
+            if (existingEntity == null)
+            {
+                return mapper.Map<TModel>(current);
+            }
+
+            return (TModel)mapper.Map
+            (
+                current,
+                existingEntity,
+                typeof(Dictionary<string, object>),
+                typeof(TModel)
+            ); ;
         }
     }
 }
