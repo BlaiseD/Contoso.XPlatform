@@ -113,28 +113,33 @@ namespace Contoso.Bsl
             .AddScoped<FlowActivityFactory, FlowActivityFactory>()
             .AddScoped<DirectorFactory, DirectorFactory>()
             .AddScoped<ICustomActions, CustomActions>()
-            //.AddMemoryCache()
+            .AddMemoryCache()
             .AddScoped<FlowDataCache, FlowDataCache>()
             .AddScoped<Progress, Progress>()
             .AddScoped<IGetItemFilterBuilder, GetItemFilterBuilder>()
             .AddSingleton<IRulesCache>(sp =>
             {
-                //const string rulesKey = "rules";
-                //IMemoryCache cache = sp.GetRequiredService<IMemoryCache>();
-                //if (!cache.TryGetValue<IRulesCache>(rulesKey, out IRulesCache rulesCache))
-                //{
-                //    ILogger<Startup> logger = sp.GetRequiredService<ILogger<Startup>>();
-                //    //long before = GC.GetTotalMemory(false);
-                //    rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
-                //    //long after = GC.GetTotalMemory(false);
-                //    //long size = after - before;
+                const string rulesKey = "rules";
+                IMemoryCache cache = sp.GetRequiredService<IMemoryCache>();
+                ILogger<Startup> logger = sp.GetRequiredService<ILogger<Startup>>();
+                if (!cache.TryGetValue<IRulesCache>(rulesKey, out IRulesCache _rulesCache))
+                {
                     
-                //    logger.LogInformation($"Setting rules cache: {DateTimeOffset.Now}");
-                //    cache.Set(rulesKey, rulesCache, new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromHours(1) });
-                //}
+                    //long before = GC.GetTotalMemory(false);
+                    _rulesCache = rulesCache;
+                    //long after = GC.GetTotalMemory(false);
+                    //long size = after - before;
 
-                //return rulesCache;
+                    logger.LogInformation($"Setting rules cache: {DateTimeOffset.Now}");
+                    cache.Set(rulesKey, _rulesCache, new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromHours(1) });
+                }
+                else
+                {
+                    logger.LogInformation($"Found rules cache: {DateTimeOffset.Now}");
+                }
+
                 return rulesCache;
+                //return rulesCache;
             });
 
             

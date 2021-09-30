@@ -17,8 +17,9 @@ namespace Contoso.Bsl
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: false)
                 .Build();
-
-            NLog.GlobalDiagnosticsContext.Set("DefaultConnection", config.GetConnectionString("DefaultConnection"));
+            //Data Source=tcp:bpswebsiteresourcegroupsqlserver.database.windows.net,1433;Initial Catalog=contosoDB;User Id=contosoUser@bpswebsiteresourcegroupsqlserver;Password=contosoPassword01
+            //NLog.GlobalDiagnosticsContext.Set("DefaultConnection", config.GetConnectionString("DefaultConnection"));
+            NLog.GlobalDiagnosticsContext.Set("DefaultConnection", "Data Source=tcp:bpswebsiteresourcegroupsqlserver.database.windows.net,1433;Initial Catalog=contosoDB;User Id=contosoUser@bpswebsiteresourcegroupsqlserver;Password=contosoPassword01");
 
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
