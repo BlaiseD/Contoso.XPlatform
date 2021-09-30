@@ -36,6 +36,18 @@ namespace Contoso.Bsl
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            System.Collections.Generic.List<System.Reflection.Assembly> assemblies = new System.Collections.Generic.List<System.Reflection.Assembly>
+            {
+                typeof(Parameters.Expansions.SelectExpandDefinitionParameters).Assembly,
+                typeof(Contoso.Utils.TypeHelpers).Assembly,
+                typeof(Domain.BaseModelClass).Assembly,
+                typeof(Data.BaseDataClass).Assembly,
+                typeof(DirectorBase).Assembly,
+                typeof(string).Assembly
+            };
+
+            IRulesCache rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
+
             services.AddCors();
             services.AddControllers().AddJsonOptions
             (
@@ -122,8 +134,10 @@ namespace Contoso.Bsl
                 //}
 
                 //return rulesCache;
-                return Bsl.Flow.Rules.RulesService.LoadRules().Result;
+                return rulesCache;
             });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
