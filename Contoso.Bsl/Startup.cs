@@ -29,13 +29,6 @@ namespace Contoso.Bsl
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
             System.Collections.Generic.List<System.Reflection.Assembly> assemblies = new System.Collections.Generic.List<System.Reflection.Assembly>
             {
                 typeof(Parameters.Expansions.SelectExpandDefinitionParameters).Assembly,
@@ -46,8 +39,15 @@ namespace Contoso.Bsl
                 typeof(string).Assembly
             };
 
-            IRulesCache rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
+            rulesCache = Bsl.Flow.Rules.RulesService.LoadRules().Result;
+        }
 
+        public IConfiguration Configuration { get; }
+        private readonly IRulesCache rulesCache;
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
             services.AddCors();
             services.AddControllers().AddJsonOptions
             (
