@@ -16,14 +16,8 @@ namespace Contoso.XPlatform.Services
             this.mapper = mapper;
         }
 
-        public TModel GetUpdatedModel<TModel>(TModel existingEntity, ObservableCollection<IValidatable> modifiedProperties, List<FormItemSettingsDescriptor> fieldSettings)
+        public TModel GetUpdatedModel<TModel>(TModel existingEntity, Dictionary<string, object> existing, ObservableCollection<IValidatable> modifiedProperties, List<FormItemSettingsDescriptor> fieldSettings)
         {
-            Dictionary<string, object> existing = existingEntity.EntityToObjectDictionary
-            (
-               mapper,
-               fieldSettings
-            );
-
             Dictionary<string, object> current = modifiedProperties.ValidatableListToObjectDictionary
             (
                 mapper,
@@ -48,7 +42,7 @@ namespace Contoso.XPlatform.Services
                 existingEntity,
                 typeof(Dictionary<string, object>),
                 typeof(TModel)
-            ); ;
+            );
         }
     }
 }

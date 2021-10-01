@@ -8,6 +8,7 @@ using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
 using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -21,6 +22,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             this.entityStateUpdater = contextProvider.EntityStateUpdater;
             this.httpService = contextProvider.HttpService;
             this.propertiesUpdater = contextProvider.PropertiesUpdater;
+            this.mapper = contextProvider.Mapper;
             this.validateIfManager = new ValidateIfManager<TModel>
             (
                 Properties,
@@ -42,8 +44,10 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         private readonly IEntityStateUpdater entityStateUpdater;
         private readonly IHttpService httpService;
         private readonly IPropertiesUpdater propertiesUpdater;
+        private readonly IMapper mapper;
         private readonly ValidateIfManager<TModel> validateIfManager;
         private TModel entity;
+        private Dictionary<string, object> originalEntityDictionary = new Dictionary<string, object>();
         private readonly IDisposable propertyChangedSubscription;
 
         public override void Dispose()
@@ -96,6 +100,11 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 
             GetEntityResponse getEntityResponse = (GetEntityResponse)baseResponse;
             this.entity = (TModel)getEntityResponse.Entity;
+            this.originalEntityDictionary = this.entity.EntityToObjectDictionary
+            (
+               mapper,
+               this.FormSettings.FieldSettings
+            );
 
             this.propertiesUpdater.UpdateProperties
             (
@@ -119,6 +128,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                             Entity = this.entityStateUpdater.GetUpdatedModel
                             (
                                 entity,
+                                this.originalEntityDictionary,
                                 Properties,
                                 FormSettings.FieldSettings
                             )

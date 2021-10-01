@@ -4,9 +4,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Contoso.Bsl
 {
@@ -16,10 +13,10 @@ namespace Contoso.Bsl
         {
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: false)
+                .AddEnvironmentVariables()
                 .Build();
-            //Data Source=tcp:bpswebsiteresourcegroupsqlserver.database.windows.net,1433;Initial Catalog=contosoDB;User Id=contosoUser@bpswebsiteresourcegroupsqlserver;Password=contosoPassword01
-            //NLog.GlobalDiagnosticsContext.Set("DefaultConnection", config.GetConnectionString("DefaultConnection"));
-            NLog.GlobalDiagnosticsContext.Set("DefaultConnection", "Data Source=tcp:bpswebsiteresourcegroupsqlserver.database.windows.net,1433;Initial Catalog=contosoDB;User Id=contosoUser@bpswebsiteresourcegroupsqlserver;Password=contosoPassword01");
+
+            NLog.GlobalDiagnosticsContext.Set("DefaultConnection", config.GetConnectionString("DefaultConnection"));
 
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try

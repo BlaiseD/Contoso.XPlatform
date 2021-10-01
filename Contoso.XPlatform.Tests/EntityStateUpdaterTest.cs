@@ -97,6 +97,11 @@ namespace Contoso.XPlatform.Tests
             InstructorModel currentInstructor = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 instructorModel,
+                instructorModel.EntityToObjectDictionary
+                (
+                   serviceProvider.GetRequiredService<IMapper>(),
+                   formDescriptor.FieldSettings
+                ),
                 modifiedProperties,
                 formDescriptor.FieldSettings
             );
@@ -180,6 +185,11 @@ namespace Contoso.XPlatform.Tests
             DepartmentModel currentDepartment = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 departmentModel,
+                departmentModel.EntityToObjectDictionary
+                (
+                   serviceProvider.GetRequiredService<IMapper>(),
+                   formDescriptor.FieldSettings
+                ),
                 modifiedProperties,
                 formDescriptor.FieldSettings
             );
@@ -216,6 +226,11 @@ namespace Contoso.XPlatform.Tests
             InstructorModel currentInstructor = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 instructorModel,
+                instructorModel.EntityToObjectDictionary
+                (
+                   serviceProvider.GetRequiredService<IMapper>(),
+                   formDescriptor.FieldSettings
+                ),
                 modifiedProperties,
                 formDescriptor.FieldSettings
             );
@@ -247,17 +262,24 @@ namespace Contoso.XPlatform.Tests
             propertiesDictionary["FirstName"].Value = "John";
             propertiesDictionary["LastName"].Value = "Smith";
             propertiesDictionary["HireDate"].Value = new DateTime(2021, 5, 20);
-            propertiesDictionary["OfficeAssignment.Location"].Value = "Location1";
+            propertiesDictionary["OfficeAssignment.Location"].Value = "Location2";
 
             InstructorModel currentInstructor = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 instructorModel,
+                instructorModel.EntityToObjectDictionary
+                (
+                   serviceProvider.GetRequiredService<IMapper>(),
+                   formDescriptor.FieldSettings
+                ),
                 modifiedProperties,
                 formDescriptor.FieldSettings
             );
 
-            Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.EntityState);
-            Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.OfficeAssignment.EntityState);
+            // Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.EntityState);
+            //Assert.Equal(LogicBuilder.Domain.EntityStateType.Unchanged, currentInstructor.OfficeAssignment.EntityState);
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Modified, currentInstructor.EntityState);
+            Assert.Equal(LogicBuilder.Domain.EntityStateType.Modified, currentInstructor.OfficeAssignment.EntityState);
         }
 
         [Fact]
@@ -302,6 +324,11 @@ namespace Contoso.XPlatform.Tests
             DepartmentModel currentDepartment = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 departmentModel,
+                departmentModel.EntityToObjectDictionary
+                (
+                   serviceProvider.GetRequiredService<IMapper>(),
+                   formDescriptor.FieldSettings
+                ),
                 modifiedProperties,
                 formDescriptor.FieldSettings
             );
@@ -331,6 +358,11 @@ namespace Contoso.XPlatform.Tests
             InstructorModel currentInstructor = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 instructorModel,
+                instructorModel.EntityToObjectDictionary
+                (
+                   serviceProvider.GetRequiredService<IMapper>(),
+                   formDescriptor.FieldSettings
+                ),
                 modifiedProperties,
                 formDescriptor.FieldSettings
             );

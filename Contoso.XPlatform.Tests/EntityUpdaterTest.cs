@@ -70,6 +70,7 @@ namespace Contoso.XPlatform.Tests
             InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (InstructorModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings
             );
@@ -126,6 +127,7 @@ namespace Contoso.XPlatform.Tests
             InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (InstructorModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings
             );
@@ -182,6 +184,7 @@ namespace Contoso.XPlatform.Tests
             DepartmentModel departmentModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (DepartmentModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.DepartmentForm.FieldSettings
             );
@@ -238,6 +241,7 @@ namespace Contoso.XPlatform.Tests
             DepartmentModel departmentModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (DepartmentModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.DepartmentForm.FieldSettings
             );
@@ -267,6 +271,7 @@ namespace Contoso.XPlatform.Tests
             DepartmentModel departmentModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (DepartmentModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.DepartmentForm.FieldSettings
             );
@@ -318,6 +323,7 @@ namespace Contoso.XPlatform.Tests
             InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (InstructorModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings
             );
@@ -346,6 +352,7 @@ namespace Contoso.XPlatform.Tests
             InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (InstructorModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.InstructorFormWithInlineOfficeAssignment.FieldSettings
             );
@@ -397,6 +404,7 @@ namespace Contoso.XPlatform.Tests
             InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (InstructorModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings
             );
@@ -425,6 +433,7 @@ namespace Contoso.XPlatform.Tests
             InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (InstructorModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings
             );
@@ -476,6 +485,7 @@ namespace Contoso.XPlatform.Tests
             InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (InstructorModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings
             );
@@ -512,6 +522,7 @@ namespace Contoso.XPlatform.Tests
             InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (InstructorModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings
             );
@@ -563,6 +574,7 @@ namespace Contoso.XPlatform.Tests
             DepartmentModel departmentModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
             (
                 (DepartmentModel)null,
+                new Dictionary<string, object>(),
                 properties,
                 Descriptors.DepartmentForm.FieldSettings
             );
