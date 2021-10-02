@@ -1,5 +1,4 @@
-﻿using Contoso.Forms.Configuration.EditForm;
-using Contoso.Utils;
+﻿using Contoso.Utils;
 using Contoso.XPlatform.ViewModels.Validatables;
 using System;
 using System.Globalization;
@@ -11,23 +10,23 @@ namespace Contoso.XPlatform.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return GetFormattedString(GetFormControlSettingsDescriptor());
+            return GetFormattedString(GetStringFormat());
 
-            object GetFormattedString(FormControlSettingsDescriptor formControlSettings)
+            object GetFormattedString(string stringFormat)
             {
                 if (value == null)
                     return null;
 
-                if (string.IsNullOrEmpty(formControlSettings.StringFormat))
+                if (string.IsNullOrEmpty(stringFormat))
                     return value;
 
-                return string.Format(CultureInfo.CurrentCulture, formControlSettings.StringFormat, value);
+                return string.Format(CultureInfo.CurrentCulture, stringFormat, value);
             }
 
-            FormControlSettingsDescriptor GetFormControlSettingsDescriptor()
-                => ((VisualElement)parameter).BindingContext.GetPropertyValue<FormControlSettingsDescriptor>
+            string GetStringFormat()
+                => ((VisualElement)parameter).BindingContext.GetPropertyValue<string>
                 (
-                    nameof(EntryValidatableObject<string>.FormControlSettingsDescriptor)
+                    nameof(EntryValidatableObject<string>.StringFormat)
                 );
         }
 

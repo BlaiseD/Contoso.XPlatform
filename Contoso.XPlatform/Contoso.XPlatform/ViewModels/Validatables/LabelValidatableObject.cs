@@ -7,15 +7,15 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class LabelValidatableObject<T> : ValidatableObjectBase<T>
     {
-        public LabelValidatableObject(string name, FormControlSettingsDescriptor setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService)
-            : base(name, setting.TextTemplate.TemplateName, validations, uiNotificationService)
+        public LabelValidatableObject(string name, string templateName, string title, string placeholder, string stringFormat, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService)
+            : base(name, templateName, validations, uiNotificationService)
         {
-            Placeholder = setting.Placeholder;
-            Title = setting.Title;
-            FormControlSettingsDescriptor = setting;
+            Placeholder = placeholder;
+            Title = title;
+            this.stringFormat = stringFormat;
         }
 
-        public FormControlSettingsDescriptor FormControlSettingsDescriptor { get; }
+        private string stringFormat;
 
         public string DisplayText
         {
@@ -24,10 +24,10 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 if (EqualityComparer<T>.Default.Equals(Value, default(T)))
                     return string.Empty;
 
-                if (string.IsNullOrEmpty(FormControlSettingsDescriptor.StringFormat))
+                if (string.IsNullOrEmpty(this.stringFormat))
                     return Value.ToString();
 
-                return string.Format(CultureInfo.CurrentCulture, FormControlSettingsDescriptor.StringFormat, Value);
+                return string.Format(CultureInfo.CurrentCulture, this.stringFormat, Value);
             }
         }
 

@@ -106,7 +106,17 @@ namespace Contoso.XPlatform.Utils
             if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.TextTemplate)
                 || textTemplate.TemplateName == nameof(QuestionTemplateSelector.PasswordTemplate))
             {
-                properties.Add(CreateEntryValidatableObject(setting, name));
+                properties.Add
+                (
+                    CreateEntryValidatableObject
+                    (
+                        setting, 
+                        name,
+                        textTemplate.TemplateName,
+                        setting.Placeholder,
+                        setting.StringFormat
+                    )
+                );
             }
             else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.DateTemplate))
             {
@@ -122,7 +132,18 @@ namespace Contoso.XPlatform.Utils
             }
             else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.LabelTemplate))
             {
-                properties.Add(CreateLabelValidatableObject(setting, name));
+                properties.Add
+                (
+                    CreateLabelValidatableObject
+                    (
+                        setting, 
+                        name,
+                        textTemplate.TemplateName,
+                        setting.Title,
+                        setting.Placeholder,
+                        setting.StringFormat
+                    )
+                );
             }
             else
             {
@@ -220,28 +241,33 @@ namespace Contoso.XPlatform.Utils
                 setting
             );
 
-        private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting, string name)
+        private IValidatable CreateEntryValidatableObject(FormControlSettingsDescriptor setting, string name, string templateName, string placeholder, string stringFormat)
             => ValidatableObjectFactory.GetValidatable
             (
                 Activator.CreateInstance
                 (
                     typeof(EntryValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
                     name,
-                    setting,
+                    templateName,
+                    placeholder,
+                    stringFormat,
                     GetValidationRules(setting),
                     this.uiNotificationService
                 ),
                 setting
             );
 
-        private IValidatable CreateLabelValidatableObject(FormControlSettingsDescriptor setting, string name)
+        private IValidatable CreateLabelValidatableObject(FormControlSettingsDescriptor setting, string name, string templateName, string title, string placeholder, string stringFormat)
             => ValidatableObjectFactory.GetValidatable
             (
                 Activator.CreateInstance
                 (
                     typeof(LabelValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
                     name,
-                    setting,
+                    templateName,
+                    title,
+                    placeholder,
+                    stringFormat,
                     GetValidationRules(setting),
                     this.uiNotificationService
                 ),

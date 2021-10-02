@@ -11,9 +11,6 @@ namespace Contoso.XPlatform.Views
         public ChildFormPageCS(IValidatable formValidatable)
         {
             this.formValidatable = formValidatable;
-            this.formGroupSettingsDescriptor = (IFormGroupSettings)this.formValidatable.GetType()
-                .GetProperty(nameof(FormValidatableObject<object>.FormSettings))
-                .GetValue(this.formValidatable);
             
             Content = new AbsoluteLayout
             {
@@ -85,6 +82,5 @@ namespace Contoso.XPlatform.Views
         }
 
         private IValidatable formValidatable;
-        private IFormGroupSettings formGroupSettingsDescriptor;
     }
 }
