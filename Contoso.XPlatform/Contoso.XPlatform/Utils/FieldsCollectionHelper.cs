@@ -124,7 +124,7 @@ namespace Contoso.XPlatform.Utils
             }
             else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.HiddenTemplate))
             {
-                properties.Add(CreateHiddenValidatableObject(setting, name));
+                properties.Add(CreateHiddenValidatableObject(setting, name, textTemplate.TemplateName));
             }
             else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.CheckboxTemplate))
             {
@@ -212,14 +212,14 @@ namespace Contoso.XPlatform.Utils
             );
         }
 
-        private IValidatable CreateHiddenValidatableObject(FormControlSettingsDescriptor setting, string name)
+        private IValidatable CreateHiddenValidatableObject(FormControlSettingsDescriptor setting, string name, string templateName)
             => ValidatableObjectFactory.GetValidatable
             (
                 Activator.CreateInstance
                 (
                     typeof(HiddenValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
                     name,
-                    setting,
+                    templateName,
                     GetValidationRules(setting),
                     this.uiNotificationService
                 ),
