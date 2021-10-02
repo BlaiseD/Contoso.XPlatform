@@ -37,6 +37,9 @@ namespace Contoso.Forms.Parameters.EditForm
 			[Comments("Holds the XAML template name for the field plus additional drop-down related properties (textField, valueField, request details etc.).")]
 			DropDownTemplateParameters dropDownTemplate = null,
 
+			[Comments("Useful when we need to one template in edit mode and a different one in add mode.  Holds the XAML template name for the field.")]
+			TextFieldTemplateParameters updateOnlytextTemplate = null,
+
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
 			[Comments("Fully qualified class name for the model type.")]
 			string fieldTypeSource = "Contoso.Domain.Entities"
@@ -49,6 +52,7 @@ namespace Contoso.Forms.Parameters.EditForm
 			ValidationSetting = validationSetting;
 			TextTemplate = textTemplate;
 			DropDownTemplate = dropDownTemplate;
+			UpdateOnlyTextTemplate = updateOnlytextTemplate;
 		}
 
 		public string Title { get; set; }
@@ -58,5 +62,6 @@ namespace Contoso.Forms.Parameters.EditForm
 		public FieldValidationSettingsParameters ValidationSetting { get; set; }
 		public TextFieldTemplateParameters TextTemplate { get; set; }
 		public DropDownTemplateParameters DropDownTemplate { get; set; }
-    }
+		public TextFieldTemplateParameters UpdateOnlyTextTemplate { get; set; }
+	}
 }

@@ -19,16 +19,26 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             this.Placeholder = this.FormSettings.ValidFormControlText;
             this.entityUpdater = contextProvider.EntityUpdater;
             this.propertiesUpdater = contextProvider.PropertiesUpdater;
-            Properties = contextProvider.FieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
+            this.fieldsCollectionBuilder = contextProvider.FieldsCollectionBuilder;
+            this.updateOnlyFieldsCollectionBuilder = contextProvider.UpdateOnlyFieldsCollectionBuilder;
+            CreateFieldsCollection();
             propertyChangedSubscription = this.uiNotificationService.ValueChanged.Subscribe(FieldChanged);
         }
 
-        public ObservableCollection<IValidatable> Properties { get; }
+        protected virtual void CreateFieldsCollection()
+        {
+            Properties = updateOnlyFieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
+        }
+
+        public ObservableCollection<IValidatable> Properties { get; set; }
         
         public IChildFormGroupSettings FormSettings { get; set; }
         private readonly IEntityUpdater entityUpdater;
         private readonly IPropertiesUpdater propertiesUpdater;
         private readonly IDisposable propertyChangedSubscription;
+
+        protected readonly IFieldsCollectionBuilder fieldsCollectionBuilder;
+        private readonly IUpdateOnlyFieldsCollectionBuilder updateOnlyFieldsCollectionBuilder;
 
         private string _title;
         public string Title

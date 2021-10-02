@@ -31,6 +31,17 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             }
         }
 
+        public override T Value
+        {
+            get { return base.Value; }
+            set
+            {
+                base.Value = value;
+
+                OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
         private string _title;
         public string Title
         {

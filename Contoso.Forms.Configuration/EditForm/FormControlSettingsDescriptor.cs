@@ -12,5 +12,6 @@ namespace Contoso.Forms.Configuration.EditForm
         public FieldValidationSettingsDescriptor ValidationSetting { get; set; }
         public TextFieldTemplateDescriptor TextTemplate { get; set; }
         public DropDownTemplateDescriptor DropDownTemplate { get; set; }
+        public TextFieldTemplateDescriptor UpdateOnlyTextTemplate { get; set; }
     }
 }

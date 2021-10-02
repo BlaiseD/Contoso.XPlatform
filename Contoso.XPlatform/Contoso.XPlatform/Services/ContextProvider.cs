@@ -20,6 +20,7 @@ namespace Contoso.XPlatform.Services
             //passing IContextProvider to FieldsCollectionBuilder will create a circular dependency
             //so creating the instance here instead of using DI.
             FieldsCollectionBuilder = new FieldsCollectionBuilder(this);
+            UpdateOnlyFieldsCollectionBuilder = new UpdateOnlyFieldsCollectionBuilder(this);
             ReadOnlyFieldsCollectionBuilder = new ReadOnlyFieldsCollectionBuilder(this);
         }
 
@@ -27,6 +28,7 @@ namespace Contoso.XPlatform.Services
         public IEntityStateUpdater EntityStateUpdater { get; }
         public IEntityUpdater EntityUpdater { get; }
         public IFieldsCollectionBuilder FieldsCollectionBuilder { get; }
+        public IUpdateOnlyFieldsCollectionBuilder UpdateOnlyFieldsCollectionBuilder { get; }
         public IReadOnlyFieldsCollectionBuilder ReadOnlyFieldsCollectionBuilder { get; }
         public IGetItemFilterBuilder GetItemFilterBuilder { get; }
         public IHttpService HttpService { get; }

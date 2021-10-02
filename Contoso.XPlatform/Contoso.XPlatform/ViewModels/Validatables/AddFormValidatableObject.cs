@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Validators;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Contoso.XPlatform.ViewModels.Validatables
 {
@@ -12,6 +10,11 @@ namespace Contoso.XPlatform.ViewModels.Validatables
     {
         public AddFormValidatableObject(string name, IChildFormGroupSettings setting, IEnumerable<IValidationRule> validations, IContextProvider contextProvider) : base(name, setting, validations, contextProvider)
         {
+        }
+
+        protected override void CreateFieldsCollection()
+        {
+            Properties = this.fieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
         }
 
         public event EventHandler AddCancelled;

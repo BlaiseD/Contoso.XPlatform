@@ -954,6 +954,7 @@ namespace Contoso.XPlatform.Tests
                     Title = "Course",
                     Placeholder = "Course ID (required)",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                    UpdateOnlyTextTemplate = new TextFieldTemplateDescriptor { TemplateName = "LabelTemplate" },
                     ValidationSetting = new FieldValidationSettingsDescriptor
                     {
                         DefaultValue = 0,

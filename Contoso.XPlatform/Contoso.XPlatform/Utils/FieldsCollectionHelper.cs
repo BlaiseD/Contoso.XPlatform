@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.Validation;
 using Contoso.XPlatform.Services;
@@ -90,36 +91,36 @@ namespace Contoso.XPlatform.Utils
         private void AddFormGroupInline(FormGroupSettingsDescriptor setting, string parentName)
             => CreateFieldsCollection(setting.FieldSettings, GetFieldName(setting.Field, parentName));
 
-        private void AddFormControl(FormControlSettingsDescriptor setting, string name)
+        protected virtual void AddFormControl(FormControlSettingsDescriptor setting, string name)
         {
             if (setting.TextTemplate != null)
-                AddTextControl(setting, name);
+                AddTextControl(setting, setting.TextTemplate, name);
             else if (setting.DropDownTemplate != null)
                 AddDropdownControl(setting, name);
             else
                 throw new ArgumentException($"{nameof(setting)}: 0556AEAF-C851-44F1-A2A2-66C8814D0F54");
         }
 
-        private void AddTextControl(FormControlSettingsDescriptor setting, string name)
+        protected void AddTextControl(FormControlSettingsDescriptor setting, TextFieldTemplateDescriptor textTemplate, string name)
         {
-            if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.TextTemplate)
-                || setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.PasswordTemplate))
+            if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.TextTemplate)
+                || textTemplate.TemplateName == nameof(QuestionTemplateSelector.PasswordTemplate))
             {
                 properties.Add(CreateEntryValidatableObject(setting, name));
             }
-            else if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.DateTemplate))
+            else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.DateTemplate))
             {
                 properties.Add(CreateDatePickerValidatableObject(setting, name));
             }
-            else if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.HiddenTemplate))
+            else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.HiddenTemplate))
             {
                 properties.Add(CreateHiddenValidatableObject(setting, name));
             }
-            else if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.CheckboxTemplate))
+            else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.CheckboxTemplate))
             {
                 properties.Add(CreateCheckboxValidatableObject(setting, name));
             }
-            else if (setting.TextTemplate.TemplateName == nameof(QuestionTemplateSelector.LabelTemplate))
+            else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.LabelTemplate))
             {
                 properties.Add(CreateLabelValidatableObject(setting, name));
             }
@@ -129,7 +130,7 @@ namespace Contoso.XPlatform.Utils
             }
         }
 
-        private void AddDropdownControl(FormControlSettingsDescriptor setting, string name)
+        protected void AddDropdownControl(FormControlSettingsDescriptor setting, string name)
         {
             if (setting.DropDownTemplate.TemplateName == nameof(QuestionTemplateSelector.PickerTemplate))
             {
