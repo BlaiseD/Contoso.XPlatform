@@ -155,7 +155,7 @@ namespace Contoso.XPlatform.Utils
         {
             if (setting.DropDownTemplate.TemplateName == nameof(QuestionTemplateSelector.PickerTemplate))
             {
-                properties.Add(CreatePickerValidatableObject(setting, name));
+                properties.Add(CreatePickerValidatableObject(setting, name, setting.DropDownTemplate));
             }
             else
             {
@@ -288,14 +288,14 @@ namespace Contoso.XPlatform.Utils
                 setting
             );
 
-        private IValidatable CreatePickerValidatableObject(FormControlSettingsDescriptor setting, string name)
+        private IValidatable CreatePickerValidatableObject(FormControlSettingsDescriptor setting, string name, DropDownTemplateDescriptor dropDownTemplate)
             => ValidatableObjectFactory.GetValidatable
             (
                 Activator.CreateInstance
                 (
                     typeof(PickerValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
                     name,
-                    setting,
+                    dropDownTemplate,
                     GetValidationRules(setting),
                     this.contextProvider
                 ),

@@ -11,9 +11,9 @@ namespace Contoso.Forms.Parameters
 			[NameValue(AttributeNames.DEFAULTVALUE, "PickerTemplate")]
 			string templateName,
 
-			[Comments("Placeholder text.")]
+			[Comments("Title text.")]
 			[NameValue(AttributeNames.DEFAULTVALUE, "Select (Entity)")]
-			string placeholderText,
+			string titleText,
 
 			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
 			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
@@ -41,7 +41,7 @@ namespace Contoso.Forms.Parameters
 		)
 		{
 			TemplateName = templateName;
-			PlaceholderText = placeholderText;
+			TitleText = titleText;
 			TextField = textField;
 			ValueField = valueField;
 			LoadingIndicatorText = loadingIndicatorText;
@@ -50,7 +50,7 @@ namespace Contoso.Forms.Parameters
 		}
 
 		public string TemplateName { get; set; }
-		public string PlaceholderText { get; set; }
+		public string TitleText { get; set; }
 		public string TextField { get; set; }
 		public string ValueField { get; set; }
 		public string LoadingIndicatorText { get; set; }
