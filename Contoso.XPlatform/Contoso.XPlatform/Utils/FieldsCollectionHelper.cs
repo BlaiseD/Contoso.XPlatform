@@ -120,7 +120,7 @@ namespace Contoso.XPlatform.Utils
             }
             else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.DateTemplate))
             {
-                properties.Add(CreateDatePickerValidatableObject(setting, name));
+                properties.Add(CreateDatePickerValidatableObject(setting, name, textTemplate.TemplateName));
             }
             else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.HiddenTemplate))
             {
@@ -128,7 +128,7 @@ namespace Contoso.XPlatform.Utils
             }
             else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.CheckboxTemplate))
             {
-                properties.Add(CreateCheckboxValidatableObject(setting, name));
+                properties.Add(CreateCheckboxValidatableObject(setting, name, textTemplate.TemplateName, setting.Title));
             }
             else if (textTemplate.TemplateName == nameof(QuestionTemplateSelector.LabelTemplate))
             {
@@ -226,15 +226,15 @@ namespace Contoso.XPlatform.Utils
                 setting
             );
 
-        private IValidatable CreateCheckboxValidatableObject(FormControlSettingsDescriptor setting, string name)
+        private IValidatable CreateCheckboxValidatableObject(FormControlSettingsDescriptor setting, string name, string templateName, string title)
             => ValidatableObjectFactory.GetValidatable
             (
                 Activator.CreateInstance
                 (
                     typeof(CheckboxValidatableObject),
                     name,
-                    setting.TextTemplate.TemplateName,
-                    setting.Title,
+                    templateName,
+                    title,
                     GetValidationRules(setting),
                     this.uiNotificationService
                 ),
@@ -274,14 +274,14 @@ namespace Contoso.XPlatform.Utils
                 setting
             );
 
-        private IValidatable CreateDatePickerValidatableObject(FormControlSettingsDescriptor setting, string name)
+        private IValidatable CreateDatePickerValidatableObject(FormControlSettingsDescriptor setting, string name, string templateName)
             => ValidatableObjectFactory.GetValidatable
             (
                 Activator.CreateInstance
                 (
                     typeof(DatePickerValidatableObject),
                     name,
-                    setting,
+                    templateName,
                     GetValidationRules(setting),
                     this.uiNotificationService
                 ),

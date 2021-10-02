@@ -9,8 +9,8 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 {
     public class DatePickerValidatableObject : ValidatableObjectBase<DateTime>
     {
-        public DatePickerValidatableObject(string name, FormControlSettingsDescriptor setting, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) 
-            : base(name, setting.TextTemplate.TemplateName, validations, uiNotificationService)
+        public DatePickerValidatableObject(string name, string templateName, IEnumerable<IValidationRule> validations, UiNotificationService uiNotificationService) 
+            : base(name, templateName, validations, uiNotificationService)
         {
         }
 
