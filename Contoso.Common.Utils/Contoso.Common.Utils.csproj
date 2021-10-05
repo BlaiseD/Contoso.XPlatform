@@ -5,13 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LogicBuilder.EntityFrameworkCore.SqlServer" Version="4.1.3" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Contoso.Bsl.Business\Contoso.Bsl.Business.csproj" />
-    <ProjectReference Include="..\Contoso.Common.Utils\Contoso.Common.Utils.csproj" />
-    <ProjectReference Include="..\Contoso.Data\Contoso.Data.csproj" />
     <ProjectReference Include="..\Contoso.Parameters\Contoso.Parameters.csproj" />
   </ItemGroup>
 

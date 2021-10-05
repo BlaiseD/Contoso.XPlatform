@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
+using Contoso.Common.Utils;
 using Contoso.Domain;
 using LogicBuilder.Data;
 using LogicBuilder.Domain;

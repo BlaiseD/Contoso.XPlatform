@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
-using Contoso.Bsl.Utils;
 using Contoso.Common.Configuration.ItemFilter;
+using Contoso.Common.Utils;
 using Contoso.Domain.Entities;
 using Contoso.Parameters.Expressions;
 using Contoso.XPlatform.Services;

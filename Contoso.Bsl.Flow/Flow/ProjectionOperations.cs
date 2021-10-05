@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Contoso.Bsl.Utils;
+using Contoso.Common.Utils;
 using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
 using LogicBuilder.Attributes;

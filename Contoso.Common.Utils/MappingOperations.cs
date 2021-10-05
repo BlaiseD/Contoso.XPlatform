@@ -3,16 +3,17 @@ using Contoso.Common.Configuration.ExpansionDescriptors;
 using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Parameters.Expansions;
 using Contoso.Parameters.Expressions;
-using LogicBuilder.EntityFrameworkCore.SqlServer;
 using LogicBuilder.Expressions.Utils.Expansions;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Contoso.Bsl.Utils
+namespace Contoso.Common.Utils
 {
     public static class MappingOperations
     {
+        const string PARAMETERS_KEY = "parameters";
+
         public static IExpressionPart MapToOperator(this IMapper mapper, IExpressionParameter expression)
             => mapper.MapToOperator
             (
@@ -23,7 +24,7 @@ namespace Contoso.Bsl.Utils
             => mapper.Map<IExpressionPart>
             (
                 expression,
-                opts => opts.Items[ExpressionOperators.PARAMETERS_KEY] = GetParameters()
+                opts => opts.Items[PARAMETERS_KEY] = GetParameters()
             );
 
         public static SelectExpandDefinition MapExpansion(this IMapper mapper, SelectExpandDefinitionParameters expression)
@@ -36,7 +37,7 @@ namespace Contoso.Bsl.Utils
             => mapper.Map<SelectExpandDefinition>
             (
                 expression,
-                opts => opts.Items[ExpressionOperators.PARAMETERS_KEY] = GetParameters()
+                opts => opts.Items[PARAMETERS_KEY] = GetParameters()
             );
 
         public static IDictionary<string, ParameterExpression> GetParameters()

@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using AutoMapper.Extensions.ExpressionMapping;
 using Contoso.AutoMapperProfiles;
-using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Bsl.Utils;
+using Contoso.Common.Configuration.ExpressionDescriptors;
+using Contoso.Common.Utils;
 using Contoso.Contexts;
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
@@ -14,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
-using Contoso.Bsl.Utils;
 using Contoso.Common.Configuration.ExpansionDescriptors;
 using Contoso.Common.Configuration.ExpressionDescriptors;
+using Contoso.Common.Utils;
 using Contoso.Domain.Entities;
 using Contoso.Forms.Configuration.SearchForm;
 using Contoso.XPlatform.Services;
