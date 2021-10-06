@@ -33,7 +33,7 @@ namespace CreateFormsParametersFromFormsDescriptors
             WriteProfile(types);
         }
 
-        static readonly string MAPPING_SAVE_PATH = @"C:\.github\BlaiseD\Contoso.XPlatform\Contoso.AutoMapperProfiles";
+        static readonly string MAPPING_SAVE_PATH = @"C:\.github\BlaiseD\Contoso.XPlatform\Contoso.XPlatform.AutoMapperProfiles";
 
         private static void WriteProfile(List<Type> types)
         {

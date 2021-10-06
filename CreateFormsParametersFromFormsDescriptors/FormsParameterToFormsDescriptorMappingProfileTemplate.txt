@@ -20,7 +20,7 @@ using Contoso.Forms.Parameters.SearchForm;
 using Contoso.Forms.Parameters.TextForm;
 using Contoso.Forms.Parameters.Validation;
 
-namespace Contoso.AutoMapperProfiles
+namespace Contoso.XPlatform.AutoMapperProfiles
 {
     public class FormsParameterToFormsDescriptorMappingProfile : Profile
     {
