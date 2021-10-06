@@ -20,12 +20,12 @@ using Contoso.Forms.Parameters.SearchForm;
 using Contoso.Forms.Parameters.TextForm;
 using Contoso.Forms.Parameters.Validation;
 
-namespace Contoso.AutoMapperProfiles
+namespace Contoso.XPlatform.AutoMapperProfiles
 {
-    public class FormsParameterToFormsDescriptorMappingProfile : Profile
-    {
-        public FormsParameterToFormsDescriptorMappingProfile()
-        {
+	public class FormsParameterToFormsDescriptorMappingProfile : Profile
+	{
+		public FormsParameterToFormsDescriptorMappingProfile()
+		{
 			CreateMap<DetailControlSettingsParameters, DetailControlSettingsDescriptor>()
 				.ForMember(dest => dest.Type, opts => opts.MapFrom(x => x.Type.AssemblyQualifiedName));
 			CreateMap<DetailFormSettingsParameters, DetailFormSettingsDescriptor>()
@@ -91,30 +91,30 @@ namespace Contoso.AutoMapperProfiles
 			CreateMap<ValidatorDefinitionParameters, ValidatorDefinitionDescriptor>();
 			CreateMap<VariableDirectivesParameters, VariableDirectivesDescriptor>();
 
-            CreateMap<FormItemSettingsParameters, FormItemSettingsDescriptor>()
+			CreateMap<FormItemSettingsParameters, FormItemSettingsDescriptor>()
 				.Include<FormControlSettingsParameters, FormControlSettingsDescriptor>()
 				.Include<FormGroupArraySettingsParameters, FormGroupArraySettingsDescriptor>()
 				.Include<FormGroupSettingsParameters, FormGroupSettingsDescriptor>()
 				.Include<MultiSelectFormControlSettingsParameters, MultiSelectFormControlSettingsDescriptor>();
 
-            CreateMap<DetailItemSettingsParameters, DetailItemSettingsDescriptor>()
+			CreateMap<DetailItemSettingsParameters, DetailItemSettingsDescriptor>()
 				.Include<DetailControlSettingsParameters, DetailControlSettingsDescriptor>()
 				.Include<DetailGroupArraySettingsParameters, DetailGroupArraySettingsDescriptor>()
 				.Include<DetailGroupSettingsParameters, DetailGroupSettingsDescriptor>()
 				.Include<MultiSelectDetailControlSettingsParameters, MultiSelectDetailControlSettingsDescriptor>();
 
-            CreateMap<SearchFilterParametersBase, SearchFilterDescriptorBase>()
+			CreateMap<SearchFilterParametersBase, SearchFilterDescriptorBase>()
 				.Include<SearchFilterGroupParameters, SearchFilterGroupDescriptor>()
 				.Include<SearchFilterParameters, SearchFilterDescriptor>();
 
-            CreateMap<LabelItemParametersBase, LabelItemDescriptorBase>()
+			CreateMap<LabelItemParametersBase, LabelItemDescriptorBase>()
 				.Include<FormattedLabelItemParameters, FormattedLabelItemDescriptor>()
 				.Include<HyperLinkLabelItemParameters, HyperLinkLabelItemDescriptor>()
 				.Include<LabelItemParameters, LabelItemDescriptor>();
 
-            CreateMap<SpanItemParametersBase, SpanItemDescriptorBase>()
+			CreateMap<SpanItemParametersBase, SpanItemDescriptorBase>()
 				.Include<HyperLinkSpanItemParameters, HyperLinkSpanItemDescriptor>()
 				.Include<SpanItemParameters, SpanItemDescriptor>();
-        }
-    }
+		}
+	}
 }

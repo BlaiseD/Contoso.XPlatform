@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Contoso.Common.Utils\Contoso.Common.Utils.csproj" />
+    <ProjectReference Include="..\Contoso.XPlatform.AutoMapperProfiles\Contoso.XPlatform.AutoMapperProfiles.csproj" />
     <ProjectReference Include="..\Contoso.XPlatform.Flow\Contoso.XPlatform.Flow.csproj" />
     <ProjectReference Include="..\Contoso.XPlatform\Contoso.XPlatform\Contoso.XPlatform.csproj" />
   </ItemGroup>

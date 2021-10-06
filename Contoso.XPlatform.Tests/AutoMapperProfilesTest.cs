@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
+using Contoso.XPlatform.AutoMapperProfiles;
 using Xunit;
 
 namespace Contoso.XPlatform.Tests
@@ -22,7 +23,7 @@ namespace Contoso.XPlatform.Tests
         {
             config = new MapperConfiguration(cfg =>
             {
-                cfg.AddMaps(typeof(CommandButtonProfile));//AddMaps adds all other profiles
+                cfg.AddMaps(typeof(DescriptorToOperatorMappingProfile), typeof(CommandButtonProfile));//AddMaps adds all other profiles
             });
         }
     }

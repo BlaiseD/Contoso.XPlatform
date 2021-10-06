@@ -5,6 +5,7 @@ using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
 using Contoso.Bsl.Flow.Cache;
 using Contoso.Bsl.Flow.Services;
+using Contoso.BSL.AutoMapperProfiles;
 using Contoso.Contexts;
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;

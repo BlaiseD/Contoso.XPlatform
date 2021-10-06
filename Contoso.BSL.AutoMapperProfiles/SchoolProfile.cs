@@ -2,7 +2,7 @@
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
 
-namespace Contoso.AutoMapperProfiles
+namespace Contoso.BSL.AutoMapperProfiles
 {
     public class SchoolProfile : Profile
     {

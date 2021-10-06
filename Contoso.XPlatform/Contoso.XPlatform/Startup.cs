@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contoso.AutoMapperProfiles;
+using Contoso.XPlatform.AutoMapperProfiles;
 using Contoso.XPlatform.Flow;
 using Contoso.XPlatform.Flow.Cache;
 using Contoso.XPlatform.Flow.Rules;
@@ -37,7 +38,7 @@ namespace Contoso.XPlatform
                 (
                     new MapperConfiguration(cfg =>
                     {
-                        cfg.AddMaps(typeof(SchoolProfile).Assembly);
+                        cfg.AddMaps(typeof(DescriptorToOperatorMappingProfile), typeof(CommandButtonProfile));
                         cfg.AllowNullCollections = true;
                     })
                 )

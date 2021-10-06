@@ -2,6 +2,7 @@
 using AutoMapper.Extensions.ExpressionMapping;
 using Contoso.AutoMapperProfiles;
 using Contoso.Bsl.Utils;
+using Contoso.BSL.AutoMapperProfiles;
 using Contoso.Common.Configuration.ExpressionDescriptors;
 using Contoso.Common.Utils;
 using Contoso.Contexts;

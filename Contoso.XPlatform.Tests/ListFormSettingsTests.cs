@@ -4,6 +4,7 @@ using Contoso.Domain.Entities;
 using Contoso.Forms.Configuration.ListForm;
 using Contoso.Forms.Parameters.Bindings;
 using Contoso.Forms.Parameters.ListForm;
+using Contoso.XPlatform.AutoMapperProfiles;
 using System.Collections.Generic;
 using Xunit;
 
@@ -52,7 +53,6 @@ namespace Contoso.XPlatform.Tests
                 cfg.AddProfile<FormsParameterToFormsDescriptorMappingProfile>();
                 cfg.AddProfile<ParameterToDescriptorMappingProfile>();
                 cfg.AddProfile<DescriptorToOperatorMappingProfile>();
-                cfg.AddProfile<SchoolProfile>();
                 cfg.AddProfile<ExpansionParameterToDescriptorMappingProfile>();
                 cfg.AddProfile<ExpansionDescriptorToOperatorMappingProfile>();
                 cfg.AddProfile<ItemFilterParameterToDescriptorMappingProfile>();

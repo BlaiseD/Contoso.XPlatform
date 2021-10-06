@@ -84,6 +84,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Contoso.AutoMapperProfiles\Contoso.AutoMapperProfiles.csproj" />
     <ProjectReference Include="..\..\Contoso.Bsl.Business\Contoso.Bsl.Business.csproj" />
+    <ProjectReference Include="..\..\Contoso.XPlatform.AutoMapperProfiles\Contoso.XPlatform.AutoMapperProfiles.csproj" />
     <ProjectReference Include="..\..\Contoso.XPlatform.Flow\Contoso.XPlatform.Flow.csproj" />
   </ItemGroup>
 

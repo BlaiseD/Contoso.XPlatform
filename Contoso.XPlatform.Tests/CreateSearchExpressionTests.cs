@@ -117,7 +117,6 @@ namespace Contoso.XPlatform.Tests
                 {
                     cfg.AddProfile<ParameterToDescriptorMappingProfile>();
                     cfg.AddProfile<DescriptorToOperatorMappingProfile>();
-                    cfg.AddProfile<SchoolProfile>();
                     cfg.AddProfile<ExpansionParameterToDescriptorMappingProfile>();
                     cfg.AddProfile<ExpansionDescriptorToOperatorMappingProfile>();
                 });

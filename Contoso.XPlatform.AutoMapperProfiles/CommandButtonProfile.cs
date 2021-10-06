@@ -3,7 +3,7 @@ using Contoso.Forms.Configuration;
 using Contoso.Forms.Parameters;
 using LogicBuilder.Forms.Parameters;
 
-namespace Contoso.AutoMapperProfiles
+namespace Contoso.XPlatform.AutoMapperProfiles
 {
     public class CommandButtonProfile : Profile
     {

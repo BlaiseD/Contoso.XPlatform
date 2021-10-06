@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Contoso.Common.Configuration.ItemFilter;
 using Contoso.Parameters.ItemFilter;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Contoso.AutoMapperProfiles
 {

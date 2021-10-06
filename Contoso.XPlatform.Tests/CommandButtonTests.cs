@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Contoso.AutoMapperProfiles;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Parameters;
+using Contoso.XPlatform.AutoMapperProfiles;
 using LogicBuilder.Forms.Parameters;
 using Xunit;
 

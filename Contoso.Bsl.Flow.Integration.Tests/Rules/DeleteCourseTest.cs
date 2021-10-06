@@ -4,6 +4,7 @@ using Contoso.AutoMapperProfiles;
 using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Flow.Cache;
 using Contoso.Bsl.Flow.Services;
+using Contoso.BSL.AutoMapperProfiles;
 using Contoso.Contexts;
 using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
@@ -128,9 +129,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests.Rules
                 {
                     cfg.AddExpressionMapping();
 
-                    cfg.AddMaps(typeof(CommandButtonProfile));
+                    cfg.AddMaps(typeof(DescriptorToOperatorMappingProfile), typeof(SchoolProfile));
                 });
             }
+
             MapperConfiguration.AssertConfigurationIsValid();
             serviceProvider = new ServiceCollection()
                 .AddDbContext<SchoolContext>

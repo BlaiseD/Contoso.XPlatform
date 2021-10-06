@@ -4,6 +4,7 @@ using Contoso.AutoMapperProfiles;
 using Contoso.Bsl.Flow;
 using Contoso.Bsl.Flow.Cache;
 using Contoso.Bsl.Flow.Services;
+using Contoso.BSL.AutoMapperProfiles;
 using Contoso.Common.Configuration.Json;
 using Contoso.Contexts;
 using Contoso.Domain.Json;
