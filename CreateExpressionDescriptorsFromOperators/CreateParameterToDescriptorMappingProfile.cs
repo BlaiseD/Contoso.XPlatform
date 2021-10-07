@@ -62,7 +62,7 @@ namespace CreateExpressionDescriptorsFromOperators
                     //    return sb.ToString();
                     //}
                     StringBuilder sb = new StringBuilder();
-                    sb.Append($"\t\t\tCreateMap<{type.Name.Replace("Operator", "OperatorParameter")}, {type.Name.Replace("Operator", "OperatorDescriptor")}>()");
+                    sb.Append($"\t\t\tCreateMap<{type.Name.Replace("Operator", "OperatorParameters")}, {type.Name.Replace("Operator", "OperatorDescriptor")}>()");
                     if (!hasTypeParameters)
                         sb.Append(";");
                         //sb.Append($".ReverseMap();");
@@ -122,7 +122,7 @@ namespace CreateExpressionDescriptorsFromOperators
 
             List<string> includeMapStatements = types.Select
             (
-                type => $"\t\t\t\t.Include<{type.Name.Replace("Operator", "OperatorParameter")}, {type.Name.Replace("Operator", "OperatorDescriptor")}>()"
+                type => $"\t\t\t\t.Include<{type.Name.Replace("Operator", "OperatorParameters")}, {type.Name.Replace("Operator", "OperatorDescriptor")}>()"
             )
             .ToList();
 
