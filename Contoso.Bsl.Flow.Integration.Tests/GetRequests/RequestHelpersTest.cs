@@ -158,9 +158,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                 new Business.Requests.GetEntityRequest
                 {
                     Filter = filterLambdaOperatorDescriptor,
-                    SelectExpandDefinition = selectAndExpand,
-                    ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
-                    DataType = typeof(Department).AssemblyQualifiedName
+                    SelectExpandDefinition = selectAndExpand
                 },
                 repository,
                 mapper
