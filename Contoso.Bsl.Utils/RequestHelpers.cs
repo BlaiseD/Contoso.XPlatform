@@ -21,73 +21,6 @@ namespace Contoso.Bsl.Utils
 {
     public static class RequestHelpers
     {
-        public static async Task<GetAnonymousDropDownListResponse> GetAnonymousSelect(GetAnonymousDropDownListRequest request, IContextRepository contextRepository, IMapper mapper) 
-            => await (Task<GetAnonymousDropDownListResponse>)"GetAnonymousSelect".GetSelectMethod()
-            .MakeGenericMethod
-            (
-                Type.GetType(request.ModelType),
-                Type.GetType(request.DataType)
-            ).Invoke(null, new object[] { request, contextRepository, mapper });
-
-        public static async Task<GetAnonymousDropDownListResponse> GetAnonymousSelect<TModel, TData>(GetAnonymousDropDownListRequest request, IContextRepository contextRepository, IMapper mapper)
-            where TModel : BaseModel
-            where TData : BaseData
-            => new GetAnonymousDropDownListResponse
-            {
-                DropDownList = await Query<TModel, TData>
-                (
-                    contextRepository,
-                    mapper.MapToOperator(request.Selector)
-                ),
-                Success = true
-            };
-
-        public static async Task<GetLookupDropDownListResponse> GetLookupSelect(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper) 
-            => await (Task<GetLookupDropDownListResponse>)"GetLookupSelect".GetSelectMethod()
-            .MakeGenericMethod
-            (
-                Type.GetType(request.ModelType),
-                Type.GetType(request.DataType),
-                Type.GetType(request.ModelReturnType),
-                Type.GetType(request.DataReturnType)
-            ).Invoke(null, new object[] { request, contextRepository, mapper });
-
-        public static async Task<GetLookupDropDownListResponse> GetLookupSelect<TModel, TData, TModelReturn, TDataReturn>(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper)
-            where TModel : BaseModel
-            where TData : BaseData
-            => new GetLookupDropDownListResponse
-            {
-                DropDownList = (IEnumerable<Domain.Entities.LookUpsModel>)await Query<TModel, TData, TModelReturn, TDataReturn>
-                (
-                    contextRepository,
-                    mapper.MapToOperator(request.Selector)
-                ),
-                Success = true
-            };
-
-        public static async Task<GetObjectDropDownListResponse> GetObjectSelect(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper)
-            => await (Task<GetObjectDropDownListResponse>)"GetObjectSelect".GetSelectMethod()
-            .MakeGenericMethod
-            (
-                Type.GetType(request.ModelType),
-                Type.GetType(request.DataType),
-                Type.GetType(request.ModelReturnType),
-                Type.GetType(request.DataReturnType)
-            ).Invoke(null, new object[] { request, contextRepository, mapper });
-
-        public static async Task<GetObjectDropDownListResponse> GetObjectSelect<TModel, TData, TModelReturn, TDataReturn>(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper)
-            where TModel : BaseModel
-            where TData : BaseData
-            => new GetObjectDropDownListResponse
-            {
-                DropDownList = (IEnumerable<EntityModelBase>)await Query<TModel, TData, TModelReturn, TDataReturn>
-                (
-                    contextRepository,
-                    mapper.MapToOperator(request.Selector)
-                ),
-                Success = true
-            };
-
         public static async Task<GetListResponse> GetList(GetTypedListRequest request, IContextRepository contextRepository, IMapper mapper)
             => await (Task<GetListResponse>)"GetList".GetSelectMethod()
             .MakeGenericMethod
@@ -106,7 +39,8 @@ namespace Contoso.Bsl.Utils
                 List = (IEnumerable<EntityModelBase>)await Query<TModel, TData, TModelReturn, TDataReturn>
                 (
                     contextRepository,
-                    mapper.MapToOperator(request.Selector)
+                    mapper.MapToOperator(request.Selector),
+                    mapper.MapExpansion(request.SelectExpandDefinition)
                 ),
                 Success = true
             };
@@ -144,13 +78,14 @@ namespace Contoso.Bsl.Utils
             );
 
         private static Task<TModelReturn> Query<TModel, TData, TModelReturn, TDataReturn>(IContextRepository repository,
-            IExpressionPart queryExpression)
+            IExpressionPart queryExpression,
+            SelectExpandDefinition selectExpandDefinition = null)
             where TModel : BaseModel
             where TData : BaseData
             => repository.QueryAsync<TModel, TData, TModelReturn, TDataReturn>
             (
                 (Expression<Func<IQueryable<TModel>, TModelReturn>>)queryExpression.Build(),
-                (SelectExpandDefinition)null
+                selectExpandDefinition
             );
 
         private async static Task<TModel> QueryEntity<TModel, TData>(IContextRepository repository,

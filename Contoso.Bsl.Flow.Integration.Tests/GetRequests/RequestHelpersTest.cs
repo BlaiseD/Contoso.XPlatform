@@ -33,10 +33,10 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
         #endregion Fields
 
         [Fact]
-        public void Select_Departments_In_Ascending_Order_As_Anonymous_Type()
+        public void Select_Departments_In_Ascending_Order_As_LookUpsModel_Type()
         {
             //arrange
-            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<DepartmentModel>, IEnumerable<dynamic>>
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<DepartmentModel>, IEnumerable<LookUpsModel>>
             (
                 GetDepartmentsBodyForLookupModelType(),
                 "q"
@@ -46,21 +46,19 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
 
             //act
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
-            var list = RequestHelpers.GetAnonymousSelect<DepartmentModel, Department>
+            var list = RequestHelpers.GetList<DepartmentModel, Department, IEnumerable<LookUpsModel>, IEnumerable<LookUps>>
             (
-                new Business.Requests.GetAnonymousDropDownListRequest
+                new Business.Requests.GetTypedListRequest
                 {
-                    Selector = selectorLambdaOperatorDescriptor,
-                    ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
-                    DataType = typeof(Department).AssemblyQualifiedName
+                    Selector = selectorLambdaOperatorDescriptor
                 },
                 repository,
                 mapper
-            ).Result.DropDownList.ToList();
+            ).Result.List;
 
             //assert
             AssertFilterStringIsCorrect(expression, "q => Convert(q.OrderBy(d => d.Name).Select(d => new LookUpsModel() {NumericValue = Convert(d.DepartmentID), Text = d.Name}))");
-            Assert.Equal(4, list.Count);
+            Assert.Equal(4, list.Count());
         }
 
         [Fact]
@@ -231,23 +229,60 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
 
             //act
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
-            var list = RequestHelpers.GetObjectSelect<DepartmentModel, Department, IEnumerable<DepartmentModel>, IEnumerable<Department>>
+            var list = RequestHelpers.GetList<DepartmentModel, Department, IEnumerable<DepartmentModel>, IEnumerable<Department>>
+            (
+                new Business.Requests.GetTypedListRequest
+                {
+                    Selector = selectorLambdaOperatorDescriptor
+                },
+                repository,
+                mapper
+            ).Result.List;
+
+            //assert
+            AssertFilterStringIsCorrect(expression, "q => Convert(q.OrderBy(d => d.Name).Select(d => new DepartmentModel() {DepartmentID = d.DepartmentID, Name = d.Name}))");
+            Assert.Equal(4, list.Count());
+        }
+
+        [Fact]
+        public void Select_Departments_In_Ascending_Order_As_DepartmentModel_Type_With_Courses()
+        {
+            //arrange
+            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<DepartmentModel>, IQueryable<DepartmentModel>>
+            (
+                GetDepartmentsBodyOrderByName(),
+                "q"
+            );
+            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
+            ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
+
+            //act
+            var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
+            var selectAndExpand = new Common.Configuration.ExpansionDescriptors.SelectExpandDefinitionDescriptor
+            {
+                ExpandedItems = new List<Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor>
+                {
+                    new Common.Configuration.ExpansionDescriptors.SelectExpandItemDescriptor
+                    {
+                        MemberName = "Courses"
+                    }
+                }
+            };
+            var list = RequestHelpers.GetList<DepartmentModel, Department, IQueryable<DepartmentModel>, IQueryable<Department>>
             (
                 new Business.Requests.GetTypedListRequest
                 {
                     Selector = selectorLambdaOperatorDescriptor,
-                    ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
-                    DataType = typeof(Department).AssemblyQualifiedName,
-                    ModelReturnType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName,
-                    DataReturnType = typeof(IEnumerable<Department>).AssemblyQualifiedName
+                    SelectExpandDefinition = selectAndExpand
                 },
                 repository,
                 mapper
-            ).Result.DropDownList.ToList();
+            ).Result.List.Cast<DepartmentModel>().ToList();
 
             //assert
-            AssertFilterStringIsCorrect(expression, "q => Convert(q.OrderBy(d => d.Name).Select(d => new DepartmentModel() {DepartmentID = d.DepartmentID, Name = d.Name}))");
+            AssertFilterStringIsCorrect(expression, "q => Convert(q.OrderBy(d => d.Name))");
             Assert.Equal(4, list.Count);
+            Assert.True(list.All(d => d.Courses.Any()));
         }
 
         [Fact]
@@ -264,86 +299,20 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
 
             //act
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
-            var list = RequestHelpers.GetObjectSelect<InstructorModel, Instructor, IEnumerable<InstructorModel>, IEnumerable<Instructor>>
+            var list = RequestHelpers.GetList<InstructorModel, Instructor, IEnumerable<InstructorModel>, IEnumerable<Instructor>>
             (
                 new Business.Requests.GetTypedListRequest
                 {
-                    Selector = selectorLambdaOperatorDescriptor,
-                    ModelType = typeof(InstructorModel).AssemblyQualifiedName,
-                    DataType = typeof(Instructor).AssemblyQualifiedName,
-                    ModelReturnType = typeof(IEnumerable<InstructorModel>).AssemblyQualifiedName,
-                    DataReturnType = typeof(IEnumerable<Instructor>).AssemblyQualifiedName
+                    Selector = selectorLambdaOperatorDescriptor
                 },
                 repository,
                 mapper
-            ).Result.DropDownList.ToList();
+            ).Result.List;
 
             //assert
             AssertFilterStringIsCorrect(expression, "q => Convert(q.OrderBy(d => d.FullName).Select(d => new InstructorModel() {ID = d.ID, FirstName = d.FirstName, LastName = d.LastName, FullName = d.FullName}))");
-            Assert.Equal(5, list.Count);
+            Assert.Equal(5, list.Count());
             Assert.Equal("Candace Kapoor", ((InstructorModel)list.First()).FullName);
-        }
-
-        [Fact]
-        public void Select_Credits_From_Lookups_Table_In_Descending_Order_As_Anonymous_Type()
-        {
-            //arrange
-            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<LookUpsModel>, IEnumerable<dynamic>>
-            (
-                GetBodyForAnonymousType(),
-                "q"
-            );
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-            ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
-
-            //act
-            var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
-            var list = RequestHelpers.GetAnonymousSelect<LookUpsModel, LookUps>
-            (
-                new Business.Requests.GetAnonymousDropDownListRequest
-                {
-                    Selector = selectorLambdaOperatorDescriptor,
-                    ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
-                    DataType = typeof(LookUps).AssemblyQualifiedName
-                },
-                repository,
-                mapper
-            ).Result.DropDownList.ToList();
-
-            //assert
-            AssertFilterStringIsCorrect(expression, "q => Convert(q.Where(l => (l.ListName == \"Credits\")).OrderByDescending(l => l.NumericValue).Select(l => new AnonymousType() {NumericValue = l.NumericValue, Text = l.Text}))");
-            Assert.Equal(5, list.Count);
-        }
-
-        [Fact]
-        public void Select_Credits_From_Lookups_Table_In_Descending_Order_From_DropDownListRequest_As_Anonymous_Type()
-        {
-            //arrange
-            var selectorLambdaOperatorDescriptor = GetExpressionDescriptor<IQueryable<LookUpsModel>, IEnumerable<dynamic>>
-            (
-                GetBodyForAnonymousType(),
-                "q"
-            );
-            IMapper mapper = serviceProvider.GetRequiredService<IMapper>();
-            ISchoolRepository repository = serviceProvider.GetRequiredService<ISchoolRepository>();
-
-            //act
-            var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
-            var list = RequestHelpers.GetAnonymousSelect
-            (
-                new Business.Requests.GetAnonymousDropDownListRequest 
-                { 
-                    Selector = selectorLambdaOperatorDescriptor,
-                    ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
-                    DataType = typeof(LookUps).AssemblyQualifiedName
-                },
-                repository,
-                mapper
-            ).Result.DropDownList.ToList();
-
-            //assert
-            AssertFilterStringIsCorrect(expression, "q => Convert(q.Where(l => (l.ListName == \"Credits\")).OrderByDescending(l => l.NumericValue).Select(l => new AnonymousType() {NumericValue = l.NumericValue, Text = l.Text}))");
-            Assert.Equal(5, list.Count);
         }
 
         [Fact]
@@ -360,7 +329,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
 
             //act
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
-            var response = RequestHelpers.GetLookupSelect<LookUpsModel, LookUps, IEnumerable<LookUpsModel>, IEnumerable<LookUps>>
+            var response = RequestHelpers.GetList<LookUpsModel, LookUps, IEnumerable<LookUpsModel>, IEnumerable<LookUps>>
             (
                 new Business.Requests.GetTypedListRequest
                 {
@@ -376,7 +345,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
 
             //assert
             AssertFilterStringIsCorrect(expression, "q => Convert(q.Where(l => (l.ListName == \"Credits\")).OrderByDescending(l => l.NumericValue).Select(l => new LookUpsModel() {NumericValue = l.NumericValue, Text = l.Text}))");
-            Assert.Equal(5, response.DropDownList.Count());
+            Assert.Equal(5, response.List.Count());
         }
 
         [Fact]
@@ -393,7 +362,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
 
             //act
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
-            var list = RequestHelpers.GetLookupSelect
+            var list = RequestHelpers.GetList
             (
                 new Business.Requests.GetTypedListRequest
                 {
@@ -405,11 +374,11 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                 },
                 repository,
                 mapper
-            ).Result.DropDownList.ToList();
+            ).Result.List;
 
             //assert
             AssertFilterStringIsCorrect(expression, "q => Convert(q.Where(l => (l.ListName == \"Credits\")).OrderByDescending(l => l.NumericValue).Select(l => new LookUpsModel() {NumericValue = l.NumericValue, Text = l.Text}))");
-            Assert.Equal(5, list.Count);
+            Assert.Equal(5, list.Count());
         }
 
         [Fact]
@@ -426,15 +395,11 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
 
             //act
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
-            var response = RequestHelpers.GetObjectSelect<LookUpsModel, LookUps, IEnumerable<LookUpsModel>, IEnumerable<LookUps>>
+            var response = RequestHelpers.GetList<LookUpsModel, LookUps, IEnumerable<LookUpsModel>, IEnumerable<LookUps>>
             (
                 new Business.Requests.GetTypedListRequest
                 {
-                    Selector = selectorLambdaOperatorDescriptor,
-                    ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
-                    DataType = typeof(LookUps).AssemblyQualifiedName,
-                    ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
-                    DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                    Selector = selectorLambdaOperatorDescriptor
                 },
                 repository,
                 mapper
@@ -442,7 +407,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
 
             //assert
             AssertFilterStringIsCorrect(expression, "q => Convert(q.Where(l => (l.ListName == \"Credits\")).OrderByDescending(l => l.NumericValue).Select(l => new LookUpsModel() {NumericValue = l.NumericValue, Text = l.Text}))");
-            Assert.Equal(5, response.DropDownList.Count());
+            Assert.Equal(5, response.List.Count());
         }
 
         [Fact]
@@ -459,7 +424,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
 
             //act
             var expression = mapper.MapToOperator(selectorLambdaOperatorDescriptor).Build();
-            var list = RequestHelpers.GetObjectSelect
+            var list = RequestHelpers.GetList
             (
                 new Business.Requests.GetTypedListRequest
                 {
@@ -471,11 +436,11 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                 },
                 repository,
                 mapper
-            ).Result.DropDownList.ToList();
+            ).Result.List;
 
             //assert
             AssertFilterStringIsCorrect(expression, "q => Convert(q.Where(l => (l.ListName == \"Credits\")).OrderByDescending(l => l.NumericValue).Select(l => new LookUpsModel() {NumericValue = l.NumericValue, Text = l.Text}))");
-            Assert.Equal(5, list.Count);
+            Assert.Equal(5, list.Count());
         }
 
         [Fact]
@@ -675,6 +640,19 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                 Count = 2
             };
 
+        private OrderByOperatorDescriptor GetDepartmentsBodyOrderByName()
+            => new OrderByOperatorDescriptor
+            {
+                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                SelectorBody = new MemberSelectorOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                    MemberFullName = "Name"
+                },
+                SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                SelectorParameterName = "d"
+            };
+
         private SelectOperatorDescriptor GetDepartmentsBodyForDepartmentModelType()
             => new SelectOperatorDescriptor
             {
@@ -747,55 +725,6 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                 SelectorParameterName = "d"
             };
 
-        private SelectOperatorDescriptor GetBodyForAnonymousType()
-            => new SelectOperatorDescriptor
-            {
-                SourceOperand = new OrderByOperatorDescriptor
-                {
-                    SourceOperand = new WhereOperatorDescriptor
-                    {
-                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
-                        FilterBody = new EqualsBinaryOperatorDescriptor
-                        {
-                            Left = new MemberSelectorOperatorDescriptor
-                            {
-                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
-                                MemberFullName = "ListName"
-                            },
-                            Right = new ConstantOperatorDescriptor
-                            {
-                                ConstantValue = "Credits",
-                                Type = typeof(string).AssemblyQualifiedName
-                            }
-                        },
-                        FilterParameterName = "l"
-                    },
-                    SelectorBody = new MemberSelectorOperatorDescriptor
-                    {
-                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
-                        MemberFullName = "NumericValue"
-                    },
-                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Descending,
-                    SelectorParameterName = "l"
-                },
-                SelectorBody = new MemberInitOperatorDescriptor
-                {
-                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
-                    {
-                        ["NumericValue"] = new MemberSelectorOperatorDescriptor
-                        {
-                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
-                            MemberFullName = "NumericValue"
-                        },
-                        ["Text"] = new MemberSelectorOperatorDescriptor
-                        {
-                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
-                            MemberFullName = "Text"
-                        }
-                    },
-                },
-                SelectorParameterName = "l"
-            };
 
         private SelectOperatorDescriptor GetBodyForLookupsModel()
             => new SelectOperatorDescriptor

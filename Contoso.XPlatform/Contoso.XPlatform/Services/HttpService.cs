@@ -22,66 +22,19 @@ namespace Contoso.XPlatform.Services
             cache = BlobCache.LocalMachine;
         }
 
-        public async Task<GetAnonymousDropDownListResponse> GetAnonymousDropDown(GetAnonymousDropDownListRequest request, string url = null)
+        public async Task<GetListResponse> GetObjectDropDown(GetTypedListRequest request, string url = null)
         {
             string jsonRequest = JsonSerializer.Serialize(request);
+            var response = await GetFromCache<GetListResponse>(jsonRequest);
 
-            var response = await GetFromCache<GetAnonymousDropDownListResponse>(jsonRequest);
-
-            if (response != null)
+            if (response?.Success == true && response.List != null)
                 return response;
 
             response = await PollyHelpers.ExecutePolicyAsync
             (
-                () => this.factory.PostAsync<GetAnonymousDropDownListResponse>
+                () => this.factory.PostAsync<GetListResponse>
                 (
-                    url ?? "api/Dropdown/GetAnonymousDropdown",
-                    jsonRequest,
-                    App.BASE_URL
-                )
-            );
-
-            await AddToCache(jsonRequest, response);
-
-            return response;
-        }
-
-        public async Task<GetLookupDropDownListResponse> GetLookupDropDown(GetTypedListRequest request, string url = null)
-        {
-            string jsonRequest = JsonSerializer.Serialize(request);
-            var response = await GetFromCache<GetLookupDropDownListResponse>(jsonRequest);
-
-            if (response != null)
-                return response;
-
-            response = await PollyHelpers.ExecutePolicyAsync
-            (
-                () => this.factory.PostAsync<GetLookupDropDownListResponse>
-                (
-                    url ?? "api/Dropdown/GetLookupDropdown",
-                    jsonRequest,
-                    App.BASE_URL
-                )
-            );
-
-            await AddToCache(jsonRequest, response);
-
-            return response;
-        }
-
-        public async Task<GetObjectDropDownListResponse> GetObjectDropDown(GetTypedListRequest request, string url = null)
-        {
-            string jsonRequest = JsonSerializer.Serialize(request);
-            var response = await GetFromCache<GetObjectDropDownListResponse>(jsonRequest);
-
-            if (response?.Success == true)
-                return response;
-
-            response = await PollyHelpers.ExecutePolicyAsync
-            (
-                () => this.factory.PostAsync<GetObjectDropDownListResponse>
-                (
-                    url ?? "api/Dropdown/GetObjectDropdown",
+                    url ?? "api/List/GetList",
                     jsonRequest,
                     App.BASE_URL
                 )

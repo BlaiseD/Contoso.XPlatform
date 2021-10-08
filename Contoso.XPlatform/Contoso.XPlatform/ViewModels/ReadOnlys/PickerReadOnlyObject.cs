@@ -107,7 +107,7 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
         {
             try
             {
-                GetObjectDropDownListResponse response = await this.httpService.GetObjectDropDown
+                BaseResponse response = await this.httpService.GetObjectDropDown
                 (
                     new GetTypedListRequest
                     {
@@ -122,17 +122,19 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
 
                 if (response?.Success != true)
                 {
+#if DEBUG
                     await App.Current.MainPage.DisplayAlert
                     (
                         "Errors",
                         string.Join(Environment.NewLine, response.ErrorMessages),
                         "Ok"
                     );
+#endif
                     return;
                 }
 
                 _items = null;
-                _items = response.DropDownList.Cast<object>().ToList();
+                _items = ((GetListResponse)response).List.Cast<object>().ToList();
                 OnPropertyChanged(nameof(SelectedItem));
                 OnPropertyChanged(nameof(DisplayText));
             }

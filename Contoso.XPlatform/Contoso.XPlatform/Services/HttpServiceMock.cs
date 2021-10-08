@@ -11,19 +11,9 @@ namespace Contoso.XPlatform.Services
 {
     public class HttpServiceMock : IHttpService
     {
-        public Task<GetAnonymousDropDownListResponse> GetAnonymousDropDown(GetAnonymousDropDownListRequest request, string url = null)
+        public Task<GetListResponse> GetObjectDropDown(GetTypedListRequest request, string url = null)
         {
-            return Task.FromResult(new GetAnonymousDropDownListResponse { Success = true, DropDownList = new List<object> { } });
-        }
-
-        public Task<GetLookupDropDownListResponse> GetLookupDropDown(GetTypedListRequest request, string url = null)
-        {
-            return Task.FromResult(new GetLookupDropDownListResponse { Success = true, DropDownList = new List<LookUpsModel> { } });
-        }
-
-        public Task<GetObjectDropDownListResponse> GetObjectDropDown(GetTypedListRequest request, string url = null)
-        {
-            return Task.FromResult(new GetObjectDropDownListResponse { Success = true, DropDownList = new List<EntityModelBase> { } });
+            return Task.FromResult(new GetListResponse { Success = true, List = new List<EntityModelBase> { } });
         }
 
         public Task<GetListResponse> GetList(GetTypedListRequest request, string url = null)

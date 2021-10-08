@@ -93,7 +93,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         {
             try
             {
-                GetObjectDropDownListResponse response = await this.httpService.GetObjectDropDown
+                BaseResponse response = await this.httpService.GetObjectDropDown
                 (
                     new GetTypedListRequest
                     {
@@ -108,18 +108,20 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
                 if (response?.Success != true)
                 {
+#if DEBUG
                     await App.Current.MainPage.DisplayAlert
                     (
                         "Errors",
                         string.Join(Environment.NewLine, response.ErrorMessages),
                         "Ok"
                     );
+#endif
                     return;
                 }
 
                 Items = null;
                 await System.Threading.Tasks.Task.Delay(400);
-                Items = response.DropDownList.Cast<object>().ToList();
+                Items = ((GetListResponse)response).List.Cast<object>().ToList();
                 OnPropertyChanged(nameof(SelectedItem));
 
                 this.Title = this._dropDownTemplate.TitleText;

@@ -129,7 +129,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         {
             try
             {
-                GetObjectDropDownListResponse response = await this.httpService.GetObjectDropDown
+                BaseResponse response = await this.httpService.GetObjectDropDown
                 (
                     new GetTypedListRequest
                     {
@@ -142,7 +142,20 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                     this._multiSelectTemplate.RequestDetails.DataSourceUrl
                 );
 
-                Items = response.DropDownList.OfType<E>().ToList();
+                if (response?.Success != true)
+                {
+#if DEBUG
+                    await App.Current.MainPage.DisplayAlert
+                    (
+                        "Errors",
+                        string.Join(Environment.NewLine, response.ErrorMessages),
+                        "Ok"
+                    );
+#endif
+                    return;
+                }
+
+                Items = ((GetListResponse)response).List.OfType<E>().ToList();
                 UpdateSelectedItems();
             }
             catch (Exception e)

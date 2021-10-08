@@ -281,9 +281,9 @@ namespace Contoso.Bsl.Web.Tests
                 "$it"
             );
 
-            var result = await this.clientFactory.PostAsync<GetObjectDropDownListResponse>
+            var result = await this.clientFactory.PostAsync<GetListResponse>
             (
-                "api/Dropdown/GetObjectDropdown",
+                "api/List/GetList",
                 JsonSerializer.Serialize
                 (
                     new Business.Requests.GetTypedListRequest
@@ -297,7 +297,7 @@ namespace Contoso.Bsl.Web.Tests
                 )
             );
 
-            Assert.NotNull(result);
+            Assert.True(result.List.Any());
         }
 
         [Fact]
@@ -310,9 +310,9 @@ namespace Contoso.Bsl.Web.Tests
                 "q"
             );
 
-            var result = await this.clientFactory.PostAsync<GetLookupDropDownListResponse>
+            var result = await this.clientFactory.PostAsync<GetListResponse>
             (
-                "api/Dropdown/GetLookupDropdown",
+                "api/List/GetList",
                 JsonSerializer.Serialize
                 (
                     new Business.Requests.GetTypedListRequest
@@ -326,7 +326,7 @@ namespace Contoso.Bsl.Web.Tests
                 )
             );
 
-            Assert.NotNull(result);
+            Assert.True(result.List.Any());
         }
 
         [Fact]
@@ -339,9 +339,9 @@ namespace Contoso.Bsl.Web.Tests
                 "q"
             );
 
-            var result = await this.clientFactory.PostAsync<GetObjectDropDownListResponse>
+            var result = await this.clientFactory.PostAsync<GetListResponse>
             (
-                "api/Dropdown/GetObjectDropdown",
+                "api/List/GetList",
                 JsonSerializer.Serialize
                 (
                     new Business.Requests.GetTypedListRequest
@@ -355,7 +355,7 @@ namespace Contoso.Bsl.Web.Tests
                 )
             );
 
-            Assert.NotNull(result);
+            Assert.True(result.List.Any());
         }
 
         [Fact]
@@ -368,9 +368,9 @@ namespace Contoso.Bsl.Web.Tests
                 "q"
             );
 
-            var result = await this.clientFactory.PostAsync<GetObjectDropDownListResponse>
+            var result = await this.clientFactory.PostAsync<GetListResponse>
             (
-                "api/Dropdown/GetObjectDropdown",
+                "api/List/GetList",
                 JsonSerializer.Serialize
                 (
                     new Business.Requests.GetTypedListRequest
@@ -384,7 +384,7 @@ namespace Contoso.Bsl.Web.Tests
                 )
             );
 
-            Assert.NotNull(result);
+            Assert.True(result.List.Any());
         }
 
         [Fact]
@@ -413,7 +413,7 @@ namespace Contoso.Bsl.Web.Tests
                 )
             );
 
-            Assert.NotNull(result);
+            Assert.True(result.List.Any());
         }
 
         [Fact]
@@ -477,7 +477,7 @@ namespace Contoso.Bsl.Web.Tests
                 )
             );
 
-            Assert.NotNull(result);
+            Assert.True(result.List.Any());
         }
         #endregion Tests
     }
