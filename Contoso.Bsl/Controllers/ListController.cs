@@ -22,7 +22,7 @@ namespace Contoso.Bsl.Controllers
         }
 
         [HttpPost("GetList")]
-        public async Task<GetListResponse> GetList([FromBody] GetTypedListRequest request)
+        public async Task<BaseResponse> GetList([FromBody] GetTypedListRequest request)
         {
             return await RequestHelpers.GetList
             (

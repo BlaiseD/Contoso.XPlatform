@@ -1,4 +1,5 @@
-﻿using Contoso.Common.Configuration.Json;
+﻿using Contoso.Bsl.Business.Responses.Json;
+using Contoso.Common.Configuration.Json;
 using Contoso.Domain.Json;
 using Contoso.Utils;
 using System.Text.Json;
@@ -22,7 +23,8 @@ namespace Contoso.XPlatform.Utils
                     {
                         new DescriptorConverter(),
                         new ModelConverter(),
-                        new ObjectConverter()
+                        new ObjectConverter(),
+                        new ResponseConverter()
                     }
                 };
 

@@ -110,7 +110,7 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
             if (this.FormSettings.RequestDetails.Filter == null)
                 throw new ArgumentException($"{nameof(this.FormSettings.RequestDetails.Filter)}: 51755FE3-099A-44EB-A59B-3ED312EDD8D1");
 
-            GetEntityResponse getEntityResponse = await BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
+            BaseResponse baseResponse = await BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
             (
                 () => this.httpService.GetEntity
                 (
@@ -124,17 +124,18 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
                 )
             );
 
-            if (getEntityResponse.Success == false)
+            if (baseResponse.Success == false)
             {
                 await App.Current.MainPage.DisplayAlert
                 (
                     "Errors",
-                    string.Join(Environment.NewLine, getEntityResponse.ErrorMessages),
+                    string.Join(Environment.NewLine, baseResponse.ErrorMessages),
                     "Ok"
                 );
                 return;
             }
 
+            GetEntityResponse getEntityResponse = (GetEntityResponse)baseResponse;
             this.entity = (TModel)getEntityResponse.Entity;
             (EditCommand as Command).ChangeCanExecute();
 

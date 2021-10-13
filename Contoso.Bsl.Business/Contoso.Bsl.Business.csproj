@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Contoso.Common.Configuration\Contoso.Common.Configuration.csproj" />
     <ProjectReference Include="..\Contoso.Domain\Contoso.Domain.csproj" />
+    <ProjectReference Include="..\Contoso.Utils\Contoso.Utils.csproj" />
   </ItemGroup>
 
 </Project>
