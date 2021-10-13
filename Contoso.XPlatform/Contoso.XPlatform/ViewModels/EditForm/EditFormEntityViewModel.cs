@@ -139,24 +139,15 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                     )
                 );
 
-                //if (response.Success)
-                //{
-                //    await App.Current.MainPage.DisplayAlert
-                //    (
-                //        "Success",
-                //        $"{FormSettings.Title} saved.",
-                //        "Ok"
-                //    );
-                //}
-                //else
-                //{
-                //    await App.Current.MainPage.DisplayAlert
-                //    (
-                //        "Errors",
-                //        string.Join(Environment.NewLine, response.ErrorMessages),
-                //        "Ok"
-                //    );
-                //}
+                if (response.Success == false)
+                {
+                    await App.Current.MainPage.DisplayAlert
+                    (
+                        "Errors",
+                        string.Join(Environment.NewLine, response.ErrorMessages),
+                        "Ok"
+                    );
+                }
 
                 Next(button);
             },

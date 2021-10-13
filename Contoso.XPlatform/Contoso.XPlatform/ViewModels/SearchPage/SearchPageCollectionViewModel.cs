@@ -238,7 +238,7 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
             (DetailCommand as Command).ChangeCanExecute();
         }
 
-        private Task<GetListResponse> GetList()
+        private Task<BaseResponse> GetList()
             => BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
             (
                 () => this.httpService.GetList
@@ -262,11 +262,12 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
 
         private async void GetItems()
         {
-            GetListResponse getListResponse = await GetList();
+            BaseResponse baseResponse = await GetList();
 
-            if (getListResponse.Success == false)
+            if (baseResponse.Success == false)
                 return;
 
+            GetListResponse getListResponse = (GetListResponse)baseResponse;
             this.Items = new ObservableCollection<TModel>(getListResponse.List.Cast<TModel>());
         }
 
@@ -275,15 +276,16 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
             this.FormSettings.SortCollection.Skip = (defaultSkip ?? 0) + this.Items.Count;
 
             IsRefreshing = true;
-            GetListResponse getListResponse = await GetList();
+            BaseResponse baseResponse = await GetList();
             IsRefreshing = false;
 
-            if (getListResponse.Success == false)
+            if (baseResponse.Success == false)
                 return;
 
             if (this.Items == null)
                 this.Items = new ObservableCollection<TModel>();
 
+            GetListResponse getListResponse = (GetListResponse)baseResponse;
             foreach (TModel model in getListResponse.List)
                 this.Items.Add(model);
 

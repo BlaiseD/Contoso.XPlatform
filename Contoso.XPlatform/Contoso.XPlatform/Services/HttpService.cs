@@ -22,7 +22,7 @@ namespace Contoso.XPlatform.Services
             cache = BlobCache.LocalMachine;
         }
 
-        public async Task<GetListResponse> GetObjectDropDown(GetTypedListRequest request, string url = null)
+        public async Task<BaseResponse> GetObjectDropDown(GetTypedListRequest request, string url = null)
         {
             string jsonRequest = JsonSerializer.Serialize(request);
             var response = await GetFromCache<GetListResponse>(jsonRequest);
@@ -45,10 +45,10 @@ namespace Contoso.XPlatform.Services
             return response;
         }
 
-        public Task<GetListResponse> GetList(GetTypedListRequest request, string url = null) 
+        public Task<BaseResponse> GetList(GetTypedListRequest request, string url = null) 
             => PollyHelpers.ExecutePolicyAsync
             (
-                () => this.factory.PostAsync<GetListResponse>
+                () => this.factory.PostAsync<BaseResponse>
                 (
                     url ?? "api/List/GetList",
                     JsonSerializer.Serialize(request),
@@ -67,10 +67,10 @@ namespace Contoso.XPlatform.Services
                 )
             );
 
-        public Task<DeleteEntityResponse> DeleteEntity(DeleteEntityRequest request, string url = null)
+        public Task<BaseResponse> DeleteEntity(DeleteEntityRequest request, string url = null)
             => PollyHelpers.ExecutePolicyAsync
             (
-                () => this.factory.PostAsync<DeleteEntityResponse>
+                () => this.factory.PostAsync<BaseResponse>
                 (
                     url,
                     JsonSerializer.Serialize(request),
@@ -78,10 +78,10 @@ namespace Contoso.XPlatform.Services
                 )
             );
 
-        public Task<SaveEntityResponse> SaveEntity(SaveEntityRequest request, string url) 
+        public Task<BaseResponse> SaveEntity(SaveEntityRequest request, string url) 
             => PollyHelpers.ExecutePolicyAsync
             (
-                () => this.factory.PostAsync<SaveEntityResponse>
+                () => this.factory.PostAsync<BaseResponse>
                 (
                     url,
                     JsonSerializer.Serialize(request),

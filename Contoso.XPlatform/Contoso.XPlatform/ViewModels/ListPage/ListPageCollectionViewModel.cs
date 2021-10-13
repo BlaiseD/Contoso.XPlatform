@@ -31,7 +31,7 @@ namespace Contoso.XPlatform.ViewModels.ListPage
             }
         }
 
-        private Task<GetListResponse> GetList()
+        private Task<BaseResponse> GetList()
             => BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
             (
                 () => httpService.GetList
@@ -49,11 +49,12 @@ namespace Contoso.XPlatform.ViewModels.ListPage
 
         private async void GetItems()
         {
-            GetListResponse getListResponse = await GetList();
+            BaseResponse baseResponse = await GetList();
 
-            if (getListResponse.Success == false)
+            if (baseResponse.Success == false)
                 return;
 
+            GetListResponse getListResponse = (GetListResponse)baseResponse;
             this.Items = new ObservableCollection<TModel>(getListResponse.List.Cast<TModel>());
         }
     }
