@@ -28,12 +28,12 @@ namespace Contoso.Bsl.Web.Tests
         [Fact]
         public async void SaveStudent()
         {
-            List<Task<SaveEntityResponse>> tasks = new List<Task<SaveEntityResponse>>();
+            List<Task<BaseResponse>> tasks = new List<Task<BaseResponse>>();
             for (int i = 0; i < 30; i++)
             {
                 tasks.Add
                 (
-                    this.clientFactory.PostAsync<SaveEntityResponse>
+                    this.clientFactory.PostAsync<BaseResponse>
                     (
                         "api/Student/Save",
                         JsonSerializer.Serialize
@@ -74,13 +74,18 @@ namespace Contoso.Bsl.Web.Tests
                                 }
                             }
                         ),
-                        "http://localhost:55688/"
+                        "http://localhost:7878/"
                     )
                 );
 
                 await Task.WhenAll(tasks);
 
-                tasks.ForEach(task => Assert.True(task.Result.Success));
+                tasks.ForEach(task =>
+                {
+                    Assert.True(task.Result.Success);
+                    Assert.True(task.Result is SaveEntityResponse saveEntityResponse);
+                    Assert.NotNull(((SaveEntityResponse)task.Result).Entity as StudentModel);
+                });
             }
         }
 
@@ -133,7 +138,7 @@ namespace Contoso.Bsl.Web.Tests
                                 }
                             }
                         ),
-                        "http://localhost:55688/"
+                        "http://localhost:7878/"
                     )
                 );
 

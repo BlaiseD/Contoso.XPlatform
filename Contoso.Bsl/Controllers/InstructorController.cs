@@ -21,7 +21,7 @@ namespace Contoso.Bsl.Controllers
         {
             this.flowManager.FlowDataCache.Request = deleteInstructorRequest;
             this.flowManager.Start("deleteinstructor");
-            return Ok((DeleteEntityResponse)this.flowManager.FlowDataCache.Response);
+            return Ok(this.flowManager.FlowDataCache.Response);
         }
 
         [HttpPost("Save")]
@@ -29,7 +29,7 @@ namespace Contoso.Bsl.Controllers
         {
             this.flowManager.FlowDataCache.Request = saveInstructorRequest;
             this.flowManager.Start("saveinstructor");
-            return Ok((SaveEntityResponse)this.flowManager.FlowDataCache.Response);
+            return Ok(this.flowManager.FlowDataCache.Response);
         }
     }
 }

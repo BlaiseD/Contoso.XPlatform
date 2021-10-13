@@ -23,8 +23,8 @@ namespace Contoso.Api.Controllers
         }
 
         [HttpPost("Delete")]
-        public async Task<DeleteEntityResponse> Delete([FromBody] DeleteEntityRequest deleteDepartmentRequest)
-            => await this.clientFactory.PostAsync<DeleteEntityResponse>
+        public Task<BaseResponse> Delete([FromBody] DeleteEntityRequest deleteDepartmentRequest)
+            => this.clientFactory.PostAsync<BaseResponse>
             (
                 "api/Department/Delete",
                 JsonSerializer.Serialize(deleteDepartmentRequest),
@@ -32,8 +32,8 @@ namespace Contoso.Api.Controllers
             );
 
         [HttpPost("Save")]
-        public async Task<SaveEntityResponse> Save([FromBody] SaveEntityRequest saveDepartmentRequest)
-            => await this.clientFactory.PostAsync<SaveEntityResponse>
+        public Task<BaseResponse> Save([FromBody] SaveEntityRequest saveDepartmentRequest)
+            => this.clientFactory.PostAsync<BaseResponse>
             (
                 "api/Department/Save",
                 JsonSerializer.Serialize(saveDepartmentRequest),

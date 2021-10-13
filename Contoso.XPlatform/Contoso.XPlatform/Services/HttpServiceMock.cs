@@ -21,9 +21,9 @@ namespace Contoso.XPlatform.Services
             return Task.FromResult(new GetListResponse { Success = true, List = new List<EntityModelBase> { } });
         }
 
-        public Task<GetEntityResponse> GetEntity(GetEntityRequest request, string url = null)
+        public Task<BaseResponse> GetEntity(GetEntityRequest request, string url = null)
         {
-            return Task.FromResult(new GetEntityResponse { Success = true });
+            return Task.FromResult((BaseResponse)new GetEntityResponse { Success = true });
         }
 
         public Task<SaveEntityResponse> SaveEntity(SaveEntityRequest request, string url = null)

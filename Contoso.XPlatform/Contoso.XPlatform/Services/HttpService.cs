@@ -56,10 +56,10 @@ namespace Contoso.XPlatform.Services
                 )
             );
 
-        public Task<GetEntityResponse> GetEntity(GetEntityRequest request, string url = null)
+        public Task<BaseResponse> GetEntity(GetEntityRequest request, string url = null)
             => PollyHelpers.ExecutePolicyAsync
             (
-                () => this.factory.PostAsync<GetEntityResponse>
+                () => this.factory.PostAsync<BaseResponse>
                 (
                     url ?? "api/Entity/GetEntity",
                     JsonSerializer.Serialize(request),

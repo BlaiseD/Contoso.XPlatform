@@ -54,7 +54,7 @@ namespace Contoso.Bsl.Web.Tests
                                 }
                             }
                         ),
-                        "http://localhost:55688/"
+                        "http://localhost:7878/"
                     )
                 );
 

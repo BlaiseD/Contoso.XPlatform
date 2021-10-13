@@ -24,8 +24,8 @@ namespace Contoso.Api.Controllers
         }
 
         [HttpPost("Delete")]
-        public async Task<DeleteEntityResponse> Delete([FromBody] DeleteEntityRequest deleteStudentRequest)
-            => await this.clientFactory.PostAsync<DeleteEntityResponse>
+        public Task<BaseResponse> Delete([FromBody] DeleteEntityRequest deleteStudentRequest)
+            => this.clientFactory.PostAsync<BaseResponse>
             (
                 "api/Student/Delete",
                 JsonSerializer.Serialize(deleteStudentRequest),
@@ -33,17 +33,26 @@ namespace Contoso.Api.Controllers
             );
 
         [HttpPost("Save")]
-        public async Task<SaveEntityResponse> Save([FromBody] SaveEntityRequest saveStudentRequest) 
-            => await this.clientFactory.PostAsync<SaveEntityResponse>
+        public Task<BaseResponse> Save([FromBody] SaveEntityRequest saveStudentRequest) 
+            => this.clientFactory.PostAsync<BaseResponse>
             (
                 "api/Student/Save",
                 JsonSerializer.Serialize(saveStudentRequest),
                 this.configurationOptions.BaseBslUrl
             );
 
+        [HttpPost("SaveWithoutRules")]
+        public Task<BaseResponse> SaveWithoutRules([FromBody] SaveEntityRequest saveStudentRequest)
+            => this.clientFactory.PostAsync<BaseResponse>
+            (
+                "api/Student/SaveWithoutRules",
+                JsonSerializer.Serialize(saveStudentRequest),
+                this.configurationOptions.BaseBslUrl
+            );
+
         [HttpGet]
-        public async Task<IEnumerable<string>> Get() 
-            => await this.clientFactory.GetAsync<IEnumerable<string>>
+        public Task<IEnumerable<string>> Get() 
+            => this.clientFactory.GetAsync<IEnumerable<string>>
             (
                 "api/Student",
                 this.configurationOptions.BaseBslUrl

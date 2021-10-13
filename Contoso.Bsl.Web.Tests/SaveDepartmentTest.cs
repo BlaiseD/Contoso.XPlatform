@@ -65,7 +65,7 @@ namespace Contoso.Bsl.Web.Tests
                                 Entity = model
                             }
                         ),
-                        "http://localhost:55688/"
+                        "http://localhost:7878/"
                     )
                 );
 

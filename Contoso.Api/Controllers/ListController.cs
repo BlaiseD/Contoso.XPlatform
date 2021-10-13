@@ -23,8 +23,8 @@ namespace Contoso.Api.Controllers
         }
 
         [HttpPost("GetList")]
-        public async Task<BaseResponse> GetList([FromBody] GetTypedListRequest request)
-            => await this.clientFactory.PostAsync<GetListResponse>
+        public Task<BaseResponse> GetList([FromBody] GetTypedListRequest request)
+            => this.clientFactory.PostAsync<BaseResponse>
             (
                 "api/List/GetList",
                 JsonSerializer.Serialize(request),
