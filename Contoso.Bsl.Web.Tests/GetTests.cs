@@ -23,6 +23,7 @@ namespace Contoso.Bsl.Web.Tests
         #region Fields
         private IServiceProvider serviceProvider;
         private IHttpClientFactory clientFactory;
+        private const string BASE_URL = "http://localhost:7878/";
         #endregion Fields
 
         #region Helpers
@@ -249,7 +250,7 @@ namespace Contoso.Bsl.Web.Tests
                     SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
                     MemberFullName = "DepartmentID"
                 },
-                Right = new ConstantOperatorDescriptor { Type = typeof(int).FullName, ConstantValue = 2 }
+                Right = new ConstantOperatorDescriptor { Type = typeof(int).FullName, ConstantValue = id }
             };
 
         private SelectorLambdaOperatorDescriptor GetExpressionDescriptor<T, TResult>(OperatorDescriptorBase selectorBody, string parameterName = "$it")
@@ -294,7 +295,8 @@ namespace Contoso.Bsl.Web.Tests
                         ModelReturnType = typeof(IQueryable<InstructorModel>).AssemblyQualifiedName,
                         DataReturnType = typeof(IQueryable<Instructor>).AssemblyQualifiedName
                     }
-                )
+                ),
+                BASE_URL
             );
 
             Assert.True(result.List.Any());
@@ -323,7 +325,8 @@ namespace Contoso.Bsl.Web.Tests
                         ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
                         DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
                     }
-                )
+                ),
+                BASE_URL
             );
 
             Assert.True(result.List.Any());
@@ -352,7 +355,8 @@ namespace Contoso.Bsl.Web.Tests
                         ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
                         DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
                     }
-                )
+                ),
+                BASE_URL
             );
 
             Assert.True(result.List.Any());
@@ -381,7 +385,8 @@ namespace Contoso.Bsl.Web.Tests
                         ModelReturnType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName,
                         DataReturnType = typeof(IEnumerable<Department>).AssemblyQualifiedName
                     }
-                )
+                ),
+                BASE_URL
             );
 
             Assert.True(result.List.Any());
@@ -410,7 +415,8 @@ namespace Contoso.Bsl.Web.Tests
                         ModelReturnType = typeof(IEnumerable<CourseModel>).AssemblyQualifiedName,
                         DataReturnType = typeof(IEnumerable<Course>).AssemblyQualifiedName
                     }
-                )
+                ),
+                BASE_URL
             );
 
             Assert.True(result.List.Any());
@@ -444,7 +450,8 @@ namespace Contoso.Bsl.Web.Tests
                         ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
                         DataType = typeof(Department).AssemblyQualifiedName
                     }
-                )
+                ),
+                BASE_URL
             );
 
             Assert.NotNull(result);
@@ -474,7 +481,8 @@ namespace Contoso.Bsl.Web.Tests
                         ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
                         DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
                     }
-                )
+                ),
+                BASE_URL
             );
 
             Assert.True(result.List.Any());
