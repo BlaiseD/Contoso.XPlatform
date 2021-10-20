@@ -21,16 +21,14 @@ namespace Contoso.XPlatform.Flow
 {
     public class DialogFunctions : IDialogFunctions
     {
-        public DialogFunctions(ScreenData screenData, FlowDataCache flowDataCache, IMapper mapper)
+        public DialogFunctions(ScreenData screenData, IMapper mapper)
         {
             this.screenData = screenData;
-            this.flowDataCache = flowDataCache;
             this.mapper = mapper;
         }
 
         #region Fields
         private readonly ScreenData screenData;
-        private readonly FlowDataCache flowDataCache;
         private readonly IMapper mapper;
         #endregion Fields
 
