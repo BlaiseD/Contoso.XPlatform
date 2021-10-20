@@ -13,7 +13,7 @@ namespace Contoso.Forms.Parameters.Bindings
 			[NameValue(AttributeNames.DEFAULTVALUE, "Header")]
 			string name,
 
-			[Comments("Update modelType first. The property to bind to the name section.")]
+			[Comments("Update fieldTypeSource first. The property to bind to the name section.")]
 			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
 			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
 			string property,

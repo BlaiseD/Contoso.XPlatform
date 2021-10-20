@@ -7,7 +7,7 @@ namespace Contoso.Forms.Parameters.Directives
     {
 		public VariableDirectivesParameters
 		(
-			[Comments("Update modelType first. The property to which the directive applies.")]
+			[Comments("Update fieldTypeSource first. The property to which the directive applies.")]
 			[ParameterEditorControl(ParameterControlType.ParameterSourcedPropertyInput)]
 			[NameValue(AttributeNames.PROPERTYSOURCEPARAMETER, "fieldTypeSource")]
 			string field,
