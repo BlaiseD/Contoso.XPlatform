@@ -455,31 +455,6 @@ namespace Contoso.XPlatform.Tests
             propertiesDictionary["FirstName"].Value = "John";
             propertiesDictionary["LastName"].Value = "Smith";
             propertiesDictionary["HireDate"].Value = new DateTime(2021, 5, 20);
-            //propertiesDictionary["OfficeAssignment"].Value = new OfficeAssignmentModel { Location = "Location1" };
-            //propertiesDictionary["Courses"].Value = new ObservableCollection<CourseAssignmentModel>
-            //(
-            //    new List<CourseAssignmentModel>
-            //    {
-            //        new CourseAssignmentModel
-            //        {
-            //            CourseID = 1,
-            //            InstructorID = 2,
-            //            CourseTitle = "Chemistry"
-            //        },
-            //        new CourseAssignmentModel
-            //        {
-            //            CourseID = 2,
-            //            InstructorID = 2,
-            //            CourseTitle = "Physics"
-            //        },
-            //        new CourseAssignmentModel
-            //        {
-            //            CourseID = 2,
-            //            InstructorID = 2,
-            //            CourseTitle = "Mathematics"
-            //        }
-            //    }
-            //);
 
             //act
             InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
@@ -509,14 +484,6 @@ namespace Contoso.XPlatform.Tests
             );
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
             propertiesDictionary["Courses"].Value = (ObservableCollection<CourseAssignmentModel>)propertiesDictionary["Courses"].Value;
-            //propertiesDictionary["Courses"].Value = (MultiSelectValidatableObject<ObservableCollection<CourseAssignmentModel>, CourseAssignmentModel>)null;
-            //propertiesDictionary["Courses"] = new MultiSelectValidatableObject<ObservableCollection<CourseAssignmentModel>, CourseAssignmentModel>
-            //(
-            //    "Courses",
-            //    (Forms.Configuration.EditForm.MultiSelectFormControlSettingsDescriptor)Descriptors.InstructorFormWithPopupOfficeAssignment.FieldSettings.First(f => f.Field == "Courses"),
-            //    new List<Validators.IValidationRule>(),
-            //    serviceProvider.GetRequiredService<IContextProvider>()
-            //);
 
             //act
             InstructorModel instructorModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
@@ -545,30 +512,6 @@ namespace Contoso.XPlatform.Tests
             propertiesDictionary["Budget"].Value = 100000m;
             propertiesDictionary["StartDate"].Value = new DateTime(2021, 5, 20);
             propertiesDictionary["InstructorID"].Value = 1;
-            //propertiesDictionary["Courses"].Value = new ObservableCollection<CourseModel>
-            //(
-            //    new List<CourseModel>
-            //    {
-            //        new CourseModel
-            //        {
-            //            CourseID = 1,
-            //            Credits = 3,
-            //            Title = "Trigonometry"
-            //        },
-            //        new CourseModel
-            //        {
-            //            CourseID = 2,
-            //            Credits = 4,
-            //            Title = "Physics"
-            //        },
-            //        new CourseModel
-            //        {
-            //            CourseID = 3,
-            //            Credits = 5,
-            //            Title = "Calculus"
-            //        }
-            //    }
-            //);
 
             //act
             DepartmentModel departmentModel = serviceProvider.GetRequiredService<IEntityStateUpdater>().GetUpdatedModel
