@@ -29,15 +29,6 @@ namespace Contoso.XPlatform.Tests
         [Fact]
         public void MapCourseModelToIValidatableList()
         {
-            //arrange
-            CourseModel course = new CourseModel
-            {
-                CourseID = 3,
-                Title = "Chemistry",
-                Credits = 4,
-                DepartmentID = 5
-            };
-
             //act
             ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IUpdateOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (

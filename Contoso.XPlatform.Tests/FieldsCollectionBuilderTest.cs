@@ -29,15 +29,6 @@ namespace Contoso.XPlatform.Tests
         [Fact]
         public void MapCourseModelToIValidatableList()
         {
-            //arrange
-            CourseModel course = new CourseModel
-            {
-                CourseID = 3,
-                Title = "Chemistry",
-                Credits = 4,
-                DepartmentID = 5
-            };
-
             //act
             ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
@@ -47,6 +38,9 @@ namespace Contoso.XPlatform.Tests
             //assert
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
             Assert.Equal(typeof(EntryValidatableObject<int>), propertiesDictionary["CourseID"].GetType());
+            Assert.Equal(typeof(EntryValidatableObject<string>), propertiesDictionary["Title"].GetType());
+            Assert.Equal(typeof(PickerValidatableObject<int>), propertiesDictionary["Credits"].GetType());
+            Assert.Equal(typeof(PickerValidatableObject<int>), propertiesDictionary["DepartmentID"].GetType());
         }
 
         static MapperConfiguration MapperConfiguration;
