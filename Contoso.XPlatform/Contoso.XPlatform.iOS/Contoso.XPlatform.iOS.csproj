@@ -157,7 +157,7 @@
     <BundleResource Include="Resources\hamburger%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\Icon.png" />
+    <BundleResource Include="Resources\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\splash_logo.png" />
