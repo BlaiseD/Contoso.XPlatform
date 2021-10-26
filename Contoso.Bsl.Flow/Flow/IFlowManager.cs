@@ -20,7 +20,6 @@ namespace Contoso.Bsl.Flow
         void Start(string module);
         void SetCurrentBusinessBackupData();
         void FlowComplete();
-        void Wait();
         void Terminate();
     }
 }
