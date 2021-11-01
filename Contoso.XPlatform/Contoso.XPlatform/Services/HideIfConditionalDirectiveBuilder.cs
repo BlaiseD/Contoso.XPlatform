@@ -7,17 +7,17 @@ using System.Collections.Generic;
 
 namespace Contoso.XPlatform.Services
 {
-    public class ConditionalValidationConditionsBuilder : IConditionalValidationConditionsBuilder
+    public class HideIfConditionalDirectiveBuilder : IHideIfConditionalDirectiveBuilder
     {
         private readonly IMapper mapper;
 
-        public ConditionalValidationConditionsBuilder(IMapper mapper)
+        public HideIfConditionalDirectiveBuilder(IMapper mapper)
         {
             this.mapper = mapper;
         }
 
-        public List<ValidateIf<TModel>> GetConditions<TModel>(IFormGroupSettings formGroupSettings, IEnumerable<IValidatable> properties)
-            => new ValidateIfConditionalDirectiveHelper<TModel>
+        public List<HideIf<TModel>> GetConditions<TModel>(IFormGroupSettings formGroupSettings, IEnumerable<IValidatable> properties)
+            => new HideIfConditionalDirectiveHelper<TModel>
             (
                 formGroupSettings,
                 properties,

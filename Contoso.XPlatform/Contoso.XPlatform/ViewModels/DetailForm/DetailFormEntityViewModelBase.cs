@@ -3,6 +3,7 @@ using Contoso.Forms.Configuration.DetailForm;
 using Contoso.XPlatform.Flow.Requests;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
+using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels.ReadOnlys;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,8 +24,8 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
             Properties = contextProvider.ReadOnlyFieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
         }
 
-        public Dictionary<string, IReadOnly> PropertiesDictionary
-            => Properties.ToDictionary(p => p.Name);
+        public Dictionary<string, IReadOnly> BindingPropertiesDictionary
+            => Properties.ToDictionary(p => p.Name.ToBindingDictionaryKey());
 
         public DetailFormSettingsDescriptor FormSettings { get; set; }
         public ObservableCollection<IReadOnly> Properties { get; set; }

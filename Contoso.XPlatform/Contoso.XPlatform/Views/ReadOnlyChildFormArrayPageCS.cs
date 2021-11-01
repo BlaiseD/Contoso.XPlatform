@@ -87,6 +87,7 @@ namespace Contoso.XPlatform.Views
             };
 
             this.BackgroundColor = Color.Transparent;
+            Visual = VisualMarker.Material;
             this.BindingContext = this.formArrayReadOnly;
         }
 

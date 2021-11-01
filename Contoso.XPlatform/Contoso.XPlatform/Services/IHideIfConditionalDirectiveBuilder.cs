@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 namespace Contoso.XPlatform.Services
 {
-    public interface IConditionalValidationConditionsBuilder
+    public interface IHideIfConditionalDirectiveBuilder
     {
-        List<ValidateIf<TModel>> GetConditions<TModel>(IFormGroupSettings formGroupSettings, IEnumerable<IValidatable> properties);
+        List<HideIf<TModel>> GetConditions<TModel>(IFormGroupSettings formGroupSettings, IEnumerable<IValidatable> properties);
     }
 }

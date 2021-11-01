@@ -5,12 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace Contoso.XPlatform.Validators
 {
-    internal class ValidateIfManager<TModel> : IDisposable
+    internal class HideIfManager<TModel> : IDisposable
     {
-        public ValidateIfManager(ICollection<IValidatable> currentProperties, List<ValidateIf<TModel>> conditions, IMapper mapper, UiNotificationService uiNotificationService)
+        public HideIfManager(ICollection<IValidatable> currentProperties, List<HideIf<TModel>> conditions, IMapper mapper, UiNotificationService uiNotificationService)
         {
             CurrentProperties = currentProperties;
             this.conditions = conditions;
@@ -20,7 +21,7 @@ namespace Contoso.XPlatform.Validators
         }
 
         private readonly IMapper mapper;
-        private readonly List<ValidateIf<TModel>> conditions;
+        private readonly List<HideIf<TModel>> conditions;
         private readonly UiNotificationService uiNotificationService;
         private readonly IDisposable propertyChangedSubscription;
 
@@ -28,33 +29,20 @@ namespace Contoso.XPlatform.Validators
         private IDictionary<string, IValidatable> CurrentPropertiesDictionary
             => CurrentProperties.ToDictionary(p => p.Name);
 
-        public void Check(ValidateIf<TModel> condition)
+        public void Check(HideIf<TModel> condition)
         {
             DoCheck(CurrentPropertiesDictionary[condition.Field]);
 
             void DoCheck(IValidatable currentValidatable)
             {
-                HashSet<IValidationRule> existingRules = currentValidatable.Validations.ToHashSet();
-                TModel entity = mapper.Map<TModel>(CurrentProperties.ToDictionary(p => p.Name, p => p.Value));
-                if (CanValidate(entity, condition.Evaluator))
-                {
-                    if (!existingRules.Contains(condition.Validator))
-                    {
-                        currentValidatable.Validations.Add(condition.Validator);
-                        currentValidatable.Validate();
-                    }
-                }
-                else
-                {
-                    if (existingRules.Contains(condition.Validator))
-                    {
-                        currentValidatable.Validations.Remove(condition.Validator);
-                        currentValidatable.Validate();
-                    }
-                }
+                currentValidatable.IsVisible = ShouldHide
+                (
+                    mapper.Map<TModel>(CurrentProperties.ToDictionary(p => p.Name, p => p.Value)),
+                    condition.Evaluator
+                ) == false;
             }
 
-            bool CanValidate(TModel entity, Expression<Func<TModel, bool>> evaluator)
+            bool ShouldHide(TModel entity, Expression<Func<TModel, bool>> evaluator)
                 => new List<TModel> { entity }.AsQueryable().All(evaluator);
         }
 
@@ -69,16 +57,16 @@ namespace Contoso.XPlatform.Validators
             (
                 condition =>
                 {
-                    if (condition.DirectiveDefinition.FunctionName == nameof(ValidateIfManager<TModel>.Check))
+                    if (condition.DirectiveDefinition.FunctionName == nameof(HideIfManager<TModel>.Check))
                     {
                         if (condition.DirectiveDefinition.Arguments?.Any() != true)
-                            throw new ArgumentException($"{condition.DirectiveDefinition.Arguments}: F1DA1B2F-9397-439B-BC5B-AEFB85A9E4E5");
+                            throw new ArgumentException($"{condition.DirectiveDefinition.Arguments}: 44DCE54F-354A-4A4C-B0C3-33996894C523");
 
                         const string fieldsToWatch = "fieldsToWatch";
                         if (!condition.DirectiveDefinition.Arguments.TryGetValue(fieldsToWatch, out DirectiveArgumentDescriptor fieldsToWatchDescriptor))
-                            throw new ArgumentException($"{fieldsToWatch}: 36940976-0DAD-4171-A181-445216EC0A26");
+                            throw new ArgumentException($"{fieldsToWatch}: 8B4587F9-2E28-4BEC-895E-B76452D96A8C");
                         if (!typeof(IEnumerable<string>).IsAssignableFrom(fieldsToWatchDescriptor.Value.GetType()))
-                            throw new ArgumentException($"{fieldsToWatchDescriptor}: 1B131DAA-276A-438E-88A8-031AF504E421");
+                            throw new ArgumentException($"{fieldsToWatchDescriptor}: CF80A321-A3FE-4C3A-91E9-83EE1ADB051D");
 
                         if (
                                 new HashSet<string>
@@ -92,9 +80,8 @@ namespace Contoso.XPlatform.Validators
                     }
                     else
                     {
-                        throw new ArgumentException($"{condition.DirectiveDefinition.FunctionName}: 8720D414-5352-4401-97C9-D6D7E9454292");
+                        throw new ArgumentException($"{condition.DirectiveDefinition.FunctionName}: 670983D8-C169-431A-8ABC-7EE721BC4133");
                     }
-
                 }
             );
         }

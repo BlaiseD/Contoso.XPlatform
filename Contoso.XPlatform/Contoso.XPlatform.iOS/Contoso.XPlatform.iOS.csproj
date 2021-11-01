@@ -138,6 +138,9 @@
     <PackageReference Include="System.Buffers" Version="4.5.1">
       <IncludeAssets>none</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Xamarin.Forms.Visual.Material">
+      <Version>5.0.0.2196</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

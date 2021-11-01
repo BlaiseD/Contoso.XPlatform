@@ -54,6 +54,7 @@ namespace Contoso.XPlatform.Utils
                         GetLabelForValidation()
                     }
                 }
+                .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
             ),
             LabelTemplate = new DataTemplate
             (
@@ -65,6 +66,7 @@ namespace Contoso.XPlatform.Utils
                         GetLabelForValidation()
                     }
                 }
+                .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
             ),
             PasswordTemplate = new DataTemplate
             (
@@ -76,6 +78,7 @@ namespace Contoso.XPlatform.Utils
                         GetLabelForValidation()
                     }
                 }
+                .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
             ),
             DateTemplate = new DataTemplate
             (
@@ -87,6 +90,7 @@ namespace Contoso.XPlatform.Utils
                        GetLabelForValidation()
                     }
                 }
+                .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
             ),
             CheckboxTemplate = new DataTemplate
             (
@@ -98,6 +102,7 @@ namespace Contoso.XPlatform.Utils
                         GetLabelForValidation()
                     }
                 }
+                .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
             ),
             SwitchTemplate = new DataTemplate
             (
@@ -109,6 +114,7 @@ namespace Contoso.XPlatform.Utils
                         GetLabelForValidation()
                     }
                 }
+                .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
             ),
             PickerTemplate = new DataTemplate
             (
@@ -120,6 +126,7 @@ namespace Contoso.XPlatform.Utils
                         GetLabelForValidation()
                     }
                 }
+                .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
             ),
             MultiSelectTemplate = new DataTemplate
             (
@@ -131,6 +138,7 @@ namespace Contoso.XPlatform.Utils
                         GetLabelForValidation()
                     }
                 }
+                .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
             ),
             PopupFormGroupTemplate = new DataTemplate
             (
@@ -142,6 +150,7 @@ namespace Contoso.XPlatform.Utils
                         GetLabelForValidation()
                     }
                 }
+                .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
             ),
             FormGroupArrayTemplate = new DataTemplate
             (
@@ -153,6 +162,7 @@ namespace Contoso.XPlatform.Utils
                         GetLabelForValidation()
                     }
                 }
+                .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
             ),
             HiddenTemplate = new DataTemplate
             (
@@ -187,6 +197,7 @@ namespace Contoso.XPlatform.Utils
                         VerticalOptions = LayoutOptions.Center
                     }
                     .AddBinding(Label.TextProperty, new Binding(nameof(CheckboxValidatableObject.CheckboxLabel)))
+                    .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
                 }
             };
 
@@ -213,6 +224,7 @@ namespace Contoso.XPlatform.Utils
                         VerticalOptions = LayoutOptions.Center
                     }
                     .AddBinding(Label.TextProperty, new Binding(nameof(SwitchValidatableObject.SwitchLabel)))
+                    .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)))
                 }
             };
 
@@ -234,12 +246,13 @@ namespace Contoso.XPlatform.Utils
             }
             .AddBinding(Picker.SelectedItemProperty, new Binding(nameof(PickerValidatableObject<string>.SelectedItem), BindingMode.TwoWay))
             .AddBinding(Picker.TitleProperty, new Binding(nameof(PickerValidatableObject<string>.Title)))
-            .AddBinding(Picker.ItemsSourceProperty, new Binding(nameof(PickerValidatableObject<string>.Items)));
+            .AddBinding(Picker.ItemsSourceProperty, new Binding(nameof(PickerValidatableObject<string>.Items)))
+            .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)));
 
             picker.ItemDisplayBinding = new Binding
             (
-                path: ".", 
-                converter: new PickerItemDisplayPathConverter(), 
+                path: ".",
+                converter: new PickerItemDisplayPathConverter(),
                 converterParameter: picker
             );
 
@@ -318,12 +331,13 @@ namespace Contoso.XPlatform.Utils
                     .AddBinding(EventToCommandBehavior.CommandProperty, new Binding(nameof(DatePickerValidatableObject.DateChangedCommand)))
                 }
             }
-            .AddBinding(DatePicker.DateProperty, new Binding(nameof(DatePickerValidatableObject.Value)));
+            .AddBinding(DatePicker.DateProperty, new Binding(nameof(DatePickerValidatableObject.Value)))
+            .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)));
 
         public static Entry GetEntryForMultiSelectControl()
             => GetEntry().AddBinding
             (
-                Entry.TextProperty, 
+                Entry.TextProperty,
                 new Binding(nameof(MultiSelectValidatableObject<ObservableCollection<string>, string>.DisplayText))
             );
 
@@ -361,7 +375,7 @@ namespace Contoso.XPlatform.Utils
         public static Entry GetPasswordEntryForValidation()
             => GetEntryForValidation(isPassword: true);
 
-        public static Entry GetEntry(bool isPassword = false) 
+        public static Entry GetEntry(bool isPassword = false)
             => new Entry()
             {
                 IsPassword = isPassword,
@@ -379,9 +393,10 @@ namespace Contoso.XPlatform.Utils
             }
             .AddBinding(Entry.PlaceholderProperty, new Binding(nameof(EntryValidatableObject<string>.Placeholder)))
             .AssignDynamicResource(VisualElement.BackgroundColorProperty, "EntryBackgroundColor")
-            .AssignDynamicResource(Entry.TextColorProperty, "PrimaryTextColor");
+            .AssignDynamicResource(Entry.TextColorProperty, "PrimaryTextColor")
+            .AddBinding(VisualElement.IsVisibleProperty, new Binding(nameof(IValidatable.IsVisible)));
 
-        public static Label GetLabelForValidation() 
+        public static Label GetLabelForValidation()
             => new Label
             {
                 Behaviors =

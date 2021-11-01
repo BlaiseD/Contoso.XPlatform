@@ -13,6 +13,7 @@ namespace Contoso.XPlatform.Views
         public ExtendedSplashView()
         {
             InitializeComponent();
+            Visual = VisualMarker.Material;
             this.BindingContext = App.ServiceProvider.GetRequiredService<ExtendedSplashViewModel>();
         }
 

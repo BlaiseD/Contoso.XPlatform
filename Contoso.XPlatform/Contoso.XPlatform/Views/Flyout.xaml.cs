@@ -20,6 +20,7 @@ namespace Contoso.XPlatform.Views
         public Flyout()
         {
             InitializeComponent();
+            Visual = VisualMarker.Material;
             ListView = MenuItemsListView;
         }
     }

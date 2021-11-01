@@ -5,6 +5,7 @@ namespace Contoso.XPlatform.Services
     public interface IContextProvider
     {
         IConditionalValidationConditionsBuilder ConditionalValidationConditionsBuilder { get; }
+        IHideIfConditionalDirectiveBuilder HideIfConditionalDirectiveBuilder { get; }
         IEntityStateUpdater EntityStateUpdater { get; }
         IEntityUpdater EntityUpdater { get; }
         IFieldsCollectionBuilder FieldsCollectionBuilder { get; }

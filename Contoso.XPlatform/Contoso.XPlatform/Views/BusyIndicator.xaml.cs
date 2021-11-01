@@ -10,6 +10,7 @@ namespace Contoso.XPlatform.Views
         public BusyIndicator()
         {
             InitializeComponent();
+            Visual = VisualMarker.Material;
             this.BackgroundColor = Color.Transparent;
         }
     }

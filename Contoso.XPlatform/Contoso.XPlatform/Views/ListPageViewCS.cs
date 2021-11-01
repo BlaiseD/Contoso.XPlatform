@@ -12,6 +12,7 @@ namespace Contoso.XPlatform.Views
         {
             this.listPageCollectionViewModel = listPageViewModel.ListPageCollectionViewModel;
             AddContent();
+            Visual = VisualMarker.Material;
             BindingContext = this.listPageCollectionViewModel;
         }
 

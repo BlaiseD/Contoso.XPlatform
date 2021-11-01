@@ -3,6 +3,7 @@ using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Flow.Requests;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
+using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels.Validatables;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,8 @@ namespace Contoso.XPlatform.ViewModels.EditForm
             Properties = contextProvider.FieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
         }
 
-        public Dictionary<string, IValidatable> PropertiesDictionary
-            => Properties.ToDictionary(p => p.Name);
+        public Dictionary<string, IValidatable> BindingPropertiesDictionary
+            => Properties.ToDictionary(p => p.Name.ToBindingDictionaryKey());
 
         public EditFormSettingsDescriptor FormSettings { get; set; }
         public ObservableCollection<IValidatable> Properties { get; set; }

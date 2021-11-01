@@ -1,5 +1,4 @@
-﻿using Contoso.Forms.Configuration;
-using Contoso.XPlatform.Behaviours;
+﻿using Contoso.XPlatform.Behaviours;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.ViewModels.SearchPage;
@@ -13,6 +12,7 @@ namespace Contoso.XPlatform.Views
         {
             this.searchPageListViewModel = searchPageViewModel.SearchPageEntityViewModel;
             AddContent();
+            Visual = VisualMarker.Material;
             BindingContext = this.searchPageListViewModel;
         }
 

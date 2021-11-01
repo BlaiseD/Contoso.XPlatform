@@ -410,6 +410,7 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<IActions, Actions>()
                 .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
+                .AddSingleton<IHideIfConditionalDirectiveBuilder, HideIfConditionalDirectiveBuilder>()
                 .AddSingleton<IGetItemFilterBuilder, GetItemFilterBuilder>()
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
                 .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
