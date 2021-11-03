@@ -25,11 +25,11 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
             this.validateIfManager = new ValidateIfManager<T>
             (
-                Properties,
+                FormLayout.Properties,
                 contextProvider.ConditionalValidationConditionsBuilder.GetConditions<T>
                 (
                     FormSettings,
-                    Properties
+                    FormLayout.Properties
                 ),
                 contextProvider.Mapper,
                 this.uiNotificationService
@@ -37,11 +37,11 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
             this.hideIfManager = new HideIfManager<T>
             (
-                Properties,
+                FormLayout.Properties,
                 contextProvider.HideIfConditionalDirectiveBuilder.GetConditions<T>
                 (
                     FormSettings,
-                    Properties
+                    FormLayout.Properties
                 ),
                 contextProvider.Mapper,
                 this.uiNotificationService
@@ -52,10 +52,10 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
         protected virtual void CreateFieldsCollection()
         {
-            Properties = updateOnlyFieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
+            FormLayout = updateOnlyFieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
         }
 
-        public ObservableCollection<IValidatable> Properties { get; set; }
+        public EditFormLayout FormLayout { get; set; }
         
         public IChildFormGroupSettings FormSettings { get; set; }
         private readonly IEntityUpdater entityUpdater;
@@ -105,7 +105,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                 base.Value = value;
                 this.propertiesUpdater.UpdateProperties
                 (
-                    Properties,
+                    FormLayout.Properties,
                     base.Value,
                     FormSettings.FieldSettings
                 );
@@ -143,7 +143,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                     {
                         Value = this.entityUpdater.ToModelObject
                         (
-                            Properties, 
+                            FormLayout.Properties, 
                             this.FormSettings.FieldSettings, 
                             Value
                         );
@@ -237,7 +237,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         }
 
         private bool AreFieldsValid()
-            => Properties.Aggregate
+            => FormLayout.Properties.Aggregate
             (
                 true,
                 (isTrue, next) => next.Validate() && isTrue

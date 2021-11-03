@@ -1,14 +1,13 @@
 ﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
-using Contoso.XPlatform.ViewModels.Validatables;
+using Contoso.XPlatform.ViewModels;
 using System;
-using System.Collections.ObjectModel;
 
 namespace Contoso.XPlatform.Utils
 {
     internal class UpdateOnlyFieldsCollectionHelper : FieldsCollectionHelper
     {
-        public UpdateOnlyFieldsCollectionHelper(IFormGroupSettings formSettings, IContextProvider contextProvider, ObservableCollection<IValidatable> properties = null, string parentName = null) : base(formSettings, contextProvider, properties, parentName)
+        public UpdateOnlyFieldsCollectionHelper(IFormGroupSettings formSettings, IContextProvider contextProvider, EditFormLayout formLayout = null, string parentName = null) : base(formSettings, contextProvider, formLayout, parentName)
         {
         }
 
@@ -32,7 +31,7 @@ namespace Contoso.XPlatform.Utils
             (
                 setting,
                 this.contextProvider,
-                this.properties,
+                this.formLayout,
                 GetFieldName(setting.Field)
             ).CreateFields();
         }

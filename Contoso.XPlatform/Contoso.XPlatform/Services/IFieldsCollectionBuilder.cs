@@ -1,11 +1,10 @@
 ﻿using Contoso.Forms.Configuration.EditForm;
-using Contoso.XPlatform.ViewModels.Validatables;
-using System.Collections.ObjectModel;
+using Contoso.XPlatform.ViewModels;
 
 namespace Contoso.XPlatform.Services
 {
     public interface IFieldsCollectionBuilder
     {
-        ObservableCollection<IValidatable> CreateFieldsCollection(IFormGroupSettings formSettings);
+        EditFormLayout CreateFieldsCollection(IFormGroupSettings formSettings);
     }
 }

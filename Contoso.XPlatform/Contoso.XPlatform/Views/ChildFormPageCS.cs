@@ -1,7 +1,9 @@
-﻿using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration;
+using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
+using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.ViewModels.Validatables;
-
+using System.Linq;
 using Xamarin.Forms;
 
 namespace Contoso.XPlatform.Views
@@ -11,7 +13,10 @@ namespace Contoso.XPlatform.Views
         public ChildFormPageCS(IValidatable formValidatable)
         {
             this.formValidatable = formValidatable;
-            
+            this.formLayout = (EditFormLayout)this.formValidatable.GetType()
+                .GetProperty(nameof(FormValidatableObject<string>.FormLayout))
+                .GetValue(this.formValidatable);
+
             Content = new AbsoluteLayout
             {
                 HorizontalOptions = LayoutOptions.Fill,
@@ -39,9 +44,38 @@ namespace Contoso.XPlatform.Views
                                 new ScrollView
                                 {
                                     Style = LayoutHelpers.GetStaticStyleResource("ChildFormPopupScrollViewStyle"),
-                                    Content = new StackLayout()
-                                    .AddBinding(BindableLayout.ItemsSourceProperty, new Binding(nameof(FormValidatableObject<object>.Properties)))
-                                    .SetDataTemplateSelector(EditFormViewHelpers.QuestionTemplateSelector)
+                                    Content = this.formLayout.ControlGroupBoxList.Aggregate
+                                    (
+                                        new StackLayout(),
+                                        (stackLayout, controlBox) =>
+                                        {
+                                            stackLayout.Children.Add
+                                            (
+                                                new Label
+                                                {
+                                                    Style = LayoutHelpers.GetStaticStyleResource("EditFormGroupHeaderStyle"),
+                                                    BindingContext = controlBox
+                                                }
+                                                .AddBinding
+                                                (
+                                                    Label.TextProperty,
+                                                    GetHeaderBinding(controlBox.HeaderBindings, $"{nameof(ControlGroupBox.GroupHeader)}")
+                                                )
+                                            );
+                                            stackLayout.Children.Add
+                                            (
+                                                new StackLayout
+                                                {
+                                                    VerticalOptions = LayoutOptions.StartAndExpand,
+                                                    BindingContext = controlBox
+                                                }
+                                                .AddBinding(BindableLayout.ItemsSourceProperty, new Binding("."))
+                                                .SetDataTemplateSelector(EditFormViewHelpers.QuestionTemplateSelector)
+                                            );
+
+                                            return stackLayout;
+                                        }
+                                    )
                                 },
                                 new BoxView { Style = LayoutHelpers.GetStaticStyleResource("PopupFooterSeparatorStyle") },
                                 new Grid
@@ -81,8 +115,26 @@ namespace Contoso.XPlatform.Views
             this.BackgroundColor = Color.Transparent;
             Visual = VisualMarker.Material;
             this.BindingContext = this.formValidatable;
+
+            BindingBase GetHeaderBinding(MultiBindingDescriptor multiBindingDescriptor, string bindingName)
+            {
+                if (multiBindingDescriptor == null)
+                    return new Binding(bindingName);
+
+                return new MultiBinding
+                {
+                    StringFormat = multiBindingDescriptor.StringFormat,
+                    Bindings = multiBindingDescriptor.Fields.Select
+                    (
+                        field => new Binding($"{nameof(ControlGroupBox.BindingPropertiesDictionary)}[{field.ToBindingDictionaryKey()}].{nameof(IValidatable.Value)}")
+                    )
+                    .Cast<BindingBase>()
+                    .ToList()
+                };
+            }
         }
 
         private IValidatable formValidatable;
+        private EditFormLayout formLayout;
     }
 }

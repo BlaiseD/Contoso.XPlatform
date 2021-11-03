@@ -66,7 +66,7 @@ namespace Contoso.XPlatform.Tests
             ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
                 Descriptors.InstructorFormWithInlineOfficeAssignment
-            );
+            ).Properties;
 
             //act
             serviceProvider.GetRequiredService<IPropertiesUpdater>().UpdateProperties
@@ -125,7 +125,7 @@ namespace Contoso.XPlatform.Tests
             ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
                 Descriptors.InstructorFormWithPopupOfficeAssignment
-            );
+            ).Properties;
 
             //act
             serviceProvider.GetRequiredService<IPropertiesUpdater>().UpdateProperties
@@ -181,7 +181,7 @@ namespace Contoso.XPlatform.Tests
             ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
                 Descriptors.DepartmentForm
-            );
+            ).Properties;
 
             //act
             serviceProvider.GetRequiredService<IPropertiesUpdater>().UpdateProperties

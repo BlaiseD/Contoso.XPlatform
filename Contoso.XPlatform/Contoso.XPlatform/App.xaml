@@ -64,6 +64,13 @@
                 <Setter Property="Margin" Value="0,5,0,0" />
             </Style>
 
+            <Style TargetType="Label" x:Key="EditFormGroupHeaderStyle" BaseResourceKey="SubtitleStyle">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="0,15,0,0" />
+            </Style>
+
             <Style TargetType="Label" x:Key="TextFormGroupHeaderStyle" BaseResourceKey="SubtitleStyle">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />

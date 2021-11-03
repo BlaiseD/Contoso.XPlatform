@@ -1,7 +1,6 @@
 ﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
-using Contoso.XPlatform.ViewModels.Validatables;
-using System.Collections.ObjectModel;
+using Contoso.XPlatform.ViewModels;
 
 namespace Contoso.XPlatform.Services
 {
@@ -14,7 +13,7 @@ namespace Contoso.XPlatform.Services
             this.contextProvider = contextProvider;
         }
 
-        public ObservableCollection<IValidatable> CreateFieldsCollection(IFormGroupSettings formSettings)
+        public EditFormLayout CreateFieldsCollection(IFormGroupSettings formSettings)
             => new UpdateOnlyFieldsCollectionHelper(formSettings, this.contextProvider).CreateFields();
     }
 }

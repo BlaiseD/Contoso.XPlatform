@@ -33,7 +33,7 @@ namespace Contoso.XPlatform.Tests
             ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
             (
                 Descriptors.CourseForm
-            );
+            ).Properties;
 
             //assert
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
