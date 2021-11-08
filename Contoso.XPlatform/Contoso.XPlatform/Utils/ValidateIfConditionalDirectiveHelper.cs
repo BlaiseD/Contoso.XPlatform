@@ -54,16 +54,7 @@ namespace Contoso.XPlatform.Utils
 
                         HashSet<string> validationsToWatch = new HashSet<string>((IEnumerable<string>)validationsToWatchDescriptor.Value);
 
-                        IValidatable validatable = null;
-                        try
-                        {
-                            validatable = propertiesDictionary[GetFieldName(kvp.Key)];
-                        }
-                        catch (Exception ex)
-                        {
-
-                            throw;
-                        }
+                        IValidatable validatable = propertiesDictionary[GetFieldName(kvp.Key)];
 
                         validatable.Validations.ForEach
                         (
@@ -71,7 +62,7 @@ namespace Contoso.XPlatform.Utils
                             {
                                 if (validationsToWatch.Contains(validationRule.ClassName) == false)
                                     return;
-                                Type t = typeof(TModel);
+
                                 list.Add
                                 (
                                     new ValidateIf<TModel>

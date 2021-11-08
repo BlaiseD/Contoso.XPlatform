@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 namespace Contoso.XPlatform.Utils
 {
-    public class HideIfConditionalDirectiveHelper<TModel> : BaseConditionalDirectiveHelper<HideIf<TModel>, TModel>
+    public class ReloadIfConditionalDirectiveHelper<TModel> : BaseConditionalDirectiveHelper<ReloadIf<TModel>, TModel>
     {
-        public HideIfConditionalDirectiveHelper(IFormGroupSettings formGroupSettings,
+        public ReloadIfConditionalDirectiveHelper(IFormGroupSettings formGroupSettings,
                                                  IEnumerable<IValidatable> properties,
                                                  IMapper mapper,
-                                                 List<HideIf<TModel>> parentList = null,
+                                                 List<ReloadIf<TModel>> parentList = null,
                                                  string parentName = null)
             : base(formGroupSettings, properties, mapper, parentList, parentName)
         {

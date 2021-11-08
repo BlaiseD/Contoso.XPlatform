@@ -53,9 +53,16 @@ namespace Contoso.XPlatform.Flow
         private FlowSettings FlowSettings
             => new FlowSettings
             (
+                FlowState,
                 FlowDataCache,
                 screenData.ScreenSettings
             );
+
+        public FlowState FlowState
+        {
+            get => ((Director)this.Director).FlowState;
+            set => ((Director)this.Director).FlowState = value;
+        }
         #endregion Properties
 
         #region Methods
@@ -143,6 +150,7 @@ namespace Contoso.XPlatform.Flow
         private FlowSettings GetFlowSettings(Exception ex) 
             => new FlowSettings
             (
+                FlowState,
                 FlowDataCache,
                 new ScreenSettings<TextFormSettingsDescriptor>
                 (

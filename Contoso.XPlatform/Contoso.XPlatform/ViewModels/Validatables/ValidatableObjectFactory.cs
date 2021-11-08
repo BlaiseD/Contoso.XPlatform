@@ -14,7 +14,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             return (IValidatable)validatable;
         }
 
-        private static object GetValue(FormControlSettingsDescriptor setting)
+        public static object GetValue(FormControlSettingsDescriptor setting)
             => typeof(ValidatableObjectFactory)
                 .GetMethod
                 (

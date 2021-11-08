@@ -12,6 +12,7 @@ namespace Contoso.XPlatform.Flow
         Progress Progress { get; }
         DirectorBase Director { get; }
         FlowDataCache FlowDataCache { get; }
+        FlowState FlowState { get; set; }
         IDialogFunctions DialogFunctions { get; }
         IActions Actions { get; }
         IFlowActivity FlowActivity { get; }

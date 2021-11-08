@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Contoso.Common.Utils\Contoso.Common.Utils.csproj" />
     <ProjectReference Include="..\Contoso.Data\Contoso.Data.csproj" />
     <ProjectReference Include="..\Contoso.Domain\Contoso.Domain.csproj" />
     <ProjectReference Include="..\Contoso.Forms.Configuration\Contoso.Forms.Configuration.csproj" />

@@ -342,6 +342,7 @@ namespace Contoso.XPlatform.Utils
                 (
                     typeof(PickerValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
                     GetFieldName(setting.Field),
+                    ValidatableObjectFactory.GetValue(setting),
                     dropDownTemplate,
                     GetValidationRules(setting),
                     this.contextProvider

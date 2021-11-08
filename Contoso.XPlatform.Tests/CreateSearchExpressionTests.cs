@@ -132,6 +132,8 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddSingleton<IHideIfConditionalDirectiveBuilder, HideIfConditionalDirectiveBuilder>()
+                .AddSingleton<IClearIfConditionalDirectiveBuilder, ClearIfConditionalDirectiveBuilder>()
+                .AddSingleton<IReloadIfConditionalDirectiveBuilder, ReloadIfConditionalDirectiveBuilder>()
                 .AddSingleton<ISearchSelectorBuilder, SearchSelectorBuilder>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpServiceMock>()

@@ -6,6 +6,8 @@ namespace Contoso.XPlatform.Services
     {
         IConditionalValidationConditionsBuilder ConditionalValidationConditionsBuilder { get; }
         IHideIfConditionalDirectiveBuilder HideIfConditionalDirectiveBuilder { get; }
+        IClearIfConditionalDirectiveBuilder ClearIfConditionalDirectiveBuilder { get; }
+        IReloadIfConditionalDirectiveBuilder ReloadIfConditionalDirectiveBuilder { get; }
         IEntityStateUpdater EntityStateUpdater { get; }
         IEntityUpdater EntityUpdater { get; }
         IFieldsCollectionBuilder FieldsCollectionBuilder { get; }

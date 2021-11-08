@@ -31,6 +31,8 @@ namespace Contoso.XPlatform
                 .AddSingleton<IReadOnlyFieldsCollectionBuilder, ReadOnlyFieldsCollectionBuilder>()
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddSingleton<IHideIfConditionalDirectiveBuilder, HideIfConditionalDirectiveBuilder>()
+                .AddSingleton<IClearIfConditionalDirectiveBuilder, ClearIfConditionalDirectiveBuilder>()
+                .AddSingleton<IReloadIfConditionalDirectiveBuilder, ReloadIfConditionalDirectiveBuilder>()
                 .AddSingleton<IEntityStateUpdater, EntityStateUpdater>()
                 .AddSingleton<IEntityUpdater, EntityUpdater>()
                 .AddSingleton<IPropertiesUpdater, PropertiesUpdater>()

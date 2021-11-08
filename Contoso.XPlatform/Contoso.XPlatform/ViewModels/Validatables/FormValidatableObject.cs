@@ -23,28 +23,11 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             this.updateOnlyFieldsCollectionBuilder = contextProvider.UpdateOnlyFieldsCollectionBuilder;
             CreateFieldsCollection();
 
-            this.validateIfManager = new ValidateIfManager<T>
+            this.directiveManagers = new DirectiveManagers<T>
             (
                 FormLayout.Properties,
-                contextProvider.ConditionalValidationConditionsBuilder.GetConditions<T>
-                (
-                    FormSettings,
-                    FormLayout.Properties
-                ),
-                contextProvider.Mapper,
-                this.uiNotificationService
-            );
-
-            this.hideIfManager = new HideIfManager<T>
-            (
-                FormLayout.Properties,
-                contextProvider.HideIfConditionalDirectiveBuilder.GetConditions<T>
-                (
-                    FormSettings,
-                    FormLayout.Properties
-                ),
-                contextProvider.Mapper,
-                this.uiNotificationService
+                FormSettings,
+                contextProvider
             );
 
             propertyChangedSubscription = this.uiNotificationService.ValueChanged.Subscribe(FieldChanged);
@@ -64,8 +47,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         private readonly IEntityUpdater entityUpdater;
         private readonly IPropertiesUpdater propertiesUpdater;
         private readonly IDisposable propertyChangedSubscription;
-        private readonly ValidateIfManager<T> validateIfManager;
-        private readonly HideIfManager<T> hideIfManager;
+        private readonly DirectiveManagers<T> directiveManagers;
 
         protected readonly IFieldsCollectionBuilder fieldsCollectionBuilder;
         private readonly IUpdateOnlyFieldsCollectionBuilder updateOnlyFieldsCollectionBuilder;
@@ -222,8 +204,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
         public virtual void Dispose()
         {
-            Dispose(this.validateIfManager);
-            Dispose(this.hideIfManager);
+            Dispose(this.directiveManagers);
             Dispose(this.propertyChangedSubscription);
             foreach (var property in FormLayout.Properties)
             {
