@@ -92,7 +92,6 @@ namespace Contoso.XPlatform.Flow
         {
             try
             {
-                Reset();
                 this.Director.StartInitialFlow(request.InitialModuleName);
                 return this.FlowSettings;
             }

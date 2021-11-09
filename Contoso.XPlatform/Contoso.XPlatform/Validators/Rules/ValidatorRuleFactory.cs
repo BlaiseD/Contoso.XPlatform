@@ -193,7 +193,7 @@ namespace Contoso.XPlatform.Validators.Rules
                     GetFieldName(setting.Field),
                     validationMessage,
                     fields,
-                    (string)validatorArgumentDescriptor.Value
+                    GetFieldName((string)validatorArgumentDescriptor.Value)
                 );
             }
 
