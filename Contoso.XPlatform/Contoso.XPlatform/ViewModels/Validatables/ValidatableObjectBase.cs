@@ -152,6 +152,12 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             return this.IsValid;
         }
 
+        public virtual void Clear()
+        {
+            Value = default;
+            IsValid = Validate();
+        }
+
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

@@ -189,7 +189,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             }
         }
 
-        public void Clear()
+        public override void Clear()
         {
             Items = null;
             Value = this.defaultValue ?? default;
