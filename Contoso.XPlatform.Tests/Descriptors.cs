@@ -894,6 +894,7 @@ namespace Contoso.XPlatform.Tests
                             }
                         }
                     },
+                    Type = typeof(ICollection<CourseModel>).AssemblyQualifiedName,
                     ModelType = "Contoso.Domain.Entities.CourseModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
                     KeyFields = new List<string> { "CourseID" }
                 }

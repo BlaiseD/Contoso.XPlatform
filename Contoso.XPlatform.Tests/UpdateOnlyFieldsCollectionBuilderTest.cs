@@ -32,7 +32,8 @@ namespace Contoso.XPlatform.Tests
             //act
             ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IUpdateOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.CourseForm
+                Descriptors.CourseForm,
+                typeof(CourseModel)
             ).Properties;
 
             //assert

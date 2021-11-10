@@ -1,6 +1,7 @@
 ﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
+using System;
 
 namespace Contoso.XPlatform.Services
 {
@@ -13,7 +14,7 @@ namespace Contoso.XPlatform.Services
             this.contextProvider = contextProvider;
         }
 
-        public EditFormLayout CreateFieldsCollection(IFormGroupSettings formSettings)
-            => new UpdateOnlyFieldsCollectionHelper(formSettings, this.contextProvider).CreateFields();
+        public EditFormLayout CreateFieldsCollection(IFormGroupSettings formSettings, Type modelType)
+            => new UpdateOnlyFieldsCollectionHelper(formSettings, this.contextProvider, modelType).CreateFields();
     }
 }

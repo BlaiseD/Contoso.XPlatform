@@ -35,7 +35,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
         protected virtual void CreateFieldsCollection()
         {
-            FormLayout = updateOnlyFieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
+            FormLayout = updateOnlyFieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings, typeof(T));
         }
 
         public event EventHandler Cancelled;
