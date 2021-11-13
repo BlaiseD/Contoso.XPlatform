@@ -339,7 +339,7 @@ namespace Contoso.XPlatform.Utils
             (
                 Activator.CreateInstance
                 (
-                    typeof(DatePickerValidatableObject),
+                    typeof(DatePickerValidatableObject<>).MakeGenericType(Type.GetType(setting.Type)),
                     GetFieldName(setting.Field),
                     templateName,
                     GetValidationRules(setting),
