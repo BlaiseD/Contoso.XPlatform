@@ -121,19 +121,27 @@ namespace Contoso.XPlatform.ViewModels.EditForm
         (
             execute: async (button) =>
             {
+                TModel toSave = this.entityStateUpdater.GetUpdatedModel
+                (
+                    entity,
+                    this.originalEntityDictionary,
+                    FormLayout.Properties,
+                    FormSettings.FieldSettings
+                );
+
+                if (toSave.EntityState == LogicBuilder.Domain.EntityStateType.Unchanged)
+                {
+                    Next(button);
+                    return;
+                }
+
                 BaseResponse response = await BusyIndicatorHelpers.ExecuteRequestWithBusyIndicator
                 (
                     () => this.httpService.SaveEntity
                     (
                         new SaveEntityRequest
                         {
-                            Entity = this.entityStateUpdater.GetUpdatedModel
-                            (
-                                entity,
-                                this.originalEntityDictionary,
-                                FormLayout.Properties,
-                                FormSettings.FieldSettings
-                            )
+                            Entity = toSave
                         },
                         this.FormSettings.EditType == EditType.Add
                             ? this.FormSettings.RequestDetails.AddUrl
