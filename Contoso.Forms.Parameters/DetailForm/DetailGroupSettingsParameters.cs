@@ -34,8 +34,9 @@ namespace Contoso.Forms.Parameters.DetailForm
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
 			[Comments("Fully qualified class name for the model type.")]
 			string fieldTypeSource = "Contoso.Domain.Entities"
-		) : base(field)
+		)
 		{
+			Field = field;
 			Title = title;
 			Placeholder = placeholder;
 			ModelType = modelType;
@@ -43,6 +44,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 			FieldSettings = fieldSettings;
 		}
 
+		public string Field { get; set; }
 		public string Title { get; set; }
 		public string Placeholder { get; set; }
 		public Type ModelType { get; set; }

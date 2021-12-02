@@ -132,7 +132,7 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
 
             this.propertiesUpdater.UpdateProperties
             (
-                Properties,
+                FormLayout.Properties,
                 getEntityResponse.Entity,
                 this.FormSettings.FieldSettings
             );

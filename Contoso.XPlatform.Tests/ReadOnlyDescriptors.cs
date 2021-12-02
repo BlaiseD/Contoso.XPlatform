@@ -566,5 +566,186 @@ namespace Contoso.XPlatform.Tests
             },
             ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
+
+        internal static DetailFormSettingsDescriptor CourseForm = new DetailFormSettingsDescriptor
+        {
+            Title = "Course",
+            RequestDetails = new FormRequestDetailsDescriptor
+            {
+                GetUrl = "/Course/GetSingle"
+            },
+            FieldSettings = new List<DetailItemSettingsDescriptor>
+            {
+                new DetailGroupBoxSettingsDescriptor
+                {
+                    GroupHeader = "Name And ID",
+                    FieldSettings = new List<DetailItemSettingsDescriptor>
+                    {
+                        new DetailControlSettingsDescriptor
+                        {
+                            Field = "CourseID",
+                            Type = "System.Int32",
+                            Title = "Course",
+                            Placeholder = "Course ID (required)",
+                            TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                        },
+                        new DetailControlSettingsDescriptor
+                        {
+                            Field = "Title",
+                            Type = "System.String",
+                            Title = "Title",
+                            Placeholder = "Title (required)",
+                            TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                        }
+                    }
+                },
+                new DetailGroupBoxSettingsDescriptor
+                {
+                    GroupHeader = "Title And Department",
+                    FieldSettings = new List<DetailItemSettingsDescriptor>
+                    {
+                        new DetailControlSettingsDescriptor
+                        {
+                            Field = "DepartmentID",
+                            Type = "System.Int32",
+                            Title = "Department",
+                            Placeholder = "Department(required)",
+                            DropDownTemplate = new DropDownTemplateDescriptor
+                            {
+                                TemplateName = "PickerTemplate",
+                                TitleText = "Select Department:",
+                                LoadingIndicatorText = "Loading ...",
+                                TextField = "Name",
+                                ValueField = "DepartmentID",
+                                TextAndValueSelector = new SelectorLambdaOperatorDescriptor
+                                {
+                                    Selector = new SelectOperatorDescriptor
+                                    {
+                                        SourceOperand = new OrderByOperatorDescriptor
+                                        {
+                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                                            SelectorBody = new MemberSelectorOperatorDescriptor
+                                            {
+                                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                MemberFullName = "Name"
+                                            },
+                                            SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                                            SelectorParameterName = "d"
+                                        },
+                                        SelectorBody = new MemberInitOperatorDescriptor
+                                        {
+                                            MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                                            {
+                                                ["DepartmentID"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                    MemberFullName = "DepartmentID"
+                                                },
+                                                ["Name"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                    MemberFullName = "Name"
+                                                }
+                                            },
+                                            NewType = typeof(DepartmentModel).AssemblyQualifiedName
+                                        },
+                                        SelectorParameterName = "d"
+                                    },
+                                    SourceElementType = typeof(IQueryable<DepartmentModel>).AssemblyQualifiedName,
+                                    ParameterName = "$it",
+                                    BodyType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName
+                                },
+                                RequestDetails = new RequestDetailsDescriptor
+                                {
+                                    DataSourceUrl = "api/Dropdown/GetObjectDropdown",
+                                    ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                                    DataType = typeof(Department).AssemblyQualifiedName,
+                                    ModelReturnType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName,
+                                    DataReturnType = typeof(IEnumerable<Department>).AssemblyQualifiedName
+                                }
+                            },
+                        },
+                        new DetailControlSettingsDescriptor
+                        {
+                            Field = "Credits",
+                            Type = "System.Int32",
+                            Title = "Credits",
+                            Placeholder = "Credits (required)",
+                            DropDownTemplate = new DropDownTemplateDescriptor
+                            {
+                                TemplateName = "PickerTemplate",
+                                TitleText = "Select credits:",
+                                LoadingIndicatorText = "Loading ...",
+                                TextField = "Text",
+                                ValueField = "NumericValue",
+                                TextAndValueSelector = new SelectorLambdaOperatorDescriptor
+                                {
+                                    Selector = new SelectOperatorDescriptor
+                                    {
+                                        SourceOperand = new OrderByOperatorDescriptor
+                                        {
+                                            SourceOperand = new WhereOperatorDescriptor
+                                            {
+                                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                                                FilterBody = new EqualsBinaryOperatorDescriptor
+                                                {
+                                                    Left = new MemberSelectorOperatorDescriptor
+                                                    {
+                                                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
+                                                        MemberFullName = "ListName"
+                                                    },
+                                                    Right = new ConstantOperatorDescriptor
+                                                    {
+                                                        ConstantValue = "Credits",
+                                                        Type = typeof(string).AssemblyQualifiedName
+                                                    }
+                                                },
+                                                FilterParameterName = "l"
+                                            },
+                                            SelectorBody = new MemberSelectorOperatorDescriptor
+                                            {
+                                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
+                                                MemberFullName = "NumericValue"
+                                            },
+                                            SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Descending,
+                                            SelectorParameterName = "l"
+                                        },
+                                        SelectorBody = new MemberInitOperatorDescriptor
+                                        {
+                                            MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                                            {
+                                                ["NumericValue"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "NumericValue"
+                                                },
+                                                ["Text"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "Text"
+                                                }
+                                            },
+                                            NewType = typeof(LookUpsModel).AssemblyQualifiedName
+                                        },
+                                        SelectorParameterName = "s"
+                                    },
+                                    SourceElementType = typeof(IQueryable<LookUpsModel>).AssemblyQualifiedName,
+                                    ParameterName = "$it",
+                                    BodyType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName
+                                },
+                                RequestDetails = new RequestDetailsDescriptor
+                                {
+                                    DataSourceUrl = "api/Dropdown/GetObjectDropdown",
+                                    ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
+                                    DataType = typeof(LookUps).AssemblyQualifiedName,
+                                    ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
+                                    DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                                }
+                            },
+                        }
+                    }
+                }
+            }
+        };
     }
 }

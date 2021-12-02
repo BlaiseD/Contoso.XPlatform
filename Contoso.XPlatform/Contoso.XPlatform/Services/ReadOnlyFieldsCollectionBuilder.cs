@@ -1,7 +1,6 @@
 ﻿using Contoso.Forms.Configuration.DetailForm;
 using Contoso.XPlatform.Utils;
-using Contoso.XPlatform.ViewModels.ReadOnlys;
-using System.Collections.ObjectModel;
+using Contoso.XPlatform.ViewModels;
 
 namespace Contoso.XPlatform.Services
 {
@@ -14,7 +13,7 @@ namespace Contoso.XPlatform.Services
             this.contextProvider = contextProvider;
         }
 
-        public ObservableCollection<IReadOnly> CreateFieldsCollection(IDetailGroupSettings formSettings)
+        public DetailFormLayout CreateFieldsCollection(IDetailGroupSettings formSettings)
             => new ReadOnlyFieldsCollectionHelper(formSettings, this.contextProvider).CreateFields();
     }
 }

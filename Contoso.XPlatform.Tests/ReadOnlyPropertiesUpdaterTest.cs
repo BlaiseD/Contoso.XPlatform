@@ -65,7 +65,7 @@ namespace Contoso.XPlatform.Tests
             ObservableCollection<IReadOnly> properties = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
                 ReadOnlyDescriptors.InstructorFormWithInlineOfficeAssignment
-            );
+            ).Properties;
 
             //act
             serviceProvider.GetRequiredService<IReadOnlyPropertiesUpdater>().UpdateProperties
@@ -124,7 +124,7 @@ namespace Contoso.XPlatform.Tests
             ObservableCollection<IReadOnly> properties = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
                 ReadOnlyDescriptors.InstructorFormWithPopupOfficeAssignment
-            );
+            ).Properties;
 
             //act
             serviceProvider.GetRequiredService<IReadOnlyPropertiesUpdater>().UpdateProperties
@@ -180,7 +180,7 @@ namespace Contoso.XPlatform.Tests
             ObservableCollection<IReadOnly> properties = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
                 ReadOnlyDescriptors.DepartmentForm
-            );
+            ).Properties;
 
             //act
             serviceProvider.GetRequiredService<IReadOnlyPropertiesUpdater>().UpdateProperties
@@ -199,6 +199,38 @@ namespace Contoso.XPlatform.Tests
             Assert.Equal(new DateTime(2021, 5, 20), propertiesDictionary["StartDate"]);
             Assert.Equal(1, propertiesDictionary["InstructorID"]);
             Assert.Equal("Trigonometry", ((IEnumerable<CourseModel>)propertiesDictionary["Courses"]).First().Title);
+        }
+
+        [Fact]
+        public void MapCourseModel_WithMultipleGroupBoxSettingsDescriptorFields_ToIReadOnlyList()
+        {
+            //arrange
+            CourseModel courseModel = new CourseModel
+            {
+                CourseID = 1,
+                Credits = 3,
+                Title = "Trigonometry",
+                DepartmentID = 2
+            };
+
+            ObservableCollection<IReadOnly> properties = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
+            (
+                ReadOnlyDescriptors.CourseForm
+            ).Properties;
+
+            //act
+            serviceProvider.GetRequiredService<IReadOnlyPropertiesUpdater>().UpdateProperties
+            (
+                properties,
+                courseModel,
+                ReadOnlyDescriptors.CourseForm.FieldSettings
+            );
+
+            IDictionary<string, object> propertiesDictionary = properties.ToDictionary(property => property.Name, property => property.Value);
+            Assert.Equal(1, propertiesDictionary["CourseID"]);
+            Assert.Equal(3, propertiesDictionary["Credits"]);
+            Assert.Equal("Trigonometry", propertiesDictionary["Title"]);
+            Assert.Equal(2, propertiesDictionary["DepartmentID"]);
         }
 
         static MapperConfiguration MapperConfiguration;

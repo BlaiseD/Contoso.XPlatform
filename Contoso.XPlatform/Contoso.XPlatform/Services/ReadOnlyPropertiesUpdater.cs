@@ -75,6 +75,10 @@ namespace Contoso.XPlatform.Services
                         );
                     }
                 }
+                else if (setting is DetailGroupBoxSettingsDescriptor groupBoxSettingsDescriptor)
+                {
+                    UpdateReadOnlys(properties, source, groupBoxSettingsDescriptor.FieldSettings, parentField);
+                }
             }
 
             string GetFieldName(string field)
