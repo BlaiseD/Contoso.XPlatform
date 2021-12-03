@@ -33,7 +33,8 @@ namespace Contoso.XPlatform.ViewModels
                 (
                     formSettings.Title,
                     formSettings.HeaderBindings,
-                    new List<IValidatable>()
+                    new List<IValidatable>(),
+                    true
                 )
             );
         }
@@ -46,7 +47,8 @@ namespace Contoso.XPlatform.ViewModels
                 (
                     groupBoxSettingsDescriptor.GroupHeader,
                     groupBoxSettingsDescriptor.HeaderBindings,
-                    new List<IValidatable>()
+                    new List<IValidatable>(),
+                    groupBoxSettingsDescriptor.IsHidden == false
                 )
             );
         }

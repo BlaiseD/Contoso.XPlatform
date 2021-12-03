@@ -31,6 +31,9 @@ namespace Contoso.Forms.Parameters.DetailForm
 			[Comments("Configuration for each field in the form group.")]
 			List<DetailItemSettingsParameters> fieldSettings,
 
+			[Comments("Multibindings list for the form header field.")]
+			MultiBindingParameters headerBindings = null,
+
 			[ParameterEditorControl(ParameterControlType.ParameterSourceOnly)]
 			[Comments("Fully qualified class name for the model type.")]
 			string fieldTypeSource = "Contoso.Domain.Entities"
@@ -42,6 +45,7 @@ namespace Contoso.Forms.Parameters.DetailForm
 			ModelType = modelType;
 			FormGroupTemplate = formGroupTemplate;
 			FieldSettings = fieldSettings;
+			HeaderBindings = headerBindings;
 		}
 
 		public string Field { get; set; }
@@ -50,5 +54,6 @@ namespace Contoso.Forms.Parameters.DetailForm
 		public Type ModelType { get; set; }
 		public FormGroupTemplateParameters FormGroupTemplate { get; set; }
 		public List<DetailItemSettingsParameters> FieldSettings { get; set; }
-    }
+		public MultiBindingParameters HeaderBindings { get; set; }
+	}
 }

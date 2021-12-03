@@ -33,7 +33,8 @@ namespace Contoso.XPlatform.ViewModels
                 (
                     formSettings.Title,
                     formSettings.HeaderBindings,
-                    new List<IReadOnly>()
+                    new List<IReadOnly>(),
+                    true
                 )
             );
         }
@@ -46,7 +47,8 @@ namespace Contoso.XPlatform.ViewModels
                 (
                     groupBoxSettingsDescriptor.GroupHeader,
                     groupBoxSettingsDescriptor.HeaderBindings,
-                    new List<IReadOnly>()
+                    new List<IReadOnly>(),
+                    groupBoxSettingsDescriptor.IsHidden == false
                 )
             );
         }
