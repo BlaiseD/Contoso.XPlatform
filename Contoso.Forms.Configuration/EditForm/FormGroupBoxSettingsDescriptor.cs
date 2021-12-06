@@ -2,7 +2,7 @@
 
 namespace Contoso.Forms.Configuration.EditForm
 {
-    public class FormGroupBoxSettingsDescriptor : FormItemSettingsDescriptor
+    public class FormGroupBoxSettingsDescriptor : FormItemSettingsDescriptor, IFormGroupBoxSettings
     {
         public override AbstractControlEnumDescriptor AbstractControlType => AbstractControlEnumDescriptor.GroupBox;
 

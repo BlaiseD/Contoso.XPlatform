@@ -902,6 +902,1023 @@ namespace Contoso.XPlatform.Tests
             ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
+        internal static EditFormSettingsDescriptor DepartmentFormWithAllItemsGrouped = new EditFormSettingsDescriptor
+        {
+            Title = "Department",
+            RequestDetails = new FormRequestDetailsDescriptor
+            {
+                GetUrl = "/Department/GetSingle"
+            },
+            ValidationMessages = new List<ValidationMessageDescriptor>
+            {
+                new ValidationMessageDescriptor
+                {
+                    Field = "Budget",
+                    Rules = new List<ValidationRuleDescriptor>
+                    {
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Budget is required." },
+                        new ValidationRuleDescriptor { ClassName = "MustBePositiveNumberRule", Message = "Budget must be a positive number." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "InstructorID",
+                    Rules = new List<ValidationRuleDescriptor>
+                    {
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Administrator is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "Name",
+                    Rules = new List<ValidationRuleDescriptor>
+                    {
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Name is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "StartDate",
+                    Rules = new List<ValidationRuleDescriptor>
+                    {
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Start Date is required." }
+                    }
+                }
+            }.ToDictionary(v => v.Field, v => v.Rules),
+            FieldSettings = new List<FormItemSettingsDescriptor>
+            {
+                new FormGroupBoxSettingsDescriptor
+                {
+                    GroupHeader = "GroupOne",
+                    FieldSettings = new List<FormItemSettingsDescriptor>
+                    {
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "DepartmentID",
+                            Type = "System.Int32",
+                            Title = "ID",
+                            TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = 0
+                            }
+                        },
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "Budget",
+                            Type = "System.Decimal",
+                            Title = "Budget",
+                            Placeholder = "Budget (required)",
+                            StringFormat = "{0:F2}",
+                            TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = 0m,
+                                Validators = new List<ValidatorDefinitionDescriptor>
+                                {
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "RequiredRule",
+                                        FunctionName = "Check"
+                                    },
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "MustBePositiveNumberRule",
+                                        FunctionName = "Check"
+                                    }
+                                }
+                            }
+                        },
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "InstructorID",
+                            Type = "System.Int32",
+                            Title = "Administrator",
+                            Placeholder = "Select Administrator (required)",
+                            DropDownTemplate = new DropDownTemplateDescriptor
+                            {
+                                TemplateName = "PickerTemplate",
+                                TitleText = "Select Administrator:",
+                                LoadingIndicatorText = "Loading ...",
+                                TextField = "FullName",
+                                ValueField = "ID",
+                                TextAndValueSelector = new SelectorLambdaOperatorDescriptor
+                                {
+                                    Selector = new SelectOperatorDescriptor
+                                    {
+                                        SourceOperand = new OrderByOperatorDescriptor
+                                        {
+                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                                            SelectorBody = new MemberSelectorOperatorDescriptor
+                                            {
+                                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                MemberFullName = "FullName"
+                                            },
+                                            SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                                            SelectorParameterName = "d"
+                                        },
+                                        SelectorBody = new MemberInitOperatorDescriptor
+                                        {
+                                            MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                                            {
+                                                ["ID"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "ID"
+                                                },
+                                                ["FirstName"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "FirstName"
+                                                },
+                                                ["LastName"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "LastName"
+                                                },
+                                                ["FullName"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "FullName"
+                                                }
+                                            },
+                                            NewType = typeof(InstructorModel).AssemblyQualifiedName
+                                        },
+                                        SelectorParameterName = "s"
+                                    },
+                                    SourceElementType = typeof(IQueryable<InstructorModel>).AssemblyQualifiedName,
+                                    ParameterName = "$it",
+                                    BodyType = typeof(IEnumerable<InstructorModel>).AssemblyQualifiedName
+                                },
+                                RequestDetails = new RequestDetailsDescriptor
+                                {
+                                    DataSourceUrl = "api/Dropdown/GetObjectDropdown",
+                                    ModelType = typeof(InstructorModel).AssemblyQualifiedName,
+                                    DataType = typeof(Instructor).AssemblyQualifiedName,
+                                    ModelReturnType = typeof(IEnumerable<InstructorModel>).AssemblyQualifiedName,
+                                    DataReturnType = typeof(IEnumerable<Instructor>).AssemblyQualifiedName
+                                }
+                            },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = 0,
+                                Validators = new List<ValidatorDefinitionDescriptor>
+                                {
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "RequiredRule",
+                                        FunctionName = "Check"
+                                    }
+                                }
+                            }
+                        },
+                    }
+                },
+                new FormGroupBoxSettingsDescriptor
+                {
+                    GroupHeader = "GroupTwo",
+                    FieldSettings = new List<FormItemSettingsDescriptor>
+                    {
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "Name",
+                            Type = "System.String",
+                            Title = "Name",
+                            Placeholder = "Name (required)",
+                            TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = "",
+                                Validators = new List<ValidatorDefinitionDescriptor>
+                                {
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "RequiredRule",
+                                        FunctionName = "Check"
+                                    }
+                                }
+                            }
+                        },
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "StartDate",
+                            Type = "System.DateTime",
+                            Title = "Start Date",
+                            Placeholder = "",
+                            TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "DateTemplate" },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = new DateTime(1900, 1, 1),
+                                Validators = new List<ValidatorDefinitionDescriptor>
+                                {
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "RequiredRule",
+                                        FunctionName = "Check"
+                                    }
+                                }
+                            }
+                        },
+                        new FormGroupArraySettingsDescriptor
+                        {
+                            Field = "Courses",
+                            Placeholder = "(Courses)",
+                            FormGroupTemplate = new FormGroupTemplateDescriptor
+                            {
+                                TemplateName = "FormGroupArrayTemplate"
+                            },
+                            ValidationMessages= new List<ValidationMessageDescriptor>
+                            {
+                                new ValidationMessageDescriptor
+                                {
+                                    Field = "CourseID",
+                                    Rules = new List<ValidationRuleDescriptor>
+                                    {
+                                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "CourseID is required." },
+                                        new ValidationRuleDescriptor { ClassName = "MustBeIntegerRule", Message = "CourseID must be an integer." }
+                                    }
+                                },
+                                new ValidationMessageDescriptor
+                                {
+                                    Field = "Credits",
+                                    Rules = new List<ValidationRuleDescriptor>
+                                    {
+                                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Credits is required." },
+                                        new ValidationRuleDescriptor { ClassName = "RangeRule", Message = "Credits must be between 0 and 5 inclusive." }
+                                    }
+                                },
+                                new ValidationMessageDescriptor
+                                {
+                                    Field = "DepartmentID",
+                                    Rules = new List<ValidationRuleDescriptor>
+                                    {
+                                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Department is required.." }
+                                    }
+                                },
+                                new ValidationMessageDescriptor
+                                {
+                                    Field = "Title",
+                                    Rules = new List<ValidationRuleDescriptor>
+                                    {
+                                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Title is required." }
+                                    }
+                                }
+                            }.ToDictionary(v => v.Field, v => v.Rules),
+                            FormsCollectionDisplayTemplate = new FormsCollectionDisplayTemplateDescriptor
+                            {
+                                TemplateName = "TextDetailTemplate",
+                                Bindings = new List<ItemBindingDescriptor>
+                                {
+                                    new ItemBindingDescriptor
+                                    {
+                                        Name = "Text",
+                                        Property = "DepartmentName",
+                                        StringFormat = "{0}"
+                                    },
+                                    new ItemBindingDescriptor
+                                    {
+                                        Name = "Detail",
+                                        Property = "StartDate",
+                                        StringFormat = "{0:MMMM dd, yyyy}"
+                                    }
+                                }.ToDictionary(b => b.Name)
+                            },
+                            FieldSettings = new List<FormItemSettingsDescriptor>
+                            {
+                                new FormControlSettingsDescriptor
+                                {
+                                    Field = "CourseID",
+                                    Type = "System.Int32",
+                                    Title = "Course",
+                                    Placeholder = "Course ID (required)",
+                                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                                    ValidationSetting = new FieldValidationSettingsDescriptor
+                                    {
+                                        DefaultValue = 0,
+                                        Validators = new List<ValidatorDefinitionDescriptor>
+                                        {
+                                            new ValidatorDefinitionDescriptor
+                                            {
+                                                ClassName = "RequiredRule",
+                                                FunctionName = "Check"
+                                            },
+                                            new ValidatorDefinitionDescriptor
+                                            {
+                                                ClassName = "MustBeIntegerRule",
+                                                FunctionName = "Check"
+                                            }
+                                        }
+                                    }
+                                },
+                                new FormControlSettingsDescriptor
+                                {
+                                    Field = "Credits",
+                                    Type = "System.Int32",
+                                    Title = "Credits",
+                                    Placeholder = "Credits (required)",
+                                    DropDownTemplate = new DropDownTemplateDescriptor
+                                    {
+                                        TemplateName = "PickerTemplate",
+                                        TitleText = "Select credits:",
+                                        LoadingIndicatorText = "Loading ...",
+                                        TextField = "Text",
+                                        ValueField = "NumericValue",
+                                        TextAndValueSelector = new SelectorLambdaOperatorDescriptor
+                                        {
+                                            Selector = new SelectOperatorDescriptor
+                                            {
+                                                SourceOperand = new OrderByOperatorDescriptor
+                                                {
+                                                    SourceOperand = new WhereOperatorDescriptor
+                                                    {
+                                                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                                                        FilterBody = new EqualsBinaryOperatorDescriptor
+                                                        {
+                                                            Left = new MemberSelectorOperatorDescriptor
+                                                            {
+                                                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
+                                                                MemberFullName = "ListName"
+                                                            },
+                                                            Right = new ConstantOperatorDescriptor
+                                                            {
+                                                                ConstantValue = "Credits",
+                                                                Type = typeof(string).AssemblyQualifiedName
+                                                            }
+                                                        },
+                                                        FilterParameterName = "l"
+                                                    },
+                                                    SelectorBody = new MemberSelectorOperatorDescriptor
+                                                    {
+                                                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
+                                                        MemberFullName = "NumericValue"
+                                                    },
+                                                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Descending,
+                                                    SelectorParameterName = "l"
+                                                },
+                                                SelectorBody = new MemberInitOperatorDescriptor
+                                                {
+                                                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                                                    {
+                                                        ["NumericValue"] = new MemberSelectorOperatorDescriptor
+                                                        {
+                                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                            MemberFullName = "NumericValue"
+                                                        },
+                                                        ["Text"] = new MemberSelectorOperatorDescriptor
+                                                        {
+                                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                            MemberFullName = "Text"
+                                                        }
+                                                    },
+                                                    NewType = typeof(LookUpsModel).AssemblyQualifiedName
+                                                },
+                                                SelectorParameterName = "s"
+                                            },
+                                            SourceElementType = typeof(IQueryable<LookUpsModel>).AssemblyQualifiedName,
+                                            ParameterName = "$it",
+                                            BodyType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName
+                                        },
+                                        RequestDetails = new RequestDetailsDescriptor
+                                        {
+                                            DataSourceUrl = "api/Dropdown/GetObjectDropdown",
+                                            ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
+                                            DataType = typeof(LookUps).AssemblyQualifiedName,
+                                            ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
+                                            DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                                        }
+                                    },
+                                    ValidationSetting = new FieldValidationSettingsDescriptor
+                                    {
+                                        DefaultValue = 0,
+                                        Validators = new List<ValidatorDefinitionDescriptor>
+                                        {
+                                            new ValidatorDefinitionDescriptor
+                                            {
+                                                ClassName = "RequiredRule",
+                                                FunctionName = "Check"
+                                            },
+                                            new ValidatorDefinitionDescriptor
+                                            {
+                                                ClassName = "RangeRule",
+                                                FunctionName = "Check",
+                                                Arguments = new List<ValidatorArgumentDescriptor>
+                                                {
+                                                    new ValidatorArgumentDescriptor { Name = "min", Value = 0, Type = "System.Int32" },
+                                                    new ValidatorArgumentDescriptor { Name = "max", Value = 5, Type = "System.Int32" }
+                                                }.ToDictionary(vad => vad.Name)
+                                            }
+                                        }
+                                    }
+                                },
+                                new FormControlSettingsDescriptor
+                                {
+                                    Field = "DepartmentID",
+                                    Type = "System.Int32",
+                                    Title = "Department",
+                                    Placeholder = "Department(required)",
+                                    DropDownTemplate = new DropDownTemplateDescriptor
+                                    {
+                                        TemplateName = "PickerTemplate",
+                                        TitleText = "Select Department:",
+                                        LoadingIndicatorText = "Loading ...",
+                                        TextField = "Name",
+                                        ValueField = "DepartmentID",
+                                        TextAndValueSelector = new SelectorLambdaOperatorDescriptor
+                                        {
+                                            Selector = new SelectOperatorDescriptor
+                                            {
+                                                SourceOperand = new OrderByOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                                                    SelectorBody = new MemberSelectorOperatorDescriptor
+                                                    {
+                                                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                        MemberFullName = "Name"
+                                                    },
+                                                    SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                                                    SelectorParameterName = "d"
+                                                },
+                                                SelectorBody = new MemberInitOperatorDescriptor
+                                                {
+                                                    MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                                                    {
+                                                        ["DepartmentID"] = new MemberSelectorOperatorDescriptor
+                                                        {
+                                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                            MemberFullName = "DepartmentID"
+                                                        },
+                                                        ["Name"] = new MemberSelectorOperatorDescriptor
+                                                        {
+                                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                            MemberFullName = "Name"
+                                                        }
+                                                    },
+                                                    NewType = typeof(DepartmentModel).AssemblyQualifiedName
+                                                },
+                                                SelectorParameterName = "d"
+                                            },
+                                            SourceElementType = typeof(IQueryable<DepartmentModel>).AssemblyQualifiedName,
+                                            ParameterName = "$it",
+                                            BodyType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName
+                                        },
+                                        RequestDetails = new RequestDetailsDescriptor
+                                        {
+                                            DataSourceUrl = "api/Dropdown/GetObjectDropdown",
+                                            ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                                            DataType = typeof(Department).AssemblyQualifiedName,
+                                            ModelReturnType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName,
+                                            DataReturnType = typeof(IEnumerable<Department>).AssemblyQualifiedName
+                                        }
+                                    },
+                                    ValidationSetting = new FieldValidationSettingsDescriptor
+                                    {
+                                        DefaultValue = 0,
+                                        Validators = new List<ValidatorDefinitionDescriptor>
+                                        {
+                                            new ValidatorDefinitionDescriptor
+                                            {
+                                                ClassName = "RequiredRule",
+                                                FunctionName = "Check"
+                                            }
+                                        }
+                                    }
+                                },
+                                new FormControlSettingsDescriptor
+                                {
+                                    Field = "Title",
+                                    Type = "System.String",
+                                    Title = "Title",
+                                    Placeholder = "Title (required)",
+                                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                                    ValidationSetting = new FieldValidationSettingsDescriptor
+                                    {
+                                        DefaultValue = "",
+                                        Validators = new List<ValidatorDefinitionDescriptor>
+                                        {
+                                            new ValidatorDefinitionDescriptor
+                                            {
+                                                ClassName = "RequiredRule",
+                                                FunctionName = "Check"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            Type = typeof(ICollection<CourseModel>).AssemblyQualifiedName,
+                            ModelType = "Contoso.Domain.Entities.CourseModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                            KeyFields = new List<string> { "CourseID" }
+                        }
+                    }
+                }
+            },
+            ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+        };
+
+        internal static EditFormSettingsDescriptor DepartmentFormWithSomesItemsGrouped = new EditFormSettingsDescriptor
+        {
+            Title = "Department",
+            RequestDetails = new FormRequestDetailsDescriptor
+            {
+                GetUrl = "/Department/GetSingle"
+            },
+            ValidationMessages = new List<ValidationMessageDescriptor>
+            {
+                new ValidationMessageDescriptor
+                {
+                    Field = "Budget",
+                    Rules = new List<ValidationRuleDescriptor>
+                    {
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Budget is required." },
+                        new ValidationRuleDescriptor { ClassName = "MustBePositiveNumberRule", Message = "Budget must be a positive number." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "InstructorID",
+                    Rules = new List<ValidationRuleDescriptor>
+                    {
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Administrator is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "Name",
+                    Rules = new List<ValidationRuleDescriptor>
+                    {
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Name is required." }
+                    }
+                },
+                new ValidationMessageDescriptor
+                {
+                    Field = "StartDate",
+                    Rules = new List<ValidationRuleDescriptor>
+                    {
+                        new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Start Date is required." }
+                    }
+                }
+            }.ToDictionary(v => v.Field, v => v.Rules),
+            FieldSettings = new List<FormItemSettingsDescriptor>
+            {
+                new FormGroupBoxSettingsDescriptor
+                {
+                    GroupHeader = "GroupOne",
+                    FieldSettings = new List<FormItemSettingsDescriptor>
+                    {
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "DepartmentID",
+                            Type = "System.Int32",
+                            Title = "ID",
+                            TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = 0
+                            }
+                        },
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "Budget",
+                            Type = "System.Decimal",
+                            Title = "Budget",
+                            Placeholder = "Budget (required)",
+                            StringFormat = "{0:F2}",
+                            TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = 0m,
+                                Validators = new List<ValidatorDefinitionDescriptor>
+                                {
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "RequiredRule",
+                                        FunctionName = "Check"
+                                    },
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "MustBePositiveNumberRule",
+                                        FunctionName = "Check"
+                                    }
+                                }
+                            }
+                        },
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "InstructorID",
+                            Type = "System.Int32",
+                            Title = "Administrator",
+                            Placeholder = "Select Administrator (required)",
+                            DropDownTemplate = new DropDownTemplateDescriptor
+                            {
+                                TemplateName = "PickerTemplate",
+                                TitleText = "Select Administrator:",
+                                LoadingIndicatorText = "Loading ...",
+                                TextField = "FullName",
+                                ValueField = "ID",
+                                TextAndValueSelector = new SelectorLambdaOperatorDescriptor
+                                {
+                                    Selector = new SelectOperatorDescriptor
+                                    {
+                                        SourceOperand = new OrderByOperatorDescriptor
+                                        {
+                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                                            SelectorBody = new MemberSelectorOperatorDescriptor
+                                            {
+                                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                MemberFullName = "FullName"
+                                            },
+                                            SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                                            SelectorParameterName = "d"
+                                        },
+                                        SelectorBody = new MemberInitOperatorDescriptor
+                                        {
+                                            MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                                            {
+                                                ["ID"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "ID"
+                                                },
+                                                ["FirstName"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "FirstName"
+                                                },
+                                                ["LastName"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "LastName"
+                                                },
+                                                ["FullName"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "FullName"
+                                                }
+                                            },
+                                            NewType = typeof(InstructorModel).AssemblyQualifiedName
+                                        },
+                                        SelectorParameterName = "s"
+                                    },
+                                    SourceElementType = typeof(IQueryable<InstructorModel>).AssemblyQualifiedName,
+                                    ParameterName = "$it",
+                                    BodyType = typeof(IEnumerable<InstructorModel>).AssemblyQualifiedName
+                                },
+                                RequestDetails = new RequestDetailsDescriptor
+                                {
+                                    DataSourceUrl = "api/Dropdown/GetObjectDropdown",
+                                    ModelType = typeof(InstructorModel).AssemblyQualifiedName,
+                                    DataType = typeof(Instructor).AssemblyQualifiedName,
+                                    ModelReturnType = typeof(IEnumerable<InstructorModel>).AssemblyQualifiedName,
+                                    DataReturnType = typeof(IEnumerable<Instructor>).AssemblyQualifiedName
+                                }
+                            },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = 0,
+                                Validators = new List<ValidatorDefinitionDescriptor>
+                                {
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "RequiredRule",
+                                        FunctionName = "Check"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                new FormControlSettingsDescriptor
+                {
+                    Field = "Name",
+                    Type = "System.String",
+                    Title = "Name",
+                    Placeholder = "Name (required)",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                    ValidationSetting = new FieldValidationSettingsDescriptor
+                    {
+                        DefaultValue = "",
+                        Validators = new List<ValidatorDefinitionDescriptor>
+                        {
+                            new ValidatorDefinitionDescriptor
+                            {
+                                ClassName = "RequiredRule",
+                                FunctionName = "Check"
+                            }
+                        }
+                    }
+                },
+                new FormControlSettingsDescriptor
+                {
+                    Field = "StartDate",
+                    Type = "System.DateTime",
+                    Title = "Start Date",
+                    Placeholder = "",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "DateTemplate" },
+                    ValidationSetting = new FieldValidationSettingsDescriptor
+                    {
+                        DefaultValue = new DateTime(1900, 1, 1),
+                        Validators = new List<ValidatorDefinitionDescriptor>
+                        {
+                            new ValidatorDefinitionDescriptor
+                            {
+                                ClassName = "RequiredRule",
+                                FunctionName = "Check"
+                            }
+                        }
+                    }
+                },
+                new FormGroupArraySettingsDescriptor
+                {
+                    Field = "Courses",
+                    Placeholder = "(Courses)",
+                    FormGroupTemplate = new FormGroupTemplateDescriptor
+                    {
+                        TemplateName = "FormGroupArrayTemplate"
+                    },
+                    ValidationMessages= new List<ValidationMessageDescriptor>
+                    {
+                        new ValidationMessageDescriptor
+                        {
+                            Field = "CourseID",
+                            Rules = new List<ValidationRuleDescriptor>
+                            {
+                                new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "CourseID is required." },
+                                new ValidationRuleDescriptor { ClassName = "MustBeIntegerRule", Message = "CourseID must be an integer." }
+                            }
+                        },
+                        new ValidationMessageDescriptor
+                        {
+                            Field = "Credits",
+                            Rules = new List<ValidationRuleDescriptor>
+                            {
+                                new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Credits is required." },
+                                new ValidationRuleDescriptor { ClassName = "RangeRule", Message = "Credits must be between 0 and 5 inclusive." }
+                            }
+                        },
+                        new ValidationMessageDescriptor
+                        {
+                            Field = "DepartmentID",
+                            Rules = new List<ValidationRuleDescriptor>
+                            {
+                                new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Department is required.." }
+                            }
+                        },
+                        new ValidationMessageDescriptor
+                        {
+                            Field = "Title",
+                            Rules = new List<ValidationRuleDescriptor>
+                            {
+                                new ValidationRuleDescriptor { ClassName = "RequiredRule", Message = "Title is required." }
+                            }
+                        }
+                    }.ToDictionary(v => v.Field, v => v.Rules),
+                    FormsCollectionDisplayTemplate = new FormsCollectionDisplayTemplateDescriptor
+                    {
+                        TemplateName = "TextDetailTemplate",
+                        Bindings = new List<ItemBindingDescriptor>
+                        {
+                            new ItemBindingDescriptor
+                            {
+                                Name = "Text",
+                                Property = "DepartmentName",
+                                StringFormat = "{0}"
+                            },
+                            new ItemBindingDescriptor
+                            {
+                                Name = "Detail",
+                                Property = "StartDate",
+                                StringFormat = "{0:MMMM dd, yyyy}"
+                            }
+                        }.ToDictionary(b => b.Name)
+                    },
+                    FieldSettings = new List<FormItemSettingsDescriptor>
+                    {
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "CourseID",
+                            Type = "System.Int32",
+                            Title = "Course",
+                            Placeholder = "Course ID (required)",
+                            TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = 0,
+                                Validators = new List<ValidatorDefinitionDescriptor>
+                                {
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "RequiredRule",
+                                        FunctionName = "Check"
+                                    },
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "MustBeIntegerRule",
+                                        FunctionName = "Check"
+                                    }
+                                }
+                            }
+                        },
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "Credits",
+                            Type = "System.Int32",
+                            Title = "Credits",
+                            Placeholder = "Credits (required)",
+                            DropDownTemplate = new DropDownTemplateDescriptor
+                            {
+                                TemplateName = "PickerTemplate",
+                                TitleText = "Select credits:",
+                                LoadingIndicatorText = "Loading ...",
+                                TextField = "Text",
+                                ValueField = "NumericValue",
+                                TextAndValueSelector = new SelectorLambdaOperatorDescriptor
+                                {
+                                    Selector = new SelectOperatorDescriptor
+                                    {
+                                        SourceOperand = new OrderByOperatorDescriptor
+                                        {
+                                            SourceOperand = new WhereOperatorDescriptor
+                                            {
+                                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                                                FilterBody = new EqualsBinaryOperatorDescriptor
+                                                {
+                                                    Left = new MemberSelectorOperatorDescriptor
+                                                    {
+                                                        SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
+                                                        MemberFullName = "ListName"
+                                                    },
+                                                    Right = new ConstantOperatorDescriptor
+                                                    {
+                                                        ConstantValue = "Credits",
+                                                        Type = typeof(string).AssemblyQualifiedName
+                                                    }
+                                                },
+                                                FilterParameterName = "l"
+                                            },
+                                            SelectorBody = new MemberSelectorOperatorDescriptor
+                                            {
+                                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "l" },
+                                                MemberFullName = "NumericValue"
+                                            },
+                                            SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Descending,
+                                            SelectorParameterName = "l"
+                                        },
+                                        SelectorBody = new MemberInitOperatorDescriptor
+                                        {
+                                            MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                                            {
+                                                ["NumericValue"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "NumericValue"
+                                                },
+                                                ["Text"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "s" },
+                                                    MemberFullName = "Text"
+                                                }
+                                            },
+                                            NewType = typeof(LookUpsModel).AssemblyQualifiedName
+                                        },
+                                        SelectorParameterName = "s"
+                                    },
+                                    SourceElementType = typeof(IQueryable<LookUpsModel>).AssemblyQualifiedName,
+                                    ParameterName = "$it",
+                                    BodyType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName
+                                },
+                                RequestDetails = new RequestDetailsDescriptor
+                                {
+                                    DataSourceUrl = "api/Dropdown/GetObjectDropdown",
+                                    ModelType = typeof(LookUpsModel).AssemblyQualifiedName,
+                                    DataType = typeof(LookUps).AssemblyQualifiedName,
+                                    ModelReturnType = typeof(IEnumerable<LookUpsModel>).AssemblyQualifiedName,
+                                    DataReturnType = typeof(IEnumerable<LookUps>).AssemblyQualifiedName
+                                }
+                            },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = 0,
+                                Validators = new List<ValidatorDefinitionDescriptor>
+                                {
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "RequiredRule",
+                                        FunctionName = "Check"
+                                    },
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "RangeRule",
+                                        FunctionName = "Check",
+                                        Arguments = new List<ValidatorArgumentDescriptor>
+                                        {
+                                            new ValidatorArgumentDescriptor { Name = "min", Value = 0, Type = "System.Int32" },
+                                            new ValidatorArgumentDescriptor { Name = "max", Value = 5, Type = "System.Int32" }
+                                        }.ToDictionary(vad => vad.Name)
+                                    }
+                                }
+                            }
+                        },
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "DepartmentID",
+                            Type = "System.Int32",
+                            Title = "Department",
+                            Placeholder = "Department(required)",
+                            DropDownTemplate = new DropDownTemplateDescriptor
+                            {
+                                TemplateName = "PickerTemplate",
+                                TitleText = "Select Department:",
+                                LoadingIndicatorText = "Loading ...",
+                                TextField = "Name",
+                                ValueField = "DepartmentID",
+                                TextAndValueSelector = new SelectorLambdaOperatorDescriptor
+                                {
+                                    Selector = new SelectOperatorDescriptor
+                                    {
+                                        SourceOperand = new OrderByOperatorDescriptor
+                                        {
+                                            SourceOperand = new ParameterOperatorDescriptor { ParameterName = "$it" },
+                                            SelectorBody = new MemberSelectorOperatorDescriptor
+                                            {
+                                                SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                MemberFullName = "Name"
+                                            },
+                                            SortDirection = LogicBuilder.Expressions.Utils.Strutures.ListSortDirection.Ascending,
+                                            SelectorParameterName = "d"
+                                        },
+                                        SelectorBody = new MemberInitOperatorDescriptor
+                                        {
+                                            MemberBindings = new Dictionary<string, OperatorDescriptorBase>
+                                            {
+                                                ["DepartmentID"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                    MemberFullName = "DepartmentID"
+                                                },
+                                                ["Name"] = new MemberSelectorOperatorDescriptor
+                                                {
+                                                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "d" },
+                                                    MemberFullName = "Name"
+                                                }
+                                            },
+                                            NewType = typeof(DepartmentModel).AssemblyQualifiedName
+                                        },
+                                        SelectorParameterName = "d"
+                                    },
+                                    SourceElementType = typeof(IQueryable<DepartmentModel>).AssemblyQualifiedName,
+                                    ParameterName = "$it",
+                                    BodyType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName
+                                },
+                                RequestDetails = new RequestDetailsDescriptor
+                                {
+                                    DataSourceUrl = "api/Dropdown/GetObjectDropdown",
+                                    ModelType = typeof(DepartmentModel).AssemblyQualifiedName,
+                                    DataType = typeof(Department).AssemblyQualifiedName,
+                                    ModelReturnType = typeof(IEnumerable<DepartmentModel>).AssemblyQualifiedName,
+                                    DataReturnType = typeof(IEnumerable<Department>).AssemblyQualifiedName
+                                }
+                            },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = 0,
+                                Validators = new List<ValidatorDefinitionDescriptor>
+                                {
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "RequiredRule",
+                                        FunctionName = "Check"
+                                    }
+                                }
+                            }
+                        },
+                        new FormControlSettingsDescriptor
+                        {
+                            Field = "Title",
+                            Type = "System.String",
+                            Title = "Title",
+                            Placeholder = "Title (required)",
+                            TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
+                            ValidationSetting = new FieldValidationSettingsDescriptor
+                            {
+                                DefaultValue = "",
+                                Validators = new List<ValidatorDefinitionDescriptor>
+                                {
+                                    new ValidatorDefinitionDescriptor
+                                    {
+                                        ClassName = "RequiredRule",
+                                        FunctionName = "Check"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    Type = typeof(ICollection<CourseModel>).AssemblyQualifiedName,
+                    ModelType = "Contoso.Domain.Entities.CourseModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    KeyFields = new List<string> { "CourseID" }
+                }
+            },
+            ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+        };
+
         internal static EditFormSettingsDescriptor CourseForm = new EditFormSettingsDescriptor
         {
             Title = "Course",

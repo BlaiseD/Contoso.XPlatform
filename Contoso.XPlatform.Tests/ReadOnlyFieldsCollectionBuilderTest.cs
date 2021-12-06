@@ -5,20 +5,17 @@ using Contoso.XPlatform.Flow.Cache;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Tests.Mocks;
 using Contoso.XPlatform.ViewModels;
-using Contoso.XPlatform.ViewModels.Validatables;
 using LogicBuilder.RulesDirector;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Xunit;
 
 namespace Contoso.XPlatform.Tests
 {
-    public class FieldsCollectionBuilderTest
+    public class ReadOnlyFieldsCollectionBuilderTest
     {
-        public FieldsCollectionBuilderTest()
+        public ReadOnlyFieldsCollectionBuilderTest()
         {
             Initialize();
         }
@@ -28,30 +25,11 @@ namespace Contoso.XPlatform.Tests
         #endregion Fields
 
         [Fact]
-        public void MapCourseModelToIValidatableList()
+        public void CreateDetailFormLayoutForDepartment_NoGroups()
         {
-            //act
-            ObservableCollection<IValidatable> properties = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            DetailFormLayout formLayout = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.CourseForm,
-                typeof(CourseModel)
-            ).Properties;
-
-            //assert
-            IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(property => property.Name);
-            Assert.Equal(typeof(EntryValidatableObject<int>), propertiesDictionary["CourseID"].GetType());
-            Assert.Equal(typeof(EntryValidatableObject<string>), propertiesDictionary["Title"].GetType());
-            Assert.Equal(typeof(PickerValidatableObject<int>), propertiesDictionary["Credits"].GetType());
-            Assert.Equal(typeof(PickerValidatableObject<int>), propertiesDictionary["DepartmentID"].GetType());
-        }
-
-        [Fact]
-        public void CreateEditFormLayoutForDepartment_NoGroups()
-        {
-            EditFormLayout formLayout = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
-            (
-                Descriptors.DepartmentForm,
-                typeof(DepartmentModel)
+                ReadOnlyDescriptors.DepartmentForm
             );
 
             Assert.Single(formLayout.ControlGroupBoxList);
@@ -60,12 +38,11 @@ namespace Contoso.XPlatform.Tests
         }
 
         [Fact]
-        public void CreateEditFormLayoutForDepartment_AllFieldsGrouped()
+        public void CreateDetailFormLayoutForDepartment_AllFieldsGrouped()
         {
-            EditFormLayout formLayout = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            DetailFormLayout formLayout = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.DepartmentFormWithAllItemsGrouped,
-                typeof(DepartmentModel)
+                ReadOnlyDescriptors.DepartmentFormWithAllItemsGrouped
             );
 
             Assert.Equal(2, formLayout.ControlGroupBoxList.Count);
@@ -74,12 +51,11 @@ namespace Contoso.XPlatform.Tests
         }
 
         [Fact]
-        public void CreateEditFormLayoutForDepartment_SomeFieldsGrouped()
+        public void CreateDetailFormLayoutForDepartment_SomeFieldsGrouped()
         {
-            EditFormLayout formLayout = serviceProvider.GetRequiredService<IFieldsCollectionBuilder>().CreateFieldsCollection
+            DetailFormLayout formLayout = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                Descriptors.DepartmentFormWithSomesItemsGrouped,
-                typeof(DepartmentModel)
+                ReadOnlyDescriptors.DepartmentFormWithSomeItemsGrouped
             );
 
 

@@ -15,43 +15,20 @@ namespace Contoso.XPlatform.ViewModels
             Properties = new ObservableCollection<IReadOnly>();
         }
 
-        public void Add(IReadOnly readOnly)
+        public void Add(IReadOnly readOnly, IDetailGroupBoxSettings groupBoxSettings)
         {
             Properties.Add(readOnly);
 
             if (!ControlGroupBoxList.Any())
                 throw new InvalidOperationException("{196C3BD2-23A7-4AB1-ACA0-62F627F904EB}");
 
-            ControlGroupBoxList.Last().Add(readOnly);
+            ControlGroupBoxList
+                .Single(g => object.ReferenceEquals(g.GroupBoxSettings, groupBoxSettings))
+                .Add(readOnly);
         }
 
-        public void AddControlGroupBox(IDetailGroupSettings formSettings)
-        {
-            ControlGroupBoxList.Add
-            (
-                new ReadOnlyControlGroupBox
-                (
-                    formSettings.Title,
-                    formSettings.HeaderBindings,
-                    new List<IReadOnly>(),
-                    true
-                )
-            );
-        }
-
-        public void AddControlGroupBox(DetailGroupBoxSettingsDescriptor groupBoxSettingsDescriptor)
-        {
-            ControlGroupBoxList.Add
-            (
-                new ReadOnlyControlGroupBox
-                (
-                    groupBoxSettingsDescriptor.GroupHeader,
-                    groupBoxSettingsDescriptor.HeaderBindings,
-                    new List<IReadOnly>(),
-                    groupBoxSettingsDescriptor.IsHidden == false
-                )
-            );
-        }
+        public void AddControlGroupBox(IDetailGroupBoxSettings groupBoxSettings)
+            => ControlGroupBoxList.Add(new ReadOnlyControlGroupBox(groupBoxSettings));
 
         public List<ReadOnlyControlGroupBox> ControlGroupBoxList { get; }
 

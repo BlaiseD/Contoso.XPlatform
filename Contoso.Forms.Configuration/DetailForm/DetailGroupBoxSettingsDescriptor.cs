@@ -2,7 +2,7 @@
 
 namespace Contoso.Forms.Configuration.DetailForm
 {
-    public class DetailGroupBoxSettingsDescriptor : DetailItemSettingsDescriptor
+    public class DetailGroupBoxSettingsDescriptor : DetailItemSettingsDescriptor, IDetailGroupBoxSettings
     {
         public string GroupHeader { get; set; }
         public List<DetailItemSettingsDescriptor> FieldSettings { get; set; }
