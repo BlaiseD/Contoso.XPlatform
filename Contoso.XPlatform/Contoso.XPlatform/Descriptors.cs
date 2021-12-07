@@ -25,7 +25,7 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor InstructorForm = new EditFormSettingsDescriptor
         {
             Title = "Instructor",
-            EditType = EditType.Update,
+            FormType = FormType.Update,
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle",
@@ -239,7 +239,7 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new EditFormSettingsDescriptor
         {
             Title = "Instructor",
-            EditType = EditType.Update,
+            FormType = FormType.Update,
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle",
@@ -467,7 +467,7 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor DepartmentForm = new EditFormSettingsDescriptor
         {
             Title = "Department",
-            EditType = EditType.Update,
+            FormType = FormType.Update,
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle",
@@ -682,7 +682,7 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor DepartmentFormWithCourses = new EditFormSettingsDescriptor
         {
             Title = "Department",
-            EditType = EditType.Update,
+            FormType = FormType.Update,
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle",
@@ -1202,7 +1202,7 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor CourseForm = new EditFormSettingsDescriptor
         {
             Title = "Course",
-            EditType = EditType.Update,
+            FormType = FormType.Update,
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Course/GetSingle",
@@ -1487,7 +1487,7 @@ namespace Contoso.XPlatform
         internal static EditFormSettingsDescriptor StudentForm = new EditFormSettingsDescriptor
         {
             Title = "Student",
-            EditType = EditType.Update,
+            FormType = FormType.Update,
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Student/GetSingle",

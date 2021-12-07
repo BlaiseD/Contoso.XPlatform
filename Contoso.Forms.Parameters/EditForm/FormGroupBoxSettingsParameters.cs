@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Contoso.Forms.Parameters.EditForm
 {
-    public class GroupBoxSettingsParameters : FormItemSettingsParameters
+    public class FormGroupBoxSettingsParameters : FormItemSettingsParameters
 	{
-		public GroupBoxSettingsParameters
+		public FormGroupBoxSettingsParameters
 		(
 			[NameValue(AttributeNames.DEFAULTVALUE, "Header")]
 			[Comments("Title for the group box.")]
@@ -23,7 +23,7 @@ namespace Contoso.Forms.Parameters.EditForm
 			bool isHidden = false
 		)
 		{
-			if (fieldSettings.Any(s => s is GroupBoxSettingsParameters))
+			if (fieldSettings.Any(s => s is FormGroupBoxSettingsParameters))
 				throw new ArgumentException($"{nameof(fieldSettings)}: D8590E1F-D029-405F-8E6C-EA98803004B8");
 
 			GroupHeader = groupHeader;

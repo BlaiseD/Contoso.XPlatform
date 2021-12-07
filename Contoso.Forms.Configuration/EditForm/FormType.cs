@@ -1,8 +1,10 @@
 ﻿namespace Contoso.Forms.Configuration.EditForm
 {
-    public enum EditType
+    public enum FormType
     {
         Add,
-        Update
+        Update,
+        Delete,
+        Detail
     }
 }

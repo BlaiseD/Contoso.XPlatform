@@ -1,5 +1,6 @@
 ﻿using Contoso.Forms.Parameters.Directives;
 using Contoso.Forms.Parameters.Validation;
+using Contoso.Parameters.ItemFilter;
 using LogicBuilder.Attributes;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,8 @@ namespace Contoso.Forms.Parameters.EditForm
 			[Comments("List of fields and form groups for this form.")]
 			List<FormItemSettingsParameters> fieldSettings,
 
-			[Comments("Click the Variable button and select the configured EditType enum field.")]
-			EditType editType,
+			[Comments("Click the Variable button and select the configured FormType enum field.")]
+			FormType formType,
 
 			[Comments("The model type for the object being edited. Click the function button and use the configured GetType function.  Use the Assembly qualified type name for the type argument.")]
 			Type modelType,
@@ -34,7 +35,13 @@ namespace Contoso.Forms.Parameters.EditForm
 			FormRequestDetailsParameters requestDetails = null,
 
 			[Comments("Conditional directtives for each field.")]
-			List<VariableDirectivesParameters> conditionalDirectives = null
+			List<VariableDirectivesParameters> conditionalDirectives = null,
+
+			[Comments("Multibindings list for the form header field.")]
+			MultiBindingParameters subtitleBindings = null,
+
+			[Comments("Defines a filter to find a selected item on a subsequent form e.g. to edit the selected item.")]
+			ItemFilterGroupParameters itemFilterGroup = null
 
 		)
 		{
@@ -46,7 +53,7 @@ namespace Contoso.Forms.Parameters.EditForm
 				vm => vm.Rules ?? new List<ValidationRuleParameters>()
 			);
 			FieldSettings = fieldSettings;
-			EditType = editType;
+			FormType = formType;
 			ModelType = modelType;
 			ConditionalDirectives = conditionalDirectives?.ToDictionary
 			(
@@ -54,15 +61,19 @@ namespace Contoso.Forms.Parameters.EditForm
 				cd => cd.ConditionalDirectives ?? new List<DirectiveParameters>()
 			);
 			HeaderBindings = headerBindings;
+			SubtitleBindings = subtitleBindings;
+			ItemFilterGroup = itemFilterGroup;
 		}
 
 		public string Title { get; set; }
 		public FormRequestDetailsParameters RequestDetails { get; set; }
 		public Dictionary<string, List<ValidationRuleParameters>> ValidationMessages { get; set; }
 		public List<FormItemSettingsParameters> FieldSettings { get; set; }
-		public EditType EditType { get; set; }
+		public FormType FormType { get; set; }
 		public Type ModelType { get; set; }
 		public Dictionary<string, List<DirectiveParameters>> ConditionalDirectives { get; set; }
 		public MultiBindingParameters HeaderBindings { get; set; }
+		public MultiBindingParameters SubtitleBindings { get; set; }
+		public ItemFilterGroupParameters ItemFilterGroup { get; set; }
 	}
 }

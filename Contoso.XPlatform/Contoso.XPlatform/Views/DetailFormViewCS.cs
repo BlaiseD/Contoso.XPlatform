@@ -1,5 +1,6 @@
 ﻿using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.DetailForm;
+using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.ViewModels.DetailForm;
@@ -78,7 +79,7 @@ namespace Contoso.XPlatform.Views
                                 ),
                                 new Label
                                 {
-                                    IsVisible = detailFormEntityViewModel.FormSettings.DetailType == DetailType.Delete,
+                                    IsVisible = detailFormEntityViewModel.FormSettings.FormType == FormType.Delete,
                                     Style = LayoutHelpers.GetStaticStyleResource("DetailFormDeleteQuestionStyle")
                                 }
                                 .AddBinding

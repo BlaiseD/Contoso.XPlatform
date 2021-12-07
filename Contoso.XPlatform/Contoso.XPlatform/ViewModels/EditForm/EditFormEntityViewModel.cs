@@ -33,7 +33,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 
             propertyChangedSubscription = this.UiNotificationService.ValueChanged.Subscribe(FieldChanged);
 
-            if (this.FormSettings.EditType == EditType.Update)
+            if (this.FormSettings.FormType == FormType.Update)
                 GetEntity();
         }
 
@@ -143,7 +143,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
                         {
                             Entity = toSave
                         },
-                        this.FormSettings.EditType == EditType.Add
+                        this.FormSettings.FormType == FormType.Add
                             ? this.FormSettings.RequestDetails.AddUrl
                             : this.FormSettings.RequestDetails.UpdateUrl
                     )
