@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Contoso.Forms.Configuration.Directives;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DataForm;
 using Contoso.XPlatform.Validators;
 using Contoso.XPlatform.ViewModels.Validatables;
 using LogicBuilder.Expressions.Utils.ExpressionBuilder.Lambda;

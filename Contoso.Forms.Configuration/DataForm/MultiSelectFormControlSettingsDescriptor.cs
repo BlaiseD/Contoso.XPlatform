@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Contoso.Forms.Configuration.EditForm
+namespace Contoso.Forms.Configuration.DataForm
 {
     public class MultiSelectFormControlSettingsDescriptor : FormControlSettingsDescriptor
     {

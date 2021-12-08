@@ -1,4 +1,4 @@
-﻿using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration.DataForm;
 using Contoso.XPlatform.ViewModels.Validatables;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

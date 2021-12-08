@@ -1,5 +1,4 @@
-﻿using Contoso.Forms.Configuration.EditForm;
-using Contoso.Forms.Configuration.Navigation;
+﻿using Contoso.Forms.Configuration.Navigation;
 using Contoso.XPlatform.Flow;
 using Contoso.XPlatform.Flow.Settings;
 using Contoso.XPlatform.Utils;

@@ -1,4 +1,4 @@
-﻿using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration.DataForm;
 using Contoso.XPlatform.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;

@@ -1,4 +1,4 @@
-﻿using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration.DataForm;
 using Contoso.XPlatform.Validators;
 using System.Collections.Generic;
 using System.Threading.Tasks;

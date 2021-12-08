@@ -1,4 +1,4 @@
-﻿using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration.DataForm;
 using LogicBuilder.RulesDirector;
 using System;
 using System.Reflection;

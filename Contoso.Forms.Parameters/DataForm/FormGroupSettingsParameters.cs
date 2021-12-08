@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Contoso.Forms.Parameters.EditForm
+namespace Contoso.Forms.Parameters.DataForm
 {
     public class FormGroupSettingsParameters : FormItemSettingsParameters
     {

@@ -2,7 +2,7 @@
 using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DataForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
@@ -16,7 +16,7 @@ namespace Contoso.XPlatform.ViewModels.EditForm
 {
     public class EditFormEntityViewModel<TModel> : EditFormEntityViewModelBase where TModel : Domain.EntityModelBase
     {
-        public EditFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, IContextProvider contextProvider)
+        public EditFormEntityViewModel(ScreenSettings<DataFormSettingsDescriptor> screenSettings, IContextProvider contextProvider)
             : base(screenSettings, contextProvider)
         {
             FormLayout = contextProvider.FieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings, typeof(TModel));

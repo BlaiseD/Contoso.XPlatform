@@ -1,5 +1,5 @@
 ﻿using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DataForm;
 using Contoso.Forms.Configuration.Validation;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Validators;

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Contoso.Domain.Entities;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DataForm;
 using Contoso.XPlatform.Flow;
 using Contoso.XPlatform.Flow.Cache;
 using Contoso.XPlatform.Services;
@@ -28,7 +28,7 @@ namespace Contoso.XPlatform.Tests
         public void ShouldCorrectlySetEntityStatesForMultiSelects()
         {
             //arrange
-            EditFormSettingsDescriptor formDescriptor = Descriptors.InstructorFormWithInlineOfficeAssignment;
+            DataFormSettingsDescriptor formDescriptor = Descriptors.InstructorFormWithInlineOfficeAssignment;
             InstructorModel instructorModel = new InstructorModel
             {
                 ID = 3,
@@ -119,7 +119,7 @@ namespace Contoso.XPlatform.Tests
         public void ShouldCorrectlySetEntityStatesForChildFormGroupArray()
         {
             //arrange
-            EditFormSettingsDescriptor formDescriptor = Descriptors.DepartmentForm;
+            DataFormSettingsDescriptor formDescriptor = Descriptors.DepartmentForm;
             DepartmentModel departmentModel = new DepartmentModel
             {
                 DepartmentID = 1,
@@ -206,7 +206,7 @@ namespace Contoso.XPlatform.Tests
         public void ShouldCorrectlySetEntityStatesForAddedChildEntity()
         {
             //arrange
-            EditFormSettingsDescriptor formDescriptor = Descriptors.InstructorFormWithInlineOfficeAssignment;
+            DataFormSettingsDescriptor formDescriptor = Descriptors.InstructorFormWithInlineOfficeAssignment;
             InstructorModel instructorModel = new InstructorModel
             {
                 ID = 3,
@@ -243,7 +243,7 @@ namespace Contoso.XPlatform.Tests
         public void ShouldCorrectlySetEntityStatesForExistingChildEntity()
         {
             //arrange
-            EditFormSettingsDescriptor formDescriptor = Descriptors.InstructorFormWithInlineOfficeAssignment;
+            DataFormSettingsDescriptor formDescriptor = Descriptors.InstructorFormWithInlineOfficeAssignment;
             InstructorModel instructorModel = new InstructorModel
             {
                 ID = 3,
@@ -286,7 +286,7 @@ namespace Contoso.XPlatform.Tests
         public void ShouldCorrectlySetEntityStatesForAddedObjectGraph()
         {
             //arrange
-            EditFormSettingsDescriptor formDescriptor = Descriptors.DepartmentForm;
+            DataFormSettingsDescriptor formDescriptor = Descriptors.DepartmentForm;
             DepartmentModel departmentModel = null;
 
             ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFormSettings(formDescriptor, typeof(DepartmentModel));
@@ -344,7 +344,7 @@ namespace Contoso.XPlatform.Tests
         public void ShouldCorrectlySetEntityStatesForAddedObjectGraphWithChildEntity()
         {
             //arrange
-            EditFormSettingsDescriptor formDescriptor = Descriptors.InstructorFormWithInlineOfficeAssignment;
+            DataFormSettingsDescriptor formDescriptor = Descriptors.InstructorFormWithInlineOfficeAssignment;
             InstructorModel instructorModel = null;
 
             ObservableCollection<IValidatable> modifiedProperties = CreateValidatablesFormSettings(formDescriptor, typeof(InstructorModel));

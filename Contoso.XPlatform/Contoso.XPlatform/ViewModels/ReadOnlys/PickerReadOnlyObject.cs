@@ -1,7 +1,7 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DataForm;
 using Contoso.Utils;
 using Contoso.XPlatform.Services;
 using System;

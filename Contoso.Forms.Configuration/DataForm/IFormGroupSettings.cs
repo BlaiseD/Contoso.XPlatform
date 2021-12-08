@@ -2,7 +2,7 @@
 using Contoso.Forms.Configuration.Validation;
 using System.Collections.Generic;
 
-namespace Contoso.Forms.Configuration.EditForm
+namespace Contoso.Forms.Configuration.DataForm
 {
     public interface IFormGroupSettings : IFormGroupBoxSettings
     {

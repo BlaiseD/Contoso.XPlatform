@@ -1,6 +1,6 @@
 ﻿using Contoso.Forms.Configuration.Validation;
 
-namespace Contoso.Forms.Configuration.EditForm
+namespace Contoso.Forms.Configuration.DataForm
 {
     public class FormControlSettingsDescriptor : FormItemSettingsDescriptor
     {

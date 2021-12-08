@@ -1,5 +1,5 @@
 ﻿using Contoso.Forms.Parameters;
-using Contoso.Forms.Parameters.EditForm;
+using Contoso.Forms.Parameters.DataForm;
 using Contoso.Forms.Parameters.SearchForm;
 using Contoso.Forms.Parameters.TextForm;
 using Contoso.Parameters.ItemFilter;

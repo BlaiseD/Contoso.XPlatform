@@ -1,4 +1,4 @@
-﻿namespace Contoso.Forms.Parameters.EditForm
+﻿namespace Contoso.Forms.Parameters.DataForm
 {
     public enum FormType
     {

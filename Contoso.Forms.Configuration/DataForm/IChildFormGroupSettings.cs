@@ -1,4 +1,4 @@
-﻿namespace Contoso.Forms.Configuration.EditForm
+﻿namespace Contoso.Forms.Configuration.DataForm
 {
     public interface IChildFormGroupSettings : IFormGroupSettings
     {

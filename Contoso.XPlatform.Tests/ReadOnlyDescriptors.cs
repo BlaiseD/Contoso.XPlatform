@@ -3,7 +3,7 @@ using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.Bindings;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DataForm;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +11,7 @@ namespace Contoso.XPlatform.Tests
 {
     public static class ReadOnlyDescriptors
     {
-        internal static EditFormSettingsDescriptor InstructorFormWithInlineOfficeAssignment = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor InstructorFormWithInlineOfficeAssignment = new DataFormSettingsDescriptor
         {
             Title = "Instructor",
             RequestDetails = new FormRequestDetailsDescriptor
@@ -137,7 +137,7 @@ namespace Contoso.XPlatform.Tests
             ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
-        internal static EditFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new DataFormSettingsDescriptor
         {
             Title = "Instructor",
             RequestDetails = new FormRequestDetailsDescriptor
@@ -264,7 +264,7 @@ namespace Contoso.XPlatform.Tests
             ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
-        internal static EditFormSettingsDescriptor DepartmentForm = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor DepartmentForm = new DataFormSettingsDescriptor
         {
             Title = "Department",
             RequestDetails = new FormRequestDetailsDescriptor
@@ -566,7 +566,7 @@ namespace Contoso.XPlatform.Tests
             ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
-        internal static EditFormSettingsDescriptor DepartmentFormWithAllItemsGrouped = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor DepartmentFormWithAllItemsGrouped = new DataFormSettingsDescriptor
         {
             Title = "Department",
             RequestDetails = new FormRequestDetailsDescriptor
@@ -882,7 +882,7 @@ namespace Contoso.XPlatform.Tests
             ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
-        internal static EditFormSettingsDescriptor DepartmentFormWithSomeItemsGrouped = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor DepartmentFormWithSomeItemsGrouped = new DataFormSettingsDescriptor
         {
             Title = "Department",
             RequestDetails = new FormRequestDetailsDescriptor
@@ -1191,7 +1191,7 @@ namespace Contoso.XPlatform.Tests
             ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
-        internal static EditFormSettingsDescriptor CourseForm = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor CourseForm = new DataFormSettingsDescriptor
         {
             Title = "Course",
             RequestDetails = new FormRequestDetailsDescriptor

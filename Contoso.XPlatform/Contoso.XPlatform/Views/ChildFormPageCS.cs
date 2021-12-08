@@ -1,5 +1,4 @@
 ﻿using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.ViewModels.Validatables;

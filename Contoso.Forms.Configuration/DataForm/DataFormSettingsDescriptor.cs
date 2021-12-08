@@ -3,9 +3,9 @@ using Contoso.Forms.Configuration.Directives;
 using Contoso.Forms.Configuration.Validation;
 using System.Collections.Generic;
 
-namespace Contoso.Forms.Configuration.EditForm
+namespace Contoso.Forms.Configuration.DataForm
 {
-    public class EditFormSettingsDescriptor : IFormGroupSettings
+    public class DataFormSettingsDescriptor : IFormGroupSettings
     {
         public string Title { get; set; }
         public FormRequestDetailsDescriptor RequestDetails { get; set; }

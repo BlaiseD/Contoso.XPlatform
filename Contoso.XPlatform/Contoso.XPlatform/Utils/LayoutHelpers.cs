@@ -1,6 +1,6 @@
 ﻿using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.Bindings;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DataForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.Views;

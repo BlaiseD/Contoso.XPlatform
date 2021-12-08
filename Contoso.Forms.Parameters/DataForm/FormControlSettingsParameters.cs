@@ -2,7 +2,7 @@
 using LogicBuilder.Attributes;
 using System;
 
-namespace Contoso.Forms.Parameters.EditForm
+namespace Contoso.Forms.Parameters.DataForm
 {
     public class FormControlSettingsParameters : FormItemSettingsParameters
     {

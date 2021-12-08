@@ -1,5 +1,5 @@
 ﻿using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DataForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Contoso.XPlatform.ViewModels.EditForm;
@@ -72,7 +72,7 @@ namespace Contoso.XPlatform.Views
                                     GetHeaderBinding
                                     (
                                         editFormEntityViewModel.FormSettings.HeaderBindings,
-                                        $"{nameof(EditFormEntityViewModelBase.FormSettings)}.{nameof(EditFormSettingsDescriptor.Title)}"
+                                        $"{nameof(EditFormEntityViewModelBase.FormSettings)}.{nameof(DataFormSettingsDescriptor.Title)}"
                                     )
                                 ),
                                 new ScrollView

@@ -2,7 +2,7 @@
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.Bindings;
 using Contoso.Forms.Configuration.Directives;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DataForm;
 using Contoso.Forms.Configuration.ListForm;
 using Contoso.Forms.Configuration.Navigation;
 using Contoso.Forms.Configuration.SearchForm;
@@ -11,7 +11,7 @@ using Contoso.Forms.Configuration.Validation;
 using Contoso.Forms.Parameters;
 using Contoso.Forms.Parameters.Bindings;
 using Contoso.Forms.Parameters.Directives;
-using Contoso.Forms.Parameters.EditForm;
+using Contoso.Forms.Parameters.DataForm;
 using Contoso.Forms.Parameters.ListForm;
 using Contoso.Forms.Parameters.Navigation;
 using Contoso.Forms.Parameters.SearchForm;
@@ -29,7 +29,7 @@ namespace Contoso.XPlatform.AutoMapperProfiles
 			CreateMap<DirectiveDefinitionParameters, DirectiveDefinitionDescriptor>();
 			CreateMap<DirectiveParameters, DirectiveDescriptor>();
 			CreateMap<DropDownTemplateParameters, DropDownTemplateDescriptor>();
-			CreateMap<EditFormSettingsParameters, EditFormSettingsDescriptor>()
+			CreateMap<DataFormSettingsParameters, DataFormSettingsDescriptor>()
 				.ForMember(dest => dest.ModelType, opts => opts.MapFrom(x => x.ModelType.AssemblyQualifiedName));
 			CreateMap<FieldValidationSettingsParameters, FieldValidationSettingsDescriptor>();
 			CreateMap<FormattedLabelItemParameters, FormattedLabelItemDescriptor>();

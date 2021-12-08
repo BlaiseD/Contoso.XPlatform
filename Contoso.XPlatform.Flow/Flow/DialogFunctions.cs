@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DataForm;
 using Contoso.Forms.Configuration.ListForm;
 using Contoso.Forms.Configuration.SearchForm;
 using Contoso.Forms.Configuration.TextForm;
-using Contoso.Forms.Parameters.EditForm;
+using Contoso.Forms.Parameters.DataForm;
 using Contoso.Forms.Parameters.ListForm;
 using Contoso.Forms.Parameters.SearchForm;
 using Contoso.Forms.Parameters.TextForm;
@@ -40,21 +40,21 @@ namespace Contoso.XPlatform.Flow
             );
         }
 
-        public void DisplayEditForm([Comments("Configuration details for the form.")] EditFormSettingsParameters setting, [ListEditorControl(ListControlType.Connectors)] ICollection<ConnectorParameters> buttons)
+        public void DisplayEditForm([Comments("Configuration details for the form.")] DataFormSettingsParameters setting, [ListEditorControl(ListControlType.Connectors)] ICollection<ConnectorParameters> buttons)
         {
-            this.screenData.ScreenSettings = new ScreenSettings<EditFormSettingsDescriptor>
+            this.screenData.ScreenSettings = new ScreenSettings<DataFormSettingsDescriptor>
             (
-                mapper.Map<EditFormSettingsDescriptor>(setting),
+                mapper.Map<DataFormSettingsDescriptor>(setting),
                 mapper.Map<IEnumerable<ConnectorParameters>, IEnumerable<CommandButtonDescriptor>>(buttons),
                 ViewType.EditForm
             );
         }
 
-        public void DisplayDetailForm([Comments("Configuration details for the form.")] EditFormSettingsParameters setting, [ListEditorControl(ListControlType.Connectors)] ICollection<ConnectorParameters> buttons)
+        public void DisplayDetailForm([Comments("Configuration details for the form.")] DataFormSettingsParameters setting, [ListEditorControl(ListControlType.Connectors)] ICollection<ConnectorParameters> buttons)
         {
-            this.screenData.ScreenSettings = new ScreenSettings<EditFormSettingsDescriptor>
+            this.screenData.ScreenSettings = new ScreenSettings<DataFormSettingsDescriptor>
             (
-                mapper.Map<EditFormSettingsDescriptor>(setting),
+                mapper.Map<DataFormSettingsDescriptor>(setting),
                 mapper.Map<IEnumerable<ConnectorParameters>, IEnumerable<CommandButtonDescriptor>>(buttons),
                 ViewType.DetailForm
             );

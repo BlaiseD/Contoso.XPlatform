@@ -3,7 +3,7 @@ using LogicBuilder.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace Contoso.Forms.Parameters.EditForm
+namespace Contoso.Forms.Parameters.DataForm
 {
     public class MultiSelectFormControlSettingsParameters : FormControlSettingsParameters
     {

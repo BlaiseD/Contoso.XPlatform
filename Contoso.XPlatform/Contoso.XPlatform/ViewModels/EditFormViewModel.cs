@@ -1,4 +1,4 @@
-﻿using Contoso.Forms.Configuration.EditForm;
+﻿using Contoso.Forms.Configuration.DataForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.ViewModels.EditForm;
@@ -18,12 +18,12 @@ namespace Contoso.XPlatform.ViewModels
 
         public override void Initialize(ScreenSettingsBase screenSettings)
         {
-            EditFormEntityViewModel = CreateEditFormViewModel((ScreenSettings<EditFormSettingsDescriptor>)screenSettings);
+            EditFormEntityViewModel = CreateEditFormViewModel((ScreenSettings<DataFormSettingsDescriptor>)screenSettings);
         }
 
         public EditFormEntityViewModelBase EditFormEntityViewModel { get; set; }
 
-        private EditFormEntityViewModelBase CreateEditFormViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings)
+        private EditFormEntityViewModelBase CreateEditFormViewModel(ScreenSettings<DataFormSettingsDescriptor> screenSettings)
         {
             return (EditFormEntityViewModelBase)Activator.CreateInstance
             (

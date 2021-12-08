@@ -68,8 +68,8 @@ namespace CreateFormsParametersFromFormsDescriptors
 
             List<string> formItemSettingsIncludes = types.Where
             (
-                t => t != typeof(Contoso.Forms.Parameters.EditForm.FormItemSettingsParameters)
-                    && typeof(Contoso.Forms.Parameters.EditForm.FormItemSettingsParameters).IsAssignableFrom(t)
+                t => t != typeof(Contoso.Forms.Parameters.DataForm.FormItemSettingsParameters)
+                    && typeof(Contoso.Forms.Parameters.DataForm.FormItemSettingsParameters).IsAssignableFrom(t)
             )
             .Select
             (

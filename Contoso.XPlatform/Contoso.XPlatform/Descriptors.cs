@@ -4,7 +4,7 @@ using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.Bindings;
-using Contoso.Forms.Configuration.EditForm;
+using Contoso.Forms.Configuration.DataForm;
 using Contoso.Forms.Configuration.ListForm;
 using Contoso.Forms.Configuration.Navigation;
 using Contoso.Forms.Configuration.SearchForm;
@@ -22,7 +22,7 @@ namespace Contoso.XPlatform
 {
     internal static class Descriptors
     {
-        internal static EditFormSettingsDescriptor InstructorForm = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor InstructorForm = new DataFormSettingsDescriptor
         {
             Title = "Instructor",
             FormType = FormType.Update,
@@ -236,7 +236,7 @@ namespace Contoso.XPlatform
             ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
         };
 
-        internal static EditFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new DataFormSettingsDescriptor
         {
             Title = "Instructor",
             FormType = FormType.Update,
@@ -464,7 +464,7 @@ namespace Contoso.XPlatform
             ModelType = typeof(InstructorModel).AssemblyQualifiedName,
         };
 
-        internal static EditFormSettingsDescriptor DepartmentForm = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor DepartmentForm = new DataFormSettingsDescriptor
         {
             Title = "Department",
             FormType = FormType.Update,
@@ -679,7 +679,7 @@ namespace Contoso.XPlatform
             ModelType = typeof(DepartmentModel).AssemblyQualifiedName
         };
 
-        internal static EditFormSettingsDescriptor DepartmentFormWithCourses = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor DepartmentFormWithCourses = new DataFormSettingsDescriptor
         {
             Title = "Department",
             FormType = FormType.Update,
@@ -1199,7 +1199,7 @@ namespace Contoso.XPlatform
             ModelType = typeof(DepartmentModel).AssemblyQualifiedName
         };
 
-        internal static EditFormSettingsDescriptor CourseForm = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor CourseForm = new DataFormSettingsDescriptor
         {
             Title = "Course",
             FormType = FormType.Update,
@@ -1484,7 +1484,7 @@ namespace Contoso.XPlatform
             ModelType = typeof(CourseModel).AssemblyQualifiedName
         };
 
-        internal static EditFormSettingsDescriptor StudentForm = new EditFormSettingsDescriptor
+        internal static DataFormSettingsDescriptor StudentForm = new DataFormSettingsDescriptor
         {
             Title = "Student",
             FormType = FormType.Update,
@@ -1895,16 +1895,16 @@ namespace Contoso.XPlatform
             else if (moduleName == "home")
                 return new ScreenSettings<TextFormSettingsDescriptor>(HomeTextForm, TextFormButtonDescriptors, ViewType.TextPage);
             else if (moduleName == "students")
-                return new ScreenSettings<EditFormSettingsDescriptor>(StudentForm, ButtonDescriptors, ViewType.EditForm);
+                return new ScreenSettings<DataFormSettingsDescriptor>(StudentForm, ButtonDescriptors, ViewType.EditForm);
                 //return new ScreenSettings<SearchFormSettingsDescriptor>(StudentSearchForm, SearchFormButtonDescriptors, ViewType.SearchPage);
             else if (moduleName == "courses")
-                return new ScreenSettings<EditFormSettingsDescriptor>(CourseForm, ButtonDescriptors, ViewType.EditForm);
+                return new ScreenSettings<DataFormSettingsDescriptor>(CourseForm, ButtonDescriptors, ViewType.EditForm);
             else if (moduleName == "departments")
                 //return new ScreenSettings<EditFormSettingsDescriptor>(DepartmentForm, ButtonDescriptors, ViewType.EditForm);
-                return new ScreenSettings<EditFormSettingsDescriptor>(DepartmentFormWithCourses, ButtonDescriptors, ViewType.EditForm);
+                return new ScreenSettings<DataFormSettingsDescriptor>(DepartmentFormWithCourses, ButtonDescriptors, ViewType.EditForm);
             else if (moduleName == "instructors")
                 //return new ScreenSettings<EditFormSettingsDescriptor>(InstructorForm, ButtonDescriptors, ViewType.EditForm);
-                return new ScreenSettings<EditFormSettingsDescriptor>(InstructorFormWithPopupOfficeAssignment, ButtonDescriptors, ViewType.EditForm);
+                return new ScreenSettings<DataFormSettingsDescriptor>(InstructorFormWithPopupOfficeAssignment, ButtonDescriptors, ViewType.EditForm);
             //else if (moduleName == "studentslist")
                 //return new ScreenSettings<SearchFormSettingsDescriptor>(StudentSearchForm, SearchFormButtonDescriptors, ViewType.SearchPage);
             else
