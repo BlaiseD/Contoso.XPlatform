@@ -1,4 +1,4 @@
-﻿using Contoso.Forms.Configuration.DetailForm;
+﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.ViewModels.DetailForm;
@@ -18,12 +18,12 @@ namespace Contoso.XPlatform.ViewModels
 
         public override void Initialize(ScreenSettingsBase screenSettings)
         {
-            DetailFormEntityViewModel = CreateDetailFormViewModel((ScreenSettings<DetailFormSettingsDescriptor>)screenSettings);
+            DetailFormEntityViewModel = CreateDetailFormViewModel((ScreenSettings<EditFormSettingsDescriptor>)screenSettings);
         }
 
         public DetailFormEntityViewModelBase DetailFormEntityViewModel { get; set; }
 
-        private DetailFormEntityViewModelBase CreateDetailFormViewModel(ScreenSettings<DetailFormSettingsDescriptor> screenSettings)
+        private DetailFormEntityViewModelBase CreateDetailFormViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings)
         {
             return (DetailFormEntityViewModelBase)Activator.CreateInstance
             (

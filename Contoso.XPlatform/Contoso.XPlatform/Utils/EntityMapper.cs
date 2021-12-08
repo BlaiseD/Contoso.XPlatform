@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Contoso.Forms.Configuration.DetailForm;
 using Contoso.Forms.Configuration.EditForm;
-using Contoso.XPlatform.ViewModels.ReadOnlys;
 using Contoso.XPlatform.ViewModels.Validatables;
 using System;
 using System.Collections.Generic;
@@ -255,11 +253,6 @@ namespace Contoso.XPlatform.Utils
                     propertiesDictionary[controlSetting.Field]
                 );
             }
-        }
-
-        public static void UpdateReadOnlys(this IEnumerable<IReadOnly> properties, object source, List<DetailItemSettingsDescriptor> fieldSettings, IMapper mapper, string parentField = null)
-        {
-            throw new NotImplementedException("{C00D7396-30A9-47F1-8761-F6AC81D9767E}");
         }
 
         const string EntityState = "EntityState";

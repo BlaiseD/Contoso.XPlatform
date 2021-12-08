@@ -1,5 +1,4 @@
 ﻿using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.DetailForm;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
@@ -74,7 +73,7 @@ namespace Contoso.XPlatform.Views
                                     GetLabelBinding
                                     (
                                         detailFormEntityViewModel.FormSettings.HeaderBindings,
-                                        $"{nameof(DetailFormEntityViewModelBase.FormSettings)}.{nameof(DetailFormSettingsDescriptor.Title)}"
+                                        $"{nameof(DetailFormEntityViewModelBase.FormSettings)}.{nameof(EditFormSettingsDescriptor.Title)}"
                                     )
                                 ),
                                 new Label
@@ -88,7 +87,7 @@ namespace Contoso.XPlatform.Views
                                     GetLabelBinding
                                     (
                                         detailFormEntityViewModel.FormSettings.SubtitleBindings,
-                                        $"{nameof(DetailFormEntityViewModelBase.FormSettings)}.{nameof(DetailFormSettingsDescriptor.Title)}"
+                                        $"{nameof(DetailFormEntityViewModelBase.FormSettings)}.{nameof(EditFormSettingsDescriptor.Title)}"
                                     )
                                 ),
                                 new ScrollView

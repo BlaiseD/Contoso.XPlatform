@@ -1,5 +1,5 @@
 ﻿using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.DetailForm;
+using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels.ReadOnlys;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace Contoso.XPlatform.ViewModels
 {
     public class ReadOnlyControlGroupBox : ObservableCollection<IReadOnly>
     {
-        public ReadOnlyControlGroupBox(IDetailGroupBoxSettings groupBoxSettings) : base(new List<IReadOnly>())
+        public ReadOnlyControlGroupBox(IFormGroupBoxSettings groupBoxSettings) : base(new List<IReadOnly>())
         {
             GroupHeader = groupBoxSettings.GroupHeader;
             HeaderBindings = groupBoxSettings.HeaderBindings;
@@ -21,7 +21,7 @@ namespace Contoso.XPlatform.ViewModels
         public string GroupHeader { get; set; }
         public bool IsVisible { get; set; }
         public MultiBindingDescriptor HeaderBindings { get; set; }
-        public IDetailGroupBoxSettings GroupBoxSettings { get; set; }
+        public IFormGroupBoxSettings GroupBoxSettings { get; set; }
         public Dictionary<string, IReadOnly> BindingPropertiesDictionary
             => this.ToDictionary(p => p.Name.ToBindingDictionaryKey());
     }

@@ -1,6 +1,5 @@
 ﻿using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.Bindings;
-using Contoso.Forms.Configuration.DetailForm;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.ViewModels;
@@ -301,36 +300,6 @@ namespace Contoso.XPlatform.Utils
                         return true;
                 }
                 else if ((next is FormGroupBoxSettingsDescriptor) == false)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// If every form field has a DetailGroupSettingsDescriptor parent then we don't need to create a
-        /// default group box.  Otherwise we create a default group box using IDetailGroupSettings.Title as the
-        /// group header.
-        /// </summary>
-        /// <param name="descriptors"></param>
-        /// <returns></returns>
-        internal static bool ShouldCreateDefaultControlGroupBox(this List<DetailItemSettingsDescriptor> descriptors)
-        {
-            return descriptors.Aggregate(false, DoAggregate);
-
-            bool DoAggregate(bool shouldAdd, DetailItemSettingsDescriptor next)
-            {
-                if (shouldAdd) return shouldAdd;
-
-                if (next is DetailGroupSettingsDescriptor inlineFormGroupSettingsDescriptor
-                    && inlineFormGroupSettingsDescriptor.FormGroupTemplate.TemplateName == FromGroupTemplateNames.InlineFormGroupTemplate)
-                {
-                    if (inlineFormGroupSettingsDescriptor.FieldSettings.Aggregate(false, DoAggregate))
-                        return true;
-                }
-                else if ((next is DetailGroupBoxSettingsDescriptor) == false)
                 {
                     return true;
                 }

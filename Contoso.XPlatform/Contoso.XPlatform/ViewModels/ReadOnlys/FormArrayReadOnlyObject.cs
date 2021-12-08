@@ -1,5 +1,5 @@
 ﻿using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.DetailForm;
+using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -9,7 +9,7 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
 {
     public class FormArrayReadOnlyObject<T, E> : ReadOnlyObjectBase<T> where T : ObservableCollection<E> where E : class
     {
-        public FormArrayReadOnlyObject(string name, DetailGroupArraySettingsDescriptor setting, IContextProvider contextProvider) 
+        public FormArrayReadOnlyObject(string name, FormGroupArraySettingsDescriptor setting, IContextProvider contextProvider) 
             : base(name, setting.FormGroupTemplate.TemplateName)
         {
             this.FormSettings = setting;
@@ -21,7 +21,7 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
 
         private readonly IContextProvider contextProvider;
         private readonly FormsCollectionDisplayTemplateDescriptor formsCollectionDisplayTemplateDescriptor;
-        public IChildDetailGroupSettings FormSettings { get; set; }
+        public IChildFormGroupSettings FormSettings { get; set; }
         public FormsCollectionDisplayTemplateDescriptor FormsCollectionDisplayTemplate => formsCollectionDisplayTemplateDescriptor;
 
         public string DisplayText => string.Empty;

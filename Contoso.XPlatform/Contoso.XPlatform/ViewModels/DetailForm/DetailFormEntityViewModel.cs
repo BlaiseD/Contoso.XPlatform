@@ -1,7 +1,7 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.DetailForm;
+using Contoso.Forms.Configuration.EditForm;
 using Contoso.Parameters.Expressions;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
@@ -14,7 +14,7 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
 {
     public class DetailFormEntityViewModel<TModel> : DetailFormEntityViewModelBase where TModel : Domain.EntityModelBase
     {
-        public DetailFormEntityViewModel(ScreenSettings<DetailFormSettingsDescriptor> screenSettings, IContextProvider contextProvider) 
+        public DetailFormEntityViewModel(ScreenSettings<EditFormSettingsDescriptor> screenSettings, IContextProvider contextProvider) 
             : base(screenSettings, contextProvider)
         {
             this.httpService = contextProvider.HttpService;

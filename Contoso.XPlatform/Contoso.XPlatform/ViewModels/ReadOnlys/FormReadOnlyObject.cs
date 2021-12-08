@@ -1,4 +1,4 @@
-﻿using Contoso.Forms.Configuration.DetailForm;
+﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -8,7 +8,7 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
 {
     public class FormReadOnlyObject<T> : ReadOnlyObjectBase<T> where T : class
     {
-        public FormReadOnlyObject(string name, IChildDetailGroupSettings setting, IContextProvider contextProvider) 
+        public FormReadOnlyObject(string name, IChildFormGroupSettings setting, IContextProvider contextProvider) 
             : base(name, setting.FormGroupTemplate.TemplateName)
         {
             this.FormSettings = setting;
@@ -18,7 +18,7 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
             FormLayout = contextProvider.ReadOnlyFieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
         }
 
-        public IChildDetailGroupSettings FormSettings { get; set; }
+        public IChildFormGroupSettings FormSettings { get; set; }
         private readonly IReadOnlyPropertiesUpdater propertiesUpdater;
 
         public DetailFormLayout FormLayout { get; set; }

@@ -1,5 +1,4 @@
 ﻿using Contoso.Forms.Parameters;
-using Contoso.Forms.Parameters.DetailForm;
 using Contoso.Forms.Parameters.EditForm;
 using Contoso.Forms.Parameters.SearchForm;
 using Contoso.Forms.Parameters.TextForm;
@@ -17,11 +16,6 @@ namespace Contoso.XPlatform.Flow
             FormGroupSettingsParameters formGroupSettingsParameters,
             FormGroupBoxSettingsParameters groupBoxSettingsParameters,
             MultiSelectFormControlSettingsParameters multiSelectFormControlSettingsParameters,
-            DetailControlSettingsParameters detailControlSettingsParameters,
-            DetailGroupArraySettingsParameters detailGroupArraySettingsParameters,
-            DetailGroupSettingsParameters detailGroupSettingsParameters,
-            DetailGroupBoxSettingsParameters detailGroupBoxSettingsParameters,
-            MultiSelectDetailControlSettingsParameters multiSelectDetailControlSettingsParameters,
             SearchFilterGroupParameters searchFilterGroupParameters,
             SearchFilterParameters searchFilterParameters,
             ItemFilterGroupParameters itemFilterGroupParameters,

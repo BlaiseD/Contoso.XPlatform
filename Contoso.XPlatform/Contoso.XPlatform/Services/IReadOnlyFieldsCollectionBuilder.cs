@@ -1,10 +1,10 @@
-﻿using Contoso.Forms.Configuration.DetailForm;
+﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.ViewModels;
 
 namespace Contoso.XPlatform.Services
 {
     public interface IReadOnlyFieldsCollectionBuilder
     {
-        DetailFormLayout CreateFieldsCollection(IDetailGroupSettings formSettings);
+        DetailFormLayout CreateFieldsCollection(IFormGroupSettings formSettings);
     }
 }

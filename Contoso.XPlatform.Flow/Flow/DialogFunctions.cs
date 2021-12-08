@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Contoso.Forms.Configuration;
-using Contoso.Forms.Configuration.DetailForm;
 using Contoso.Forms.Configuration.EditForm;
 using Contoso.Forms.Configuration.ListForm;
 using Contoso.Forms.Configuration.SearchForm;
 using Contoso.Forms.Configuration.TextForm;
-using Contoso.Forms.Parameters.DetailForm;
 using Contoso.Forms.Parameters.EditForm;
 using Contoso.Forms.Parameters.ListForm;
 using Contoso.Forms.Parameters.SearchForm;
@@ -52,11 +50,11 @@ namespace Contoso.XPlatform.Flow
             );
         }
 
-        public void DisplayDetailForm([Comments("Configuration details for the form.")] DetailFormSettingsParameters setting, [ListEditorControl(ListControlType.Connectors)] ICollection<ConnectorParameters> buttons)
+        public void DisplayDetailForm([Comments("Configuration details for the form.")] EditFormSettingsParameters setting, [ListEditorControl(ListControlType.Connectors)] ICollection<ConnectorParameters> buttons)
         {
-            this.screenData.ScreenSettings = new ScreenSettings<DetailFormSettingsDescriptor>
+            this.screenData.ScreenSettings = new ScreenSettings<EditFormSettingsDescriptor>
             (
-                mapper.Map<DetailFormSettingsDescriptor>(setting),
+                mapper.Map<EditFormSettingsDescriptor>(setting),
                 mapper.Map<IEnumerable<ConnectorParameters>, IEnumerable<CommandButtonDescriptor>>(buttons),
                 ViewType.DetailForm
             );

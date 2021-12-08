@@ -1,4 +1,4 @@
-﻿using Contoso.Forms.Configuration.DetailForm;
+﻿using Contoso.Forms.Configuration.EditForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 
@@ -13,7 +13,7 @@ namespace Contoso.XPlatform.Services
             this.contextProvider = contextProvider;
         }
 
-        public DetailFormLayout CreateFieldsCollection(IDetailGroupSettings formSettings)
+        public DetailFormLayout CreateFieldsCollection(IFormGroupSettings formSettings)
             => new ReadOnlyFieldsCollectionHelper(formSettings.FieldSettings, formSettings, this.contextProvider).CreateFields();
     }
 }

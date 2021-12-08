@@ -3,7 +3,6 @@ using Contoso.Data.Entities;
 using Contoso.Domain.Entities;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.Bindings;
-using Contoso.Forms.Configuration.DetailForm;
 using Contoso.Forms.Configuration.EditForm;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,23 +11,23 @@ namespace Contoso.XPlatform.Tests
 {
     public static class ReadOnlyDescriptors
     {
-        internal static DetailFormSettingsDescriptor InstructorFormWithInlineOfficeAssignment = new DetailFormSettingsDescriptor
+        internal static EditFormSettingsDescriptor InstructorFormWithInlineOfficeAssignment = new EditFormSettingsDescriptor
         {
             Title = "Instructor",
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle"
             },
-            FieldSettings = new List<DetailItemSettingsDescriptor>
+            FieldSettings = new List<FormItemSettingsDescriptor>
             {
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "ID",
                     Type = "System.Int32",
                     Title = "ID",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" }
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "FirstName",
                     Type = "System.String",
@@ -36,7 +35,7 @@ namespace Contoso.XPlatform.Tests
                     StringFormat = "{0}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "LastName",
                     Type = "System.String",
@@ -44,7 +43,7 @@ namespace Contoso.XPlatform.Tests
                     StringFormat = "{0}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "HireDate",
                     Type = "System.DateTime",
@@ -52,13 +51,13 @@ namespace Contoso.XPlatform.Tests
                     StringFormat = "{0:MM/dd/yyyy}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new DetailGroupSettingsDescriptor
+                new FormGroupSettingsDescriptor
                 {
                     Field = "OfficeAssignment",
                     ModelType = typeof(OfficeAssignmentModel).AssemblyQualifiedName,
-                    FieldSettings = new List<DetailItemSettingsDescriptor>
+                    FieldSettings = new List<FormItemSettingsDescriptor>
                     {
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "Location",
                             Type = "System.String",
@@ -72,7 +71,7 @@ namespace Contoso.XPlatform.Tests
                     },
                     Title = ""
                 },
-                new MultiSelectDetailControlSettingsDescriptor
+                new MultiSelectFormControlSettingsDescriptor
                 {
                     KeyFields = new List<string> { "CourseID" },
                     Field = "Courses",
@@ -138,23 +137,23 @@ namespace Contoso.XPlatform.Tests
             ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
-        internal static DetailFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new DetailFormSettingsDescriptor
+        internal static EditFormSettingsDescriptor InstructorFormWithPopupOfficeAssignment = new EditFormSettingsDescriptor
         {
             Title = "Instructor",
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Instructor/GetSingle"
             },
-            FieldSettings = new List<DetailItemSettingsDescriptor>
+            FieldSettings = new List<FormItemSettingsDescriptor>
             {
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "ID",
                     Type = "System.Int32",
                     Title = "ID",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" }
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "FirstName",
                     Type = "System.String",
@@ -162,7 +161,7 @@ namespace Contoso.XPlatform.Tests
                     StringFormat = "{0}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "LastName",
                     Type = "System.String",
@@ -170,7 +169,7 @@ namespace Contoso.XPlatform.Tests
                     StringFormat = "{0}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "HireDate",
                     Type = "System.DateTime",
@@ -178,13 +177,13 @@ namespace Contoso.XPlatform.Tests
                     StringFormat = "{0:MM/dd/yyyy}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new DetailGroupSettingsDescriptor
+                new FormGroupSettingsDescriptor
                 {
                     Field = "OfficeAssignment",
                     ModelType = typeof(OfficeAssignmentModel).AssemblyQualifiedName,
-                    FieldSettings = new List<DetailItemSettingsDescriptor>
+                    FieldSettings = new List<FormItemSettingsDescriptor>
                     {
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "Location",
                             Type = "System.String",
@@ -199,7 +198,7 @@ namespace Contoso.XPlatform.Tests
                     },
                     Title = ""
                 },
-                new MultiSelectDetailControlSettingsDescriptor
+                new MultiSelectFormControlSettingsDescriptor
                 {
                     KeyFields = new List<string> { "CourseID" },
                     Field = "Courses",
@@ -265,23 +264,23 @@ namespace Contoso.XPlatform.Tests
             ModelType = "Contoso.Domain.Entities.InstructorModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
-        internal static DetailFormSettingsDescriptor DepartmentForm = new DetailFormSettingsDescriptor
+        internal static EditFormSettingsDescriptor DepartmentForm = new EditFormSettingsDescriptor
         {
             Title = "Department",
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle"
             },
-            FieldSettings = new List<DetailItemSettingsDescriptor>
+            FieldSettings = new List<FormItemSettingsDescriptor>
             {
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "DepartmentID",
                     Type = "System.Int32",
                     Title = "ID",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" }
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "Budget",
                     Type = "System.Decimal",
@@ -289,7 +288,7 @@ namespace Contoso.XPlatform.Tests
                     StringFormat = "{0:F2}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "InstructorID",
                     Type = "System.Int32",
@@ -360,7 +359,7 @@ namespace Contoso.XPlatform.Tests
                         }
                     }
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "Name",
                     Type = "System.String",
@@ -368,7 +367,7 @@ namespace Contoso.XPlatform.Tests
                     StringFormat = "{0}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "StartDate",
                     Type = "System.DateTime",
@@ -376,7 +375,7 @@ namespace Contoso.XPlatform.Tests
                     StringFormat = "{0:MM/dd/yyyy}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new DetailGroupArraySettingsDescriptor
+                new FormGroupArraySettingsDescriptor
                 {
                     Field = "Courses",
                     FormGroupTemplate = new FormGroupTemplateDescriptor
@@ -402,9 +401,9 @@ namespace Contoso.XPlatform.Tests
                             }
                         }.ToDictionary(b => b.Name)
                     },
-                    FieldSettings = new List<DetailItemSettingsDescriptor>
+                    FieldSettings = new List<FormItemSettingsDescriptor>
                     {
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "CourseID",
                             Type = "System.Int32",
@@ -412,7 +411,7 @@ namespace Contoso.XPlatform.Tests
                             StringFormat = "{0}",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "Credits",
                             Type = "System.Int32",
@@ -490,7 +489,7 @@ namespace Contoso.XPlatform.Tests
                                 }
                             },
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "DepartmentID",
                             Type = "System.Int32",
@@ -551,7 +550,7 @@ namespace Contoso.XPlatform.Tests
                                 }
                             }
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "Title",
                             Type = "System.String",
@@ -567,28 +566,28 @@ namespace Contoso.XPlatform.Tests
             ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
-        internal static DetailFormSettingsDescriptor DepartmentFormWithAllItemsGrouped = new DetailFormSettingsDescriptor
+        internal static EditFormSettingsDescriptor DepartmentFormWithAllItemsGrouped = new EditFormSettingsDescriptor
         {
             Title = "Department",
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle"
             },
-            FieldSettings = new List<DetailItemSettingsDescriptor>
+            FieldSettings = new List<FormItemSettingsDescriptor>
             {
-                new DetailGroupBoxSettingsDescriptor
+                new FormGroupBoxSettingsDescriptor
                 {
                     GroupHeader = "GroupOne",
-                    FieldSettings = new List<DetailItemSettingsDescriptor>
+                    FieldSettings = new List<FormItemSettingsDescriptor>
                     {
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "DepartmentID",
                             Type = "System.Int32",
                             Title = "ID",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" }
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "Budget",
                             Type = "System.Decimal",
@@ -596,7 +595,7 @@ namespace Contoso.XPlatform.Tests
                             StringFormat = "{0:F2}",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "InstructorID",
                             Type = "System.Int32",
@@ -669,12 +668,12 @@ namespace Contoso.XPlatform.Tests
                         },
                     }
                 },
-                new DetailGroupBoxSettingsDescriptor
+                new FormGroupBoxSettingsDescriptor
                 {
                     GroupHeader = "GroupTwo",
-                    FieldSettings = new List<DetailItemSettingsDescriptor>
+                    FieldSettings = new List<FormItemSettingsDescriptor>
                     {
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "Name",
                             Type = "System.String",
@@ -682,7 +681,7 @@ namespace Contoso.XPlatform.Tests
                             StringFormat = "{0}",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "StartDate",
                             Type = "System.DateTime",
@@ -690,7 +689,7 @@ namespace Contoso.XPlatform.Tests
                             StringFormat = "{0:MM/dd/yyyy}",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                         },
-                        new DetailGroupArraySettingsDescriptor
+                        new FormGroupArraySettingsDescriptor
                         {
                             Field = "Courses",
                             FormGroupTemplate = new FormGroupTemplateDescriptor
@@ -716,9 +715,9 @@ namespace Contoso.XPlatform.Tests
                                     }
                                 }.ToDictionary(b => b.Name)
                             },
-                            FieldSettings = new List<DetailItemSettingsDescriptor>
+                            FieldSettings = new List<FormItemSettingsDescriptor>
                             {
-                                new DetailControlSettingsDescriptor
+                                new FormControlSettingsDescriptor
                                 {
                                     Field = "CourseID",
                                     Type = "System.Int32",
@@ -726,7 +725,7 @@ namespace Contoso.XPlatform.Tests
                                     StringFormat = "{0}",
                                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                                 },
-                                new DetailControlSettingsDescriptor
+                                new FormControlSettingsDescriptor
                                 {
                                     Field = "Credits",
                                     Type = "System.Int32",
@@ -804,7 +803,7 @@ namespace Contoso.XPlatform.Tests
                                         }
                                     },
                                 },
-                                new DetailControlSettingsDescriptor
+                                new FormControlSettingsDescriptor
                                 {
                                     Field = "DepartmentID",
                                     Type = "System.Int32",
@@ -865,7 +864,7 @@ namespace Contoso.XPlatform.Tests
                                         }
                                     }
                                 },
-                                new DetailControlSettingsDescriptor
+                                new FormControlSettingsDescriptor
                                 {
                                     Field = "Title",
                                     Type = "System.String",
@@ -883,28 +882,28 @@ namespace Contoso.XPlatform.Tests
             ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
-        internal static DetailFormSettingsDescriptor DepartmentFormWithSomeItemsGrouped = new DetailFormSettingsDescriptor
+        internal static EditFormSettingsDescriptor DepartmentFormWithSomeItemsGrouped = new EditFormSettingsDescriptor
         {
             Title = "Department",
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Department/GetSingle"
             },
-            FieldSettings = new List<DetailItemSettingsDescriptor>
+            FieldSettings = new List<FormItemSettingsDescriptor>
             {
-                new DetailGroupBoxSettingsDescriptor
+                new FormGroupBoxSettingsDescriptor
                 {
                     GroupHeader = "GroupOne",
-                    FieldSettings = new List<DetailItemSettingsDescriptor>
+                    FieldSettings = new List<FormItemSettingsDescriptor>
                     {
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "DepartmentID",
                             Type = "System.Int32",
                             Title = "ID",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "HiddenTemplate" }
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "Budget",
                             Type = "System.Decimal",
@@ -912,7 +911,7 @@ namespace Contoso.XPlatform.Tests
                             StringFormat = "{0:F2}",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "InstructorID",
                             Type = "System.Int32",
@@ -985,7 +984,7 @@ namespace Contoso.XPlatform.Tests
                         },
                     }
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "Name",
                     Type = "System.String",
@@ -993,7 +992,7 @@ namespace Contoso.XPlatform.Tests
                     StringFormat = "{0}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new DetailControlSettingsDescriptor
+                new FormControlSettingsDescriptor
                 {
                     Field = "StartDate",
                     Type = "System.DateTime",
@@ -1001,7 +1000,7 @@ namespace Contoso.XPlatform.Tests
                     StringFormat = "{0:MM/dd/yyyy}",
                     TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new DetailGroupArraySettingsDescriptor
+                new FormGroupArraySettingsDescriptor
                 {
                     Field = "Courses",
                     FormGroupTemplate = new FormGroupTemplateDescriptor
@@ -1027,9 +1026,9 @@ namespace Contoso.XPlatform.Tests
                             }
                         }.ToDictionary(b => b.Name)
                     },
-                    FieldSettings = new List<DetailItemSettingsDescriptor>
+                    FieldSettings = new List<FormItemSettingsDescriptor>
                     {
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "CourseID",
                             Type = "System.Int32",
@@ -1037,7 +1036,7 @@ namespace Contoso.XPlatform.Tests
                             StringFormat = "{0}",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "Credits",
                             Type = "System.Int32",
@@ -1115,7 +1114,7 @@ namespace Contoso.XPlatform.Tests
                                 }
                             },
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "DepartmentID",
                             Type = "System.Int32",
@@ -1176,7 +1175,7 @@ namespace Contoso.XPlatform.Tests
                                 }
                             }
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "Title",
                             Type = "System.String",
@@ -1192,21 +1191,21 @@ namespace Contoso.XPlatform.Tests
             ModelType = "Contoso.Domain.Entities.DepartmentModel, Contoso.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
         };
 
-        internal static DetailFormSettingsDescriptor CourseForm = new DetailFormSettingsDescriptor
+        internal static EditFormSettingsDescriptor CourseForm = new EditFormSettingsDescriptor
         {
             Title = "Course",
             RequestDetails = new FormRequestDetailsDescriptor
             {
                 GetUrl = "/Course/GetSingle"
             },
-            FieldSettings = new List<DetailItemSettingsDescriptor>
+            FieldSettings = new List<FormItemSettingsDescriptor>
             {
-                new DetailGroupBoxSettingsDescriptor
+                new FormGroupBoxSettingsDescriptor
                 {
                     GroupHeader = "Name And ID",
-                    FieldSettings = new List<DetailItemSettingsDescriptor>
+                    FieldSettings = new List<FormItemSettingsDescriptor>
                     {
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "CourseID",
                             Type = "System.Int32",
@@ -1214,7 +1213,7 @@ namespace Contoso.XPlatform.Tests
                             Placeholder = "Course ID (required)",
                             TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" },
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "Title",
                             Type = "System.String",
@@ -1224,12 +1223,12 @@ namespace Contoso.XPlatform.Tests
                         }
                     }
                 },
-                new DetailGroupBoxSettingsDescriptor
+                new FormGroupBoxSettingsDescriptor
                 {
                     GroupHeader = "Title And Department",
-                    FieldSettings = new List<DetailItemSettingsDescriptor>
+                    FieldSettings = new List<FormItemSettingsDescriptor>
                     {
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "DepartmentID",
                             Type = "System.Int32",
@@ -1290,7 +1289,7 @@ namespace Contoso.XPlatform.Tests
                                 }
                             },
                         },
-                        new DetailControlSettingsDescriptor
+                        new FormControlSettingsDescriptor
                         {
                             Field = "Credits",
                             Type = "System.Int32",
