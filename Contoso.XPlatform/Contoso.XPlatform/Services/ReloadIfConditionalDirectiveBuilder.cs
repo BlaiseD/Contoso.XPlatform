@@ -2,7 +2,7 @@
 using Contoso.Forms.Configuration.DataForm;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
-using Contoso.XPlatform.ViewModels.Validatables;
+using Contoso.XPlatform.ViewModels;
 using System.Collections.Generic;
 
 namespace Contoso.XPlatform.Services
@@ -16,7 +16,7 @@ namespace Contoso.XPlatform.Services
             this.mapper = mapper;
         }
 
-        public List<ReloadIf<TModel>> GetConditions<TModel>(IFormGroupSettings formGroupSettings, IEnumerable<IValidatable> properties)
+        public List<ReloadIf<TModel>> GetConditions<TModel>(IFormGroupSettings formGroupSettings, IEnumerable<IFormField> properties)
             => new ReloadIfConditionalDirectiveHelper<TModel>
             (
                 formGroupSettings,

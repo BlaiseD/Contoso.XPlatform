@@ -64,7 +64,8 @@ namespace Contoso.XPlatform.Tests
             };
             ObservableCollection<IReadOnly> properties = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                ReadOnlyDescriptors.InstructorFormWithInlineOfficeAssignment
+                ReadOnlyDescriptors.InstructorFormWithInlineOfficeAssignment,
+                typeof(InstructorModel)
             ).Properties;
 
             //act
@@ -123,7 +124,8 @@ namespace Contoso.XPlatform.Tests
             };
             ObservableCollection<IReadOnly> properties = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                ReadOnlyDescriptors.InstructorFormWithPopupOfficeAssignment
+                ReadOnlyDescriptors.InstructorFormWithPopupOfficeAssignment,
+                typeof(InstructorModel)
             ).Properties;
 
             //act
@@ -179,7 +181,8 @@ namespace Contoso.XPlatform.Tests
             };
             ObservableCollection<IReadOnly> properties = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                ReadOnlyDescriptors.DepartmentForm
+                ReadOnlyDescriptors.DepartmentForm,
+                typeof(DepartmentModel)
             ).Properties;
 
             //act
@@ -215,7 +218,8 @@ namespace Contoso.XPlatform.Tests
 
             ObservableCollection<IReadOnly> properties = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                ReadOnlyDescriptors.CourseForm
+                ReadOnlyDescriptors.CourseForm,
+                typeof(CourseModel)
             ).Properties;
 
             //act

@@ -21,7 +21,6 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
             this.UiNotificationService = contextProvider.UiNotificationService;
             FormSettings = screenSettings.Settings;
             Buttons = new ObservableCollection<CommandButtonDescriptor>(screenSettings.CommandButtons);
-            FormLayout = contextProvider.ReadOnlyFieldsCollectionBuilder.CreateFieldsCollection(this.FormSettings);
         }
 
         public Dictionary<string, IReadOnly> BindingPropertiesDictionary

@@ -1,10 +1,11 @@
 ﻿using Contoso.Forms.Configuration.DataForm;
+using Contoso.XPlatform.Services;
 
 namespace Contoso.XPlatform.ViewModels.ReadOnlys
 {
     public class SwitchReadOnlyObject : ReadOnlyObjectBase<bool>
     {
-        public SwitchReadOnlyObject(string name, FormControlSettingsDescriptor setting) : base(name, setting.TextTemplate.TemplateName)
+        public SwitchReadOnlyObject(string name, FormControlSettingsDescriptor setting, IContextProvider contextProvider) : base(name, setting.TextTemplate.TemplateName, contextProvider.UiNotificationService)
         {
             FormControlSettingsDescriptor = setting;
             SwitchLabel = setting.Title;

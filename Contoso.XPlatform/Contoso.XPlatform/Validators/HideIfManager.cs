@@ -1,17 +1,16 @@
 ﻿using AutoMapper;
 using Contoso.Forms.Configuration.Directives;
-using Contoso.XPlatform.ViewModels.Validatables;
+using Contoso.XPlatform.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace Contoso.XPlatform.Validators
 {
     internal class HideIfManager<TModel> : IDisposable
     {
-        public HideIfManager(ICollection<IValidatable> currentProperties, List<HideIf<TModel>> conditions, IMapper mapper, UiNotificationService uiNotificationService)
+        public HideIfManager(IEnumerable<IFormField> currentProperties, List<HideIf<TModel>> conditions, IMapper mapper, UiNotificationService uiNotificationService)
         {
             CurrentProperties = currentProperties;
             this.conditions = conditions;
@@ -25,17 +24,17 @@ namespace Contoso.XPlatform.Validators
         private readonly UiNotificationService uiNotificationService;
         private readonly IDisposable propertyChangedSubscription;
 
-        public ICollection<IValidatable> CurrentProperties { get; }
-        private IDictionary<string, IValidatable> CurrentPropertiesDictionary
+        public IEnumerable<IFormField> CurrentProperties { get; }
+        private IDictionary<string, IFormField> CurrentPropertiesDictionary
             => CurrentProperties.ToDictionary(p => p.Name);
 
         public void Check(HideIf<TModel> condition)
         {
             DoCheck(CurrentPropertiesDictionary[condition.Field]);
 
-            void DoCheck(IValidatable currentValidatable)
+            void DoCheck(IFormField currentField)
             {
-                currentValidatable.IsVisible = ShouldHide
+                currentField.IsVisible = ShouldHide
                 (
                     mapper.Map<TModel>(CurrentProperties.ToDictionary(p => p.Name, p => p.Value)),
                     condition.Evaluator

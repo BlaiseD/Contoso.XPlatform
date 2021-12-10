@@ -29,7 +29,8 @@ namespace Contoso.XPlatform.Tests
         {
             DetailFormLayout formLayout = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                ReadOnlyDescriptors.DepartmentForm
+                ReadOnlyDescriptors.DepartmentForm,
+                typeof(DepartmentModel)
             );
 
             Assert.Single(formLayout.ControlGroupBoxList);
@@ -42,7 +43,8 @@ namespace Contoso.XPlatform.Tests
         {
             DetailFormLayout formLayout = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                ReadOnlyDescriptors.DepartmentFormWithAllItemsGrouped
+                ReadOnlyDescriptors.DepartmentFormWithAllItemsGrouped,
+                typeof(DepartmentModel)
             );
 
             Assert.Equal(2, formLayout.ControlGroupBoxList.Count);
@@ -55,7 +57,8 @@ namespace Contoso.XPlatform.Tests
         {
             DetailFormLayout formLayout = serviceProvider.GetRequiredService<IReadOnlyFieldsCollectionBuilder>().CreateFieldsCollection
             (
-                ReadOnlyDescriptors.DepartmentFormWithSomeItemsGrouped
+                ReadOnlyDescriptors.DepartmentFormWithSomeItemsGrouped,
+                typeof(DepartmentModel)
             );
 
 

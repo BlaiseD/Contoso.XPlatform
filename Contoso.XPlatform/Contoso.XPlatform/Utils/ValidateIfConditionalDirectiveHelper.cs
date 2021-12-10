@@ -32,12 +32,9 @@ namespace Contoso.XPlatform.Utils
 
         public List<ValidateIf<TModel>> GetConditions()
         {
-            if (formGroupSettings.ConditionalDirectives == null)
-                return this.parentList ?? new List<ValidateIf<TModel>>();
-
             IDictionary<string, IValidatable> propertiesDictionary = properties.ToDictionary(p => p.Name);
 
-            List<ValidateIf<TModel>> conditions = formGroupSettings.ConditionalDirectives.Aggregate(parentList ?? new List<ValidateIf<TModel>>(), (list, kvp) =>
+            List<ValidateIf<TModel>> conditions = formGroupSettings.ConditionalDirectives?.Aggregate(parentList ?? new List<ValidateIf<TModel>>(), (list, kvp) =>
             {
                 kvp.Value.ForEach
                 (
@@ -84,10 +81,20 @@ namespace Contoso.XPlatform.Utils
                 );
 
                 return list;
-            });
+            }) ?? new List<ValidateIf<TModel>>();
 
-            formGroupSettings.FieldSettings.ForEach(descriptor =>
+            formGroupSettings.FieldSettings.ForEach(AddConditions);
+
+            return conditions;
+
+            void AddConditions(FormItemSettingsDescriptor descriptor)
             {
+                if (descriptor is FormGroupBoxSettingsDescriptor groupBox)
+                {
+                    groupBox.FieldSettings.ForEach(AddConditions);
+                    return;
+                }
+
                 if (!(descriptor is FormGroupSettingsDescriptor childForm))
                     return;
 
@@ -102,9 +109,7 @@ namespace Contoso.XPlatform.Utils
                     conditions,
                     GetFieldName(childForm.Field)
                 ).GetConditions();
-            });
-
-            return conditions;
+            }
         }
 
         string GetFieldName(string field)

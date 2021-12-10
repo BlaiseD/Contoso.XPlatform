@@ -78,11 +78,21 @@ namespace Contoso.XPlatform.ViewModels.Validatables
                     return;
 
                 _selectedItem = value;
-                Value = _selectedItem == null 
-                    ? default 
-                    : _selectedItem.GetPropertyValue<T>(_dropDownTemplate.ValueField);
+
+                if (_selectedItem != null)
+                    Value = _selectedItem.GetPropertyValue<T>(_dropDownTemplate.ValueField);
 
                 OnPropertyChanged();
+            }
+        }
+
+        public override T Value
+        {
+            get { return base.Value; }
+            set
+            {
+                base.Value = value;
+                OnPropertyChanged(nameof(SelectedItem));
             }
         }
 
@@ -100,6 +110,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
         private async void GetItemSource()
         {
             await GetItems(this.DropDownTemplate.TextAndValueSelector);
+            OnPropertyChanged(nameof(SelectedItem));
         }
 
         private async Task GetItems(SelectorLambdaOperatorDescriptor selector)
@@ -174,7 +185,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
 
             T GetExistingValue()
             {
-                object existing = Items.FirstOrDefault
+                object existing = Items?.FirstOrDefault
                 (
                     i => EqualityComparer<T>.Default.Equals
                     (
