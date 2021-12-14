@@ -182,7 +182,7 @@ namespace Contoso.Bsl.Web.Tests
                         {
                             SourceOperand = new CountOperatorDescriptor
                             {
-                                SourceOperand = new AsEnumerableOperatorDescriptor()
+                                SourceOperand = new AsQueryableOperatorDescriptor()
                                 {
                                     SourceOperand = new ParameterOperatorDescriptor
                                     {

@@ -133,7 +133,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
             //arrange
             var filterLambdaOperatorDescriptor = GetFilterExpressionDescriptor<DepartmentModel>
             (
-                GetDepartmentByIdFilterBody(1),
+                GetDepartmentByNameFilterBody("Engineering"),
                 "q"
             );
 
@@ -165,7 +165,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
             ).Result.Entity;
 
             //assert
-            AssertFilterStringIsCorrect(expression, "q => (q.DepartmentID == 1)");
+            AssertFilterStringIsCorrect(expression, "q => (q.Name == \"Engineering\")");
             Assert.Equal(1, entity.Courses.Count);
         }
 
@@ -484,7 +484,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
             ).Result.List.ToList();
 
             //assert
-            AssertFilterStringIsCorrect(expression, "q => q.GroupBy(item => item.EnrollmentDate).OrderByDescending(group => group.Key).Select(sel => new LookUpsModel() {DateTimeValue = sel.Key, NumericValue = Convert(sel.AsEnumerable().Count())})");
+            AssertFilterStringIsCorrect(expression, "q => q.GroupBy(item => item.EnrollmentDate).OrderByDescending(group => group.Key).Select(sel => new LookUpsModel() {DateTimeValue = sel.Key, NumericValue = Convert(sel.AsQueryable().Count())})");
             Assert.Equal(6, list.Count);
         }
 
@@ -537,7 +537,7 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                         {
                             SourceOperand = new CountOperatorDescriptor
                             {
-                                SourceOperand = new AsEnumerableOperatorDescriptor()
+                                SourceOperand = new AsQueryableOperatorDescriptor()
                                 {
                                     SourceOperand = new ParameterOperatorDescriptor
                                     {
@@ -606,6 +606,17 @@ namespace Contoso.Bsl.Flow.Integration.Tests.GetRequests
                     MemberFullName = "DepartmentID"
                 },
                 Right = new ConstantOperatorDescriptor { Type = typeof(int).FullName, ConstantValue = id }
+            };
+
+        private EqualsBinaryOperatorDescriptor GetDepartmentByNameFilterBody(string name)
+            => new EqualsBinaryOperatorDescriptor
+            {
+                Left = new MemberSelectorOperatorDescriptor
+                {
+                    SourceOperand = new ParameterOperatorDescriptor { ParameterName = "q" },
+                    MemberFullName = "Name"
+                },
+                Right = new ConstantOperatorDescriptor { Type = typeof(string).FullName, ConstantValue = name }
             };
 
         private OrderByOperatorDescriptor GetCoursesBodyForCourseModelType()
