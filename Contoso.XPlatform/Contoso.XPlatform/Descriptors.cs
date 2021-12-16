@@ -951,23 +951,26 @@ namespace Contoso.XPlatform
                         TemplateName = "TextDetailTemplate",
                         Bindings = new List<ItemBindingDescriptor>
                         {
-                            new ItemBindingDescriptor
+                            new TextItemBindingDescriptor
                             {
                                 Name = "Header",
                                 Property = "CourseID",
-                                StringFormat = "ID {0}"
+                                StringFormat = "ID {0}",
+                                TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                             },
-                            new ItemBindingDescriptor
+                            new TextItemBindingDescriptor
                             {
                                 Name = "Text",
                                 Property = "Title",
-                                StringFormat = "{0}"
+                                StringFormat = "{0}",
+                                TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                             },
-                            new ItemBindingDescriptor
+                            new TextItemBindingDescriptor
                             {
                                 Name = "Detail",
                                 Property = "Credits",
-                                StringFormat = "Credits: {0}"
+                                StringFormat = "Credits: {0}",
+                                TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                             }
                         }.ToDictionary(cvib => cvib.Name)
                     },
@@ -1646,23 +1649,26 @@ namespace Contoso.XPlatform
             ItemTemplateName = "TextDetailTemplate",
             Bindings = new List<ItemBindingDescriptor>
             {
-                new ItemBindingDescriptor
+                new TextItemBindingDescriptor
                 {
                     Name = "Header",
                     Property = "ID",
-                    StringFormat = "ID {0}"
+                    StringFormat = "ID {0}",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new ItemBindingDescriptor
+                new TextItemBindingDescriptor
                 {
                     Name = "Text",
                     Property = "FullName",
-                    StringFormat = "{0}"
+                    StringFormat = "{0}",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new ItemBindingDescriptor
+                new TextItemBindingDescriptor
                 {
                     Name = "Detail",
                     Property = "EnrollmentDate",
-                    StringFormat = "Enrollment Date: {0:MM/dd/yyyy}"
+                    StringFormat = "Enrollment Date: {0:MM/dd/yyyy}",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 }
             }.ToDictionary(cvib => cvib.Name),
             SortCollection = new SortCollectionDescriptor
@@ -1710,17 +1716,19 @@ namespace Contoso.XPlatform
             ItemTemplateName = "TextDetailTemplate",
             Bindings = new List<ItemBindingDescriptor>
             {
-                new ItemBindingDescriptor
+                new TextItemBindingDescriptor
                 {
                     Name = "Text",
                     Property = "DateTimeValue",
-                    StringFormat = "Enrollment Date: {0:MM/dd/yyyy}"
+                    StringFormat = "Enrollment Date: {0:MM/dd/yyyy}",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 },
-                new ItemBindingDescriptor
+                new TextItemBindingDescriptor
                 {
                     Name = "Detail",
                     Property = "NumericValue",
-                    StringFormat = "Count: {0:f0}"
+                    StringFormat = "Count: {0:f0}",
+                    TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                 }
             }.ToDictionary(cvib => cvib.Name),
             FieldsSelector = new SelectorLambdaOperatorDescriptor

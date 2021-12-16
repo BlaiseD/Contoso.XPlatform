@@ -387,17 +387,19 @@ namespace Contoso.XPlatform.Tests
                         TemplateName = "TextDetailTemplate",
                         Bindings = new List<ItemBindingDescriptor>
                         {
-                            new ItemBindingDescriptor
+                            new TextItemBindingDescriptor
                             {
                                 Name = "Text",
                                 Property = "DepartmentName",
-                                StringFormat = "{0}"
+                                StringFormat = "{0}",
+                                TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                             },
-                            new ItemBindingDescriptor
+                            new TextItemBindingDescriptor
                             {
                                 Name = "Detail",
-                                Property = "StartDate",
-                                StringFormat = "{0:MMMM dd, yyyy}"
+                                Property = "Credits",
+                                StringFormat = "{0}",
+                                TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                             }
                         }.ToDictionary(b => b.Name)
                     },
@@ -702,17 +704,19 @@ namespace Contoso.XPlatform.Tests
                                 TemplateName = "TextDetailTemplate",
                                 Bindings = new List<ItemBindingDescriptor>
                                 {
-                                    new ItemBindingDescriptor
+                                    new TextItemBindingDescriptor
                                     {
                                         Name = "Text",
                                         Property = "DepartmentName",
-                                        StringFormat = "{0}"
+                                        StringFormat = "{0}",
+                                        TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                                     },
-                                    new ItemBindingDescriptor
+                                    new TextItemBindingDescriptor
                                     {
                                         Name = "Detail",
                                         Property = "StartDate",
-                                        StringFormat = "{0:MMMM dd, yyyy}"
+                                        StringFormat = "{0:MMMM dd, yyyy}",
+                                        TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                                     }
                                 }.ToDictionary(b => b.Name)
                             },
@@ -1014,17 +1018,19 @@ namespace Contoso.XPlatform.Tests
                         TemplateName = "TextDetailTemplate",
                         Bindings = new List<ItemBindingDescriptor>
                         {
-                            new ItemBindingDescriptor
+                            new TextItemBindingDescriptor
                             {
                                 Name = "Text",
                                 Property = "DepartmentName",
-                                StringFormat = "{0}"
+                                StringFormat = "{0}",
+                                TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                             },
-                            new ItemBindingDescriptor
+                            new TextItemBindingDescriptor
                             {
                                 Name = "Detail",
                                 Property = "StartDate",
-                                StringFormat = "{0:MMMM dd, yyyy}"
+                                StringFormat = "{0:MMMM dd, yyyy}",
+                                TextTemplate = new TextFieldTemplateDescriptor { TemplateName = "TextTemplate" }
                             }
                         }.ToDictionary(b => b.Name)
                     },

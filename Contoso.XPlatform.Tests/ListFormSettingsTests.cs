@@ -2,6 +2,7 @@
 using Contoso.AutoMapperProfiles;
 using Contoso.Domain.Entities;
 using Contoso.Forms.Configuration.ListForm;
+using Contoso.Forms.Parameters;
 using Contoso.Forms.Parameters.Bindings;
 using Contoso.Forms.Parameters.ListForm;
 using Contoso.XPlatform.AutoMapperProfiles;
@@ -32,11 +33,13 @@ namespace Contoso.XPlatform.Tests
                 "TextDetailTemplate",
                 new List<ItemBindingParameters>
                 {
-                    new ItemBindingParameters
+                    new TextItemBindingParameters
                     (
                         "Text",
                         "DateTimeValue",
-                        "Enrollment Date: {0:MM/dd/yyyy}"
+                        "DateTimeValue",
+                        "Enrollment Date: {0:MM/dd/yyyy}",
+                        new TextFieldTemplateParameters("TextTemplate") { TemplateName = "TextTemplate" }
                     )
                 },
                 null,

@@ -4,7 +4,6 @@ using Contoso.XPlatform.Flow;
 using Contoso.XPlatform.Flow.Cache;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Tests.Mocks;
-using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels.Validatables;
 using LogicBuilder.RulesDirector;
 using Microsoft.Extensions.DependencyInjection;
@@ -232,6 +231,7 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<IDialogFunctions, DialogFunctions>()
                 .AddSingleton<IActions, Actions>()
                 .AddSingleton<IFieldsCollectionBuilder, FieldsCollectionBuilder>()
+                .AddSingleton<ICollectionCellItemsBuilder, CollectionCellItemsBuilder>()
                 .AddSingleton<IConditionalValidationConditionsBuilder, ConditionalValidationConditionsBuilder>()
                 .AddSingleton<IHideIfConditionalDirectiveBuilder, HideIfConditionalDirectiveBuilder>()
                 .AddSingleton<IClearIfConditionalDirectiveBuilder, ClearIfConditionalDirectiveBuilder>()
@@ -242,6 +242,7 @@ namespace Contoso.XPlatform.Tests
                 .AddSingleton<IEntityUpdater, EntityUpdater>()
                 .AddSingleton<IPropertiesUpdater, PropertiesUpdater>()
                 .AddSingleton<IReadOnlyPropertiesUpdater, ReadOnlyPropertiesUpdater>()
+                .AddSingleton<IReadOnlyCollectionCellPropertiesUpdater, ReadOnlyCollectionCellPropertiesUpdater>()
                 .AddSingleton<IContextProvider, ContextProvider>()
                 .AddHttpClient()
                 .AddSingleton<IHttpService, HttpServiceMock>()

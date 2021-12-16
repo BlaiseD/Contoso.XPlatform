@@ -1,9 +1,12 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
+using Contoso.Forms.Configuration.Bindings;
 using Contoso.Forms.Configuration.ListForm;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
+using Contoso.XPlatform.ViewModels.ReadOnlys;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,16 +15,20 @@ namespace Contoso.XPlatform.ViewModels.ListPage
 {
     public class ListPageCollectionViewModel<TModel> : ListPageCollectionViewModelBase where TModel : Domain.EntityModelBase
     {
-        public ListPageCollectionViewModel(ScreenSettings<ListFormSettingsDescriptor> screenSettings, IHttpService httpService) : base(screenSettings)
+        public ListPageCollectionViewModel(ScreenSettings<ListFormSettingsDescriptor> screenSettings, IContextProvider contextProvider) : base(screenSettings)
         {
-            this.httpService = httpService;
+            itemBindings = FormSettings.Bindings.Values.ToList();
+            this.contextProvider = contextProvider;
+            this.httpService = contextProvider.HttpService;
             GetItems();
         }
 
+        private readonly IContextProvider contextProvider;
         private readonly IHttpService httpService;
+        private readonly List<ItemBindingDescriptor> itemBindings;
 
-        private ObservableCollection<TModel> _items;
-        public ObservableCollection<TModel> Items
+        private ObservableCollection<Dictionary<string, IReadOnly>> _items;
+        public ObservableCollection<Dictionary<string, IReadOnly>> Items
         {
             get => _items;
             set
@@ -55,7 +62,25 @@ namespace Contoso.XPlatform.ViewModels.ListPage
                 return;
 
             GetListResponse getListResponse = (GetListResponse)baseResponse;
-            this.Items = new ObservableCollection<TModel>(getListResponse.List.Cast<TModel>());
+            this.Items = new ObservableCollection<Dictionary<string, IReadOnly>>
+            (
+                getListResponse.List.Cast<TModel>().Select
+                (
+                    item =>
+                    {
+                        ICollection<IReadOnly> properties = this.contextProvider.CollectionCellItemsBuilder.CreateCellsCollection(itemBindings, typeof(TModel));
+                        this.contextProvider.ReadOnlyCollectionCellPropertiesUpdater.UpdateProperties
+                        (
+                            properties,
+                            typeof(TModel),
+                            item,
+                            itemBindings
+                        );
+
+                        return properties.ToDictionary(p => p.Name.ToBindingDictionaryKey());
+                    }
+                )
+            );
         }
     }
 }

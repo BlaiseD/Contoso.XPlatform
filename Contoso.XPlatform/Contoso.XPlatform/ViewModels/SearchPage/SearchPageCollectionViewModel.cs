@@ -1,12 +1,15 @@
 ﻿using Contoso.Bsl.Business.Requests;
 using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
+using Contoso.Forms.Configuration.Bindings;
 using Contoso.Forms.Configuration.SearchForm;
 using Contoso.Parameters.Expressions;
 using Contoso.XPlatform.Flow.Requests;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
+using Contoso.XPlatform.ViewModels.ReadOnlys;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +23,8 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
         public SearchPageCollectionViewModel(ScreenSettings<SearchFormSettingsDescriptor> screenSettings, IContextProvider contextProvider)
             : base(screenSettings)
         {
+            itemBindings = FormSettings.Bindings.Values.ToList();
+            this.contextProvider = contextProvider;
             this.uiNotificationService = contextProvider.UiNotificationService;
             this.getItemFilterBuilder = contextProvider.GetItemFilterBuilder;
             this.httpService = contextProvider.HttpService;
@@ -28,11 +33,14 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
             GetItems();
         }
 
+        private readonly IContextProvider contextProvider;
         private readonly UiNotificationService uiNotificationService;
         private readonly IGetItemFilterBuilder getItemFilterBuilder;
         private readonly IHttpService httpService;
         private readonly ISearchSelectorBuilder searchSelectorBuilder;
         private readonly int? defaultSkip;
+        private readonly List<ItemBindingDescriptor> itemBindings;
+        private Dictionary<Dictionary<string, IReadOnly>, TModel> _entitiesDictionary;
 
         private bool _isRefreshing;
         public bool IsRefreshing
@@ -58,8 +66,8 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
             }
         }
 
-        private TModel _selectedItem;
-        public TModel SelectedItem
+        private Dictionary<string, IReadOnly> _selectedItem;
+        public Dictionary<string, IReadOnly> SelectedItem
         {
             get
             {
@@ -76,8 +84,8 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
             }
         }
 
-        private ObservableCollection<TModel> _items;
-        public ObservableCollection<TModel> Items
+        private ObservableCollection<Dictionary<string, IReadOnly>> _items;
+        public ObservableCollection<Dictionary<string, IReadOnly>> Items
         {
             get => _items;
             set
@@ -287,12 +295,25 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
                 return;
 
             GetListResponse getListResponse = (GetListResponse)baseResponse;
-            this.Items = new ObservableCollection<TModel>(getListResponse.List.Cast<TModel>());
+
+            this._entitiesDictionary = getListResponse.List.Cast<TModel>().Select
+            (
+                item => item.GetDictionaryModelPair
+                (
+                    this.contextProvider,
+                    this.itemBindings
+                )
+            ).ToDictionary(k => k.Key, v => v.Value);
+
+            this.Items = new ObservableCollection<Dictionary<string, IReadOnly>>
+            (
+                this._entitiesDictionary.Keys
+            );
         }
 
         private async void PullMoreItems()
         {
-            this.FormSettings.SortCollection.Skip = (defaultSkip ?? 0) + this.Items.Count;
+            this.FormSettings.SortCollection.Skip = (defaultSkip ?? 0) + this._entitiesDictionary.Count;
 
             IsRefreshing = true;
             BaseResponse baseResponse = await GetList();
@@ -301,13 +322,26 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
             if (baseResponse.Success == false)
                 return;
 
-            if (this.Items == null)
-                this.Items = new ObservableCollection<TModel>();
+            if (this._entitiesDictionary == null)
+            {
+                this._entitiesDictionary = new Dictionary<Dictionary<string, IReadOnly>, TModel>();
+                this.Items = new ObservableCollection<Dictionary<string, IReadOnly>>();
+            }
 
             GetListResponse getListResponse = (GetListResponse)baseResponse;
-            foreach (TModel model in getListResponse.List)
-                this.Items.Add(model);
 
+            this._entitiesDictionary = getListResponse.List.Cast<TModel>().Aggregate(this._entitiesDictionary, (list, next) =>
+            {
+                var kvp = next.GetDictionaryModelPair
+                (
+                    this.contextProvider,
+                    this.itemBindings
+                );
+                list.Add(kvp.Key, kvp.Value);
+                this.Items.Add(kvp.Key);
+
+                return list;
+            });
         }
 
         private void SelectAndNavigate(CommandButtonDescriptor button)
@@ -348,7 +382,7 @@ namespace Contoso.XPlatform.ViewModels.SearchPage
                 (
                     this.FormSettings.ItemFilterGroup,
                     typeof(TModel),
-                    SelectedItem
+                    this._entitiesDictionary[SelectedItem]
                 )
             );
         }

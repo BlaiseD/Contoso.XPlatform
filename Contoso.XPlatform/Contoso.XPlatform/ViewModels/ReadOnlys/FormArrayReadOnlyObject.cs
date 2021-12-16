@@ -1,7 +1,11 @@
 ﻿using Contoso.Forms.Configuration;
+using Contoso.Forms.Configuration.Bindings;
 using Contoso.Forms.Configuration.DataForm;
 using Contoso.XPlatform.Services;
+using Contoso.XPlatform.Utils;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -14,13 +18,16 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
         {
             this.FormSettings = setting;
             this.formsCollectionDisplayTemplateDescriptor = setting.FormsCollectionDisplayTemplate;
+            this.itemBindings = this.formsCollectionDisplayTemplateDescriptor.Bindings.Values.ToList();
             this.Title = this.FormSettings.Title;
-            this.Placeholder= this.FormSettings.Placeholder;
+            this.Placeholder = this.FormSettings.Placeholder;
             this.contextProvider = contextProvider;
         }
 
         private readonly IContextProvider contextProvider;
         private readonly FormsCollectionDisplayTemplateDescriptor formsCollectionDisplayTemplateDescriptor;
+        private readonly List<ItemBindingDescriptor> itemBindings;
+        private Dictionary<Dictionary<string, IReadOnly>, E> _entitiesDictionary;
         public IChildFormGroupSettings FormSettings { get; set; }
         public FormsCollectionDisplayTemplateDescriptor FormsCollectionDisplayTemplate => formsCollectionDisplayTemplateDescriptor;
 
@@ -53,8 +60,8 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
             }
         }
 
-        private E _selectedItem;
-        public E SelectedItem
+        private Dictionary<string, IReadOnly> _selectedItem;
+        public Dictionary<string, IReadOnly> SelectedItem
         {
             get
             {
@@ -68,6 +75,40 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
                     OnPropertyChanged();
                     CheckCanExecute();
                 }
+            }
+        }
+
+        private ObservableCollection<Dictionary<string, IReadOnly>> _items;
+        public ObservableCollection<Dictionary<string, IReadOnly>> Items
+        {
+            get => _items;
+            set
+            {
+                _items = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public override T Value
+        {
+            get => base.Value;
+            set
+            {
+                base.Value = value;
+
+                this._entitiesDictionary = base.Value.Select
+                (
+                    item => item.GetDictionaryModelPair
+                    (
+                        this.contextProvider,
+                        this.itemBindings
+                    )
+                ).ToDictionary(k => k.Key, v => v.Value);
+
+                this.Items = new ObservableCollection<Dictionary<string, IReadOnly>>
+                (
+                    this._entitiesDictionary.Keys
+                );
             }
         }
 
@@ -168,12 +209,12 @@ namespace Contoso.XPlatform.ViewModels.ReadOnlys
                     (
                         new FormReadOnlyObject<E>
                         (
-                            Value.IndexOf(this.SelectedItem).ToString(),
+                            Value.IndexOf(this._entitiesDictionary[this.SelectedItem]).ToString(),
                             this.FormSettings,
                             this.contextProvider
                         )
                         {
-                            Value = this.SelectedItem
+                            Value = this._entitiesDictionary[this.SelectedItem]
                         }
                     )
                 )

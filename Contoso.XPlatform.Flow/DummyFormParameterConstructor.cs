@@ -1,4 +1,5 @@
 ﻿using Contoso.Forms.Parameters;
+using Contoso.Forms.Parameters.Bindings;
 using Contoso.Forms.Parameters.DataForm;
 using Contoso.Forms.Parameters.SearchForm;
 using Contoso.Forms.Parameters.TextForm;
@@ -25,7 +26,10 @@ namespace Contoso.XPlatform.Flow
             HyperLinkLabelItemParameters hyperLinkLabelItemParameters,
             LabelItemParameters labelItemParameters,
             HyperLinkSpanItemParameters hyperLinkSpanItemParameters,
-            SpanItemParameters spanItemParameters
+            SpanItemParameters spanItemParameters,
+            MultiSelectItemBindingParameters multiSelectItemBindingParameters,
+            DropDownItemBindingParameters dropDownItemBindingParameters,
+            TextItemBindingParameters textItemBindingParameters
         )
         {
         }
