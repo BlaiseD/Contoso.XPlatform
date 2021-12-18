@@ -8,6 +8,7 @@ using Contoso.Utils;
 using Contoso.XPlatform.Flow.Requests;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Validators;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -157,27 +158,32 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             }
         }
 
-        public async void Reload(object entity)
+        public async void Reload(object entity, Type entityType)
         {
-            await this.uiNotificationService.RunDataFlow
-            (
-                new NewFlowRequest
-                {
-                    InitialModuleName = this._dropDownTemplate.ReloadItemsFlowName
-                }
-            );
+            using (IScopedFlowManagerService flowManagerService = App.ServiceProvider.GetRequiredService<IScopedFlowManagerService>())
+            {
+                flowManagerService.SetFlowDataCacheItem(entityType.FullName, entity);
 
-            if ((this.uiNotificationService.GetFlowDataCacheItem($"Get_{this.Name}_Selector_Success") ?? false).Equals(false))
-                return;
+                await flowManagerService.RunFlow
+                (
+                    new NewFlowRequest
+                    {
+                        InitialModuleName = this._dropDownTemplate.ReloadItemsFlowName
+                    }
+                );
 
-            SelectorLambdaOperatorDescriptor selector = this.mapper.Map<SelectorLambdaOperatorDescriptor>
-            (
-                this.uiNotificationService.GetFlowDataCacheItem($"{this.Name}_{typeof(SelectorLambdaOperatorParameters).FullName}")
-            );
+                if ((flowManagerService.GetFlowDataCacheItem($"Get_{this.Name}_Selector_Success") ?? false).Equals(false))
+                    return;
 
-            this.Title = this._dropDownTemplate.LoadingIndicatorText;
+                SelectorLambdaOperatorDescriptor selector = this.mapper.Map<SelectorLambdaOperatorDescriptor>
+                (
+                    flowManagerService.GetFlowDataCacheItem($"{this.Name}_{typeof(SelectorLambdaOperatorParameters).FullName}")
+                );
 
-            await GetItems(selector);
+                this.Title = this._dropDownTemplate.LoadingIndicatorText;
+
+                await GetItems(selector);
+            }
 
             Value = GetExistingValue() ?? this.defaultValue ?? default;
 

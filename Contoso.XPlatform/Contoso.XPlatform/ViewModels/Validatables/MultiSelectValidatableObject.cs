@@ -183,7 +183,7 @@ namespace Contoso.XPlatform.ViewModels.Validatables
             this.Placeholder = this._multiSelectTemplate.PlaceholderText;
         }
 
-        public void Reload(object entity)
+        public void Reload(object entity, Type entityType)
         {
             throw new NotImplementedException();
         }
