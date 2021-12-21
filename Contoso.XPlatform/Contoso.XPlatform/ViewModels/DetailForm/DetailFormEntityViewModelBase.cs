@@ -5,6 +5,7 @@ using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels.ReadOnlys;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -54,12 +55,18 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
         }
 
         protected Task NavigateNext(CommandButtonDescriptor button)
-            => this.UiNotificationService.Next
-            (
-                new CommandButtonRequest
-                {
-                    NewSelection = button.ShortString
-                }
-            );
+        {
+            using (IScopedFlowManagerService flowManagerService = App.ServiceProvider.GetRequiredService<IScopedFlowManagerService>())
+            {
+                flowManagerService.CopyFlowItems();
+                return flowManagerService.Next
+                (
+                    new CommandButtonRequest
+                    {
+                        NewSelection = button.ShortString
+                    }
+                );
+            }
+        }
     }
 }

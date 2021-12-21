@@ -1,6 +1,7 @@
 ﻿using Contoso.Forms.Configuration.Navigation;
 using Contoso.XPlatform.Flow;
 using Contoso.XPlatform.Flow.Settings;
+using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -78,14 +79,13 @@ namespace Contoso.XPlatform.Views
         #endregion Properties
 
         #region Methods
-        protected override void OnAppearing()
+        private async void Start()
         {
-            
-
-            base.OnAppearing();
+            using (IScopedFlowManagerService flowManagerService = App.ServiceProvider.GetRequiredService<IScopedFlowManagerService>())
+            {
+                await flowManagerService.Start();
+            }
         }
-
-        private async void Start() => await UiNotificationService.Start();
 
         private void FlowSettingsChanged(FlowSettings flowSettings)
         {
@@ -126,10 +126,13 @@ namespace Contoso.XPlatform.Views
 
             DisposeCurrentPageBindingContext(Detail);
 
-            await UiNotificationService.NewFlowStart
-            (
-                new Flow.Requests.NewFlowRequest { InitialModuleName = item.InitialModule }
-            );
+            using (IScopedFlowManagerService flowManagerService = App.ServiceProvider.GetRequiredService<IScopedFlowManagerService>())
+            {
+                await flowManagerService.NewFlowStart
+                (
+                    new Flow.Requests.NewFlowRequest { InitialModuleName = item.InitialModule }
+                );
+            }
 
             void DisposeCurrentPageBindingContext(Page detail)
             {

@@ -3,10 +3,12 @@ using Contoso.Bsl.Business.Responses;
 using Contoso.Forms.Configuration;
 using Contoso.Forms.Configuration.DataForm;
 using Contoso.Parameters.Expressions;
+using Contoso.XPlatform.Flow.Requests;
 using Contoso.XPlatform.Flow.Settings.Screen;
 using Contoso.XPlatform.Services;
 using Contoso.XPlatform.Utils;
 using Contoso.XPlatform.Validators;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -119,8 +121,7 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
 
         private void Edit(CommandButtonDescriptor button)
         {
-            SetItemFilter();
-            NavigateNext(button);
+            SetItemFilterAndNavigateNext(button);
         }
 
         private async void GetEntity()
@@ -165,18 +166,31 @@ namespace Contoso.XPlatform.ViewModels.DetailForm
             );
         }
 
-        private void SetItemFilter()
+        private void SetItemFilterAndNavigateNext(CommandButtonDescriptor button)
         {
-            this.uiNotificationService.SetFlowDataCacheItem
-            (
-                typeof(FilterLambdaOperatorParameters).FullName,
-                this.getItemFilterBuilder.CreateFilter
+            using (IScopedFlowManagerService flowManagerService = App.ServiceProvider.GetRequiredService<IScopedFlowManagerService>())
+            {
+                flowManagerService.CopyFlowItems();
+
+                flowManagerService.SetFlowDataCacheItem
                 (
-                    this.FormSettings.ItemFilterGroup,
-                    typeof(TModel),
-                    this.entity
-                )
-            );
+                    typeof(FilterLambdaOperatorParameters).FullName,
+                    this.getItemFilterBuilder.CreateFilter
+                    (
+                        this.FormSettings.ItemFilterGroup,
+                        typeof(TModel),
+                        this.entity
+                    )
+                );
+
+                flowManagerService.Next
+                (
+                    new CommandButtonRequest
+                    {
+                        NewSelection = button.ShortString
+                    }
+                );
+            }
         }
     }
 }

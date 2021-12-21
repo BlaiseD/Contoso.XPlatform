@@ -2,6 +2,8 @@
 using Contoso.Forms.Configuration.TextForm;
 using Contoso.XPlatform.Flow.Requests;
 using Contoso.XPlatform.Flow.Settings.Screen;
+using Contoso.XPlatform.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -69,12 +71,19 @@ namespace Contoso.XPlatform.ViewModels.TextPage
         }
 
         private Task NavigateNext(CommandButtonDescriptor button)
-            => this.uiNotificationService.Next
-            (
-                new CommandButtonRequest
-                {
-                    NewSelection = button.ShortString
-                }
-            );
+        {
+            using (IScopedFlowManagerService flowManagerService = App.ServiceProvider.GetRequiredService<IScopedFlowManagerService>())
+            {
+                flowManagerService.CopyFlowItems();
+
+                return flowManagerService.Next
+                (
+                    new CommandButtonRequest
+                    {
+                        NewSelection = button.ShortString
+                    }
+                );
+            }
+        }
     }
 }
